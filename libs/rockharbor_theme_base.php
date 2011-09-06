@@ -84,7 +84,11 @@ class RockharborThemeBase {
  * @return string The content
  */
 	public function content($content) {
+		if (empty($content)) {
+			return $content;
+		}
 		// remove all static width/height from images (let css do the work)
+		libxml_use_internal_errors(true);
 		$doc = DOMDocument::loadHTML($content);
 		foreach($doc->getElementsByTagName('img') as $image){
 			foreach(array('width', 'height') as $attribute_to_remove){
@@ -93,7 +97,9 @@ class RockharborThemeBase {
 				}
 			}
 		}
-		return $doc->saveHTML();
+		$content = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
+		
+		return $content;
 	}
 
 /**

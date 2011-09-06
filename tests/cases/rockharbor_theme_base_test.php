@@ -110,6 +110,16 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($tags, $result);
+		
+		$result = $this->Base->content('test with no html');
+		$tags = array(
+			'tag' => 'p',
+			'content' => 'test with no html'
+		);
+		$this->assertTag($tags, $result);
+		
+		$result = $this->Base->content('');
+		$this->assertEmpty($result);
 	}
 	
 }
