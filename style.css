@@ -646,3 +646,23 @@ article footer ul.related li:first-child {
 .gallery .gallery-item .gallery-icon img {
 	border: 0;
 }
+
+/*= Forms
+-----------------------------------------*/
+input {
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	padding: 5px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+button, input[type=submit] {
+	background: #ff0000;
+	border: 1px solid #d50015;
+	color: #d50015;
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	padding: 5px;
+	text-transform: uppercase;
+}

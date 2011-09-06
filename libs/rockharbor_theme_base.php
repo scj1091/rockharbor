@@ -75,6 +75,8 @@ class RockharborThemeBase {
 		
 		// make images link to their file by default
 		update_option('image_default_link_type', 'file');
+		
+		define('SOCIAL_COMMENTS_CSS', $this->themeUrl.'/css/comments.css');
 	}
 	
 /**
