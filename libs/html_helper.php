@@ -15,6 +15,20 @@ class HtmlHelper {
 	protected $theme = null;
 	
 /**
+ * The prefix to put before input names
+ * 
+ * @var string
+ */
+	public $inputPrefix = '';
+	
+/**
+ * Array of default data for inputs
+ * 
+ * @var array
+ */
+	protected $data = array();
+	
+/**
  * Sets the theme object for use in this class
  * 
  * @param RockharborThemeBase $theme 
@@ -71,6 +85,88 @@ class HtmlHelper {
 			$out .= ">$content</$tag>";
 		}
 		return $out;
+	}
+
+/**
+ * Creates an input field
+ * 
+ * If `$label` is false, no label will be created. If no `$value` is defined,
+ * it will look for one in `$this->data` and use it instead.
+ * 
+ * @param string $name Name of input
+ * @param array $options List of options
+ */
+	public function input($name, $options = array()) {
+		$_default = array(
+			'type' => 'input',
+			'value' => null,
+			'name' => $name,
+			'label' => $name,
+			'options' => array()
+		);
+		$options = array_merge($_default, $options);
+		
+		if (is_null($options['value']) && isset($this->data)) {
+			$data = $this->data;
+			if (isset($data[$this->inputPrefix])) {
+				$data = $this->data[$this->inputPrefix];
+			}
+			if (isset($data[$name])) {
+				$options['value'] = $data[$name];
+			}
+		}
+		if ($options['value'] === null) {
+			unset($options['value']);
+		}
+		if (!empty($this->inputPrefix)) {
+			$options['name'] = "$this->inputPrefix[$name]";
+		}
+		$options['id'] = $options['name'];
+		
+		$out = '';
+		if ($options['label'] !== false) {
+			$out .= $this->tag('label', $options['label'], array(
+				'for' => $options['name'],
+				'class' => 'description'
+			));
+		}
+		unset($options['label']);
+		$selectOptions = $options['options'];
+		unset($options['options']);
+		$type = $options['type'];
+		unset($options['type']);
+		switch ($type) {
+			case 'select':
+				$selected = $options['value'];
+				unset($options['value']);
+				$select = '';
+				foreach ($selectOptions as $selectValue => $selectLabel) {
+					$_attrs = array('value' => $selectValue);
+					if ($selectValue == $selected) {
+						$_attrs['selected'] = 'selected';
+					}
+					$select .= $this->tag('option', $selectLabel, $_attrs);
+				}
+				$out .= $this->tag('select', $select, $options);
+			break;
+			default:
+				$options['type'] = $type;
+				$out .= $this->tag('input', $options);
+			break;
+		}
+		
+		return $this->tag('div', $out);
+	}
+	
+/**
+ * Data for input fields
+ * 
+ * @param array $data Data to set
+ * @return array
+ */
+	public function data($data = array()) {
+		$this->data = array_merge($this->data, $data);
+		return $this->data;
 	}
 
 /**
