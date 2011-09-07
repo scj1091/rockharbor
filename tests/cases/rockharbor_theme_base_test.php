@@ -115,4 +115,32 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEmpty($result);
 	}
 	
+	function testOptions() {
+		delete_option($this->Base->themeOptions['slug'].'_options');
+		
+		$all = $this->Base->options();
+		$this->assertTrue(is_array($all));
+		
+		// missing option
+		$val = $this->Base->options('someoption');
+		$this->assertNull($val);
+		
+		// set
+		$val = $this->Base->options('someoption', 'somevalue');
+		$this->assertEquals($val, 'somevalue');
+		
+		// get
+		$val = $this->Base->options('someoption');
+		$this->assertEquals($val, 'somevalue');
+		
+		// delete
+		$this->Base->options('someoption', null);
+		$val = $this->Base->options('someoption');
+		$this->assertNull($val);
+		$options = get_option($this->Base->themeOptions['slug'].'_options');
+		$this->assertEmpty($options);
+		
+		delete_option($this->Base->themeOptions['slug'].'_options');
+	}
+	
 }

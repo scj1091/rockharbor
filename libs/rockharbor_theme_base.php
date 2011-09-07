@@ -296,4 +296,35 @@ class RockharborThemeBase {
 	public function removeCss() {
 		return false;
 	}
+
+/**
+ * Gets/sets theme options. If `$var` is false, acts as a getter. If `$var` is
+ * null, it will delete the option
+ * 
+ * @param string $option An option to get. If `null`, all options are returned
+ * @param mixed $var The value to set.
+ * @return mixed
+ */
+	public function options($option = null, $var = false) {
+		$options = get_option($this->info('slug').'_options');
+		
+		if ($options === false) {
+			$options = array();
+		}
+		
+		if (!is_null($option) && $var !== false) {
+			$options[$option] = $var;
+			update_option($this->info('slug').'_options', $options);
+		}
+		
+		if (!is_null($option) && is_null($var)) {
+			unset($options[$option]);
+			update_option($this->info('slug').'_options', $options);
+		}
+
+		if (!is_null($option)) {
+			return isset($options[$option]) ? $options[$option] : null;
+		}
+		return $options;
+	}
 }
