@@ -331,4 +331,35 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		$this->assertTag($paraTag, $input);
 	}
 	
+	function testInputTextarea() {
+		$input = $this->Base->Html->input('myname', array('type' => 'textarea', 'class' => 'classname'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'textarea',
+				'attributes' => array(
+					'name' => 'myname',
+					'id' => 'myname',
+					'class' => 'classname'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+		
+		$input = $this->Base->Html->input('myname', array('type' => 'textarea', 'value' => 'something', 'class' => 'classname'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'textarea',
+				'content' => 'something',
+				'attributes' => array(
+					'name' => 'myname',
+					'id' => 'myname',
+					'class' => 'classname'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
+	
 }

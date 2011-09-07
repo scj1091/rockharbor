@@ -172,6 +172,11 @@ class HtmlHelper {
 				}
 				$out .= $this->tag('select', $select, $options);
 			break;
+			case 'textarea':
+				$val = isset($options['value']) ? $options['value'] : '';
+				unset($options['value']);
+				$out .= $this->tag('textarea', $val, $options);
+			break;
 			default:
 				$options['type'] = $type;
 				$out .= $this->tag('input', $options);
