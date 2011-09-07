@@ -75,17 +75,52 @@ class RockharborThemeBase {
 		
 		$this->Html = new HtmlHelper($this);
 		
+		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
 		add_action('widgets_init', array($this, 'registerSidebars'));
 		add_action('after_setup_theme', array($this, 'after'));
+		
+		// forced gallery settings
 		add_filter('use_default_gallery_style', array($this, 'removeCss'));
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
+		
+		// content filter
 		add_filter('the_content', array($this, 'content'));
 		
 		// make images link to their file by default
 		update_option('image_default_link_type', 'file');
 		
-		define('SOCIAL_COMMENTS_CSS', $this->themeUrl.'/css/comments.css');
+		// social comment plugin css
+		if (!defined('SOCIAL_COMMENTS_CSS')) {
+			define('SOCIAL_COMMENTS_CSS', $this->themeUrl.'/css/comments.css');
+		}
+		
+		// admin section
+		add_action('admin_init', array($this, 'admin_init'));
+		add_action('init', array($this, 'options'));
+		add_action('admin_menu', array($this, 'admin_menu'));
+	}
+	
+/**
+ * Inits plugin options to white list our options
+ */
+	public function admin_init() {
+		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
+	}
+
+/**
+ * Loads up the menu page
+ */
+	public function admin_menu() {
+		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
+	}
+
+/**
+ * Renders the theme options panel
+ */
+	public function admin() {
+		$out = $this->render('theme_options');
+		echo $out;
 	}
 	
 /**
