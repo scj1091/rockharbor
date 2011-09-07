@@ -160,7 +160,7 @@ class HtmlHelper {
 		unset($options['div']);
 		switch ($type) {
 			case 'select':
-				$selected = $options['value'];
+				$selected = isset($options['value']) ? $options['value'] : '';
 				unset($options['value']);
 				$select = '';
 				foreach ($selectOptions as $selectValue => $selectLabel) {
