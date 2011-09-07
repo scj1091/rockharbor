@@ -24,7 +24,10 @@ function debug($var = null) {
 	}
 	$traceout = '';
 	$traced = debug_backtrace();
-	array_shift($traced);
+	// remove debug function from trace
+	$debug = array_shift($traced);
+	$traced[0]['line'] = $debug['line'];
+	$traced[0]['file'] = $debug['file'];
 	if ($traced[0]['function'] == 'customErrorHandler') {
 		array_shift($traced);
 	}
@@ -33,11 +36,6 @@ function debug($var = null) {
 	if ($traced[0]['function'] == 'trigger_error' && in_array($traced[1]['function'], $passable)) {
 		return null;
 	}
-	$thisTrace = array_shift($traced);
-	$thisTrace = array_merge(array(
-		'line' => '??',
-		'file' => '??'
-	), $thisTrace);
 	foreach ($traced as $trace) {
 		$trace = array_merge(array(
 			'line' => '??',
@@ -45,29 +43,33 @@ function debug($var = null) {
 		), $trace);
 		$traceout .= '<div style="margin-bottom: 5px"><strong>Line '.$trace['line'].'</strong> : '.$trace['file'];
 		$args = array();
-		if (isset($args)) {
+		if (isset($trace['args'])) {
 			foreach ($trace['args'] as $arg) {
 				$args[] = print_r($arg, true);
 			}
 		}
-		$traceout .= "<br /><a href=\"javascript:;\"";
-		$traceout .= "onclick=\"var span = this.parentNode.getElementsByTagName('span')[0]; span.style.display = span.style.display == 'none' ? 'block' : 'none'";
-		$traceout .= "\">[args]</a>&nbsp;";
-		$traceout .= $trace['function'].'(';			
-		$traceout .= "<span style=\"display:none;padding: 5px;background:#EFEFEF\">".implode(', ', $args).'</span>)';
-		$traceout .= '</div>';
+		if (!empty($args)) {
+			$traceout .= "<br /><a href=\"javascript:;\"";
+			$traceout .= "onclick=\"var span = this.parentNode.getElementsByTagName('span')[0]; span.style.display = span.style.display == 'none' ? 'block' : 'none'";
+			$traceout .= "\">[args]</a>&nbsp;";
+			$traceout .= $trace['function'].'(';
+			$traceout .= "<span style=\"display:none;padding: 5px;background:#EFEFEF\">".implode(', ', $args).'</span>)';
+			$traceout .= '</div>';
+		} elseif ($trace['function'] !== 'none') {
+			$traceout .= $trace['function'].'()';
+		}
 	}
 	if (!is_null($var) && !is_string($var)) {
-		$var = var_export($var, true);
+		$var = print_r($var, true);
 	}
 	$out  = "<pre style=\"background:#FFE25F\">";
-	$out .= '<span style="margin-bottom: 5px"><strong>Line '.$thisTrace['line'].'</strong> : '.$thisTrace['file'].'</span>';
+	$out .= '<span style="margin-bottom: 5px"><strong>Line '.$debug['line'].'</strong> : '.$debug['file'].'</span>';
 	$out .= '<br />';
+	$out .= "<div>$var</div>";
 	$out .= "<a href=\"javascript:;\"";
-	$out .= "onclick=\"var div = this.parentNode.getElementsByTagName('div')[0]; div.style.display = div.style.display == 'none' ? 'block' : 'none'";
+	$out .= "onclick=\"var div = this.parentNode.getElementsByTagName('div')[1]; div.style.display = div.style.display == 'none' ? 'block' : 'none'";
 	$out .= "\">[Show trace]</a>";
 	$out .= "<div style=\"display:none;padding: 5px; background: #DFDFDF;\">$traceout</div>";
-	$out .= "<div>$var</div>";
 	$out .= "</pre>";
 	echo $out;
 }
