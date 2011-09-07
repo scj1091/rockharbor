@@ -93,6 +93,9 @@ class HtmlHelper {
  * If `$label` is false, no label will be created. If no `$value` is defined,
  * it will look for one in `$this->data` and use it instead.
  * 
+ * If `$div` is false, it won't be wrapped in a div. It's a string, the string
+ * value will be used as a class.
+ * 
  * @param string $name Name of input
  * @param array $options List of options
  */
@@ -102,7 +105,11 @@ class HtmlHelper {
 			'value' => null,
 			'name' => $name,
 			'label' => $name,
-			'options' => array()
+			'options' => array(),
+			'before' => '',
+			'after' => '',
+			'between' => '',
+			'div' => true
 		);
 		$options = array_merge($_default, $options);
 		
@@ -123,18 +130,34 @@ class HtmlHelper {
 		}
 		$options['id'] = $options['name'];
 		
+		$before = $options['before'];
+		unset($options['before']);
+		$after = $options['after'];
+		unset($options['after']);
+		$between = $options['between'];
+		unset($options['between']);
+		
 		$out = '';
+		if (!empty($before)) {
+			$out .= $before;
+		}
+		
 		if ($options['label'] !== false) {
 			$out .= $this->tag('label', $options['label'], array(
 				'for' => $options['name'],
 				'class' => 'description'
 			));
 		}
+		if (!empty($between)) {
+			$out .= $between;
+		}
 		unset($options['label']);
 		$selectOptions = $options['options'];
 		unset($options['options']);
 		$type = $options['type'];
 		unset($options['type']);
+		$div = $options['div'];
+		unset($options['div']);
 		switch ($type) {
 			case 'select':
 				$selected = $options['value'];
@@ -154,8 +177,19 @@ class HtmlHelper {
 				$out .= $this->tag('input', $options);
 			break;
 		}
+		if (!empty($after)) {
+			$out .= $after;
+		}
+		unset($options['after']);
 		
-		return $this->tag('div', $out);
+		if ($div === false) {
+			return $out;
+		}
+		$attrs = array();
+		if (is_string($div)) {
+			$attrs['class'] = $div;
+		}
+		return $this->tag('div', $out, $attrs);
 	}
 	
 /**

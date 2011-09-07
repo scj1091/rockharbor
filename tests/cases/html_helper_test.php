@@ -260,6 +260,75 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
+		
+		$input = $this->Base->Html->input('myname', array('label' => false, 'div' => false, 'value' => 'test'));
+		$inputTag = array(
+			'tag' => 'input',
+			'attributes' => array(
+				'name' => 'test_prefix[myname]',
+				'id' => 'test_prefix[myname]',
+				'type' => 'input',
+				'value' => 'test'
+			)
+		);
+		$this->assertTag($inputTag, $input);
+		
+		$input = $this->Base->Html->input('myname', array('label' => false, 'div' => 'classname', 'value' => 'test'));
+		$inputTag = array(
+			'tag' => 'div',
+			'attributes' => array(
+				'class' => 'classname'
+			),
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'name' => 'test_prefix[myname]',
+					'id' => 'test_prefix[myname]',
+					'type' => 'input',
+					'value' => 'test'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
+	
+	function testInputExtra() {
+		$input = $this->Base->Html->input('myname', array('before' => '<div>', 'between' => '</div>', 'after' => '<p>test</p>'));
+		$labelTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'div',
+				'child' => array(
+					'tag' => 'label',
+					'attributes' => array(
+						'class' => 'description',
+						'for' => 'myname'
+					),
+					'content' => 'myname'
+				)
+			)
+		);
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'name' => 'myname',
+					'id' => 'myname',
+					'type' => 'input'
+				)
+			)
+		);
+		$paraTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'p',
+				'content' => 'test'
+			)
+		);
+		$this->assertTag($labelTag, $input);
+		$this->assertTag($inputTag, $input);
+		$this->assertTag($paraTag, $input);
 	}
 	
 }
