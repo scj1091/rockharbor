@@ -4,6 +4,11 @@
  */
 class TestTheme extends RockharborThemeBase {
 	
+	public $themeOptions = array(
+		'slug' => 'testtheme',
+		
+	);
+	
 	public function setTestPaths() {
 		$testPath = dirname(dirname(__FILE__)).DS;
 		$this->themePath = $testPath.'test_child_theme';

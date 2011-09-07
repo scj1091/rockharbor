@@ -11,6 +11,15 @@ require_once 'html_helper.php';
  * @package rockharbor
  */
 class RockharborThemeBase {
+	
+/**
+ * List of options for this theme
+ * 
+ * @var array
+ */
+	protected $themeOptions = array(
+		'slug' => 'rockharbor'
+	);
 
 /**
  * Directory path to current theme
@@ -129,7 +138,8 @@ class RockharborThemeBase {
 			'url' => $this->themeUrl,
 			'base_path' => $this->basePath,
 			'base_url' => $this->baseUrl,
-			'name' => $this->name
+			'name' => $this->name,
+			'slug' => $this->themeOptions['slug']
 		);
 		if ($var === null || !isset($vars[$var])) {
 			return $vars;
