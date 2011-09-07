@@ -175,9 +175,11 @@ class HtmlHelper {
  * @param array $attr Attributes
  * @return string
  */
-	private function parseAttributes($attr = array()) {
+	public function parseAttributes($attr = array()) {
 		$out = array();
 		foreach ($attr as $name => $value) {
+			$name = esc_attr($name);
+			$value = esc_attr($value);
 			$out[] = "$name=\"$value\"";
 		}
 		return implode(' ', $out);

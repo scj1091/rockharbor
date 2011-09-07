@@ -74,6 +74,14 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		$this->assertTag($expected, $result);
 	}
 	
+	function testParseAttributes() {
+		$results = $this->Base->Html->parseAttributes(array(
+			'name' => 'title',
+			'attr' => 'value"'
+		));
+		$this->assertEquals($results, 'name="title" attr="value&quot;"');
+	}
+	
 	function testData() {
 		$data = $this->Base->Html->data();
 		$this->assertEmpty($data);
