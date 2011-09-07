@@ -119,26 +119,6 @@ class RockharborThemeBase {
 	}
 	
 /**
- * A getter/setter wrapper for global vars. Makes the icky mess of a global space 
- * WordPress creates a little less gross. If `$val` is defined it acts as a
- * setter, otherwise a getter.
- * 
- * @param string $var The global var
- * @param mixed $val A value to set
- * @return mixed Global var if found, `false` on missing var
- */
-	public function globals($var = null, $val = null) {
-		if (isset($GLOBALS[$var])) {
-			if ($val !== null) {
-				$GLOBALS[$var] = $val;
-			}
-			return $GLOBALS[$var];
-		} else {
-			return false;
-		}
-	}
-	
-/**
  * Returns all theme info
  * 
  * @return array

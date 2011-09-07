@@ -34,18 +34,6 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->assertRegExp('/rockharbor/', $url);
 	}
 	
-	function testGetGlobals() {
-		$GLOBALS['test'] = 'me';
-		$GLOBALS['also'] = 'me';
-		
-		$this->assertEquals('me', $this->Base->globals('test'));
-		
-		$this->Base->globals('test', 'not me');
-		$this->assertEquals('not me', $this->Base->globals('test'));
-		
-		$this->assertFalse($this->Base->globals());
-	}
-	
 	function testSet() {
 		$this->Base->set('test', 'something');
 		$vars = $this->Base->getVars();
