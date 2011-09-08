@@ -71,6 +71,9 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		
 		$content = $this->Base->render('test2');
 		$this->assertEquals($content, 'content or something');
+		
+		$content = $this->Base->render('theme_name');
+		$this->assertEquals($content, $this->Base->info('name'));
 	}
 	
 	function testWrapAttachment() {

@@ -1,6 +1,6 @@
 <?php 
 
-global $theme, $post;
+global $post;
 
 if (is_front_page()) {
 	setup_postdata($post);

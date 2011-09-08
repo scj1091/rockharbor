@@ -220,6 +220,7 @@ class RockharborThemeBase {
  */	
 	public function render($view, $emptyVars = true) {
 		extract($this->_vars);
+		$theme = $this;
 		$file = $this->themePath.DS.'elements'.DS.$view.'.tpl';
 		if (!file_exists($file)) {
 			$file = str_replace($this->themePath, $this->basePath, $file);

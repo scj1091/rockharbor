@@ -1,5 +1,5 @@
 <?php
-global $post, $theme;
+global $post;
 
 // find the enclosure
 $enclosure = get_post_meta($post->ID, 'enclosure');

@@ -1,5 +1,4 @@
 <?php
-global $theme;
 if (!isset($_REQUEST['updated'])) {
 	$_REQUEST['updated'] = false;
 }
