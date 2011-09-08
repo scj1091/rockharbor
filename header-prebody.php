@@ -64,6 +64,7 @@
 	});
 </script>
 <?php endif; ?>
+<script src="<?php echo $theme->info('base_url'); ?>/js/swfobject.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
 <script>
 	jQuery(document).ready(function() {

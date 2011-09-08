@@ -3,6 +3,7 @@
  * Includes
  */
 require_once 'html_helper.php';
+require_once 'shortcodes.php';
 
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
@@ -74,6 +75,7 @@ class RockharborThemeBase {
 		$this->name = get_bloginfo('name');
 		
 		$this->Html = new HtmlHelper($this);
+		$this->Shortcodes = new Shortcodes($this);
 		
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
