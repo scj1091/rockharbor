@@ -426,10 +426,6 @@ footer h3 {
 	border: none;
 }
 
-.home #sidebar>header {
-	display: none;
-}
-
 .home .archive-page-link {
 	width: 100%;
 }

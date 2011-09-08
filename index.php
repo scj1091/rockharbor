@@ -6,15 +6,13 @@ get_header();
 			<header id="content-title">
 				<h1 class="page-title">
 					<span>
-						<?php echo is_home() ? 'Blog' : wp_title(''); ?>
+						<?php echo wp_title(''); ?>
 					</span>
 				</h1>
 			</header>
-			<?php if (!is_home()): ?>
 			<nav id="submenu">
 				<?php get_sidebar(); ?>
 			</nav>
-			<?php endif; ?>
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -46,7 +44,7 @@ get_header();
 				<h1 class="sub-title"><span>CORE shiz</span></h1>
 			</header>
 			<?php
-			get_sidebar(is_home() ? 'home' : 'core');
+			get_sidebar('core');
 			?>
 		</section>
 

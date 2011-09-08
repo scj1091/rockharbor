@@ -23,7 +23,7 @@
 
 	// Add the blog description for the home/front page.
 	$site_description = get_bloginfo('description', 'display');
-	if ($site_description && (is_home() || is_front_page())) {
+	if ($site_description && (is_front_page() || is_front_page())) {
 		echo " | $site_description";
 	}
 	?></title>
@@ -44,7 +44,7 @@
 	}
 	wp_head();
 ?>
-<?php if (is_home()): ?>
+<?php if (is_front_page()): ?>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.dimensions.min.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
 <script>
