@@ -65,6 +65,7 @@
 </script>
 <?php endif; ?>
 <script src="<?php echo $theme->info('base_url'); ?>/js/swfobject.js"></script>
+<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.fitvids.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
 <script>
 	jQuery(document).ready(function() {
@@ -73,6 +74,8 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
+		// scale videos in banner
+		jQuery('.embedded-video').fitVids();
 	});
 </script>
 <?php 

@@ -86,8 +86,9 @@ class RockharborThemeBase {
 		add_filter('use_default_gallery_style', array($this, 'removeCss'));
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
 		
-		// content filter
+		// other
 		add_filter('the_content', array($this, 'content'));
+		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		
 		// make images link to their file by default
 		update_option('image_default_link_type', 'file');
@@ -363,5 +364,15 @@ class RockharborThemeBase {
 			return isset($options[$option]) ? $options[$option] : null;
 		}
 		return $options;
+	}
+	
+/**
+ * Called when a post is saved. Forces auto-generation of enclosure meta keys
+ *
+ * @param integer $post_id Post id
+ * @param StdClass $post The post
+ */
+	function onSave($post_id, $post) {
+		do_enclose($post->post_content, $post_id);
 	}
 }

@@ -218,7 +218,6 @@ th {
 #access {
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
-	margin: 20px 0;
 }
 
 #access ul {
@@ -293,6 +292,44 @@ th {
 
 /*= Main layout
 -----------------------------------------*/
+#branding {
+	margin: 20px 0;
+}
+
+#banner .withvid > div {
+	float: right;
+	width: 26.625%;
+}
+
+#banner .withvid > div.video {
+	margin-right: 1.125%;
+	width: 70%;
+	float: left;
+	padding: 1.125%;
+	background: #ffffff;
+}
+
+#banner h1 {
+	background: #d50015;
+	color: #ff0000;
+	padding: 5px;
+	display: inline-block;
+}
+
+#banner h2 {
+	color: #d50015;
+}
+
+#banner a {
+	color: #000000;
+	text-decoration: none;
+	font-style: italic;
+}
+
+#banner a:hover {
+	text-decoration: underline;
+}
+
 #content {
 	background: #ffffff;
 	float: left;
@@ -386,6 +423,10 @@ footer h3 {
 
 /*= Home content
 -----------------------------------------*/
+.home #branding > div {
+	margin-bottom: 20px;
+}
+
 #secondary.home-widget-area {
 	position: relative;
 	background: transparent;
