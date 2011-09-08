@@ -70,8 +70,8 @@ class RockharborThemeBase {
 	public function __construct() {
 		$this->themePath = rtrim(get_stylesheet_directory(), DS);
 		$this->themeUrl = rtrim(get_stylesheet_directory_uri(), '/');
-		$this->basePath = rtrim(get_bloginfo('template_directory'), DS);
-		$this->baseUrl = rtrim(get_bloginfo('template_url'), '/');
+		$this->basePath = rtrim(get_template_directory(), DS);
+		$this->baseUrl = rtrim(get_template_directory_uri(), '/');
 		$this->name = get_bloginfo('name');
 		
 		$this->Html = new HtmlHelper($this);
@@ -191,7 +191,7 @@ class RockharborThemeBase {
  * @return boolean
  */
 	public function isChildTheme() {
-		return $this->themePath == $this->basePath;
+		return $this->themePath !== $this->basePath;
 	}
 	
 /**

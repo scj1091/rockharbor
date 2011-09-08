@@ -31,6 +31,14 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->Base = new TestTheme();
 	}
 	
+	function testIsChildTheme() {
+		$base = new RockharborThemeBase();
+		$this->assertFalse($base->isChildTheme());
+		
+		$this->Base->setTestPaths();
+		$this->assertTrue($this->Base->isChildTheme());
+	}
+	
 	function testInfo() {
 		$info = $this->Base->info();
 		$this->assertRegExp('/rockharbor/', $info['base_path']);
