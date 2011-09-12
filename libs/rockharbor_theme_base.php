@@ -100,8 +100,42 @@ class RockharborThemeBase {
 		
 		// admin section
 		add_action('admin_init', array($this, 'admin_init'));
-		add_action('init', array($this, 'options'));
+		add_action('save_post', array($this, 'saveMeta'));
 		add_action('admin_menu', array($this, 'admin_menu'));
+	}
+
+/**
+ * Saves extra meta data
+ * 
+ * All extra custom meta data to be saved should be prefixed with 'meta' in
+ * order to be saved by this function
+ */
+	public function saveMeta() {
+		global $post;
+		
+		if (isset($_POST['meta'])) {
+			foreach ($_POST['meta'] as $name => $value) {
+				update_post_meta($post->ID, $name, $value);
+			}
+		}
+	}
+
+/**
+ * Renders the cross_post meta box on the edit posts page
+ */
+	public function crossPostMetaBox() {
+		global $wpdb, $post;
+		$blogs = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->blogs"), ARRAY_A);
+		if ($this->isChildTheme()) {
+			// main blog only
+			$blogs = array($blogs[0]);
+		} else {
+			// any blog, excluding self
+			unset($blogs[0]);
+		}
+		$this->set('data', $this->metaToData($post->ID));
+		$this->set('blogs', $blogs);
+		echo $this->render('cross_post');
 	}
 	
 /**
@@ -109,6 +143,8 @@ class RockharborThemeBase {
  */
 	public function admin_init() {
 		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
+		// add meta boxes for cross-posting
+		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 	}
 
 /**
@@ -375,5 +411,20 @@ class RockharborThemeBase {
  */
 	function onSave($post_id, $post) {
 		do_enclose($post->post_content, $post_id);
+	}
+	
+/**
+ * Converts garbagy output from get_post_custom to a useable data array
+ * 
+ * @param integer $postId The post to get meta from
+ * @return array
+ */
+	protected function metaToData($postId) {
+		$meta = get_post_custom($postId);
+		$data = array();
+		foreach ($meta as $name => $value) {
+			$data[$name] = maybe_unserialize($value[0]);
+		}
+		return $data;
 	}
 }
