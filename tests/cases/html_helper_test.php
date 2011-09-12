@@ -392,7 +392,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		$this->assertTag($inputTag, $input);
 		
 		$this->Base->Html->data(array(
-			'name' => 'something'
+			'name' => 1
 		));
 		$input = $this->Base->Html->input('name', array('type' => 'checkbox'));
 		$inputTag = array(
@@ -402,7 +402,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'type' => 'checkbox',
 					'name' => 'name',
-					'value' => 'something',
+					'value' => 1,
 					'id' => 'name',
 					'checked' => 'checked'
 				)
@@ -410,151 +410,40 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 		
-		$input = $this->Base->Html->input('name[]', array('type' => 'checkbox', 'value' => 'nothing'));
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'name[]',
-					'value' => 'nothing'
-				)
-			)
-		);
-		$this->assertTag($inputTag, $input);
-		
 		$this->Base->Html->inputPrefix = 'meta';
-		$input = $this->Base->Html->input('name[]', array('type' => 'checkbox', 'value' => 'nothing'));
+		$input = $this->Base->Html->input('name', array('type' => 'checkbox', 'value' => 'nothing'));
 		$inputTag = array(
 			'tag' => 'div',
 			'child' => array(
 				'tag' => 'input',
 				'attributes' => array(
 					'type' => 'checkbox',
-					'name' => 'meta[name][]',
+					'name' => 'meta[name]',
 					'value' => 'nothing',
-					'id' => 'regexp:/name[a-z0-9]/i'
+					'id' => 'regexp:/[a-z0-9]/i'
 				)
 			)
-		);
-		$this->assertTag($inputTag, $input);
-	}
-	
-	function testCheckboxMultiple() {
-		$this->Base->Html->data(array(
-			'name' => 2
-		));
-		$input = $this->Base->Html->input('name', array(
-			'type' => 'checkbox', 
-			'options' => array(
-				1 => 'My checkbox',
-				2 => 'Not my checkbox'
-			)
-		));
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'name[]',
-					'value' => '1',
-					'id' => 'regexp:/name[a-z0-9]/'
-				)
-			)			
-		);
-		$this->assertTag($inputTag, $input);
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'name[]',
-					'value' => '2',
-					'id' => 'regexp:/name[a-z0-9]/',
-					'checked' => 'checked'
-				)
-			)			
 		);
 		$this->assertTag($inputTag, $input);
 		
 		$this->Base->Html->data(array(
-			'name' => array(1, 2)
+			'name1' => 'nothing'
 		));
-		$input = $this->Base->Html->input('name', array(
-			'type' => 'checkbox', 
-			'options' => array(
-				1 => 'My checkbox',
-				2 => 'Not my checkbox'
-			)
-		));
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'name[]',
-					'value' => '1',
-					'id' => 'regexp:/name[a-z0-9]/',
-					'checked' => 'checked'
-				)
-			)			
-		);
-		$this->assertTag($inputTag, $input);
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'name[]',
-					'value' => '2',
-					'id' => 'regexp:/name[a-z0-9]/',
-					'checked' => 'checked'
-				)
-			)			
-		);
-		$this->assertTag($inputTag, $input);
-		
 		$this->Base->Html->inputPrefix = 'meta';
-		$input = $this->Base->Html->input('name', array(
-			'type' => 'checkbox', 
-			'options' => array(
-				1 => 'My checkbox',
-				2 => 'Not my checkbox'
+		$input = $this->Base->Html->input('name1', array('type' => 'checkbox', 'value' => 'nothing'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'type' => 'checkbox',
+					'name' => 'meta[name1]',
+					'value' => 'nothing',
+					'id' => 'regexp:/[a-z0-9]/i',
+					'checked' => 'checked'
+				)
 			)
-		));
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'meta[name][]',
-					'value' => '1',
-					'id' => 'regexp:/name[a-z0-9]/',
-					'checked' => 'checked'
-				)
-			)			
-		);
-		$this->assertTag($inputTag, $input);
-		$inputTag = array(
-			'tag' => 'div',
-			'child' => array(
-				'tag' => 'input',
-				'attributes' => array(
-					'type' => 'checkbox',
-					'name' => 'meta[name][]',
-					'value' => '2',
-					'id' => 'regexp:/name[a-z0-9]/',
-					'checked' => 'checked'
-				)
-			)			
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
 }
