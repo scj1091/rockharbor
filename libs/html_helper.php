@@ -112,23 +112,27 @@ class HtmlHelper {
 			'div' => true
 		);
 		$options = array_merge($_default, $options);
+		$multiple = stripos($options['name'], '[]') !== false;
+		if ($multiple) {
+			$options['name'] = str_replace('[]', '', $options['name']);
+		}
 		
 		if (is_null($options['value']) && isset($this->data)) {
 			$data = $this->data;
 			if (isset($data[$this->inputPrefix])) {
 				$data = $this->data[$this->inputPrefix];
 			}
-			if (isset($data[$name])) {
-				$options['value'] = $data[$name];
+			if (isset($data[$options['name']])) {
+				$options['value'] = $data[$options['name']];
 			}
 		}
 		if ($options['value'] === null) {
 			unset($options['value']);
 		}
-		if (!empty($this->inputPrefix)) {
-			$options['name'] = "$this->inputPrefix[$name]";
+		if (!empty($this->inputPrefix) && stripos($options['name'], $this->inputPrefix) === false) {
+			$options['name'] = $this->inputPrefix.'['.$options['name'].']';
 		}
-		$options['id'] = $options['name'];
+		$options['id'] = preg_replace('/[^a-z0-0]+/i', '', $options['name']);
 		
 		$before = $options['before'];
 		unset($options['before']);
@@ -141,10 +145,13 @@ class HtmlHelper {
 		if (!empty($before)) {
 			$out .= $before;
 		}
-		
-		if ($options['label'] !== false) {
+		if ($multiple) {
+			$options['name'] .= '[]';
+			$options['id'] .= uniqid();
+		}
+		if ($options['label'] !== false && empty($options['options'])) {
 			$out .= $this->tag('label', $options['label'], array(
-				'for' => $options['name'],
+				'for' => $options['id'],
 				'class' => 'description'
 			));
 		}
@@ -171,6 +178,25 @@ class HtmlHelper {
 					$select .= $this->tag('option', $selectLabel, $_attrs);
 				}
 				$out .= $this->tag('select', $select, $options);
+			break;
+			case 'checkbox':
+				$selected = isset($options['value']) ? $options['value'] : '';
+				if (!empty($selectOptions)) {
+					foreach ($selectOptions as $selectValue => $selectLabel) {
+						$_attrs = array('value' => $selectValue, 'label' => $selectLabel, 'type' => 'checkbox');
+						if (in_array($selectValue, (array)$selected)) {
+							$_attrs['checked'] = 'checked';
+						}
+						$out .= $this->input($options['name'].'[]', $_attrs);
+					}
+				} else {
+					$options['type'] = $type;
+					if ($options['value'] == $selected && !$multiple) {
+						$options['checked'] = 'checked';
+					}
+					$hidden = $this->tag('input', array_merge($options, array('value' => 0, 'type' => 'hidden', 'id' => $options['id'].'hidden')));
+					$out = $hidden . $this->tag('input', $options) . '&nbsp;' . $out;
+				}
 			break;
 			case 'textarea':
 				$val = isset($options['value']) ? $options['value'] : '';
