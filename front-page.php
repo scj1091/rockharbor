@@ -7,7 +7,7 @@
  * Choose "A static page" and select your home page under the "Front page" 
  * dropdown
  */
-global $wp_rewrite, $wp_query, $more;
+global $wp_rewrite, $wp_query, $more, $wpdb, $post;
 get_header(); 
 ?>
 		<section id="content" role="main">
@@ -23,15 +23,14 @@ get_header();
 			<?php 
 				// make WordPress treat these as partial posts
 				$more = 0;
-				query_posts(array(
-					'post_type' => 'post',
-					'paged' => get_query_var('page') ? get_query_var('page') : 1
-				));
+				$theme->aggregatePosts();
 			
 				while (have_posts()) {
-					the_post(); 
+					the_post();
+					switch_to_blog($post->blog_id);
 					get_template_part('content', get_post_type()); 
 				}
+				switch_to_blog($theme->info('id'));
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
 				echo $theme->render('pagination');

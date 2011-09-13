@@ -63,16 +63,26 @@ class RockharborThemeBase {
  * @var array
  */
 	protected $_vars = array();
+	
+/**
+ * The blog id
+ * 
+ * @var integer
+ */
+	protected $id = null;
 
 /**
  * Sets up the theme
  */
 	public function __construct() {
+		global $wpdb;
+		
 		$this->themePath = rtrim(get_stylesheet_directory(), DS);
 		$this->themeUrl = rtrim(get_stylesheet_directory_uri(), '/');
 		$this->basePath = rtrim(get_template_directory(), DS);
 		$this->baseUrl = rtrim(get_template_directory_uri(), '/');
 		$this->name = get_bloginfo('name');
+		$this->id = $wpdb->blogid;
 		
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
@@ -102,6 +112,52 @@ class RockharborThemeBase {
 		add_action('admin_init', array($this, 'admin_init'));
 		add_action('save_post', array($this, 'saveMeta'));
 		add_action('admin_menu', array($this, 'admin_menu'));
+	}
+
+/**
+ * Aggregates posts from all sites that have the meta 'cross_post_<THISBLOGID>'
+ * and includes them in The Loop with this blog's posts
+ */
+	function aggregatePosts() {
+		// save page count before we overwrite WP_Query
+		$page = get_query_var('page');
+		unset($GLOBALS['wp_query']);
+		$GLOBALS['wp_query'] =& new WP_Query();
+		
+		global $wpdb, $wp_query, $table_prefix;
+				
+		$blogs = $wpdb->get_results("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'", ARRAY_A);
+		
+		$group = "GROUP BY ID";
+		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM (";
+		// primary table - this blog
+		$query .= "SELECT * FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id) $group";
+		foreach ($blogs as $blog) {
+			if ($blog['blog_id'] == $this->id) {
+				continue;
+			}
+			// other blogs merged into the query
+			$query .= " UNION (SELECT * FROM";
+			$wpdb->set_blog_id($blog['blog_id']);
+			$query .= " $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID AND meta_key = 'cross_post_$this->id')";
+			$query .= " LEFT JOIN $wpdb->blogs ON (blog_id = {$blog['blog_id']})";
+			$query .= " WHERE meta_value = 1 $group)";
+		}
+		
+		// conditions affecting all queries
+		$query .= ") AS q WHERE post_type = 'post' AND post_status = 'publish'";
+		$query .= " ORDER BY post_date DESC";
+		$offset = ($page ? $page-1 : 0) * get_option('posts_per_page');
+		$count = get_option('posts_per_page');
+		$query .= " LIMIT $offset, $count";
+		$wpdb->set_blog_id($this->id);
+		
+		$wp_query->posts = $wpdb->get_results($query);
+		// for pagination
+		$wp_query->query_vars['paged'] = $page;
+		$wp_query->post_count = count($wp_query->posts);
+		$wp_query->found_posts = $wpdb->get_var('SELECT FOUND_ROWS()');
+		$wp_query->max_num_pages = ceil($wp_query->found_posts / get_option('posts_per_page'));
 	}
 
 /**
@@ -213,7 +269,8 @@ class RockharborThemeBase {
 			'base_path' => $this->basePath,
 			'base_url' => $this->baseUrl,
 			'name' => $this->name,
-			'slug' => $this->themeOptions['slug']
+			'slug' => $this->themeOptions['slug'],
+			'id' => $this->id
 		);
 		if ($var === null || !isset($vars[$var])) {
 			return $vars;
