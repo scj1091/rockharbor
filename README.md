@@ -10,8 +10,6 @@ subsite.
 At the very least, the following files should be created.
 
     /<theme_name>
-        /css
-            colors.css
         /libs
             <template_name>_theme.php
         functions.php
@@ -43,7 +41,6 @@ Next, create a `functions.php` file
 This is required because WordPress doesn't use OOP and includes files in the
 opposite order one would suspect.
 
-Finally, the color stylesheet `colors.css` needs to be created to customize the
-theme colors. Copy the `.less` file from the ROCKHARBOR base theme, customize
+Finally, the stylesheet `style.css` needs to be created to customize the
+theme colors. Copy the `style.less` file from the ROCKHARBOR base theme, customize
 the colors and compile it into a `.css` file.
-
