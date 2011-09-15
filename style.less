@@ -466,7 +466,7 @@ footer h3 {
 }
 
 #secondary.home-widget-area div.title {
-	background: @secondary;
+	background: @primary;
 	padding: 5px;
 }
 
@@ -474,9 +474,33 @@ footer h3 {
 	cursor: pointer;
 	font-family: @theme-font, @default-font;
 	font-size: 120%;
-	color: @primary;
+	color: @secondary;
 	text-transform: uppercase;
 	display: inline;
+}
+
+#secondary.home-widget-area div.title.reverse {
+	background: @secondary;
+}
+
+#secondary.home-widget-area div.title.reverse h3 {
+	color: @primary;
+}
+
+#secondary.home-widget-area div.title.white {
+	background: #ffffff;
+}
+
+#secondary.home-widget-area div.title.white h3 {
+	color: @med-grey;
+}
+
+#secondary.home-widget-area div.title.white.reverse {
+	background: @med-grey;
+}
+
+#secondary.home-widget-area div.title.white.reverse h3 {
+	color: #ffffff;
 }
 
 #secondary.home-widget-area a.title-icon {
