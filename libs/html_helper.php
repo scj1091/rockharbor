@@ -59,7 +59,7 @@ class HtmlHelper {
 			return null;
 		}
 		$path = $options['parent'] ? $this->theme->info('base_url') : $this->theme->info('url');
-		return '<img src="'.$path.'/img/'.$url.'" '.$this->parseAttributes($attr).'/>';
+		return '<img src="'.$path.'/img/'.$url.'"'.$this->parseAttributes($attr).'/>';
 	}
 	
 /**
@@ -78,7 +78,7 @@ class HtmlHelper {
 		if (is_array($content)) {
 			$attr = $content;
 		}
-		$out .= ' '.$this->parseAttributes($attr);
+		$out .= $this->parseAttributes($attr);
 		if ($content === $attr) {
 			$out .= ' />';
 		} else {
@@ -232,6 +232,10 @@ class HtmlHelper {
 			$name = esc_attr($name);
 			$value = esc_attr($value);
 			$out[] = "$name=\"$value\"";
+		}
+		if (!empty($out)) {
+			// prepend an extra space in the beginning
+			array_unshift($out, null);
 		}
 		return implode(' ', $out);
 	}

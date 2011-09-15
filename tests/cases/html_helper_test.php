@@ -79,7 +79,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			'name' => 'title',
 			'attr' => 'value"'
 		));
-		$this->assertEquals($results, 'name="title" attr="value&quot;"');
+		$this->assertEquals($results, ' name="title" attr="value&quot;"');
 	}
 	
 	function testData() {
