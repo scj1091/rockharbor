@@ -4,6 +4,8 @@
  */
 class TestTheme extends RockharborThemeBase {
 	
+	public $_action = false;
+	
 	public $themeOptions = array(
 		'slug' => 'testtheme',
 		
@@ -23,6 +25,10 @@ class TestTheme extends RockharborThemeBase {
 		$this->_vars = array();
 	}
 	
+	public function action() {
+		$this->_action = true;
+	}
+	
 }
 
 class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
@@ -37,6 +43,45 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		
 		$this->Base->setTestPaths();
 		$this->assertTrue($this->Base->isChildTheme());
+	}
+	
+	function testAction() {
+		$_POST['action'] = 'action';
+		$base = new TestTheme();
+		$this->assertFalse($base->_action);
+		
+		$base->allowedActions = array('action');
+		$base->__construct();
+		$this->assertTrue($base->_action);
+	}
+	
+	function testEmail() {
+		$_POST = array(
+			'action' => 'email',
+			'type' => 'story',
+			'field' => 'value'
+		);
+		$name = $this->Base->info('name');
+		$theme = $this->getMock('TestTheme', array('_mail', 'info', 'options'), array(), 'MockTestTheme', false);
+		$theme->expects($this->any())
+			->method('info')
+			->with($this->stringContains('_email'))
+			->will($this->returnValue('noreply@rockharbor.org'));
+		$theme->expects($this->any())
+			->method('options')
+			->will($this->returnValue('jharris@rockharbor.org,jeremy@42pixels.com'));
+		$theme->expects($this->any())
+			->method('_mail')
+			->will($this->returnValue(true));
+		$theme->__construct();
+		$results = $theme->email();
+		$expected = array(
+			'to' => 'jharris@rockharbor.org,jeremy@42pixels.com',
+			'subject' => '['.$name.'] Story Email',
+			'body' => '<h1>Story Email</h1><table><tr><td><strong>field</strong></td><td>&nbsp;&nbsp;</td><td>value</td></tr></table>',
+			'headers' => "From: noreply@rockharbor.org\r\nX-Mailer: PHP/".phpversion()."\r\nContent-type: text/html; charset=utf-8"
+		);
+		$this->assertEquals($expected, $results);
 	}
 	
 	function testInfo() {

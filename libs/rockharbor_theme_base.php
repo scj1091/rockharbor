@@ -72,6 +72,13 @@ class RockharborThemeBase {
 	protected $id = null;
 
 /**
+ * Array of actions that are allowed to be called via POSTing the `$action` var
+ * 
+ * @var array
+ */
+	public $allowedActions = array('email');
+
+/**
  * Sets up the theme
  */
 	public function __construct() {
