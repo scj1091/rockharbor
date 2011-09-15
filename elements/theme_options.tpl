@@ -1,6 +1,6 @@
 <?php
-if (!isset($_REQUEST['updated'])) {
-	$_REQUEST['updated'] = false;
+if (!isset($_REQUEST['settings-updated'])) {
+	$_REQUEST['settings-updated'] = false;
 }
 
 ?>
@@ -10,7 +10,7 @@ if (!isset($_REQUEST['updated'])) {
 	echo '<h2>Theme Options</h2>';
 	?>
 
-	<?php if ($_REQUEST['updated'] !== false): ?>
+	<?php if ($_REQUEST['settings-updated'] !== false): ?>
 	<div class="updated fade"><p><strong>Options saved</strong></p></div>
 	<?php endif; ?>
 
@@ -23,21 +23,21 @@ if (!isset($_REQUEST['updated'])) {
 		<table class="form-table">
 			<tr valign="top">
 				<?php 
-					echo $theme->Html->input('header_image', array(
+					echo $theme->Html->input('twitter_user', array(
 						'before' => '<th>',
-						'label' => 'Header Image',
+						'label' => 'Twitter User',
 						'between' => '</th><td>',
-						'after' => '<br /><small>(will be used for video poster if a video is defined)</small></td>'
+						'after' => '<br /><small>(twitter username, without the @ symbol)</small></td>'
 					)); 
 				?>
 			</tr>
 			<tr valign="top">
 				<?php 
-					echo $theme->Html->input('header_video', array(
+					echo $theme->Html->input('twitter_search', array(
 						'before' => '<th>',
-						'label' => 'Header Video',
+						'label' => 'Twitter Search',
 						'between' => '</th><td>',
-						'after' => '</td>'
+						'after' => '<br /><small>(search operators: <a target="_blank" href="https://dev.twitter.com/docs/using-search">https://dev.twitter.com/docs/using-search</a>)</small></td>'
 					)); 
 				?>
 			</tr>
