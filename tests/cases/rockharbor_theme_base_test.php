@@ -4,8 +4,6 @@
  */
 class TestTheme extends RockharborThemeBase {
 	
-	public $_action = false;
-	
 	public $themeOptions = array(
 		'slug' => 'testtheme',
 		
@@ -25,10 +23,6 @@ class TestTheme extends RockharborThemeBase {
 		$this->_vars = array();
 	}
 	
-	public function action() {
-		$this->_action = true;
-	}
-	
 }
 
 class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
@@ -43,16 +37,6 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		
 		$this->Base->setTestPaths();
 		$this->assertTrue($this->Base->isChildTheme());
-	}
-	
-	function testAction() {
-		$_POST['action'] = 'action';
-		$base = new TestTheme();
-		$this->assertFalse($base->_action);
-		
-		$base->allowedActions = array('action');
-		$base->__construct();
-		$this->assertTrue($base->_action);
 	}
 	
 	function testEmail() {

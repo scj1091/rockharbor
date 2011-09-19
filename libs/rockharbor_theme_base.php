@@ -77,6 +77,13 @@ class RockharborThemeBase {
  * @var array
  */
 	public $allowedActions = array('email');
+	
+/**
+ * Array of messages
+ * 
+ * @var array 
+ */
+	public $messages = array();
 
 /**
  * Sets up the theme
@@ -119,6 +126,66 @@ class RockharborThemeBase {
 		add_action('admin_init', array($this, 'admin_init'));
 		add_action('save_post', array($this, 'saveMeta'));
 		add_action('admin_menu', array($this, 'admin_menu'));
+	}
+
+/**
+ * Constructs and sends an email to a predefined option. Passing `$_POST['type']`
+ * will look up an option `$_POST['type'].'_email'` to email to. If none is found
+ * the function will exit.
+ * 
+ * @return mixed `false` on failure, an array of what was sent on success. Error
+ *	messages are stored in `$errors`
+ */
+	public function email() {
+		if (!isset($_POST['type'])) {
+			$_POST['type'] = 'story';
+		}
+		$to = $this->options($_POST['type'].'_email');
+		if (empty($to)) {
+			$this->messages[] = 'To address not defined in CMS.';
+			return false;
+		}
+		$from = $this->info('email');
+		$subject = '['.$this->name.'] '.ucfirst($_POST['type']).' Email';
+		$body = $this->Html->tag('h1', ucfirst($_POST['type']).' Email');
+		$body .= '<table>';
+		unset($_POST['type'], $_POST['action']);
+		foreach ($_POST as $post => $value) {
+			$body .= $this->Html->tag('tr',
+				$this->Html->tag('td', $this->Html->tag('strong', $post))
+				. $this->Html->tag('td', '&nbsp;&nbsp;')
+				. $this->Html->tag('td', $value)
+			);
+		}
+		$body .= '</table>';
+		$headers = array(
+			'From' => $from,
+			'X-Mailer' => 'PHP/' . phpversion(),
+			'Content-type' => 'text/html; charset=utf-8'
+		);
+		foreach ($headers as $name => &$value) {
+			$value = $name.': '.$value;
+		}
+		$headers = implode("\r\n", $headers);
+		
+		if ($this->_mail($to, $subject, $body, $headers)) {
+			$this->messages[] = 'Thanks for your message!';
+			return compact('to', 'subject', 'body', 'headers');
+		}
+		$this->messages[] = 'Failed sending email.';
+		return false;
+	}
+
+/**
+ * Sends an email
+ * 
+ * @param string $to
+ * @param string $subject
+ * @param string $body
+ * @param string $headers 
+ */
+	protected function _mail($to, $subject, $body, $headers) {
+		return mail($to, $subject, $body, $headers);
 	}
 
 /**
@@ -277,7 +344,8 @@ class RockharborThemeBase {
 			'base_url' => $this->baseUrl,
 			'name' => $this->name,
 			'slug' => $this->themeOptions['slug'],
-			'id' => $this->id
+			'id' => $this->id,
+			'email' => get_bloginfo('admin_email')
 		);
 		if ($var === null || !isset($vars[$var])) {
 			return $vars;
