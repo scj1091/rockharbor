@@ -1,12 +1,13 @@
 <?php 
 global $theme; 
 $twitteruser = $theme->options('twitter_user');
+$fbuser = $theme->options('facebook_user');
 ?>
 <div id="secondary" class="home-widget-area">
-	<div class="title"><h3>Facebook</h3><a class="title-icon" target="_blank" href="http://facebook.com">Visit Facebook</a></div>
+	<div class="title"><h3>Facebook</h3><a class="title-icon" target="_blank" href="http://facebook.com/<?php echo $fbuser; ?>">Visit Facebook</a></div>
 	<div class="body">
 		<?php
-		$theme->set('user', $theme->options('facebook_user'));
+		$theme->set('user', $fbuser);
 		echo $theme->render('facebook');
 		?>
 	</div>
