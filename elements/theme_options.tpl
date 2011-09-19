@@ -43,14 +43,11 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php 
-					echo $theme->Html->input('header_ad_space', array(
-						'type' => 'textarea',
-						'rows' => 10,
-						'cols' => 60,
+					echo $theme->Html->input('facebook_user', array(
 						'before' => '<th>',
-						'label' => 'Header Ad Space',
+						'label' => 'Facebook Page User',
 						'between' => '</th><td>',
-						'after' => '<br /></td>'
+						'after' => '<br /><small>(the username in www.facebook.com/<strong>&lt;username&gt;</strong>)</small></td>'
 					)); 
 				?>
 			</tr>
@@ -60,39 +57,3 @@ if (!isset($_REQUEST['settings-updated'])) {
 		</p>
 	</form>
 </div>
-<script>
-	jQuery(".thickbox").bind("click", function (e) {
-	tmpFocus = undefined;
-	isTinyMCE = false;
-});
-var isTinyMCE;
-var tmpFocus;
-function focusTextArea(id) {
-	jQuery(document).ready(function() {
-		if ( typeof tinyMCE != "undefined" ) {
-			var elm = tinyMCE.get(id);
-		}
-		if ( ! elm || elm.isHidden() ) {
-			elm = document.getElementById(id);
-			isTinyMCE = false;
-		}else isTinyMCE = true;
-		tmpFocus = elm
-		elm.focus();
-		if (elm.createTextRange) {
-			var range = elm.createTextRange();
-			range.move("character", elm.value.length);
-			range.select();
-		} else if (elm.setSelectionRange) {
-			elm.setSelectionRange(elm.value.length, elm.value.length);
-		}
-	});
-}
-function thickbox(link) {
-	var t = link.title || link.name || null;
-	var a = link.href || link.alt;
-	var g = link.rel || false;
-	tb_show(t,a,g);
-	link.blur();
-	return false;
-}
-</script>

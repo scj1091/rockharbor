@@ -5,7 +5,10 @@ $twitteruser = $theme->options('twitter_user');
 <div id="secondary" class="home-widget-area">
 	<div class="title"><h3>Facebook</h3><a class="title-icon" target="_blank" href="http://facebook.com">Visit Facebook</a></div>
 	<div class="body">
-		<p>Some facebook crap</p>
+		<?php
+		$theme->set('user', $theme->options('facebook_user'));
+		echo $theme->render('facebook');
+		?>
 	</div>
 	<div class="title reverse"><h3>Twitter</h3><a class="title-icon" target="_blank" href="http://twitter.com/<?php echo $twitteruser; ?>">Visit Twitter</a></div>
 	<div class="body">
