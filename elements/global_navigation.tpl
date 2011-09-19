@@ -1,5 +1,5 @@
 <section id="global-navigation" class="clearfix">
-	<h1><a href="/"><?php echo $theme->Html->image('banner.png', array('alt' => 'This is ROCKHARBOR '.$theme->info('name'))); ?></a></h1>
+	<h1><a href="/"><?php echo $theme->Html->image('header.png', array('alt' => 'This is ROCKHARBOR '.$theme->info('name'))); ?></a></h1>
 	<nav>
 		<ul>
 			<li>
