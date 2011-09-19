@@ -533,12 +533,16 @@ footer h3 {
 
 /*= Main content
 -----------------------------------------*/
+.twitter-item a,
+.core-events a,
 article a {
 	color: @link;
 	text-decoration: none;
 	font-style: italic;
 }
 
+.twitter-item a:hover,
+.core-events a:hover,
 article a:hover {
 	text-decoration: underline;
 }
@@ -680,16 +684,20 @@ footer.related h2 a,
 	color: @primary;
 }
 
+.core-events time,
 .entry-header time {
 	float: right;
 	font-family: @theme-font, @default-font;
 	font-size: 120%;
 }
 
+.core-events time span,
 .entry-header time span {
 	padding: 0 3px;
 }
 
+.core-events time .month,
+.core-events time .day,
 .entry-header time .month,
 .entry-header time .day {
 	border-right: 1px solid @primary;
@@ -779,20 +787,17 @@ button, input[type=submit] {
 	width: 80%;
 }
 
-.twitter-item a {
-	color: @link;
-	text-decoration: none;
-	font-style: italic;
-}
-
-.twitter-item a:hover {
-	text-decoration: underline;
-}
-
 .twitter-author a {
 	font-family: @theme-font, @default-font;
 	color: @med-grey;
 	text-decoration: none;
 	font-size: 120%;
 	font-style: normal;
+}
+
+/*= CORE
+-----------------------------------------*/
+.core-events time {
+	float: none;
+	display: block;
 }

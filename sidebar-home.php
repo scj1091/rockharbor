@@ -2,6 +2,7 @@
 global $theme; 
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
+$coreid = $theme->options('core_id');
 ?>
 <div id="secondary" class="home-widget-area">
 	<div class="title"><h3>Facebook</h3><a class="title-icon" target="_blank" href="http://facebook.com/<?php echo $fbuser; ?>">Visit Facebook</a></div>
@@ -22,8 +23,11 @@ $fbuser = $theme->options('facebook_user');
 	<div class="body">
 		<p>Some form crap</p>
 	</div>
-	<div class="title white reverse"><h3>Calendar</h3><a class="title-icon" target="_blank" href="http://core.rockharbor.org">Visit CORE</a></div>
+	<div class="title white reverse"><h3>Calendar</h3><a class="title-icon" target="_blank" href="http://core.rockharbor.org/ministries/<?php echo $coreid; ?>">Visit CORE</a></div>
 	<div class="body">
-		<p>Some calendar crap</p>
+		<?php
+		$theme->set('id', $coreid);
+		echo $theme->render('core_public_calendar');
+		?>
 	</div>
 </div>

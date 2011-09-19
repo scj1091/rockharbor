@@ -51,6 +51,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 					)); 
 				?>
 			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('core_id', array(
+						'before' => '<th>',
+						'label' => 'CORE ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(the ministry ID to pull calendar events from)</small></td>'
+					)); 
+				?>
+			</tr>
 		</table>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="Save" />
