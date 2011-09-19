@@ -129,6 +129,42 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Pulls events from the public calendar and normalizes it into a standard array
+ * that the element can read
+ * 
+ * @param integer $id The ministry id
+ * @return array Normalized event array
+ */
+	public function getCoreHomepageEvents($id = null) {
+		if (!$id) {
+			$id = 0;
+		}
+		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/json", array('sslverify' => false));
+		if (is_wp_error($response)) {
+			$response = array(
+				'body' => json_encode(array('results' => array()))
+			);
+		}
+		$items = json_decode($response['body'], true);
+		
+		$events = array();
+		foreach ($items as $item) {
+			$events[] = array(
+				'Event' => array(
+					'id' => $item['Events']['event_id'],
+					'name' => $item['Events']['event_name']					
+				),
+				'Date' => array(
+					array(
+						'start_date' => $item[0]['event_date']
+					)
+				)
+			);
+		}
+		return $events;
+	}
+
+/**
  * Constructs and sends an email to a predefined option. Passing `$_POST['type']`
  * will look up an option `$_POST['type'].'_email'` to email to. If none is found
  * the function will exit.

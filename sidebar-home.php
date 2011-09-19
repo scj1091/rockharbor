@@ -26,7 +26,7 @@ $coreid = $theme->options('core_id');
 	<div class="title white reverse"><h3>Calendar</h3><a class="title-icon" target="_blank" href="http://core.rockharbor.org/ministries/<?php echo $coreid; ?>">Visit CORE</a></div>
 	<div class="body">
 		<?php
-		$theme->set('id', $coreid);
+		$theme->set('events', $theme->getCoreHomepageEvents($coreid));
 		echo $theme->render('core_public_calendar');
 		?>
 	</div>
