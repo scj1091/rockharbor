@@ -1,3 +1,11 @@
+<?php global $post; ?>
 <div id="sub-navigation" class="widget-area">
-	<?php dynamic_sidebar('sidebar-subnav'); ?>
+	<ul>
+	<?php 
+	wp_list_pages(array(
+		'child_of' => $post->ID,
+		'title_li' => null
+	));
+	?>
+	</ul>
 </div>
