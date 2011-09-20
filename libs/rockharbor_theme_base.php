@@ -301,7 +301,7 @@ class RockharborThemeBase {
 		
 		global $wpdb, $wp_query, $table_prefix;
 				
-		$blogs = $wpdb->get_results("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'", ARRAY_A);
+		$blogs = $this->getBlogs();
 		
 		$group = "GROUP BY ID";
 		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM (";
@@ -355,8 +355,8 @@ class RockharborThemeBase {
  * Renders the cross_post meta box on the edit posts page
  */
 	public function crossPostMetaBox() {
-		global $wpdb, $post;
-		$blogs = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'"), ARRAY_A);
+		global $post;
+		$blogs = $this->getBlogs();
 		if ($this->isChildTheme()) {
 			// main blog only
 			$blogs = array($blogs[0]);
@@ -667,5 +667,15 @@ class RockharborThemeBase {
 			$data[$name] = maybe_unserialize($value[0]);
 		}
 		return $data;
+	}
+
+/**
+ * Returns a list of blogs in this network
+ * 
+ * @return array 
+ */
+	public function getBlogs() {
+		global $wpdb;
+		return $wpdb->get_results("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'", ARRAY_A);
 	}
 }
