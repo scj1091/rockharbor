@@ -112,7 +112,6 @@ class RockharborThemeBase {
 		
 		// other
 		add_filter('the_content', array($this, 'content'));
-		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		
 		// make images link to their file by default
 		update_option('image_default_link_type', 'file');
@@ -124,7 +123,7 @@ class RockharborThemeBase {
 		
 		// admin section
 		add_action('admin_init', array($this, 'admin_init'));
-		add_action('save_post', array($this, 'saveMeta'));
+		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'admin_menu'));
 	}
 
@@ -652,6 +651,7 @@ class RockharborThemeBase {
  */
 	function onSave($post_id, $post) {
 		do_enclose($post->post_content, $post_id);
+		$this->saveMeta();
 	}
 	
 /**
