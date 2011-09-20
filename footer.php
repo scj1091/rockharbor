@@ -1,4 +1,9 @@
-<?php global $theme; ?>
+<?php 
+global $theme; 
+$twitteruser = $theme->options('twitter_user');
+$fbuser = $theme->options('facebook_user');
+$coreid = $theme->options('core_id');
+?>
 	</div>
 </div>
 <footer role="contentinfo">
@@ -12,6 +17,11 @@
 		</div>
 		<div>
 			<h3>Connect</h3>
+			<p class="icons">
+				<a target="_blank" href="http://facebook.com/<?php echo $fbuser; ?>"><?php echo $theme->Html->image('facebook-footer-icon.png', array('parent' => true)); ?></a>
+				<a target="_blank" href="http://twitter.com/<?php echo $twitteruser; ?>"><?php echo $theme->Html->image('twitter-footer-icon.png', array('parent' => true)); ?></a>
+				<a target="_blank" href="http://core.rockharbor.org/ministries/<?php echo $coreid; ?>"><?php echo $theme->Html->image('core-footer-icon.png', array('parent' => true)); ?></a>
+			</p>
 			<hr />
 			<p>
 				3095 Redhill Ave.<br />Costa Mesa, CA 92626<br />(714) 384-0914
