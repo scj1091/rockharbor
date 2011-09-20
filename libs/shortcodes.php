@@ -23,6 +23,15 @@ class Shortcodes {
 		
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
+		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
+	}
+	
+	public function defaultFeature($attr) {
+		$this->theme->set(shortcode_atts(array(
+			'link1' => null,
+			'link2' => null
+		), $attr));
+		return $this->theme->render('default_feature');
 	}
 
 /**
