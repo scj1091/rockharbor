@@ -138,6 +138,11 @@ class HtmlHelper {
 		}
 		$options['id'] = preg_replace('/[^a-z0-9]+/i', '', $options['name']);
 		
+		if ($options['type'] == 'hidden') {
+			$options['label'] = false;
+			$options['div'] = false;
+		}
+		
 		$before = $options['before'];
 		unset($options['before']);
 		$after = $options['after'];

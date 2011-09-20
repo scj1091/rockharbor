@@ -463,4 +463,18 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
+	
+	function testHidden() {
+		$input = $this->Base->Html->input('hideme', array('type' => 'hidden', 'value' => 'myval'));
+		$inputTag = array(
+			'tag' => 'input',
+			'attributes' => array(
+				'type' => 'hidden',
+				'name' => 'hideme',
+				'value' => 'myval',
+				'id' => 'regexp:/[a-z0-9]/i',
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
 }
