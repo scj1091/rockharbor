@@ -1,3 +1,6 @@
-<time datetime="<?php echo get_the_date('Y-m-d'); ?>" pubdate>
-	<span class="month"><?php echo get_the_date('M'); ?></span><span class="day"><?php echo get_the_date('j'); ?></span><span class="year"><?php echo get_the_date('Y'); ?></span>
+<?php
+$date = strtotime($date);
+?>
+<time datetime="<?php echo date('Y-m-d', $date); ?>"<?php if (isset($pubdate) && $pubdate === true) { echo ' pubdate'; } ?>>
+	<span class="month"><?php echo date('M', $date); ?></span><span class="day"><?php echo date('j', $date); ?></span><span class="year"><?php echo date('Y', $date); ?></span>
 </time>

@@ -2,7 +2,11 @@
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
 			<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
-			<?php echo $theme->render('posted_date'); ?>
+			<?php 
+			$theme->set('pubdate', true);
+			$theme->set('date', get_the_date());
+			echo $theme->render('posted_date'); 
+			?>
 			<?php 
 			/**
 			 * WordPress doesn't correctly/fully switch from blog to blog, so things
