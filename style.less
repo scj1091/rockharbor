@@ -183,7 +183,7 @@ th {
 #global-navigation nav {
 	height: 100%;
 	position: absolute;
-	right: 0;
+	right: 10px;
 }
 
 #global-navigation nav a  {
@@ -228,6 +228,7 @@ th {
 
 #global-navigation #searchform  {
 	float: right;
+	margin-left: 10px;
 }
 
 #global-navigation #searchform input {
@@ -236,7 +237,7 @@ th {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	font-style: italic;
-	background: @dark-grey;
+	background: lighten(@dark-grey, 10%);
 	color: @body;
 	font-size: 90%;
 	text-align: right;
@@ -245,7 +246,7 @@ th {
 
 #global-navigation #searchform input:focus,
 #global-navigation #searchform input:hover {
-	background: @body;
+	background: lighten(@dark-grey, 15%);
 }
 
 #global-navigation #searchform input:focus {
@@ -278,10 +279,10 @@ th {
 	display: block;
 	text-shadow: 1px 1px 1px @med-grey;
 	color: @lightest-grey;
-	font-size: 110%;
+	font-size: 130%;
 	text-decoration: none;
 	text-align: center;
-	padding: 4px 10px;
+	padding: 4px 15px;
 	border-bottom: 2px solid transparent;
 }
 
@@ -341,6 +342,10 @@ th {
 	margin: 20px 0;
 }
 
+#branding > div {
+	margin-bottom: 20px;
+}
+
 #banner .withvid > div {
 	float: right;
 	width: 26.625%;
@@ -393,7 +398,7 @@ article {
 	margin-bottom: 10px;
 	border-bottom: 1px dotted @med-grey;
 	float: right;
-	width: 80%;
+	width: 75%;
 }
 
 #content header#content-title, #sidebar header#sidebar-title {
@@ -413,9 +418,13 @@ article {
 }
 
 #content nav#submenu {
-	width: 17.5%;
+	width: 22.5%;
 	float: left;
 	padding-right: 2.5%;
+}
+
+#submenu #sub-navigation li {
+	margin-bottom: 10px;
 }
 
 #submenu #sub-navigation a {
@@ -475,10 +484,6 @@ footer h3 {
 
 /*= Home content
 -----------------------------------------*/
-.home #branding > div {
-	margin-bottom: 20px;
-}
-
 #secondary.home-widget-area {
 	position: relative;
 	background: transparent;
@@ -578,12 +583,14 @@ article a:hover {
 	font-size: 180%;
 	position: absolute;
 	left: -6px;
+	top: 25px;
 }
 
 .sub-title {
 	font-size: 130%;
 	position: absolute;
 	right: -6px;
+	top: 20px;
 }
 
 .page-title span, .sub-title span {
@@ -715,6 +722,7 @@ footer.related h2 a,
 .entry-header time {
 	float: right;
 	font-family: @theme-font, @default-font;
+	text-transform: uppercase;
 	font-size: 120%;
 }
 
@@ -879,8 +887,8 @@ Also skipped using id's to override since there are 2 menus on the page
 }
 
 .campus-list .central {
-	background: #F45125 !important;
-	color: #B5371A !important;
+	background: #B5371A !important;
+	color: #F45125 !important;
 }
 
 .campus-list .central-pm {
