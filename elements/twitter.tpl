@@ -11,6 +11,11 @@ if (empty($tz)) {
 }
 date_default_timezone_set($tz);
 $response = wp_remote_get('http://search.twitter.com/search.json?q='.urlencode($term));
+if (is_wp_error($response)) {
+	$response = array(
+		'body' => json_encode(array('results' => array()))
+	);
+}
 $items = json_decode($response['body'], true);
 if (count($items['results'])):
 for ($t=0; $t<$limit; $t++): $item = $items['results'][$t]; if (!$item) { continue; } ?>
