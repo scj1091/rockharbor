@@ -75,6 +75,7 @@
 		}).lightbox();
 		// scale videos in banner
 		jQuery('.embedded-video').fitVids();
+		jQuery('.message').delay(5000).slideUp();
 	});
 </script>
 <?php 
