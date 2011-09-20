@@ -122,9 +122,9 @@ class RockharborThemeBase {
 		}
 		
 		// admin section
-		add_action('admin_init', array($this, 'admin_init'));
+		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
-		add_action('admin_menu', array($this, 'admin_menu'));
+		add_action('admin_menu', array($this, 'adminMenu'));
 	}
 
 /**
@@ -293,7 +293,7 @@ class RockharborThemeBase {
  * Aggregates posts from all sites that have the meta 'cross_post_<THISBLOGID>'
  * and includes them in The Loop with this blog's posts
  */
-	function aggregatePosts() {
+	public function aggregatePosts() {
 		// save page count before we overwrite WP_Query
 		$page = get_query_var('page');
 		unset($GLOBALS['wp_query']);
@@ -378,7 +378,7 @@ class RockharborThemeBase {
 /**
  * Inits plugin options to white list our options
  */
-	public function admin_init() {
+	public function adminInit() {
 		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
 		// add meta boxes for cross-posting
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
@@ -388,7 +388,7 @@ class RockharborThemeBase {
 /**
  * Loads up the menu page
  */
-	public function admin_menu() {
+	public function adminMenu() {
 		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
 	}
 
@@ -649,7 +649,7 @@ class RockharborThemeBase {
  * @param integer $post_id Post id
  * @param StdClass $post The post
  */
-	function onSave($post_id, $post) {
+	public function onSave($post_id, $post) {
 		do_enclose($post->post_content, $post_id);
 		$this->saveMeta();
 	}
