@@ -4,7 +4,7 @@ $response = wp_remote_get('http://graph.facebook.com/'.$user);
 $result = json_decode($response['body'], true);
 ?>
 
-<h2><?php echo $result['likes']; ?> like <?php echo $result['name']; ?></h2>
+<h2><?php echo $result['likes']; ?> like <a href="http://facebook.com/<?php echo $result['name']; ?>"><?php echo $result['name']; ?></a></h2>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
