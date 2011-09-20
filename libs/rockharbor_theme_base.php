@@ -142,7 +142,7 @@ class RockharborThemeBase {
 		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
-				'body' => json_encode(array('results' => array()))
+				'body' => json_encode(array())
 			);
 		}
 		$items = json_decode($response['body'], true);
@@ -157,6 +157,72 @@ class RockharborThemeBase {
 				'Date' => array(
 					array(
 						'start_date' => $item[0]['event_date']
+					)
+				)
+			);
+		}
+		return $events;
+	}
+	
+	public function getCoreMinistryEvents($ids = null, $event_ids = null) {
+		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/json", array('sslverify' => false));
+		if (is_wp_error($response)) {
+			$response = array(
+				'body' => json_encode(array(
+					'InvolvementEvents' => array(),
+					'InvolvmentTeams' => array(),
+					'InvolvmentGroups' => array()
+				))
+			);
+		}
+		$items = json_decode($response['body'], true);
+		
+		$events = array();
+		$days = array(
+			'' => 'sunday',
+			'SUN' => 'sunday',
+			'MON' => 'monday',
+			'TUE' => 'tuesday',
+			'WED' => 'wednesday',
+			'THU' => 'thursday',
+			'FRI' => 'friday',
+			'SAT' => 'saturday'
+		);
+		foreach ($items['InvolvementEvents'] as $item) {
+			$events[] = array(
+				'Event' => array(
+					'id' => $item['Events']['event_id'],
+					'name' => $item['Events']['event_name']					
+				),
+				'Date' => array(
+					array(
+						'start_date' => $item['EventDates']['start_date']
+					)
+				)
+			);
+		}
+		foreach ($items['InvolvementTeams'] as $item) {
+			$events[] = array(
+				'Event' => array(
+					'id' => $item['Teams']['team_id'],
+					'name' => $item['Teams']['team_name']					
+				),
+				'Date' => array(
+					array(
+						'start_date' => date('Y-m-d', strtotime('next '.$days[$item['Teams']['meetingDay']]))
+					)
+				)
+			);
+		}
+		foreach ($items['InvolvementGroups'] as $item) {
+			$events[] = array(
+				'Event' => array(
+					'id' => $item['Groups']['group_id'],
+					'name' => $item['Groups']['group_name']					
+				),
+				'Date' => array(
+					array(
+						'start_date' => date('Y-m-d', strtotime('next '.$days[$item['Groups']['meetingDay']]))
 					)
 				)
 			);
@@ -304,6 +370,12 @@ class RockharborThemeBase {
 		echo $this->render('cross_post');
 	}
 	
+	public function coreMetaBox() {
+		global $post;
+		$this->set('data', $this->metaToData($post->ID));
+		echo $this->render('core_meta_box');
+	}
+	
 /**
  * Inits plugin options to white list our options
  */
@@ -311,6 +383,7 @@ class RockharborThemeBase {
 		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
 		// add meta boxes for cross-posting
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
+		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
 	}
 
 /**
@@ -587,7 +660,7 @@ class RockharborThemeBase {
  * @param integer $postId The post to get meta from
  * @return array
  */
-	protected function metaToData($postId) {
+	public function metaToData($postId) {
 		$meta = get_post_custom($postId);
 		$data = array();
 		foreach ($meta as $name => $value) {

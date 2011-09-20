@@ -41,7 +41,7 @@ get_header();
 		
 		<section id="sidebar" role="complementary">
 			<header id="sidebar-title">
-				<h1 class="sub-title"><span>CORE shiz</span></h1>
+				<h1 class="sub-title"><span>CORE</span></h1>
 			</header>
 			<?php
 			get_sidebar('core');
