@@ -190,6 +190,9 @@ class HtmlHelper {
 				$out .= $this->tag('textarea', $val, $options);
 			break;
 			default:
+				if ($type == 'input') {
+					$type = 'text';
+				}
 				$options['type'] = $type;
 				$out .= $this->tag('input', $options);
 			break;

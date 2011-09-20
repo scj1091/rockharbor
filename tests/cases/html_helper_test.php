@@ -121,7 +121,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input'
+					'type' => 'text'
 				)
 			)
 		);
@@ -147,7 +147,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input'
+					'type' => 'text'
 				)
 			)
 		);
@@ -173,7 +173,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input'
+					'type' => 'text'
 				)
 			)
 		);
@@ -191,7 +191,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input',
+					'type' => 'text',
 					'value' => 'test value'
 				)
 			)
@@ -209,7 +209,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input',
+					'type' => 'text',
 					'value' => 'overridden value'
 				)
 			)
@@ -267,7 +267,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			'attributes' => array(
 				'name' => 'test_prefix[myname]',
 				'id' => 'testprefixmyname',
-				'type' => 'input',
+				'type' => 'text',
 				'value' => 'test'
 			)
 		);
@@ -284,7 +284,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'test_prefix[myname]',
 					'id' => 'testprefixmyname',
-					'type' => 'input',
+					'type' => 'text',
 					'value' => 'test'
 				)
 			)
@@ -315,7 +315,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 				'attributes' => array(
 					'name' => 'myname',
 					'id' => 'myname',
-					'type' => 'input'
+					'type' => 'text'
 				)
 			)
 		);
