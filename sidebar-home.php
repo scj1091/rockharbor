@@ -21,7 +21,9 @@ $coreid = $theme->options('core_id');
 	</div>
 	<div class="title white"><h3>Share Your Story</h3></div>
 	<div class="body">
-		<p>Some form crap</p>
+		<?php
+		echo $theme->render('share_your_story');
+		?>
 	</div>
 	<div class="title white reverse"><h3>Calendar</h3><a class="title-icon" target="_blank" href="http://core.rockharbor.org/ministries/<?php echo $coreid; ?>">Visit CORE</a></div>
 	<div class="body">

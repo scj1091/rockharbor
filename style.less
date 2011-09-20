@@ -760,13 +760,22 @@ article footer ul.related li:first-child {
 
 /*= Forms
 -----------------------------------------*/
-input {
+input, textarea {
 	background: #ffffff;
 	border: 1px solid @med-grey;
 	padding: 5px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	margin-bottom: 5px;
+	width: 100%;
+	color: @body;
+	font-family: @default-font;
+	font-size: 100%;
+}
+
+input[type=submit] {
+	width: auto;
 }
 
 button, input[type=submit] {
