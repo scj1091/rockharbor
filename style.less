@@ -164,30 +164,46 @@ th {
 
 #global-navigation h1 {
 	float: left;
+	margin: 0;
+	background: @secondary;
+	padding-right: 10px;
+	font-size: 180%;
+}
+
+#global-navigation h1 img {
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+#global-navigation h1 a {
+	color: @primary;
+	text-decoration: none;
 }
 
 #global-navigation nav {
-	float: right;
+	height: 100%;
+	position: absolute;
+	right: 0;
 }
 
-#global-navigation a  {
+#global-navigation nav a  {
 	color: @med-grey;
 	text-decoration: none;
 	display: inline-block;
 }
 
-#global-navigation a:hover {
+#global-navigation nav a:hover {
 	text-decoration: underline;
 }
 
 #global-navigation nav>ul>li {
-	padding: 5px 0;
 	height: 100%;
 	float: left;
+	line-height: 50px;
 }
 
 #global-navigation nav a {
-	margin: 3px;
+	margin: 0 3px;
 }
 
 #global-navigation nav ul li ul {
@@ -196,6 +212,10 @@ th {
 	top: 100%;
 	z-index: 100;
 	background: @light-grey;
+}
+
+#global-navigation nav ul li ul {
+	line-height: 16px;
 }
 
 #global-navigation nav ul li {
@@ -838,4 +858,58 @@ button, input[type=submit] {
 
 .core-events .core-event {
 	margin-bottom: 15px;
+}
+
+/*= Campus menu
+A lot of !important declarations because of the order in which this appears.
+Also skipped using id's to override since there are 2 menus on the page
+-----------------------------------------*/
+.campus-list a {
+	display: block !important;
+	font-family: @theme-font, @default-font !important;
+	text-decoration: none;
+	font-size: 150% !important;
+	padding: 10px;
+	text-transform: uppercase;
+	margin: 0 !important;
+}
+
+.campus-list a:hover {
+	text-decoration: none !important;
+}
+
+.campus-list .central {
+	background: #F45125 !important;
+	color: #B5371A !important;
+}
+
+.campus-list .central-pm {
+	background: #F28255 !important;
+	color: #DD4D05 !important;
+}
+
+.campus-list .mission-viejo {
+	background: #5DDBCF !important;
+	color: #43A3A0 !important;
+}
+
+.campus-list .fullerton {
+	background: #ADA19A !important;
+	color: #967666 !important;
+}
+
+.campus-list .huntington-beach {
+	background: #F7D614 !important;
+	color: #E58F05 !important;
+}
+
+.campus-list .orange {
+	background: #FF900B !important;
+	color: #F46800 !important;
+}
+
+.campus-list .back {
+	background: @med-grey !important;
+	color: #ffffff !important;
+	font-size: 120% !important
 }

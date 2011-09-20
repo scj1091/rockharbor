@@ -1,13 +1,12 @@
 <section id="global-navigation" class="clearfix">
-	<h1><a href="/"><?php echo $theme->Html->image('header.png', array('alt' => 'This is ROCKHARBOR '.$theme->info('name'))); ?></a></h1>
+	<h1><a href="/"><?php echo $theme->Html->image('header.jpg', array('alt' => 'This is ROCKHARBOR '.$theme->info('short_name'))).$theme->info('short_name'); ?></a></h1>
 	<nav>
 		<ul>
 			<li>
 				<a href="#">Campuses</a>
-				<ul>
-					<li><a href="http://fullerton.rockharbor.org">Fullerton</a></li>
-					<li><a href="http://southcounty.rockharbor.org">South County</a></li>
-				</ul>
+				<?php
+				echo $theme->render('campus_menu');
+				?>
 			</li>
 			<li> |<a href="http://www.rockharbor.org/message-archive">Message Archive</a></li>
 			<li>

@@ -1,3 +1,4 @@
+<?php global $theme; ?>
 	</div>
 </div>
 <footer role="contentinfo">
@@ -18,6 +19,10 @@
 		</div>
 		<div class="last">
 			<h3>Campuses</h3>
+			<?php
+			$theme->set('reverse', true);
+			echo $theme->render('campus_menu');
+			?>
 		</div>
 	</div>
 </footer>
