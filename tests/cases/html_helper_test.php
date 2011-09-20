@@ -446,4 +446,21 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
+	
+	function testSubmit() {
+		$input = $this->Base->Html->input('Go!', array('type' => 'submit', 'value' => 'thiswillgoaway'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'type' => 'submit',
+					'name' => 'Go!',
+					'id' => 'regexp:/[a-z0-9]/i',
+					'value' => 'Go!'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
 }
