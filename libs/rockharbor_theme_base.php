@@ -162,7 +162,16 @@ class RockharborThemeBase {
 		}
 		return $events;
 	}
-	
+
+/**
+ * Gets all involvement for ministries. Can include specific events as well.
+ * Normalizes the array to match the return that `getCoreHomepageEvents()`
+ * returns
+ * 
+ * @param string $ids Comma delimited list of ministry IDs to pull involvement from
+ * @param string $event_ids Comma delimited list of events to include as well
+ * @return array 
+ */
 	public function getCoreMinistryEvents($ids = null, $event_ids = null) {
 		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
