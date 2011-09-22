@@ -33,6 +33,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php 
+					echo $theme->Html->input('prayer_request_email', array(
+						'before' => '<th>',
+						'label' => 'Prayer Request Email',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(a comma-delimited list of email addresses to send prayer requests to)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<?php 
 					echo $theme->Html->input('twitter_user', array(
 						'before' => '<th>',
 						'label' => 'Twitter User',

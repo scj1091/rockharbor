@@ -10,6 +10,9 @@ $coreid = $theme->options('core_id');
 	<div id="footer">
 		<div class="first">
 			<h3>Prayer Requests</h3>
+			<?php
+			echo $theme->render('prayer_request');
+			?>
 		</div>
 		<div>
 			<h3>More</h3>
