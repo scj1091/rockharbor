@@ -112,6 +112,7 @@ class RockharborThemeBase {
 		
 		// other
 		add_filter('the_content', array($this, 'content'));
+		add_filter('pre_get_posts', array($this, 'rss'));
 		
 		// make images link to their file by default
 		update_option('image_default_link_type', 'file');
@@ -127,6 +128,24 @@ class RockharborThemeBase {
 		add_action('admin_menu', array($this, 'adminMenu'));
 	}
 
+/**
+ * YAWPH that allows us to pull the aggregated posts and use our own template
+ * to customize the rss feed (which basically just switches the blogs so posts
+ * from other sites are linked correctly)
+ * 
+ * @param WP_Query $query Query passed by WP
+ * @return mixed Auto-echoes template or returns original query
+ * @see README
+ */
+	function rss($query) {
+		if (!$query->is_feed) {
+			return $query;
+		}
+		$this->aggregatePosts(get_option('posts_per_rss'));
+		load_template(TEMPLATEPATH . DS . 'rss.php');
+		die(/*in a fire*/);
+	}
+	
 /**
  * Pulls events from the public calendar and normalizes it into a standard array
  * that the element can read
@@ -302,7 +321,7 @@ class RockharborThemeBase {
  * Aggregates posts from all sites that have the meta 'cross_post_<THISBLOGID>'
  * and includes them in The Loop with this blog's posts
  */
-	public function aggregatePosts() {
+	public function aggregatePosts($count = null) {
 		// save page count before we overwrite WP_Query
 		$page = get_query_var('page');
 		unset($GLOBALS['wp_query']);
@@ -332,7 +351,9 @@ class RockharborThemeBase {
 		$query .= ") AS q WHERE post_type = 'post' AND post_status = 'publish'";
 		$query .= " ORDER BY post_date DESC";
 		$offset = ($page ? $page-1 : 0) * get_option('posts_per_page');
-		$count = get_option('posts_per_page');
+		if (!$count) {
+			$count = get_option('posts_per_page');
+		}
 		$query .= " LIMIT $offset, $count";
 		$wpdb->set_blog_id($this->id);
 		
