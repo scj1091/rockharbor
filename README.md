@@ -44,3 +44,11 @@ opposite order one would suspect.
 Finally, the stylesheet `style.css` needs to be created to customize the
 theme colors. Copy the `style.less` file from the ROCKHARBOR base theme, customize
 the colors and compile it into a `.css` file.
+
+## Specialness
+
+_YAWPH_ (yah-ff)
+Yet Another WordPress Hack - A hack to make WordPress work in the way you might
+imagine it to, or to work in a way common programming practices would dictate.
+While much of the site is made up of YAWPHs, I've only begun to document them
+as of this commit.
