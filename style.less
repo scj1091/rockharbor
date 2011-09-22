@@ -158,6 +158,20 @@ th {
 	padding-left: 10px;
 }
 
+.dropdown {
+	position: relative;
+	padding-right: 12px;
+}
+
+.dropdown:after {
+	border: 5px solid transparent;
+	border-top: 5px solid @body;
+	content: '';
+	position: absolute;
+	top: 45%;
+	right: 0;
+}
+
 /*= Global navigation
 -----------------------------------------*/
 #global-navigation {
@@ -291,7 +305,7 @@ th {
 	border-bottom: 2px solid transparent;
 }
 
-#access li a:hover, #access li.current-menu-item a {
+#access li a:hover, #access li.current-menu-item>a {
 	border-bottom: 2px solid @primary;
 	background: @med-grey;
 }
@@ -442,6 +456,10 @@ article {
 #submenu #sub-navigation a:hover {
 	border-color: @primary;
 	color:  @primary;
+}
+
+#submenu ul.children {
+	padding-left: 5px;
 }
 
 footer {

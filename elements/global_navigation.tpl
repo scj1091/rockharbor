@@ -3,7 +3,7 @@
 	<nav>
 		<ul>
 			<li>
-				<a href="#">Campuses</a>
+				<a class="dropdown" href="#">Campuses</a>
 				<?php
 				echo $theme->render('campus_menu');
 				?>
