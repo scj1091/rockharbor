@@ -139,6 +139,9 @@ class RockharborThemeBase {
 		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'adminMenu'));
+		
+		// tagline is the same for all - vision statement
+		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
 	}
 
 /**
