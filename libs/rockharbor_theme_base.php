@@ -398,7 +398,10 @@ class RockharborThemeBase {
 		$this->set('blogs', $blogs);
 		echo $this->render('cross_post');
 	}
-	
+
+/**
+ * Renders the meta box for core events on pages
+ */
 	public function coreMetaBox() {
 		global $post;
 		$this->set('data', $this->metaToData($post->ID));
