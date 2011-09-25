@@ -58,6 +58,15 @@ Finally, the stylesheet `style.css` needs to be created to customize the
 theme colors. Copy the `style.less` file from the ROCKHARBOR base theme, customize
 the colors and compile it into a `.css` file.
 
+### Required configuration
+
+Below is a list of the configuration required in the WordPress backend once the
+site is created:
+
+- Menus needs to be created and assigned to the Main and Footer navigation areas
+- Theme options need to be defined, as they do not fall back on the parent theme
+- Site title in Settings > General needs to be defined
+
 ## Specialness
 
 _YAWPH_ (yah-ff)
