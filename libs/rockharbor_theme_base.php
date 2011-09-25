@@ -102,10 +102,17 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
+		add_action('after_setup_theme', array($this, 'after'));
+		if (get_parent_class($this) === false && $this->isChildTheme()) {
+			// #YAWPH
+			// we're in a child theme, so we don't want add filters/actions for 
+			// the base class, otherwise we'll end up with duplicate filters/actions 
+			return;
+		}
+		
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
 		add_action('widgets_init', array($this, 'registerSidebars'));
-		add_action('after_setup_theme', array($this, 'after'));
 		
 		// forced gallery settings
 		add_filter('use_default_gallery_style', array($this, 'removeCss'));
