@@ -15,12 +15,17 @@ require_once 'shortcodes.php';
 class RockharborThemeBase {
 	
 /**
- * List of options for this theme
+ * List of options for this theme (all required by subsites)
+ * 
+ * ### Options
+ * - `$slug` The slug for this theme (no spaces, special chars, etc)
+ * - `$short_name` The short name for this campus, i.e., without RH preceding
  * 
  * @var array
  */
 	protected $themeOptions = array(
-		'slug' => 'rockharbor'
+		'slug' => 'rockharbor',
+		'short_name' => 'Central'
 	);
 
 /**
@@ -492,6 +497,7 @@ class RockharborThemeBase {
 			'base_path' => $this->basePath,
 			'base_url' => $this->baseUrl,
 			'name' => $this->name,
+			'short_name' => $this->themeOptions['short_name'],
 			'slug' => $this->themeOptions['slug'],
 			'id' => $this->id,
 			'email' => get_bloginfo('admin_email')
