@@ -1,6 +1,5 @@
 <?php
 
-$hover = $theme->Html->image('who-leads-hover.png');
 $img = $theme->Html->image('feature-1.png', array('parent' => true));
 if ($link1) {
 	$out = "<a id=\"feature-1\" href=\"$link1\">$img</a>";
@@ -12,7 +11,7 @@ echo $theme->Html->tag('div', $out, array(
 	'style' => 'padding: 0 0 10px 0'
 ));
 
-$img = $theme->Html->image('feature-2.png');
+$img = $theme->Html->image('feature-2.png', array('parent' => true));
 if ($link2) {
 	$out = "<a id=\"feature-2\" href=\"$link2\">$img</a>";
 } else {
@@ -26,8 +25,8 @@ echo $theme->Html->tag('div', $out, array(
 ?>
 <script>
 	(function($) {
-		var themeBase = '<?php echo $theme->info('url'); ?>/img/';
-		var themeBaseHover = '<?php echo $theme->info('base_url'); ?>/img/';
+		var themeBaseHover = '<?php echo $theme->info('url'); ?>/img/';
+		var themeBase = '<?php echo $theme->info('base_url'); ?>/img/';
 		// some good old fashioned javascript image swapping :/
 		$('#feature-1, #feature-2').mouseover(function() {
 			var id = $(this).attr('id');
