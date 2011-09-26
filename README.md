@@ -19,7 +19,7 @@ At the very least, the following files should be created.
             out.png
             twitter-icon.png
         /libs
-            <template_name>_theme.php
+            child_theme.php
         functions.php
         style.css
 
@@ -28,23 +28,23 @@ At the very least, the following files should be created.
 The `style.css` file should create the following
 
     /*
-    Theme Name: <Template Name>
+    Theme Name: RH <Template Name>
     Description: Subsite description
     Version: 0.1
     Author: Your name
     Template: rockharbor
     */
 
-Also required is a class within `/libs` called `<TemplateSlug>Theme()`. It must
+Also required is a class within `/libs` called `ChildTheme()`. It must
 extend `RockharborThemeBase`. All that needs to be defined are the `$themeOptions` 
 as explained in the base class.
 
 Next, create a `functions.php` file
 
     function _include_theme() {
-        require_once 'libs/<template_slug>_theme.php';
+        require_once 'libs/child_theme.php';
         global $theme;
-        $theme = new <TemplateSlug>Theme();
+        $theme = new ChildTheme();
     }
     add_action('after_setup_theme', '_include_theme');
 
@@ -66,6 +66,24 @@ site is created:
 - Menus needs to be created and assigned to the Main and Footer navigation areas
 - Theme options need to be defined, as they do not fall back on the parent theme
 - Site title in Settings > General needs to be defined
+- Under Settings > Reading, change the front page to display a static page and 
+choose your homepage
+
+### Homepage
+
+The homepage is a static page that displays its content above the main nav bar,
+and a list of blogs where the content normally is. Make sure to set up the front
+page to be this static page under Settings > Reading.
+
+There is a special shortcode for the homepage to show the default featured graphics
+if you don't have any at the time. The default featured graphics are the "Who
+Leads This Campus?" and "Why This City?" To enable them, use the following 
+shortcode:
+
+    [defaultfeature link1="http://example.com/link.html" link2="http://example.com/link.html"]
+
+Where link1 is a link for the first feature and link2 is a link for the second
+(probably static pages within the site).
 
 ## Specialness
 
