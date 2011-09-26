@@ -5,11 +5,8 @@
 $reverse = isset($reverse) ? $reverse : false;
 ?>
 <ul class="campus-list">
-	<li><a href="http://central.rockharbor.org" class="central">Central</a></li>
-	<li><a href="http://centralpm.rockharbor.org" class="central-pm">Central PM</a></li>
 	<li><a href="http://missionviejo.rockharbor.org" class="mission-viejo">Mission Viejo</a></li>
 	<li><a href="http://fullerton.rockharbor.org" class="fullerton">Fullerton</a></li>
 	<li><a href="http://huntingtonbeach.rockharbor.org" class="huntington-beach">Huntington Beach</a></li>
-	<li><a href="http://orange.rockharbor.org" class="orange">Orange</a></li>
 	<li><a href="http://rockharbor.org" class="back<?php if ($reverse) { echo ' reverse'; } ?>">Back to ROCKHARBOR.org</a></li>
 </ul>
