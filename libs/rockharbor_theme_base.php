@@ -142,6 +142,7 @@ class RockharborThemeBase {
 		
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
+		update_option('blogname', 'RH '.$this->info('short_name'));
 	}
 
 /**
