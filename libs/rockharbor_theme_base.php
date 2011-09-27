@@ -729,4 +729,17 @@ class RockharborThemeBase {
 		global $wpdb;
 		return $wpdb->get_results("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'", ARRAY_A);
 	}
+	
+/**
+ * Checks if this theme or childtheme supports a feature
+ * 
+ * @param string $feature
+ * @return boolean
+ */
+	public function supports($feature = null) {
+		if (!isset($this->themeOptions['supports'])) {
+			return false;
+		}
+		return in_array($feature, $this->themeOptions['supports']);
+	}
 }

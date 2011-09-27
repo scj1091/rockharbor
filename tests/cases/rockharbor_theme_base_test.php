@@ -31,6 +31,13 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->Base = new TestTheme();
 	}
 	
+	function testSupports() {
+		$this->assertFalse($this->Base->supports('anything'));
+		
+		$this->themeOptions['supports'] = array('staff');
+		$this->assertTrue($this->Base->supports('staff'));
+	}
+	
 	function testIsChildTheme() {
 		$base = new RockharborThemeBase();
 		$this->assertFalse($base->isChildTheme());
