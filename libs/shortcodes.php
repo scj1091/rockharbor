@@ -25,7 +25,13 @@ class Shortcodes {
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
 	}
-	
+
+/**
+ * Renders default featured graphics
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
 	public function defaultFeature($attr) {
 		$this->theme->set(shortcode_atts(array(
 			'link1' => null,
