@@ -6,7 +6,7 @@ class TestTheme extends RockharborThemeBase {
 	
 	public $themeOptions = array(
 		'slug' => 'testtheme',
-		
+		'short_name' => 'test theme'
 	);
 	
 	public function setTestPaths() {
@@ -23,6 +23,10 @@ class TestTheme extends RockharborThemeBase {
 		$this->_vars = array();
 	}
 	
+	public function v($var, $value) {
+		$this->{$var} = $value;
+	}
+	
 }
 
 class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
@@ -34,7 +38,7 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 	function testSupports() {
 		$this->assertFalse($this->Base->supports('anything'));
 		
-		$this->themeOptions['supports'] = array('staff');
+		$this->Base->themeOptions['supports'] = array('staff');
 		$this->assertTrue($this->Base->supports('staff'));
 	}
 	
@@ -52,7 +56,6 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 			'type' => 'story',
 			'field' => 'value'
 		);
-		$name = $this->Base->info('name');
 		$theme = $this->getMock('TestTheme', array('_mail', 'info', 'options'), array(), 'MockTestTheme', false);
 		$theme->expects($this->any())
 			->method('info')
@@ -65,10 +68,11 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 			->method('_mail')
 			->will($this->returnValue(true));
 		$theme->__construct();
+		$theme->v('name', 'Test Theme');
 		$results = $theme->email();
 		$expected = array(
 			'to' => 'jharris@rockharbor.org,jeremy@42pixels.com',
-			'subject' => '['.$name.'] Story Email',
+			'subject' => '[Test Theme] Story Email',
 			'body' => '<h1>Story Email</h1><table><tr><td><strong>field</strong></td><td>&nbsp;&nbsp;</td><td>value</td></tr></table>',
 			'headers' => "From: noreply@rockharbor.org\r\nX-Mailer: PHP/".phpversion()."\r\nContent-type: text/html; charset=utf-8"
 		);

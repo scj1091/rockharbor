@@ -404,7 +404,7 @@ class RockharborThemeBase {
 	public function crossPostMetaBox() {
 		global $post;
 		$blogs = $this->getBlogs();
-		if ($this->isChildTheme()) {
+		if ($this->id != BLOG_ID_CURRENT_SITE) {
 			// main blog only
 			$blogs = array($blogs[0]);
 		} else {
@@ -518,7 +518,7 @@ class RockharborThemeBase {
  * @return boolean
  */
 	public function isChildTheme() {
-		return $this->themePath !== $this->basePath;
+		return get_class($this) !== 'RockharborThemeBase';
 	}
 	
 /**
