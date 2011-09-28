@@ -68,6 +68,8 @@ site is created:
 - Site title in Settings > General needs to be defined
 - Under Settings > Reading, change the front page to display a static page and 
 choose your homepage
+- Go to Network Admin (top right), then to Settings and make sure subsites are
+allowed to upload content
 
 ### Homepage
 
