@@ -115,13 +115,13 @@ class HtmlHelper {
 		if ($options['type'] == 'checkbox' && $options['value'] === null) {
 			$options['value'] = 1;
 		}
-		if ((is_null($options['value']) || $options['type'] == 'checkbox') && isset($this->data)) {
+		if ((is_null($options['value']) || $options['type'] == 'checkbox' || $options['type'] == 'radio') && isset($this->data)) {
 			$data = $this->data;
 			if (isset($data[$this->inputPrefix])) {
 				$data = $this->data[$this->inputPrefix];
 			}
 			if (isset($data[$options['name']])) {
-				if ($options['type'] == 'checkbox') {
+				if ($options['type'] == 'checkbox' || $options['type'] == 'radio') {
 					if ($options['value'] == $data[$options['name']]) {
 						$options['checked'] = 'checked';
 					}
@@ -183,6 +183,10 @@ class HtmlHelper {
 					$select .= $this->tag('option', $selectLabel, $_attrs);
 				}
 				$out .= $this->tag('select', $select, $options);
+			break;
+			case 'radio':
+				$options['type'] = $type;
+				$out = $this->tag('input', $options) . '&nbsp;' . $out;
 			break;
 			case 'checkbox':
 				$options['type'] = $type;

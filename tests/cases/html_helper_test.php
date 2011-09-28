@@ -477,4 +477,52 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
+	
+	function testRadio() {
+		$this->Base->Html->data(array(
+			'name' => 'nothing'
+		));
+		$input = $this->Base->Html->input('name', array('type' => 'radio', 'value' => 'something'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'type' => 'radio',
+					'name' => 'name',
+					'value' => 'something',
+					'id' => 'name'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'label',
+				'attributes' => array(
+					'class' => 'description',
+					'for' => 'name'
+				),
+				'content' => 'name'
+			)
+		);
+		$this->assertTag($inputTag, $input);
+		
+		$input = $this->Base->Html->input('name', array('type' => 'radio', 'value' => 'nothing'));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'type' => 'radio',
+					'name' => 'name',
+					'value' => 'nothing',
+					'id' => 'name',
+					'checked' => 'checked'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
 }
