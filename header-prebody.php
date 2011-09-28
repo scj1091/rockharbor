@@ -31,6 +31,7 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/reset.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
 <link rel="stylesheet<?php if (WP_DEBUG) { echo '/less'; } ?>" media="all" href="<?php echo $theme->info($theme->isChildTheme() ? 'url' : 'base_url'); ?>/style.<?php echo WP_DEBUG ? 'less' : 'css'; ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
