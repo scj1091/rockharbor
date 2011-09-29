@@ -108,7 +108,7 @@ class RockharborThemeBase {
 		$this->Shortcodes = new Shortcodes($this);
 		
 		add_action('after_setup_theme', array($this, 'after'));
-		if (get_parent_class($this) === false && $this->isChildTheme()) {
+		if ($this->isChildTheme()) {
 			// #YAWPH
 			// we're in a child theme, so we don't want add filters/actions for 
 			// the base class, otherwise we'll end up with duplicate filters/actions 
@@ -518,7 +518,7 @@ class RockharborThemeBase {
  * @return boolean
  */
 	public function isChildTheme() {
-		return get_class($this) !== 'RockharborThemeBase';
+		return get_parent_class($this) !== false;
 	}
 	
 /**
