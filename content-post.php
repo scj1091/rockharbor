@@ -7,6 +7,14 @@
 			$theme->set('date', get_the_date());
 			echo $theme->render('posted_date'); 
 			?>
+		</header>
+
+		<div class="entry-content">
+			<?php the_content(__('Read More', 'rockharbor')); ?>
+			<?php echo $theme->render('pagination_posts'); ?>
+		</div>
+		
+		<div class="entry-footer">
 			<?php 
 			/**
 			 * WordPress doesn't correctly/fully switch from blog to blog, so things
@@ -19,19 +27,14 @@
 			if (isset($post->blog_id) && $post->blog_id != $theme->info('id')): 
 				$blogDetails = get_blog_details($post->blog_id);
 			?>
-			<p class="tags">Posted from <a href="<?php echo $blogDetails->siteurl; ?>"><?php echo $blogDetails->blogname; ?></a>
+			<span class="tags">Posted from <a href="<?php echo $blogDetails->siteurl; ?>"><?php echo $blogDetails->blogname; ?></a>
 			<?php else: ?>
-			<p class="tags">Posted in <?php the_category(', ') . the_tags(' | ', ', '); ?>
+			<span class="tags">Posted in <?php the_category(', ') . the_tags(' | ', ', '); ?>
 			<?php endif; ?>
 			<span class="comments-link"> | <?php comments_popup_link('<span class="leave-reply">' . __('Leave a reply', 'rockharbor') . '</span>', __('<b>1</b> Reply', 'rockharbor'), __('<b>%</b> Replies', 'rockharbor')) ?></span>
-			</p>
-		</header>
-
-		<div class="entry-content">
-			<?php the_content(__('Read More', 'rockharbor')); ?>
-			<?php echo $theme->render('pagination_posts'); ?>
+			</span>
 		</div>
-
+		
 		<?php
 		global $more;
 		if ($more) {
