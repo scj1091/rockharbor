@@ -142,30 +142,6 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->assertTag($tags, $result);
 	}
 	
-	function testContent() {
-		$result = $this->Base->content('<p>A misclosed tag with an image: <img src="someimage.png" height="100000000" width="80" />');
-		$tags = array(
-			'tag' => 'p',
-			'child' => array(
-				'tag' => 'img',
-				'attributes' => array(
-					'src' => 'someimage.png'
-				)
-			)
-		);
-		$this->assertTag($tags, $result);
-		
-		$result = $this->Base->content('test with no html');
-		$tags = array(
-			'tag' => 'p',
-			'content' => 'test with no html'
-		);
-		$this->assertTag($tags, $result);
-		
-		$result = $this->Base->content('');
-		$this->assertEmpty($result);
-	}
-	
 	function testOptions() {
 		delete_option($this->Base->themeOptions['slug'].'_options');
 		
