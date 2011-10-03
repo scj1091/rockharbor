@@ -1,0 +1,31 @@
+/**
+ * Styles for the `staff` feature
+ */
+ 
+/*= Archive Page
+-----------------------------------------*/
+article.staff {
+	width: 28.875%;
+	padding-right: 1.125%;
+	float: left;
+	border-bottom: none;
+	text-align: center;
+}
+
+/*= Single Page
+-----------------------------------------*/
+.single-staff article.staff {
+	width: 100%;
+	text-align: left;
+}
+
+.single-staff article.staff .staff-picture {
+	float: left;
+	width: 28.875%;
+	padding-right: 1.125%;
+}
+
+.single-staff article.staff .staff-bio {
+	float: left;
+	width: 70%;
+}
