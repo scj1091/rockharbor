@@ -143,7 +143,6 @@ class RockharborThemeBase {
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
 		
 		// other
-		add_filter('the_content', array($this, 'content'));
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_action('loop_start', array($this, 'checkForArchives'));
 		
@@ -515,31 +514,6 @@ class RockharborThemeBase {
 	public function admin() {
 		$out = $this->render('theme_options');
 		echo $out;
-	}
-	
-/**
- * All content that passes through `the_content()` filters through this function
- * 
- * @param string $content Content
- * @return string The content
- */
-	public function content($content) {
-		if (empty($content)) {
-			return $content;
-		}
-		// remove all static width/height from images (let css do the work)
-		libxml_use_internal_errors(true);
-		$doc = DOMDocument::loadHTML($content);
-		foreach($doc->getElementsByTagName('img') as $image){
-			foreach(array('width', 'height') as $attribute_to_remove){
-				if($image->hasAttribute($attribute_to_remove)){
-					$image->removeAttribute($attribute_to_remove);
-				}
-			}
-		}
-		$content = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
-		
-		return $content;
 	}
 
 /**

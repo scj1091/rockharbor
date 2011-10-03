@@ -77,6 +77,9 @@
 		// scale videos in banner
 		jQuery('.embedded-video').fitVids();
 		jQuery('.message').delay(5000).slideUp();
+		jQuery('img')
+			.removeAttr('width')
+			.removeAttr('height');
 	});
 </script>
 <?php 
