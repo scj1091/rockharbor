@@ -126,6 +126,11 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
+		// tagline is the same for all - vision statement
+		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
+		update_option('blogname', 'RH '.$this->info('short_name'));
+		
+		add_action('admin_init', array($this, 'adminInit'));
 		add_action('after_setup_theme', array($this, 'after'));
 		if ($this->isChildTheme()) {
 			// #YAWPH
@@ -155,13 +160,8 @@ class RockharborThemeBase {
 		}
 		
 		// admin section
-		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'adminMenu'));
-		
-		// tagline is the same for all - vision statement
-		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
-		update_option('blogname', 'RH '.$this->info('short_name'));
 	}
 
 /**
