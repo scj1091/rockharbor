@@ -1,5 +1,5 @@
 <?php 
-global $wp_rewrite, $wp_query, $post, $theme;
+$archive = $theme->isArchive();
 get_header(); 
 ?>
 		<section id="content" role="main">
@@ -16,8 +16,12 @@ get_header();
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
-					the_post(); 
-					get_template_part('content', is_search() ? 'search' : get_post_type()); 
+					the_post();
+					$sub = is_search() ? 'search' : get_post_type();
+					if ($archive) {
+						$sub .= '-more';
+					}
+					get_template_part('content', $sub); 
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
