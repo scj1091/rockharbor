@@ -105,7 +105,7 @@
 
 #social .social-twitter-icon,
 #social .social-facebook-icon {
-	background: url(social.png) 0 -150px no-repeat;
+	background: url(../../../plugins/social/assets/social.png) 0 -150px no-repeat;
 	display: block;
 	padding-left: 21px;
 }
@@ -125,7 +125,7 @@
 	width: 150px;
 }
 #social .social-sign-in-links .social-twitter {
-	background: url('social.png') 0 0 no-repeat;
+	background: url('../../../plugins/social/assets/social.png') 0 0 no-repeat;
 }
 #social .social-sign-in-links .social-twitter:hover {
 	background-position: 0 -22px;
@@ -134,7 +134,7 @@
 	background-position: 0 -44px;
 }
 #social .social-sign-in-links .social-facebook {
-	background: url('social.png') -150px 0 no-repeat;
+	background: url('../../../plugins/social/assets/social.png') -150px 0 no-repeat;
 }
 #social .social-sign-in-links .social-facebook:hover {
 	background-position: -150px -22px;
@@ -171,7 +171,7 @@
 }
 
 #social .social-heading {
-	background: url('background-strikethrough.gif') 0 13px repeat-x;
+	background: url('../../../plugins/social/assets/background-strikethrough.gif') 0 13px repeat-x;
 	margin-bottom: 10px;
 }
 #social .social-title {
@@ -183,7 +183,7 @@
 }
 
 #social .social-divider {
-	background: url('background-strikethrough.gif') center repeat-x;
+	background: url('../../../plugins/social/assets/background-strikethrough.gif') center repeat-x;
 	clear: both;
 	font: italic 13px/1.5 Helvetica, Arial, sans-serif;
 	margin: 0 7px 10px;
@@ -221,6 +221,7 @@
 #social #reply-title {
 	background: none;
 	padding-left: 0;
+	display: none;
 }
 
 #social #reply-title span,
@@ -228,13 +229,12 @@
 	float: left;
 }
 #social .social-nav li a {
-	background: #fff;
-	padding: 5px 10px;
-	border-bottom: 2px solid transparent;
+	background: transparent;
+	padding: 5px;
 }
 #social .social-nav .social-current-tab a,
 #social .social-nav a:hover {
-	border-bottom: 2px solid #ff0000;
+	background: #f1f1f1;
 	text-decoration: none;
 }
 
@@ -291,7 +291,7 @@
 }
 
 #social .social-replied {
-	background: url(sprite-y-24-icons.png) 0 -300px no-repeat;
+	background: url(../../../plugins/social/assets/sprite-y-24-icons.png) 0 -300px no-repeat;
 	display: block;
 	height: 16px;
 	left: -67px;
