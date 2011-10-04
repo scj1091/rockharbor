@@ -11,6 +11,7 @@ Author: Jeremy Harris
 */
 
 // generic colors
+@super-light-grey: #f1f1f1;
 @lightest-grey: #e8e8e8;
 @dark-grey: #383838;
 @light-grey: #c9c9c9;
@@ -104,7 +105,7 @@ blockquote {
 	border-left: 1px dotted @med-grey;
 	padding: 10px;
 	margin-bottom: 10px;
-	background: @lightest-grey;
+	background: @super-light-grey;
 	color: @body;
 }
 
@@ -128,7 +129,7 @@ pre {
 	font-family: 'Courier New',Courier,monospace;
 	text-indent: 1.666666667%;
 	padding: 5px;
-	background: @lightest-grey;
+	background: @super-light-grey;
 	color: @body;
 }
 
@@ -411,7 +412,7 @@ th {
 #content {
 	background: #ffffff;
 	float: left;
-	width: 65%;
+	width: 72%;
 	min-height: 100px;
 	padding: 2% 2.5% 2.5% 2.5%;
 	position: relative;
@@ -442,7 +443,7 @@ article {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	width: 30%;
+	width: 22%;
 }
 
 #content nav#submenu {
@@ -821,8 +822,8 @@ article footer ul.related li:first-child {
 }
 
 .entry-footer {
-	background: #f1f1f1;
-	padding: 2px;
+	background: @super-light-grey;
+	padding: 2px 7px;
 }
 
 .entry-footer .tags {
