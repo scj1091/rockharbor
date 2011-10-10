@@ -375,17 +375,21 @@ th {
 	margin-bottom: 20px;
 }
 
-#banner .withvid > div {
-	float: right;
-	width: 26.625%;
-}
-
-#banner .withvid > div.video {
+#banner .withvid div.embedded-video,
+#banner .withvid div.image {
 	margin-right: 1.125%;
 	width: 70%;
 	float: left;
 	padding: 1.125%;
 	background: #ffffff;
+}
+
+#banner img {
+	max-width: 26%;
+}
+
+#banner .withvid div.image img {
+	max-width: 100%;
 }
 
 #banner h1 {

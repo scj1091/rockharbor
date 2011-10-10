@@ -10,7 +10,7 @@ if (is_front_page()) {
 	if (has_post_thumbnail() && empty($video)) {
 		$attach_id = get_post_thumbnail_id($post->ID);
 		$attach = wp_get_attachment_image_src($attach_id, 'large');
-		echo $this->Html->tag('div', '<img src="'.$attach[0].'" />', array('class' => 'video'));
+		echo $this->Html->tag('div', '<img src="'.$attach[0].'" />', array('class' => 'image'));
 	}
 	the_content();
 	echo '</div>';
