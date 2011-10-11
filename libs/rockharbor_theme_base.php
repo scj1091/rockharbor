@@ -29,6 +29,15 @@ class RockharborThemeBase {
 	);
 
 /**
+ * Post types to disable commenting by default
+ * 
+ * @var array
+ */
+	protected $disableComments = array(
+		'page'
+	);
+
+/**
  * Directory path to current theme
  * 
  * @var string
@@ -131,6 +140,7 @@ class RockharborThemeBase {
 		update_option('blogname', 'RH '.$this->info('short_name'));
 		
 		add_action('admin_init', array($this, 'adminInit'));
+		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
 		add_action('after_setup_theme', array($this, 'after'));
 		if ($this->isChildTheme()) {
 			// #YAWPH
@@ -499,6 +509,22 @@ class RockharborThemeBase {
 		if (count($this->archiveTemplates) > 1) {
 			add_meta_box('archive', 'Archive Template', array($this, 'archiveMetaBox'), 'page', 'side');
 		}
+	}
+
+/**
+ * Sets the default comments as 'open' or 'closed' depending on if the post type
+ * is in `$disabledComments`. #YAWPH
+ * 
+ * @param string $content Default post content
+ * @param StdClass $post Post object
+ * @return string Default content
+ */
+	public function setDefaultComments($content = '', $post) {
+		if (in_array($post->post_type, $this->disableComments)) {
+			$post->comment_status = 'closed';
+			$post->ping_status = 'closed';
+		}
+		return $content;
 	}
 
 /**
