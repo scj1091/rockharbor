@@ -15,5 +15,5 @@ if (is_front_page()) {
 	the_content();
 	echo '</div>';
 } else {
-	echo $this->Html->image('banner.png', array('parent' => true, 'alt' => 'ROCKHARBOR is a church of communities living out the gospel together.'));
+	echo $this->Html->image('banner.png', array('parent' => true, 'alt' => 'ROCKHARBOR is a church of communities living out the gospel together.', 'class' => 'full'));
 }
