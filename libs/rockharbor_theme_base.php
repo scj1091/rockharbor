@@ -31,6 +31,15 @@ class RockharborThemeBase {
 	);
 
 /**
+ * Post types to disable commenting by default
+ * 
+ * @var array
+ */
+	protected $disableComments = array(
+		'page'
+	);
+
+/**
  * Directory path to current theme
  * 
  * @var string
@@ -133,6 +142,12 @@ class RockharborThemeBase {
 			$this->Staff = new Staff($this);
 		}
 		
+		// tagline is the same for all - vision statement
+		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
+		update_option('blogname', 'RH '.$this->info('short_name'));
+		
+		add_action('admin_init', array($this, 'adminInit'));
+		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
 		add_action('after_setup_theme', array($this, 'after'));
 		if ($this->isChildTheme()) {
 			// #YAWPH
@@ -162,13 +177,8 @@ class RockharborThemeBase {
 		}
 		
 		// admin section
-		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'adminMenu'));
-		
-		// tagline is the same for all - vision statement
-		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
-		update_option('blogname', 'RH '.$this->info('short_name'));
 	}
 
 /**
@@ -509,6 +519,22 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Sets the default comments as 'open' or 'closed' depending on if the post type
+ * is in `$disabledComments`. #YAWPH
+ * 
+ * @param string $content Default post content
+ * @param StdClass $post Post object
+ * @return string Default content
+ */
+	public function setDefaultComments($content = '', $post) {
+		if (in_array($post->post_type, $this->disableComments)) {
+			$post->comment_status = 'closed';
+			$post->ping_status = 'closed';
+		}
+		return $content;
+	}
+
+/**
  * Loads up the menu page
  */
 	public function adminMenu() {
@@ -594,8 +620,8 @@ class RockharborThemeBase {
  * @return string Rendered view
  */	
 	public function render($view, $emptyVars = true) {
+		global $theme;
 		extract($this->_vars);
-		$theme = $this;
 		$file = $this->themePath.DS.'elements'.DS.$view.'.tpl';
 		if (!file_exists($file)) {
 			$file = str_replace($this->themePath, $this->basePath, $file);

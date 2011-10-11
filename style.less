@@ -11,6 +11,7 @@ Author: Jeremy Harris
 */
 
 // generic colors
+@super-light-grey: #f1f1f1;
 @lightest-grey: #e8e8e8;
 @dark-grey: #383838;
 @light-grey: #c9c9c9;
@@ -19,7 +20,7 @@ Author: Jeremy Harris
 // specific colors
 @primary: #F45125;
 @secondary: #B5371A;
-@link: @dark-grey;
+@link: #686868;
 @body: @med-grey;
 
 // fonts
@@ -104,7 +105,7 @@ blockquote {
 	border-left: 1px dotted @med-grey;
 	padding: 10px;
 	margin-bottom: 10px;
-	background: @lightest-grey;
+	background: @super-light-grey;
 	color: @body;
 }
 
@@ -128,15 +129,20 @@ pre {
 	font-family: 'Courier New',Courier,monospace;
 	text-indent: 1.666666667%;
 	padding: 5px;
-	background: @lightest-grey;
+	background: @super-light-grey;
 	color: @body;
 }
 
 dl dt {
+	font-weight: bold;
 	font-style: italic;
+	margin-bottom: 5px;
+	clear: left;
+	float: left;
 }
 
 dl dd {
+	float: left;
 	margin-bottom: 5px;
 	padding-left: 5px;
 }
@@ -298,10 +304,10 @@ th {
 	display: block;
 	text-shadow: 1px 1px 1px @med-grey;
 	color: @lightest-grey;
-	font-size: 130%;
+	font-size: 145%;
 	text-decoration: none;
 	text-align: center;
-	padding: 4px 15px;
+	padding: 5px 15px 4px 15px;
 	border-bottom: 2px solid transparent;
 }
 
@@ -310,8 +316,12 @@ th {
 	background: @med-grey;
 }
 
-#access div>ul>li:first-child>a {
-	border-left: 1px solid transparent;
+#access div>ul>li {
+	border-left: 2px solid @lightest-grey;
+}
+
+#access div>ul>li:first-child {
+	border-left: none;
 }
 
 #access ul li ul {
@@ -365,17 +375,21 @@ th {
 	margin-bottom: 20px;
 }
 
-#banner .withvid > div {
-	float: right;
-	width: 26.625%;
-}
-
-#banner .withvid > div.video {
+#banner .withvid div.embedded-video,
+#banner .withvid div.image {
 	margin-right: 1.125%;
 	width: 70%;
 	float: left;
 	padding: 1.125%;
 	background: #ffffff;
+}
+
+#banner img {
+	max-width: 26%;
+}
+
+#banner .withvid div.image img {
+	max-width: 100%;
 }
 
 #banner h1 {
@@ -402,7 +416,7 @@ th {
 #content {
 	background: #ffffff;
 	float: left;
-	width: 70%;
+	width: 72%;
 	min-height: 100px;
 	padding: 2% 2.5% 2.5% 2.5%;
 	position: relative;
@@ -413,8 +427,8 @@ th {
 }
 
 article {
-	padding-bottom: 10px;
-	margin-bottom: 10px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 	border-bottom: 1px dotted @med-grey;
 	float: right;
 	width: 75%;
@@ -433,7 +447,7 @@ article {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	width: 25%;
+	width: 22%;
 }
 
 #content nav#submenu {
@@ -532,7 +546,7 @@ footer h3 {
 #secondary.home-widget-area h3 {
 	cursor: pointer;
 	font-family: @theme-font, @default-font;
-	font-size: 120%;
+	font-size: 140%;
 	color: @secondary;
 	text-transform: uppercase;
 	display: inline;
@@ -740,11 +754,11 @@ article a:hover {
 /*= Articles
 -----------------------------------------*/
 .entry-header {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .entry-header h1 {
-	font-size: 120%;
+	font-size: 140%;
 	margin-bottom: 0;
 }
 
@@ -781,12 +795,6 @@ footer.related h2 a,
 	border-right: 1px solid @primary;
 }
 
-.entry-header p.tags {
-	clear: both;
-	font-size: 85%;
-	margin-bottom: 0;
-}
-
 article footer {
 	border-top: 1px dotted @med-grey;
 	background: transparent;
@@ -816,6 +824,18 @@ article footer ul.related li div {
 article footer ul.related li:first-child {
 	margin-left: 0;
 }
+
+.entry-footer {
+	background: @super-light-grey;
+	padding: 2px 7px;
+}
+
+.entry-footer .tags {
+	clear: both;
+	font-size: 85%;
+	margin-bottom: 0;
+}
+
 
 /*= Gallery
 -----------------------------------------*/
@@ -878,8 +898,9 @@ button, input[type=submit] {
 	font-family: @theme-font, @default-font;
 	color: @med-grey;
 	text-decoration: none;
-	font-size: 120%;
+	font-size: 140%;
 	font-style: normal;
+	text-transform: uppercase;
 }
 
 /*= Share your story form

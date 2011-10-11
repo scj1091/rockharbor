@@ -33,6 +33,8 @@
 		<p class="nocomments"><?php _e( 'Comments are closed.', 'twentyeleven' ); ?></p>
 	<?php endif; ?>
 
-	<?php comment_form(); ?>
+	<?php comment_form(array(
+		'title_reply_to' => 'asdfa'
+	)); ?>
 
 	</div>
