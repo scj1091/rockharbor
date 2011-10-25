@@ -172,6 +172,8 @@ class RockharborThemeBase {
 		// admin section
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'adminMenu'));
+		add_filter('wp_delete_file', array($this, 'deleteS3File'));
+		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
 	}
 
 /**
@@ -522,6 +524,84 @@ class RockharborThemeBase {
 		if (isset($_GET['post']) && ($_GET['post'] == get_option('page_on_front'))) {
 			add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
 		}
+		// load in s3 url modifying filter. Since the plugin doesn't load the url modifier,
+		// images in the media archive would not show from S3 but rather the local disk
+		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
+		$class = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'class-plugin-public.php';
+		$tantan = get_option('tantan_wordpress_s3', false);
+		if (file_exists($lib) && $tantan !== false && !empty($tantan['key'])) {
+			require_once ($class);
+			new TanTanWordPressS3PluginPublic();
+		}
+	}
+	
+/**
+ * Delete file from S3 when deleted from local disk
+ *
+ * Wordpress sometimes sends a partial path and sometimes sends and unescaped path
+ * (depending on the OS), so this function normalizes it and removes the object
+ * from the S3 bucket and returns a true absolute path to the file for `unlink()`
+ * to do it's job.
+ *
+ * @param string $file Some sort of path
+ * @return string Absolute path to file
+ */
+	public function deleteS3File($file) {
+		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
+		$tantanlib = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
+		$tantan = get_option('tantan_wordpress_s3', false);
+		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
+		if (!file_exists($tantanlib) || !$tantan || empty($tantan['key'])) {
+			return $file;
+		}
+		$uploadpaths = wp_upload_dir();
+		$hasBase = strpos($uploadpaths['basedir'], $file) > 0;
+		if (!class_exists('TanTanS3')) {
+			require_once $tantanlib;
+		}
+		$s3options = get_option('tantan_wordpress_s3');
+		$s3 = new TanTanS3($s3options['key'], $s3options['secret']);
+		$s3->setOptions($s3options);
+
+		// strip path and unslashed path, since WP doesn't store the path correctly,
+		// so try to normalize it so we can strip and fix it
+		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
+		$url = substr($file, stripos($file, $partial));
+
+		// delete from bucket
+		$s3->deleteObject($s3options['bucket'], substr($url, 1));
+
+		// basedir already contains $partial
+		$file = str_replace($partial, '', $url);
+		$file = str_replace('/', DS, $file);
+		$file = rtrim($uploadpaths['basedir'], '/').$file;
+		return $file;
+	}
+	
+/**
+ * If we're using s3, delete the local files since they're in the cloud
+ * 
+ * @param array $data Attachment data
+ * @param integer $postID Post id
+ * @return array
+ */
+	public function deleteLocalFile($data, $postID) {
+		$tantan = get_option('tantan_wordpress_s3', false);
+		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
+		if (!$tantan || empty($tantan['key'])) {
+			return $data;
+		}
+		if (file_exists($data['file'])) {
+			unlink($data['file']);
+		}
+		$uploadpaths = wp_upload_dir();
+		foreach ($data['sizes'] as $thumbkey => $info) {
+			$thumbPath = $uploadpaths['basedir'].$uploadpaths['subdir'].DS.$info['file'];
+			if (file_exists($thumbPath)) {
+				unlink($thumbPath);
+			}
+		}
+		return $data;
 	}
 
 /**
