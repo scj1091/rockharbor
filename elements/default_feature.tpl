@@ -8,7 +8,7 @@ if ($link1) {
 }
 
 echo $theme->Html->tag('div', $out, array(
-	'style' => 'padding: 0 0 10px 0'
+	'style' => 'padding: 10px 0'
 ));
 
 $img = $theme->Html->image('feature-2.png', array('parent' => true));
@@ -18,9 +18,7 @@ if ($link2) {
 	$out = $img;
 }
 
-echo $theme->Html->tag('div', $out, array(
-	'style' => 'padding: 0 0 10px 0'
-));
+echo $theme->Html->tag('div', $out);
 
 ?>
 <script>

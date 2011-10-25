@@ -24,6 +24,21 @@ class Shortcodes {
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
+		add_shortcode('directions', array($this, 'directions'));
+	}
+	
+/**
+ * Renders the directions link
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function directions($attr) {
+		$this->theme->set(shortcode_atts(array(
+			'title' => 'Get directions',
+			'link' => null
+		), $attr));
+		return $this->theme->render('directions');
 	}
 
 /**
