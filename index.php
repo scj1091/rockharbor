@@ -17,7 +17,7 @@ get_header();
 
 				while (have_posts()) {
 					the_post();
-					$sub = is_search() ? 'search' : get_post_type();
+					$sub = get_post_type();
 					if ($archive) {
 						$sub .= '-more';
 					}
