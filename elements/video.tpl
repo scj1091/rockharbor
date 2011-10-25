@@ -15,7 +15,8 @@ if (!empty($enclosure[0])) {
 $flashvars = array(
 	'controllbar' => 'over',
 	'file' => str_replace(array("\r\n", "\r", "\n"), '', $enclosure[0]),
-	'autostart' => 'false'
+	'autostart' => 'false',
+	'skin' => $theme->info('base_url').'/swf/rhskin.zip'
 );
 if (has_post_thumbnail()) {
 	$attach_id = get_post_thumbnail_id($post->ID);
