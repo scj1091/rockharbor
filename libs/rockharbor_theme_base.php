@@ -497,17 +497,30 @@ class RockharborThemeBase {
 		$this->set('data', $this->metaToData($post->ID));
 		echo $this->render('archive_template_meta_box');
 	}
+
+/**
+ * Renders the featured image link meta box
+ */
+	public function featuredImageLinkMetaBox() {
+		global $post;
+		$this->set('data', $this->metaToData($post->ID));
+		echo $this->render('featured_image_link_meta_box');
+	}
 	
 /**
  * Inits plugin options to white list our options
  */
 	public function adminInit() {
+		global $post;
 		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
 		// add meta boxes for cross-posting
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
 		if (count($this->archiveTemplates) > 1) {
 			add_meta_box('archive', 'Archive Template', array($this, 'archiveMetaBox'), 'page', 'side');
+		}
+		if (isset($_GET['post']) && ($_GET['post'] == get_option('page_on_front'))) {
+			add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
 		}
 	}
 
