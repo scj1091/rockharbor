@@ -12,14 +12,11 @@ foreach ($ancestors as $ancestor) {
 	));
 	$floor = null;
 	if (count($links) > 0) {
-		$floor = '&#8970;&nbsp;';
+		$floor = '&nbsp;';
 	}
 	$links[] = '<div>'.$floor.$link;
 }
-if (!empty($ancestors)) {
-	$links[] = '<div>&#8970;&nbsp;'.$post->post_title;
-	$breadbrumb = implode("\n", $links).str_repeat('</div>', count($links));
-}
+$breadbrumb = implode("\n", $links).str_repeat('</div>', count($links));
 
 if (!empty($links)) {
 	echo $theme->Html->tag('div', $breadbrumb, array('class' => 'breadcrumb'));
