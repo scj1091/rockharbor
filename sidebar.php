@@ -35,7 +35,8 @@ if (!empty($links)) {
 	}
 	wp_list_pages(array(
 		'child_of' => $page,
-		'title_li' => null
+		'title_li' => null,
+		'depth'> 1
 	));
 	?>
 	</ul>
