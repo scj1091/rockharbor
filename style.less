@@ -337,7 +337,7 @@ th {
 	position: absolute;
 	top: 100%;
 	z-index: 100;
-	background: @med-grey;
+	background: @dark-grey;
 	opacity: .9;
 }
 
@@ -915,6 +915,10 @@ input, textarea {
 	font-size: 100%;
 }
 
+input:focus, textarea:focus {
+	border: 1px solid @primary;
+}
+
 input[type=submit] {
 	width: auto;
 }
@@ -927,6 +931,11 @@ button, input[type=submit] {
 	padding: 5px;
 	text-transform: uppercase;
 }
+
+input:focus, textarea:focus, select:focus {
+	outline: none;
+}
+
 /*= Twitter
 -----------------------------------------*/
 .twitter-item {
