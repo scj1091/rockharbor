@@ -22,10 +22,16 @@ At the very least, the following files should be created.
             child_theme.php
         functions.php
         style.css
+        color.less
+        style.less
 
 ### Required files
 
-The `style.css` file should create the following
+#### Compiling a LESS file into CSS
+
+For ease of development, you can include a `style.less` file in the root of the
+child template, open up the subsite with `WP_DEBUG` on, and grab the compiled CSS.
+`style.less` should look like this:
 
     /*
     Theme Name: RH <Template Name>
@@ -34,6 +40,22 @@ The `style.css` file should create the following
     Author: Your name
     Template: rockharbor
     */
+
+    @import 'colors';
+    @import '../rockharbor/styles';
+
+The first import includes the subsites colors, and the second includes the base
+theme styles. Then, in `colors.less`:
+
+    @primary: #FF900B;
+    @secondary: #F46800;
+    @link: #686868;
+    @body: @med-grey;
+
+Define the colors, run the site with in debug mode (so it uses the `.less` file),
+and grab the compiled CSS. Overwrite `style.css` and you're good to go.
+
+#### Including the theme class
 
 Also required is a class within `/libs` called `ChildTheme()`. It must
 extend `RockharborThemeBase`. All that needs to be defined are the `$themeOptions` 
@@ -51,12 +73,10 @@ Next, create a `functions.php` file
 This is required because WordPress doesn't use OOP and includes files in the
 opposite order one would suspect. It is needed to overwrite the global `$theme`.
 
+#### A bit more
+
 There are some images required by the subsites, indicated in the directory
 structure.
-
-Finally, the stylesheet `style.css` needs to be created to customize the
-theme colors. Copy the `style.less` file from the ROCKHARBOR base theme, customize
-the colors and compile it into a `.css` file.
 
 ### Required configuration
 
