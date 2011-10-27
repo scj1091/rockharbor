@@ -1,42 +1,31 @@
 <?php 
 global $post, $theme;
 
-$ancestors = get_post_ancestors($post->ID);
-$ancestors = array_reverse($ancestors);
-$links = array();
-foreach ($ancestors as $ancestor) {
-	$ancestorPost = get_post($ancestor);
-	$link = $theme->Html->tag('a', $ancestorPost->post_title, array(
-		'href' => get_permalink($ancestorPost->ID),
-		'title' => esc_attr($ancestorPost->post_title)
-	));
-	$floor = null;
-	if (count($links) > 0) {
-		$floor = '&nbsp;';
-	}
-	$links[] = '<div>'.$floor.$link;
-}
-$breadbrumb = implode("\n", $links).str_repeat('</div>', count($links));
-
-if (!empty($links)) {
-	echo $theme->Html->tag('div', $breadbrumb, array('class' => 'breadcrumb'));
-}
-
 ?>
+<?php if (!empty($post->post_parent)): ?>
+<div class="breadcrumb">
+	<?php
+	$link = get_permalink($post->post_parent);
+	$title = get_the_title($post->post_parent);
+	echo $theme->Html->tag('a', $title, array('title' => esc_attr($title), 'href' => $link));
+	?>
+</div>
+<?php endif; ?>
 <div id="sub-navigation" class="widget-area">
 	<ul>
 	<?php
-	if (empty($ancestors)) {
+	if (empty($post->post_parent)) {
 		// no parents, show children of this page
 		$page = $post->ID;
 	} else {
 		// has parents, show this page's siblings
 		$page = $post->post_parent;
 	}
+	
 	wp_list_pages(array(
 		'child_of' => $page,
 		'title_li' => null,
-		'depth'> 1
+		'depth' => 2
 	));
 	?>
 	</ul>
