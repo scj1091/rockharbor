@@ -8,7 +8,7 @@
 				echo $theme->render('campus_menu');
 				?>
 			</li>
-			<li> |<a href="http://www.rockharbor.org/message-archive">Message Archive</a></li>
+			<li> |<a href="http://www.rockharbor.org/media/rh-message-archive/">Message Archive</a></li>
 			<li>
 				<?php get_search_form(); ?>
 			</li>
