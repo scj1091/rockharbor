@@ -8,7 +8,7 @@
 				echo $theme->render('campus_menu');
 				?>
 			</li>
-			<li> |<a href="http://www.rockharbor.org/message-archive">Message Archive</a></li>
+			<?php wp_nav_menu(array('theme_location' => 'global', 'items_wrap' => '%3$s', 'container' => false, 'menu_class' => false, 'depth' => 1, 'before' => ' | ', 'fallback_cb' => function() { })); ?>
 			<li>
 				<?php get_search_form(); ?>
 			</li>
