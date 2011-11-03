@@ -16,7 +16,7 @@ $coreid = $theme->options('core_id');
 		</div>
 		<div>
 			<h3>More</h3>
-			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu')); ?>
+			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => function() { })); ?>
 		</div>
 		<div>
 			<h3>Connect</h3>
