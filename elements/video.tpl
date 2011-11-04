@@ -16,7 +16,9 @@ $flashvars = array(
 	'controllbar' => 'over',
 	'file' => str_replace(array("\r\n", "\r", "\n"), '', $enclosure[0]),
 	'autostart' => 'false',
-	'skin' => $theme->info('base_url').'/swf/rhskin.zip'
+	'skin' => $theme->info('base_url').'/swf/rhskin.zip',
+	'provider' => 'rtmp',
+	'streamer' => 'rtmp://'.$streamer.'.cloudfront.net/cfx/st'
 );
 if (has_post_thumbnail()) {
 	$attach_id = get_post_thumbnail_id($post->ID);

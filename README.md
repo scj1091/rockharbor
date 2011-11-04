@@ -22,38 +22,14 @@ At the very least, the following files should be created.
             child_theme.php
         functions.php
         style.css
-        color.less
-        style.less
 
 ### Required files
 
-#### Compiling a LESS file into CSS
+#### CSS
 
-For ease of development, you can include a `style.less` file in the root of the
-child template, open up the subsite with `WP_DEBUG` on, and grab the compiled CSS.
-`style.less` should look like this:
-
-    /*
-    Theme Name: RH <Template Name>
-    Description: Subsite description
-    Version: 0.1
-    Author: Your name
-    Template: rockharbor
-    */
-
-    @import 'colors';
-    @import '../rockharbor/styles';
-
-The first import includes the subsites colors, and the second includes the base
-theme styles. Then, in `colors.less`:
-
-    @primary: #FF900B;
-    @secondary: #F46800;
-    @link: #686868;
-    @body: @med-grey;
-
-Define the colors, run the site with in debug mode (so it uses the `.less` file),
-and grab the compiled CSS. Overwrite `style.css` and you're good to go.
+The child theme CSS should only contain styles for that child theme that need to 
+be overridden. This usually just includes colors, but can include styles that
+utilize images.
 
 #### Including the theme class
 

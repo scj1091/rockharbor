@@ -81,6 +81,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 					)); 
 				?>
 			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('s3_streamer', array(
+						'before' => '<th>',
+						'label' => 'Amazon S3 Streaming Distibution ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(<strong>&lt;ID&gt;</strong>.cloudfront.net - DO NOT touch this setting unless you know what you\'re doing)</small></td>'
+					)); 
+				?>
+			</tr>
 		</table>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="Save" />

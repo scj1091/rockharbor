@@ -32,7 +32,8 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
-<link rel="stylesheet<?php if (WP_DEBUG) { echo '/less'; } ?>" media="all" href="<?php echo $theme->info('url'); ?>/style.<?php echo WP_DEBUG ? 'less' : 'css'; ?>" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/style.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
@@ -82,14 +83,4 @@
 			.removeAttr('height');
 	});
 </script>
-<?php 
-/**
- * The following script should _only_ be included if in debug mode, because having
- * the client compile .less files is a unnecessary preformance hit. Please
- * compile the .less to .css before posting to production
- */
-if (WP_DEBUG): 	
-?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/less-1.1.3.min.js"></script>
-<?php endif; ?>
 </head>
