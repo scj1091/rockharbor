@@ -90,6 +90,7 @@
  */
 if (WP_DEBUG): 	
 ?>
+<script type="text/javascript"> (less = {}).env = 'development';</script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/less-1.1.3.min.js"></script>
 <?php endif; ?>
 </head>
