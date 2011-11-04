@@ -12,11 +12,20 @@ if (!empty($enclosure[0])) {
 	return null;
 }
 
+$file = $enclosure[0];
+$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
+$tantan = get_option('tantan_wordpress_s3', false);
+if ($tantan && !empty($tantan['bucket'])) {
+	$file = str_replace('http://'.$tantan['bucket'].'.s3.amazonaws.com/', '', $file);
+}
+
 $flashvars = array(
 	'controllbar' => 'over',
-	'file' => str_replace(array("\r\n", "\r", "\n"), '', $enclosure[0]),
+	'file' => $file,
 	'autostart' => 'false',
-	'skin' => $theme->info('base_url').'/swf/rhskin.zip'
+	'skin' => $theme->info('base_url').'/swf/rhskin.zip',
+	'provider' => 'rtmp',
+	'streamer' => 'rtmp://'.$streamer.'.cloudfront.net/cfx/st'
 );
 if (has_post_thumbnail()) {
 	$attach_id = get_post_thumbnail_id($post->ID);
@@ -41,6 +50,4 @@ $id = uniqid('embedded-video-');
 	so.addVariable('<?php echo $var; ?>','<?php echo trim($val); ?>');
 	<?php endforeach; ?>
 	so.write('<?php echo $id; ?>');
-	// remove paragraph tag that wordpress wraps the video player in
-	//jQuery('.embedded-video').prev('p').remove();
 </script>
