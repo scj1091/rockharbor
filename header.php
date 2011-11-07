@@ -3,7 +3,7 @@
 <body <?php body_class(); ?>>
 
 	
-	<div id="page" class="hfeed">
+	<div id="page" class="hfeed clearfix">
 
 		<?php
 		echo $theme->render('global_navigation');
