@@ -243,16 +243,16 @@ th {
   display: none;
   position: absolute;
   top: 100%;
+  left: 0;
   z-index: 100;
   background: #c9c9c9;
-}
-
-#global-navigation nav ul li ul {
+  min-width: 150px;
   line-height: 16px;
 }
 
 #global-navigation nav ul li {
   display: block;
+  position: relative;
 }
 
 #global-navigation nav ul li:hover ul {
@@ -260,7 +260,6 @@ th {
 }
 
 #global-navigation #searchform {
-  float: right;
   margin-left: 10px;
 }
 
@@ -788,7 +787,7 @@ footer h3 {
 /*= Articles
 -----------------------------------------*/
 .entry-header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .entry-header h1 {

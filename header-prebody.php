@@ -38,6 +38,13 @@
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie8.css" />
+<![endif]-->
+<!--[if lte IE 7]>
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie7.css" />
+<![endif]-->
+<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
 	wp_enqueue_script('jquery');
 	if (is_singular() && get_option('thread_comments')) {
