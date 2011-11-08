@@ -166,7 +166,7 @@ class RockharborThemeBase {
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
-			define('SOCIAL_COMMENTS_CSS', $this->themeUrl.'/css/comments.css');
+			define('SOCIAL_COMMENTS_CSS', $this->baseUrl.'/css/comments.css');
 		}
 		
 		// admin section

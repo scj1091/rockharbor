@@ -868,14 +868,13 @@ article footer ul.related li:first-child {
 
 /*= Gallery
 -----------------------------------------*/
-.gallery .gallery-item {
-  margin: 1.125% 1.125%;
-  width: 30.8333333333%;
-  float: left;
-}
-
 .gallery .gallery-item .gallery-icon img {
   border: 0;
+}
+
+dl dt.gallery-icon {
+	float: none;
+	margin-right: 10px;
 }
 
 /*= Forms
