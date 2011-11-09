@@ -17,7 +17,10 @@ header,
 hgroup,
 menu,
 nav,
-section {
+section,
+object,
+video,
+embed {
   display: block;
 }
 
@@ -246,8 +249,8 @@ th {
   left: 0;
   z-index: 100;
   background: #c9c9c9;
-  min-width: 150px;
   line-height: 16px;
+  width: 150px;
 }
 
 #global-navigation nav ul li {

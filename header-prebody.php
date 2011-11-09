@@ -82,14 +82,19 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
-		// scale videos in banner
-		jQuery('.embedded-video').fitVids();
 		jQuery('.message').delay(5000).slideUp();
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
 	});
 </script>
+<!--[if !IE]>-->
+<script>
+	jQuery(document).ready(function() {
+		jQuery('.embedded-video').fitVids();
+	});
+</script>
+<!--<![endif]-->
 <?php
 // no analytics unless we're local
 if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
