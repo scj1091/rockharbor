@@ -49,7 +49,7 @@ get_header();
 			'core_event_id' => 0
 		), $metadata);
 		// sidebar-core will render core_public_calendar which uses events
-		$events = $theme->getCoreMinistryEvents($meta['core_id'], $meta['core_event_id']);
+		$events = $theme->getCoreMinistryEvents($meta['core_id'], $meta['core_event_id'], $meta['core_group_id'], $meta['core_team_id']);
 		if (!empty($events)):
 		?>
 		<section id="sidebar" role="complementary">

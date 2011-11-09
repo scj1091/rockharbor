@@ -17,7 +17,10 @@ header,
 hgroup,
 menu,
 nav,
-section {
+section,
+object,
+video,
+embed {
   display: block;
 }
 
@@ -246,8 +249,8 @@ th {
   left: 0;
   z-index: 100;
   background: #c9c9c9;
-  min-width: 150px;
   line-height: 16px;
+  width: 150px;
 }
 
 #global-navigation nav ul li {
@@ -321,21 +324,35 @@ th {
   background: #747474;
 }
 
-#access div > ul > li {
+#access > ul > li {
   border-left: 2px solid #e8e8e8;
 }
 
-#access div > ul > li:first-child {
+#access > ul > li:first-child {
   border-left: none;
 }
 
-#access ul li ul {
+#access ul li div.submenu {
   display: none;
   position: absolute;
   top: 100%;
   z-index: 100;
   background: #383838;
   opacity: .9;
+  width: 120px;
+}
+
+#access ul li div.submenu.cols2 { 
+	width: 240px; 
+}
+
+#access ul li div.submenu.cols3 { 
+	width: 360px; 
+}
+
+#access ul li div.submenu ul {
+	background: transparent;
+	float: left;
 }
 
 #access ul li ul li a {
@@ -353,13 +370,12 @@ th {
 }
 
 #access ul li ul li {
-  float: none;
   display: block;
-  white-space: nowrap;
   padding: 5px;
+  float: none;
 }
 
-#access ul li:hover ul {
+#access ul li:hover div.submenu {
   display: block;
 }
 
