@@ -272,10 +272,24 @@ class RockharborThemeBase {
  * 
  * @param string $ids Comma delimited list of ministry IDs to pull involvement from
  * @param string $event_ids Comma delimited list of events to include as well
+ * @param string $group_ids Comma delimited list of groups to include as well
+ * @param string $team_ids Comma delimited list of teams to include as well
  * @return array 
  */
-	public function getCoreMinistryEvents($ids = null, $event_ids = null) {
-		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/json", array('sslverify' => false));
+	public function getCoreMinistryEvents($ids = null, $event_ids = null, $group_ids = null, $team_ids = null) {
+		if (empty($ids)) {
+			$ids = 0;
+		}
+		if (empty($event_ids)) {
+			$event_ids = 0;
+		}
+		if (empty($group_ids)) {
+			$group_ids = 0;
+		}
+		if (empty($team_ids)) {
+			$team_ids = 0;
+		}
+		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/$group_ids/$team_ids/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
 				'body' => json_encode(array(
