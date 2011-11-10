@@ -138,6 +138,7 @@ class RockharborThemeBase {
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
 		update_option('blogname', 'RH '.$this->info('short_name'));
+		update_option('image_default_link_type', 'file');
 		
 		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
@@ -160,9 +161,6 @@ class RockharborThemeBase {
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_action('loop_start', array($this, 'checkForArchives'));
-		
-		// make images link to their file by default
-		update_option('image_default_link_type', 'file');
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
