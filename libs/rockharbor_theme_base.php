@@ -174,6 +174,11 @@ class RockharborThemeBase {
 		add_action('admin_menu', array($this, 'adminMenu'));
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
 		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
+		
+		// start session
+		if (!session_id()) {
+			session_start();
+		}
 	}
 
 /**

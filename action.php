@@ -19,10 +19,11 @@ require_once rtrim(get_template_directory(), DS) . DS . 'libs' . DS. 'rockharbor
 $theme = new RockharborThemeBase();
 
 // if an action is POSTed to the site, the action will be called here
-$message = null;
 if (method_exists($theme, $_POST['action']) && in_array($_POST['action'], $theme->allowedActions)) {
 	$result = call_user_func(array($theme, $_POST['action']));
-	$message = '?message='.urlencode(implode(', ', $theme->messages));
+	if (!empty($theme->messages)) {
+		$_SESSION['message']  = implode(', ', $theme->messages);
+	}
 }
 
-header('Location: '.rtrim($_SERVER['HTTP_REFERER'], '/').$message);
+header('Location: '.rtrim($_SERVER['HTTP_REFERER'], '/'));
