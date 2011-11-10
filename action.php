@@ -1,7 +1,6 @@
 <?php
 
 if (empty($_POST) || empty($_POST['action'])) {
-	die('empty post');
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
@@ -14,9 +13,15 @@ require_once '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DI
 /**
  * Load theme base
  */
-require_once rtrim(get_template_directory(), DS) . DS . 'libs' . DS. 'rockharbor_theme_base.php';
+require_once rtrim(get_template_directory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'rockharbor_theme_base.php';
+$class = 'RockharborThemeBase';
+$file = rtrim(get_stylesheet_directory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'child_theme.php';
+if (file_exists($file)) {
+	require_once $file;
+	$class = 'ChildTheme';
+}
 
-$theme = new RockharborThemeBase();
+$theme = new $class;
 
 // if an action is POSTed to the site, the action will be called here
 if (method_exists($theme, $_POST['action']) && in_array($_POST['action'], $theme->allowedActions)) {
@@ -26,4 +31,4 @@ if (method_exists($theme, $_POST['action']) && in_array($_POST['action'], $theme
 	}
 }
 
-header('Location: '.rtrim($_SERVER['HTTP_REFERER'], '/'));
+header('Location: '.$_SERVER['HTTP_REFERER']);
