@@ -61,9 +61,12 @@
 			</nav>
 		</header>
 		
-		<?php if (isset($_GET['message'])): ?>
-		<div class="message"><?php echo $_GET['message']; ?></div>
-		<?php endif; ?>
+		<?php 
+		if (isset($_SESSION['message'])) {
+			echo $theme->Html->tag('div', $_SESSION['message'], array('class' => 'message'));
+			unset($_SESSION['message']);
+		}
+		?>
 		
 		<?php if (!empty($post->post_parent)): ?>
 		<nav class="breadcrumb">
