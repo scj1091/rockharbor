@@ -316,7 +316,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name']					
+					'name' => $item['Events']['event_name']	,
+					'type' => 'event'				
 				),
 				'Date' => array(
 					array(
@@ -329,7 +330,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Teams']['team_id'],
-					'name' => $item['Teams']['team_name']					
+					'name' => $item['Teams']['team_name'],
+					'type' => 'team'					
 				),
 				'Date' => array(
 					array(
@@ -342,7 +344,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Groups']['group_id'],
-					'name' => $item['Groups']['group_name']					
+					'name' => $item['Groups']['group_name'],
+					'type' => 'group'
 				),
 				'Date' => array(
 					array(

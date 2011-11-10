@@ -7,7 +7,7 @@ if (!empty($events)):
 			$theme->set('date', $event['Date'][0]['start_date']);
 			echo $theme->render('posted_date');
 			?>
-			<a target="_blank" href="https://core.rockharbor.org/events/<?php echo $event['Event']['id']; ?>"><?php echo $event['Event']['name']; ?></a>
+			<a target="_blank" href="https://core.rockharbor.org/<?php echo $event['Event']['type']; ?>s/<?php echo $event['Event']['id']; ?>"><?php echo $event['Event']['name']; ?></a>
 		</div>
 	<?php endfor; ?>
 <?php else: ?>
