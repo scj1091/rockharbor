@@ -50,11 +50,13 @@ $flashvarsurl = implode('&', $flashvarsurl);
 		<param name="allowfullscreen" value="true" />
 		<param name="allowscriptaccess" value="always" />
 		<param name="flashvars" value="<?php echo $flashvarsurl; ?>" />
+		<param name="wmode" value="transparent" /> 
 		<!--[if !IE]>-->
 		<object type="application/x-shockwave-flash" data="<?php echo $theme->info('base_url'); ?>/swf/player.swf"  width="<?php echo $width; ?>" height="<?php echo $height; ?>">
 			<param name="allowfullscreen" value="true" />
 			<param name="allowscriptaccess" value="always" />
 			<param name="flashvars" value="<?php echo $flashvarsurl; ?>" />
+			<param name="wmode" value="transparent" /> 
 		<!--<![endif]-->
 			<a href="http://www.adobe.com/go/getflashplayer">
 				<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
