@@ -11,7 +11,8 @@
 .archive-page-link .page-numbers.current,
 .page-link .page-numbers,
 .archive-page-link .page-numbers,
-.page-link a span.page-numbers {
+.page-link a span.page-numbers,
+#banner .icon-map {
 	zoom: 1;
 	*display:inline;
 }
