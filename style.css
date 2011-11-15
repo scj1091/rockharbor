@@ -26,8 +26,8 @@ embed {
 
 body {
   font-size: 11px;
-  line-height: 16px;
-  font-family: Lucida, Helvetica, Arial, sans-serif;
+  line-height: 18px;
+  font-family: 'Lucida Sans', Helvetica, Arial, sans-serif;
   background: #e8e8e8;
   color: #747474;
   text-align: center;
@@ -601,6 +601,14 @@ footer h3 {
 
 /*= Home content
 -----------------------------------------*/
+.home #content {
+	width: 65%;
+}
+
+.home #sidebar {
+	width: 29%;
+}
+
 #secondary.home-widget-area {
   position: relative;
   background: transparent;
@@ -787,6 +795,7 @@ footer h3 {
   display: inline-block;
   min-width: 15px;
   margin: 0 3px;
+  line-height: 16px;
 }
 
 .archive-page-link .page-numbers.dots {
