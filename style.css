@@ -185,6 +185,26 @@ th {
 	background: #000000;
 }
 
+.alignleft {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+.alignright {
+	float: right;
+	margin: 0 0 10px 10px;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin: 0 auto;
+}
+
+.alignnone {
+	display: block;
+}
+
 /*= Global navigation
 -----------------------------------------*/
 #global-navigation {
