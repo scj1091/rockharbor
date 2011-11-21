@@ -139,6 +139,8 @@ class RockharborThemeBase {
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
 		update_option('blogname', 'RH '.$this->info('short_name'));
 		update_option('image_default_link_type', 'file');
+		// change rss feed to point to feedburner link
+		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
 		
 		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
@@ -177,6 +179,21 @@ class RockharborThemeBase {
 		if (!session_id()) {
 			session_start();
 		}
+	}
+
+/**
+ * Changes the rss link in the header to something actually useful
+ * 
+ * @param string $output Current output
+ * @param string $type The feed type
+ * @return string Modified feed link
+ */
+	public function updateRssLink($output, $type) {
+		$feedburner = $this->options('feedburner_main');
+		if (!empty($feedburner) && stripos($output, 'comments') === false) {
+			$output = 'http://feeds.feedburner.com/'.$feedburner;
+		}
+		return $output;
 	}
 
 /**

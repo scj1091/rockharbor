@@ -83,6 +83,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php 
+					echo $theme->Html->input('feedburner_main', array(
+						'before' => '<th>',
+						'label' => 'Main Feedburner Link ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(http://feeds.feedburner.com/<strong>feedid</strong>)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<?php 
 					echo $theme->Html->input('s3_streamer', array(
 						'before' => '<th>',
 						'label' => 'Amazon S3 Streaming Distibution ID',
