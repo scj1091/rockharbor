@@ -96,7 +96,7 @@
 </script>
 <!--<![endif]-->
 <?php
-// no analytics unless we're local
+// no analytics if we're local
 if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
 ?>
 <script type="text/javascript">
