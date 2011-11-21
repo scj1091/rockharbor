@@ -38,6 +38,43 @@ class HtmlHelper {
 	}
 
 /**
+ * Returns a captcha
+ * 
+ * @return string
+ */
+	public function captcha() {
+		if (function_exists('cptch_display_captcha')) {
+			ob_start();
+			cptch_display_captcha();
+			return ob_get_clean();
+		}
+	}
+
+/**
+ * Validates a captcha
+ * 
+ * @return boolean
+ */
+	public function validateCaptcha() {
+		global $str_key;
+		
+		if (!function_exists('cptch_display_captcha')) {
+			return true;
+		}
+		
+		if (empty($_POST['cptch_number'])) {
+			return false;
+		}
+
+		$str_key = "123";
+		if (strcasecmp(trim(decode( $_POST['cptch_result'], $str_key)), $_POST['cptch_number']) == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+/**
  * Creates an image tag
  *
  * ### Attr

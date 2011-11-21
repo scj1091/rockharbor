@@ -386,6 +386,10 @@ class RockharborThemeBase {
  *	messages are stored in `$errors`
  */
 	public function email() {
+		if (!$this->Html->validateCaptcha()) {
+			$this->messages[] = __('You entered in the wrong CAPTCHA phrase.', 'rockharbor');
+			return false;
+		}
 		if (!isset($_POST['type'])) {
 			$_POST['type'] = 'story';
 		}
