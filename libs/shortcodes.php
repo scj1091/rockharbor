@@ -25,6 +25,22 @@ class Shortcodes {
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
 		add_shortcode('directions', array($this, 'directions'));
+		add_shortcode('calendar', array($this, 'calendar'));
+	}
+	
+/**
+ * Renders the full calendar
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function calendar($attr) {
+		$attrs = shortcode_atts(array(
+			'id' => $this->theme->options('core_id')
+		), $attr);
+		$events = $this->theme->getCoreHomepageEvents($attrs['id']);
+		$this->theme->set(compact('events'));
+		return $this->theme->render('calendar');
 	}
 	
 /**
