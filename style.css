@@ -486,6 +486,16 @@ nav.breadcrumb a:hover {
   position: relative;
 }
 
+#content.full {
+	width: 95%;
+	float: none;
+}
+
+#content.full article {
+	float: none;
+	width: 100%;
+}
+
 #main {
   background: #ffffff;
 }
