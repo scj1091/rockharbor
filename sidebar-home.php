@@ -24,7 +24,19 @@ $coreid = $theme->options('core_id');
 		echo $theme->render('share_your_story');
 		?>
 	</div>
-	<div class="title white reverse"><h3><?php echo $theme->Html->image('calendar-icon.png', array('parent' => true)); ?>Calendar</h3><a class="title-icon" target="_blank" href="https://core.rockharbor.org/ministries/<?php echo $coreid; ?>"><?php echo $theme->Html->image('out-grey.png', array('parent' => true)); ?></a></div>
+	<div class="title white reverse"><h3><?php echo $theme->Html->image('calendar-icon.png', array('parent' => true)); ?>Calendar</h3>
+		<?php
+		$calendarpageid = $theme->options('calendar_page_id');
+		if (empty($calendarpageid)) {
+			$link = "https://core.rockharbor.org/ministries/$coreid";
+			$target = ' target="_blank"';
+		} else {
+			$link = get_permalink($calendarpageid);
+			$target = null;
+		}
+		?>
+		<a class="title-icon"<?php echo $target; ?> href="<?php echo $link; ?>"><?php echo $theme->Html->image('out-grey.png', array('parent' => true)); ?></a>
+	</div>
 	<div class="body">
 		<?php
 		$theme->set('events', $theme->getCoreHomepageEvents($coreid));

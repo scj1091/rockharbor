@@ -110,6 +110,22 @@ if (!isset($_REQUEST['settings-updated'])) {
 					)); 
 				?>
 			</tr>
+			<tr>
+				<th>
+					<label for="calendar_page_id" class="description">Calendar Page</label>
+				</th>
+				<td>
+				<?php 
+					wp_dropdown_pages(array(
+						'name' => $theme->Html->inputPrefix.'[calendar_page_id]', 
+						'show_option_none' => __('&mdash; Select &mdash;'), 
+						'option_none_value' => '0', 
+						'selected' => $theme->options('calendar_page_id'),
+						'id' => 'calendar_page_id'
+					));
+				?>
+				</td>
+			</tr>
 		</table>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="Save" />
