@@ -38,8 +38,8 @@ class Shortcodes {
 		$attrs = shortcode_atts(array(
 			'id' => $this->theme->options('core_id')
 		), $attr);
-		$events = $this->theme->getCoreHomepageEvents($attrs['id']);
-		$this->theme->set(compact('events'));
+		$id = $attrs['id'];
+		$this->theme->set(compact('id'));
 		return $this->theme->render('calendar');
 	}
 	

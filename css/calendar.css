@@ -190,7 +190,7 @@ html .fc,
 	 
 .fc-event {
 	font-size: .85em;
-	cursor: default;
+	cursor: pointer;
 	}
 	
 a.fc-event,
@@ -246,7 +246,7 @@ a.fc-event {
 
 .fc-event-hori {
 	border-width: 1px 0;
-	margin-bottom: 1px;
+	margin-bottom: 3px;
 	}
 	
 /* resizable */
