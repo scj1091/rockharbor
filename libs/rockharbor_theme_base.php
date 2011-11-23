@@ -260,7 +260,7 @@ class RockharborThemeBase {
 		if (!$id) {
 			$id = 0;
 		}
-		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/json", array('sslverify' => false));
+		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/0/0/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
 				'body' => json_encode(array())
@@ -273,11 +273,13 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name']					
+					'name' => $item['Events']['event_name'],
+					'type' => 'event'
 				),
 				'Date' => array(
 					array(
-						'start_date' => $item[0]['event_date']
+						'start_date' => $item['EventDates']['start_date'],
+						'end_date' => $item['EventDates']['end_date']
 					)
 				)
 			);
