@@ -22,7 +22,8 @@
 						title: data[e].Events.event_name,
 						start: data[e].EventDates.start_date,
 						end: data[e].EventDates.end_date,
-						allDay: false
+						allDay: false,
+						url: 'https://core.rockharbor.org/events/'+data[e].Events.event_id
 					});
 				}
 				callback(events);
