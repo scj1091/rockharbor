@@ -24,6 +24,37 @@ class Shortcodes {
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
+		add_shortcode('directions', array($this, 'directions'));
+		add_shortcode('calendar', array($this, 'calendar'));
+	}
+	
+/**
+ * Renders the full calendar
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function calendar($attr) {
+		$attrs = shortcode_atts(array(
+			'id' => $this->theme->options('core_id')
+		), $attr);
+		$id = $attrs['id'];
+		$this->theme->set(compact('id'));
+		return $this->theme->render('calendar');
+	}
+	
+/**
+ * Renders the directions link
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function directions($attr) {
+		$this->theme->set(shortcode_atts(array(
+			'title' => 'Get directions',
+			'link' => null
+		), $attr));
+		return $this->theme->render('directions');
 	}
 
 /**
@@ -50,6 +81,7 @@ class Shortcodes {
  * @return string
  */
 	public function video($attr) {
+		$this->theme->set('streamer', $this->theme->options('s3_streamer'));
 		$this->theme->set(shortcode_atts(array(
 			'src' => null
 		), $attr));

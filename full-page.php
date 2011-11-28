@@ -1,8 +1,11 @@
-<?php 
-$archive = $theme->isArchive();
+<?php
+/*
+Template Name: Full page
+*/
+
 get_header(); 
 ?>
-		<section id="content" role="main">
+		<section id="content" role="main" class="full">
 			<header id="content-title">
 				<h1 class="page-title">
 					<span>
@@ -10,9 +13,6 @@ get_header();
 					</span>
 				</h1>
 			</header>
-			<nav id="submenu">
-				<?php get_sidebar(); ?>
-			</nav>
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -42,26 +42,5 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-		<?php
-		$metadata = $theme->metaToData($post->ID);
-		$meta = array_merge(array(
-			'core_id' => 0,
-			'core_event_id' => 0
-		), $metadata);
-		// sidebar-core will render core_public_calendar which uses events
-		$events = $theme->getCoreMinistryEvents($meta['core_id'], $meta['core_event_id'], $meta['core_group_id'], $meta['core_team_id']);
-		if (!empty($events)):
-		?>
-		<section id="sidebar" role="complementary">
-			<header id="sidebar-title">
-				<h1 class="sub-title"><span>CORE</span></h1>
-			</header>
-			<?php
-			$theme->set('events', $events);
-			get_sidebar('core');
-			?>
-		</section>
-		<?php endif;?>
-
 <?php 
 get_footer();

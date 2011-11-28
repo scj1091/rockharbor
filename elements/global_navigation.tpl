@@ -1,5 +1,10 @@
 <section id="global-navigation" class="clearfix">
-	<h1><a href="/"><?php echo $theme->Html->image('header.jpg', array('alt' => 'This is ROCKHARBOR '.$theme->info('short_name'))).$theme->info('short_name'); ?></a></h1>
+	<h1>
+		<a href="/">
+			<span class="logo"><?php echo $theme->Html->image('header.jpg', array('alt' => 'This is ROCKHARBOR '.$theme->info('short_name'))); ?></span>
+			<span class="title"><?php echo $theme->info('short_name'); ?></span>
+		</a>
+	</h1>
 	<nav>
 		<ul>
 			<li>
@@ -8,7 +13,7 @@
 				echo $theme->render('campus_menu');
 				?>
 			</li>
-			<li> |<a href="http://www.rockharbor.org/message-archive">Message Archive</a></li>
+			<?php wp_nav_menu(array('theme_location' => 'global', 'items_wrap' => '%3$s', 'container' => false, 'menu_class' => false, 'depth' => 1, 'before' => ' | ', 'fallback_cb' => function() { })); ?>
 			<li>
 				<?php get_search_form(); ?>
 			</li>

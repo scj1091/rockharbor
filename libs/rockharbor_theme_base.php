@@ -145,6 +145,9 @@ class RockharborThemeBase {
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
 		update_option('blogname', 'RH '.$this->info('short_name'));
+		update_option('image_default_link_type', 'file');
+		// change rss feed to point to feedburner link
+		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
 		
 		add_action('admin_init', array($this, 'adminInit'));
 		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
@@ -168,17 +171,36 @@ class RockharborThemeBase {
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_action('loop_start', array($this, 'checkForArchives'));
 		
-		// make images link to their file by default
-		update_option('image_default_link_type', 'file');
-		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
-			define('SOCIAL_COMMENTS_CSS', $this->themeUrl.'/css/comments.css');
+			define('SOCIAL_COMMENTS_CSS', $this->baseUrl.'/css/comments.css');
 		}
 		
 		// admin section
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_action('admin_menu', array($this, 'adminMenu'));
+		add_filter('wp_delete_file', array($this, 'deleteS3File'));
+		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
+		
+		// start session
+		if (!session_id()) {
+			session_start();
+		}
+	}
+
+/**
+ * Changes the rss link in the header to something actually useful
+ * 
+ * @param string $output Current output
+ * @param string $type The feed type
+ * @return string Modified feed link
+ */
+	public function updateRssLink($output, $type) {
+		$feedburner = $this->options('feedburner_main');
+		if (!empty($feedburner) && stripos($output, 'comments') === false) {
+			$output = 'http://feeds.feedburner.com/'.$feedburner;
+		}
+		return $output;
 	}
 
 /**
@@ -245,7 +267,7 @@ class RockharborThemeBase {
 		if (!$id) {
 			$id = 0;
 		}
-		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/json", array('sslverify' => false));
+		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/0/0/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
 				'body' => json_encode(array())
@@ -258,11 +280,13 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name']					
+					'name' => $item['Events']['event_name'],
+					'type' => 'event'
 				),
 				'Date' => array(
 					array(
-						'start_date' => $item[0]['event_date']
+						'start_date' => $item['EventDates']['start_date'],
+						'end_date' => $item['EventDates']['end_date']
 					)
 				)
 			);
@@ -277,10 +301,24 @@ class RockharborThemeBase {
  * 
  * @param string $ids Comma delimited list of ministry IDs to pull involvement from
  * @param string $event_ids Comma delimited list of events to include as well
+ * @param string $group_ids Comma delimited list of groups to include as well
+ * @param string $team_ids Comma delimited list of teams to include as well
  * @return array 
  */
-	public function getCoreMinistryEvents($ids = null, $event_ids = null) {
-		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/json", array('sslverify' => false));
+	public function getCoreMinistryEvents($ids = null, $event_ids = null, $group_ids = null, $team_ids = null) {
+		if (empty($ids)) {
+			$ids = 0;
+		}
+		if (empty($event_ids)) {
+			$event_ids = 0;
+		}
+		if (empty($group_ids)) {
+			$group_ids = 0;
+		}
+		if (empty($team_ids)) {
+			$team_ids = 0;
+		}
+		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/$group_ids/$team_ids/json", array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
 				'body' => json_encode(array(
@@ -307,7 +345,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name']					
+					'name' => $item['Events']['event_name']	,
+					'type' => 'event'				
 				),
 				'Date' => array(
 					array(
@@ -320,7 +359,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Teams']['team_id'],
-					'name' => $item['Teams']['team_name']					
+					'name' => $item['Teams']['team_name'],
+					'type' => 'team'					
 				),
 				'Date' => array(
 					array(
@@ -333,7 +373,8 @@ class RockharborThemeBase {
 			$events[] = array(
 				'Event' => array(
 					'id' => $item['Groups']['group_id'],
-					'name' => $item['Groups']['group_name']					
+					'name' => $item['Groups']['group_name'],
+					'type' => 'group'
 				),
 				'Date' => array(
 					array(
@@ -354,6 +395,10 @@ class RockharborThemeBase {
  *	messages are stored in `$errors`
  */
 	public function email() {
+		if (!$this->Html->validateCaptcha()) {
+			$this->messages[] = __('You entered in the wrong CAPTCHA phrase.', 'rockharbor');
+			return false;
+		}
 		if (!isset($_POST['type'])) {
 			$_POST['type'] = 'story';
 		}
@@ -504,11 +549,21 @@ class RockharborThemeBase {
 		$this->set('data', $this->metaToData($post->ID));
 		echo $this->render('archive_template_meta_box');
 	}
+
+/**
+ * Renders the featured image link meta box
+ */
+	public function featuredImageLinkMetaBox() {
+		global $post;
+		$this->set('data', $this->metaToData($post->ID));
+		echo $this->render('featured_image_link_meta_box');
+	}
 	
 /**
  * Inits plugin options to white list our options
  */
 	public function adminInit() {
+		global $post;
 		register_setting($this->info('slug').'_options', $this->info('slug').'_options');
 		// add meta boxes for cross-posting
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
@@ -516,6 +571,87 @@ class RockharborThemeBase {
 		if (count($this->archiveTemplates) > 1) {
 			add_meta_box('archive', 'Archive Template', array($this, 'archiveMetaBox'), 'page', 'side');
 		}
+		if (isset($_GET['post']) && ($_GET['post'] == get_option('page_on_front'))) {
+			add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
+		}
+		// load in s3 url modifying filter. Since the plugin doesn't load the url modifier,
+		// images in the media archive would not show from S3 but rather the local disk
+		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
+		$class = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'class-plugin-public.php';
+		$tantan = get_option('tantan_wordpress_s3', false);
+		if (file_exists($lib) && $tantan !== false && !empty($tantan['key'])) {
+			require_once ($class);
+			new TanTanWordPressS3PluginPublic();
+		}
+	}
+	
+/**
+ * Delete file from S3 when deleted from local disk
+ *
+ * Wordpress sometimes sends a partial path and sometimes sends and unescaped path
+ * (depending on the OS), so this function normalizes it and removes the object
+ * from the S3 bucket and returns a true absolute path to the file for `unlink()`
+ * to do it's job.
+ *
+ * @param string $file Some sort of path
+ * @return string Absolute path to file
+ */
+	public function deleteS3File($file) {
+		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
+		$tantanlib = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
+		$tantan = get_option('tantan_wordpress_s3', false);
+		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
+		if (!file_exists($tantanlib) || !$tantan || empty($tantan['key'])) {
+			return $file;
+		}
+		$uploadpaths = wp_upload_dir();
+		$hasBase = strpos($uploadpaths['basedir'], $file) > 0;
+		if (!class_exists('TanTanS3')) {
+			require_once $tantanlib;
+		}
+		$s3options = get_option('tantan_wordpress_s3');
+		$s3 = new TanTanS3($s3options['key'], $s3options['secret']);
+		$s3->setOptions($s3options);
+
+		// strip path and unslashed path, since WP doesn't store the path correctly,
+		// so try to normalize it so we can strip and fix it
+		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
+		$url = substr($file, stripos($file, $partial));
+
+		// delete from bucket
+		$s3->deleteObject($s3options['bucket'], substr($url, 1));
+
+		// basedir already contains $partial
+		$file = str_replace($partial, '', $url);
+		$file = str_replace('/', DS, $file);
+		$file = rtrim($uploadpaths['basedir'], '/').$file;
+		return $file;
+	}
+	
+/**
+ * If we're using s3, delete the local files since they're in the cloud
+ * 
+ * @param array $data Attachment data
+ * @param integer $postID Post id
+ * @return array
+ */
+	public function deleteLocalFile($data, $postID) {
+		$tantan = get_option('tantan_wordpress_s3', false);
+		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
+		if (!$tantan || empty($tantan['key'])) {
+			return $data;
+		}
+		if (file_exists($data['file'])) {
+			unlink($data['file']);
+		}
+		$uploadpaths = wp_upload_dir();
+		foreach ($data['sizes'] as $thumbkey => $info) {
+			$thumbPath = $uploadpaths['basedir'].$uploadpaths['subdir'].DS.$info['file'];
+			if (file_exists($thumbPath)) {
+				unlink($thumbPath);
+			}
+		}
+		return $data;
 	}
 
 /**
@@ -559,7 +695,8 @@ class RockharborThemeBase {
 		
 		register_nav_menus(array(
 			'main' => __('Main Navigation', 'rockharbor'),
-			'footer' => __('Footer Navigation', 'rockharbor')
+			'footer' => __('Footer Navigation', 'rockharbor'),
+			'global' => __('Global Navigation', 'rockharbor')
 		));
 	}
 	

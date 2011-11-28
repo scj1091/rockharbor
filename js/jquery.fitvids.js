@@ -11,7 +11,11 @@
 
 (function( $ ){
 
-  $.fn.fitVids = function() {
+  $.fn.fitVids = function( options ) {
+    var settings = {
+      customSelector: null
+    }
+    
     var div = document.createElement('div'),
         ref = document.getElementsByTagName('base')[0] || document.getElementsByTagName('script')[0];
         
@@ -35,24 +39,35 @@
     </style>';
                       
     ref.parentNode.insertBefore(div,ref);
-  
+    
+    if ( options ) { 
+      $.extend( settings, options );
+    }
+    
     return this.each(function(){
       var selectors = [
         "iframe[src^='http://player.vimeo.com']", 
         "iframe[src^='http://www.youtube.com']", 
         "iframe[src^='http://www.kickstarter.com']", 
-        "object", 
-        "embed"
+        "object[data]",
+		"object[classid]:not(:has(object[data]))",
+		"embed"
       ];
-
-      var $allVideos = $(this).find(selectors.join(','));
       
+      if (settings.customSelector) {
+        selectors.push(settings.customSelector);
+      }
+      
+      var $allVideos = $(this).find(selectors.join(','));
+
       $allVideos.each(function(){
-        var $this = $(this), 
-            height = this.tagName == 'OBJECT' ? $this.attr('height') : $this.height(),
+        var $this = $(this);
+        if (this.tagName.toLowerCase() == 'embed' && $this.parent('object').length || $this.parent('.fluid-width-video-wrapper').length) { return; } 
+        var height = this.tagName.toLowerCase() == 'object' ? $this.attr('height') : $this.height(),
             aspectRatio = height / $this.width();
         $this.wrap('<div class="fluid-width-video-wrapper" />').parent('.fluid-width-video-wrapper').css('padding-top', (aspectRatio * 100)+"%");
         $this.removeAttr('height').removeAttr('width');
+		$this.parent('.fluid-width-video-wrapper').parent('object').removeAttr('height').removeAttr('width');
       });
     });
   

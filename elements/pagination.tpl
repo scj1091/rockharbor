@@ -1,4 +1,4 @@
-<div class="archive-page-link">
+<nav class="archive-page-link">
 <?php
 if ($wp_rewrite->using_permalinks()) {
 	$base = user_trailingslashit(trailingslashit(remove_query_arg('s', get_pagenum_link(1))).'page/%#%/', 'paged');

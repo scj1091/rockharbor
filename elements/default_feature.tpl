@@ -1,6 +1,6 @@
 <?php
 
-$img = $theme->Html->image('feature-1.png', array('parent' => true));
+$img = $theme->Html->image('feature-1.jpg', array('parent' => true));
 if ($link1) {
 	$out = "<a id=\"feature-1\" href=\"$link1\">$img</a>";
 } else {
@@ -8,19 +8,17 @@ if ($link1) {
 }
 
 echo $theme->Html->tag('div', $out, array(
-	'style' => 'padding: 0 0 10px 0'
+	'style' => 'padding: 10px 0'
 ));
 
-$img = $theme->Html->image('feature-2.png', array('parent' => true));
+$img = $theme->Html->image('feature-2.jpg', array('parent' => true));
 if ($link2) {
 	$out = "<a id=\"feature-2\" href=\"$link2\">$img</a>";
 } else {
 	$out = $img;
 }
 
-echo $theme->Html->tag('div', $out, array(
-	'style' => 'padding: 0 0 10px 0'
-));
+echo $theme->Html->tag('div', $out);
 
 ?>
 <script>

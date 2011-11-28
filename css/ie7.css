@@ -1,0 +1,69 @@
+/* This sheet is for everything IE 7 and below */
+
+/* these are elements we want inline-block */
+#page, 
+#footer, 
+#global-navigation span,
+#global-navigation h1 a,
+#global-navigation nav,
+#global-navigation nav > ul,
+#banner h1,
+.archive-page-link .page-numbers.current,
+.page-link .page-numbers,
+.archive-page-link .page-numbers,
+.page-link a span.page-numbers,
+#banner .icon-map {
+	zoom: 1;
+	*display:inline;
+}
+
+.dropdown {
+	padding-right: 0;
+}
+
+#global-navigation nav {
+	display: inline;
+}
+
+#global-navigation nav ul li ul {
+	overflow: visible;
+}
+
+#global-navigation nav ul li ul li {
+	width: 100%;
+	position: relative;
+	margin-bottom: -1px;
+}
+
+#content {
+	width: 70%
+}
+
+#sidebar {
+	width: 19%;
+}
+
+#global-navigation {
+	width: 100%;
+	position: relative;
+	z-index: 10;
+}
+
+#branding {
+	position: relative;
+	z-index: 5;
+}
+
+#main {
+	position: relative;
+	z-index: 0;
+}
+
+#global-navigation #searchform input#s {
+	width: 95px;
+}
+
+* html .clearfix,
+*:first-child+html .clearfix {
+	zoom: 1;
+}

@@ -1,0 +1,15 @@
+/**
+ * This sheet is for everything IE 9 and below
+ */
+.page-title {
+	left: 0px;
+}
+
+.sub-title {
+	right: 0px;
+}
+
+.page-title span:after, .sub-title span:after {
+	background: none;
+	border: none;
+}

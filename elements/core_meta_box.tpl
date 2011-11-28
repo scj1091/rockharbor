@@ -13,3 +13,13 @@ echo $theme->Html->input('core_event_id', array(
 	'after' => '<p><small>A comma-delimited list of individual CORE event IDs to show</small></p>',
 	'label' => false
 ));
+echo $theme->Html->input('core_group_id', array(
+	'between' => '<p><strong>CORE Group ID(s)</strong></p>',
+	'after' => '<p><small>A comma-delimited list of individual CORE group IDs to show</small></p>',
+	'label' => false
+));
+echo $theme->Html->input('core_team_id', array(
+	'between' => '<p><strong>CORE Team ID(s)</strong></p>',
+	'after' => '<p><small>A comma-delimited list of individual CORE team IDs to show</small></p>',
+	'label' => false
+));

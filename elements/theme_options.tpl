@@ -22,24 +22,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 		?>
 		<table class="form-table">
 			<tr valign="top">
-				<?php 
-					echo $theme->Html->input('story_email', array(
-						'before' => '<th>',
-						'label' => 'Share Your Story Email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(a comma-delimited list of email addresses to send stories to)</small></td>'
-					)); 
-				?>
-			</tr>
-			<tr valign="top">
-				<?php 
-					echo $theme->Html->input('prayer_request_email', array(
-						'before' => '<th>',
-						'label' => 'Prayer Request Email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(a comma-delimited list of email addresses to send prayer requests to)</small></td>'
-					)); 
-				?>
+				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
 			</tr>
 			<tr valign="top">
 				<?php 
@@ -80,6 +63,68 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'after' => '<br /><small>(the ministry ID to pull calendar events from)</small></td>'
 					)); 
 				?>
+			</tr>
+			<tr valign="top">
+				<td colspan="2"><h2>Notifications</h2><p>Forms and notifications that require an email address.</p></td>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('story_email', array(
+						'before' => '<th>',
+						'label' => 'Share Your Story Email',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(a comma-delimited list of email addresses to send stories to)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('prayer_request_email', array(
+						'before' => '<th>',
+						'label' => 'Prayer Request Email',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(a comma-delimited list of email addresses to send prayer requests to)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<td colspan="2"><h2>Admin</h2><p>Don't touch this stuff unless you know what you're doing.</p></td>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('feedburner_main', array(
+						'before' => '<th>',
+						'label' => 'Main Feedburner Link ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(http://feeds.feedburner.com/<strong>feedid</strong>)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('s3_streamer', array(
+						'before' => '<th>',
+						'label' => 'Amazon S3 Streaming Distibution ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(<strong>&lt;ID&gt;</strong>.cloudfront.net)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr>
+				<th>
+					<label for="calendar_page_id" class="description">Calendar Page</label>
+				</th>
+				<td>
+				<?php 
+					wp_dropdown_pages(array(
+						'name' => $theme->Html->inputPrefix.'[calendar_page_id]', 
+						'show_option_none' => __('&mdash; Select &mdash;'), 
+						'option_none_value' => '0', 
+						'selected' => $theme->options('calendar_page_id'),
+						'id' => 'calendar_page_id'
+					));
+				?>
+				</td>
 			</tr>
 		</table>
 		<p class="submit">

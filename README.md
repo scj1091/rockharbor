@@ -25,15 +25,13 @@ At the very least, the following files should be created.
 
 ### Required files
 
-The `style.css` file should create the following
+#### CSS
 
-    /*
-    Theme Name: RH <Template Name>
-    Description: Subsite description
-    Version: 0.1
-    Author: Your name
-    Template: rockharbor
-    */
+The child theme CSS should only contain styles for that child theme that need to 
+be overridden. This usually just includes colors, but can include styles that
+utilize images.
+
+#### Including the theme class
 
 Also required is a class within `/libs` called `ChildTheme()`. It must
 extend `RockharborThemeBase`. All that needs to be defined are the `$themeOptions` 
@@ -51,12 +49,10 @@ Next, create a `functions.php` file
 This is required because WordPress doesn't use OOP and includes files in the
 opposite order one would suspect. It is needed to overwrite the global `$theme`.
 
+#### A bit more
+
 There are some images required by the subsites, indicated in the directory
 structure.
-
-Finally, the stylesheet `style.css` needs to be created to customize the
-theme colors. Copy the `style.less` file from the ROCKHARBOR base theme, customize
-the colors and compile it into a `.css` file.
 
 ### Required configuration
 

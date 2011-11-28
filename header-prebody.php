@@ -14,7 +14,7 @@
 <!--<![endif]-->
 <head>
 <meta charset="<?php bloginfo('charset'); ?>" />
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="initial-scale=1.0,width=device-width" />
 <title><?php
 	wp_title('|', true, 'right');
 
@@ -32,11 +32,19 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
-<link rel="stylesheet<?php if (WP_DEBUG) { echo '/less'; } ?>" media="all" href="<?php echo $theme->info($theme->isChildTheme() ? 'url' : 'base_url'); ?>/style.<?php echo WP_DEBUG ? 'less' : 'css'; ?>" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/style.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie8.css" />
+<![endif]-->
+<!--[if lte IE 7]>
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie7.css" />
+<![endif]-->
+<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
 	wp_enqueue_script('jquery');
 	if (is_singular() && get_option('thread_comments')) {
@@ -74,22 +82,35 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
-		// scale videos in banner
-		jQuery('.embedded-video').fitVids();
 		jQuery('.message').delay(5000).slideUp();
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
 	});
 </script>
-<?php 
-/**
- * The following script should _only_ be included if in debug mode, because having
- * the client compile .less files is a unnecessary preformance hit. Please
- * compile the .less to .css before posting to production
- */
-if (WP_DEBUG): 	
+<!--[if !IE]>-->
+<script>
+	jQuery(document).ready(function() {
+		jQuery('.embedded-video').fitVids();
+	});
+</script>
+<!--<![endif]-->
+<?php
+// no analytics if we're local
+if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
 ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/less-1.1.3.min.js"></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '<?php echo $ga; ?>']);
+  _gaq.push(['_setAccount', 'UA-7415608-7']);
+  _gaq.push(['_setDomainName', 'rockharbor.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 <?php endif; ?>
 </head>

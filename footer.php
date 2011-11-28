@@ -3,6 +3,7 @@ global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
+$feedburnerid = $theme->options('feedburner_main');
 ?>
 	</div>
 </div>
@@ -16,12 +17,16 @@ $coreid = $theme->options('core_id');
 		</div>
 		<div>
 			<h3>More</h3>
-			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu')); ?>
+			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => function() { })); ?>
 		</div>
 		<div>
 			<h3>Connect</h3>
 			<p class="icons">
+				<?php if (!empty($feedburnerid)): ?>
+				<a href="http://feeds.feedburner.com/<?php echo $feedburnerid; ?>"><?php echo $theme->Html->image('rss-footer-icon.png', array('parent' => true)); ?></a>
+				<?php else: ?>
 				<a href="<?php bloginfo('rss2_url'); ?>"><?php echo $theme->Html->image('rss-footer-icon.png', array('parent' => true)); ?></a>
+				<?php endif; ?>
 				<a target="_blank" href="http://facebook.com/<?php echo $fbuser; ?>"><?php echo $theme->Html->image('facebook-footer-icon.png', array('parent' => true)); ?></a>
 				<a target="_blank" href="http://twitter.com/<?php echo $twitteruser; ?>"><?php echo $theme->Html->image('twitter-footer-icon.png', array('parent' => true)); ?></a>
 				<a target="_blank" href="https://core.rockharbor.org/ministries/<?php echo $coreid; ?>"><?php echo $theme->Html->image('core-footer-icon.png', array('parent' => true)); ?></a>
