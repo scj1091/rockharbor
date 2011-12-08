@@ -4,6 +4,9 @@
  * 
  * A PostType class is a wrapper for adding a custom post type.
  * 
+ * Like the `single.php` template, there can be a template file called `$slug.php`
+ * that will be used when displaying single views of this post type.
+ * 
  * ### Filters
  * `beforeSave($data)` Called before a post is saved. Post data is passed as `$data`
  * 
@@ -124,6 +127,8 @@ class PostType {
 			// shortcode to show the archive
 			add_shortcode($this->options['slug'], array($this, 'shortcode'));
 		}
+		
+		add_action('template_redirect', array($this, 'setTemplate'));
 	}
 
 /**
@@ -160,7 +165,7 @@ class PostType {
 		// loop within loop
 		while(have_posts()) {
 			the_post();
-			get_template_part($this->options['slug']);
+			get_template_part('content', $this->options['slug']);
 		}
 		$return = ob_get_clean();
 		
@@ -184,6 +189,18 @@ class PostType {
 	public function _proxyOnSave($data) {
 		if (method_exists($this, 'beforeSave')) {
 			return call_user_func(array($this, 'beforeSave'), $data);
+		}
+	}
+
+/**
+ * For single pages under this post type, the template will be changed to 
+ * `$slug.php` if it exists.
+ */
+	public function setTemplate() {
+		global $post;
+		if ($post->post_type == $this->options['slug'] && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php')) {
+			include $this->theme->info('base_path').DS.$this->options['slug'].'.php';
+			die();
 		}
 	}
 	
