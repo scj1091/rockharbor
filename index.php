@@ -1,5 +1,4 @@
 <?php 
-$archive = $theme->isArchive();
 get_header(); 
 ?>
 		<section id="content" role="main">
@@ -18,11 +17,7 @@ get_header();
 				while (have_posts()) {
 					the_post();
 					$sub = get_post_type();
-					if ($archive) {
-						get_template_part($sub);
-					} else {
-						get_template_part('content', $sub); 
-					}
+					get_template_part('content', $sub); 
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);

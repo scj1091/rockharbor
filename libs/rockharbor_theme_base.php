@@ -5,6 +5,7 @@
 require_once 'basics.php';
 require_once 'html_helper.php';
 require_once 'shortcodes.php';
+require_once 'post_type.php';
 
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
@@ -103,25 +104,6 @@ class RockharborThemeBase {
 	public $messages = array();
 	
 /**
- * List of special archive pages
- * 
- * Archive templates are pages that display an archive instead of the page content.
- * The key should be the post_type and the value a readable name. The header will
- * automatically change the query, but if you want a custom one there needs to be
- * a class with the ucfirst name of the post type with a method called `query()`
- * 
- * Archive templates are also special in that they have two different content
- * pieces. Use `content-<post_type>-more.php` for what should show on the archive 
- * page, and `content-<post_type>.php` for what should show when viewing a single
- * version.
- * 
- * @var array
- */
-	public $archiveTemplates = array(
-		'' => 'None'
-	);
-
-/**
  * Sets up the theme
  */
 	public function __construct() {
@@ -169,7 +151,6 @@ class RockharborThemeBase {
 		
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
-		add_action('loop_start', array($this, 'checkForArchives'));
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
@@ -201,41 +182,6 @@ class RockharborThemeBase {
 			$output = 'http://feeds.feedburner.com/'.$feedburner;
 		}
 		return $output;
-	}
-
-/**
- * Checks if a page is an archive page. Must be used outside the loop
- * 
- * @return boolean 
- */
-	public function isArchive() {
-		global $post;
-		$meta = get_post_custom($post->ID);
-		return isset($meta['archive_template']) && !empty($meta['archive_template'][0]);
-	}
-
-/**
- * Trick (_illusion_ Michael) to make WordPress treat a regular old page as an
- * archive page that shows items within a custom post type. #YAWPH
- * 
- * @param WP_Query $wp_query The query
- */
-	public function checkForArchives(&$wp_query) {
-		global $post;
-		if ($this->isArchive()) {
-			$meta = get_post_custom($post->ID);
-			// tell wordpress that we're in a different post type (for templates)
-			$post->post_type = $meta['archive_template'][0];
-			$query = array(
-				'post_type' => $meta['archive_template'][0]
-			);
-			$class = ucfirst($meta['archive_template'][0]);
-			if (isset($this->{$class}) && method_exists($this->{$class}, 'query')) {
-				$query = call_user_func(array($this->{$class}, 'query'), $query);
-			}
-			// change the loop
-			$wp_query->query($query);
-		}
 	}
 
 /**
@@ -540,15 +486,6 @@ class RockharborThemeBase {
 		$this->set('data', $this->metaToData($post->ID));
 		echo $this->render('core_meta_box');
 	}
-	
-/**
- * Renders a meta box for special archive templates that aren't really templates
- */
-	public function archiveMetaBox() {
-		global $post;
-		$this->set('data', $this->metaToData($post->ID));
-		echo $this->render('archive_template_meta_box');
-	}
 
 /**
  * Renders the featured image link meta box
@@ -568,9 +505,6 @@ class RockharborThemeBase {
 		// add meta boxes for cross-posting
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
-		if (count($this->archiveTemplates) > 1) {
-			add_meta_box('archive', 'Archive Template', array($this, 'archiveMetaBox'), 'page', 'side');
-		}
 		if (isset($_GET['post']) && ($_GET['post'] == get_option('page_on_front'))) {
 			add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
 		}

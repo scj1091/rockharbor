@@ -1,18 +1,40 @@
 <?php
 /**
- * Staff class. Handles everything needed to create a Staff post type, save
- * the shortcode which is found in `/libs/shortcodes.php`
+ * Staff 
+ * 
+ * Handles everything needed to create a Staff post type.
  * 
  * @package rockharbor
+ * @subpackage rockharbor.libs
  */
-class Staff {
+class Staff extends PostType {
+
+/**
+ * Post type options
+ * 
+ * @var array
+ */
+	public $options = array(
+		'name' => 'Staff',
+		'plural' => 'Staff',
+		'slug' => 'staff',
+		'archive' => true,
+		'supports' => array(
+			'editor',
+			'thumbnail'
+		)
+	);
 	
 /**
- * The theme object
+ * Default archive query
  * 
- * @var RockharborThemeBase 
+ * @var array
  */
-	protected $theme = null;
+	public $archiveQuery = array(
+		'numberofposts' => -1,
+		'orderby' => 'title',
+		'order' => 'ASC'
+	);
 	
 /**
  * Sets the theme object for use in this class and instantiates the Staff post
@@ -21,36 +43,13 @@ class Staff {
  * @param RockharborThemeBase $theme 
  */
 	public function __construct($theme = null) {
-		$this->theme = $theme;
+		parent::__construct($theme);
 		
 		register_taxonomy('department', 'staff', array(
 			'label' => __('Department', 'rockharbor'),
 			'sort' => true,
 			'rewrite' => array('slug' => 'department')
 		));
-		
-		register_post_type('staff', array(
-			'label' => __('Staff', 'rockharbor'),
-			'singular_label' =>__('Staff', 'rockharbor'),
-			'description' => __('Add staff', 'rockharbor'),
-			'public' => true,
-			'hierarchical' => false,
-			'supports' => array(
-				'editor',
-				'thumbnail'
-			),
-			'rewrite' => array('slug' => 'staff', 'with_front' => false)
-		));
-		
-		add_action('admin_init', array($this, 'adminInit'));
-		add_filter('wp_insert_post_data', array($this, 'beforeSave'), 1, 2);
-		
-		// include css
-		wp_register_style('staff', $theme->info('base_url').'/css/staff.css');
-		wp_enqueue_style('staff');
-		
-		
-		$theme->archiveTemplates += array('staff' => 'Staff');
 	}
 
 /**
@@ -63,15 +62,16 @@ class Staff {
 		$query['numberofposts'] = -1;
 		return $query;
 	}
-	
+
 /**
  * Automatically adds a title for this post based on the meta
+ *
+ * @param integer $data Post data
+ * @return array Modified post data
  */
 	public function beforeSave($data) {
-		if ($data['post_type'] == 'staff') {
-			$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
-			$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
-		}
+		$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
+		$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
 		return $data;
 	}
 
