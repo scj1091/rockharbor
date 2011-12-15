@@ -402,7 +402,7 @@ class RockharborThemeBase {
 
 		$blogs = $this->getBlogs();
 
-		$fields = '`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `post_name`, `guid`, `post_type`, `blog_id`';
+		$fields = '`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `post_name`, `guid`, `post_type`, `blog_id`, `comment_status`, `ping_status`';
 		$group = "GROUP BY ID";
 		$query = "SELECT SQL_CALC_FOUND_ROWS $fields FROM (";
 		// primary table - this blog
