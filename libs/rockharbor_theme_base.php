@@ -406,7 +406,7 @@ class RockharborThemeBase {
 		$group = "GROUP BY ID";
 		$query = "SELECT SQL_CALC_FOUND_ROWS $fields FROM (";
 		// primary table - this blog
-		$query .= "SELECT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = 1) $group";
+		$query .= "SELECT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id) $group";
 		foreach ($blogs as $blog) {
 			if ($blog['blog_id'] == $this->id) {
 				continue;
