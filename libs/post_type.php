@@ -148,7 +148,7 @@ class PostType {
  */
 	public function shortcode($attrs = array()) {
 		global $wp_query;
-		$attrs = shortcode_atts($this->archiveQuery, $attr);
+		$attrs = shortcode_atts($this->archiveQuery, $attrs);
 		
 		$_old_query = $wp_query;
 		
