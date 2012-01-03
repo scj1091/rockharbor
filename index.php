@@ -25,7 +25,7 @@ get_header();
 			 else: ?>
 
 			<article id="post-0" class="post no-results not-found">
-				<header class="entry-header">
+				<header class="entry-header clearfix">
 					<h1 class="entry-title"><?php _e('Nothing Found', 'rockharbor'); ?></h1>
 				</header>
 
