@@ -14,18 +14,18 @@
 
 /*= Single Page
 -----------------------------------------*/
-.single-staff article.staff {
+#content .single-staff article.staff {
 	width: 100%;
 	text-align: left;
 }
 
-.single-staff article.staff .staff-picture {
+#content .single-staff article.staff .staff-picture {
 	float: left;
 	width: 28.875%;
 	padding-right: 1.125%;
 }
 
-.single-staff article.staff .staff-bio {
+#content .single-staff article.staff .staff-bio {
 	float: left;
 	width: 70%;
 }
