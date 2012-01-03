@@ -1,10 +1,18 @@
 <?php
+/**
+ * Adds some debugging functionality
+ * 
+ * Place a require in `wp_config.php` in order to avoid showing plugin errors
+ * before `functions.php` is included.
+ */
 
 /**
  * If true, all plugins will be subject to debugging as well. Beware of poorly
  * written plugins breaking the site!
  */
-define('WP_SUPER_DEBUG', false);
+if (!defined('WP_SUPER_DEBUG')) {
+	define('WP_SUPER_DEBUG', false);
+}
 
 /**
  * Short version of DIRECTORY_SEPARATOR
@@ -18,7 +26,7 @@ if (!defined('DS')) {
  *
  * @param string $var Var to debug
  */
-function debug($var = null) {
+function debug($var = null, $line = null, $file = null) {
 	if (!WP_DEBUG) {
 		return null;
 	}
@@ -26,6 +34,12 @@ function debug($var = null) {
 	$traced = debug_backtrace();
 	// remove debug function from trace
 	$debug = array_shift($traced);
+	if ($line) {
+		$debug['line'] = $line;
+	}
+	if ($file) {
+		$debug['file'] = $file;
+	}
 	$traced[0]['line'] = $debug['line'];
 	$traced[0]['file'] = $debug['file'];
 	if ($traced[0]['function'] == 'customErrorHandler') {
@@ -94,7 +108,7 @@ function customErrorHandler($errno, $errstr, $errfile, $errline) {
 	}
 	$passable = array(E_RECOVERABLE_ERROR, E_STRICT, E_DEPRECATED);
 	if ($show && !in_array($errno, $passable)) {
-		debug($errstr);
+		debug($errstr, $errline, $errfile);
 	}
 	return true;
 }
