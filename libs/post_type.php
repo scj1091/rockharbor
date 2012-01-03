@@ -198,7 +198,7 @@ class PostType {
  */
 	public function setTemplate() {
 		global $post;
-		if ($post->post_type == $this->options['slug'] && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php')) {
+		if ($post->post_type == $this->options['slug'] && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php') && !is_search()) {
 			the_post();
 			include $this->theme->info('base_path').DS.$this->options['slug'].'.php';
 			die();
