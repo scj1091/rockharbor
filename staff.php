@@ -25,27 +25,32 @@ get_header();
 							}
 							?>				
 						</div>
-						<div class="staff-bio">
+						<div>
 							<dl>
 							<?php
-								echo $theme->Html->tag('dt', 'Email:');
-								echo $theme->Html->tag('dd', $meta['email']);
-								echo $theme->Html->tag('dt', 'Phone:');
-								echo $theme->Html->tag('dd', $meta['phone']);
-								$department = get_term($meta['department'], 'department');
-								echo $theme->Html->tag('dt', 'Ministry:');
-								echo $theme->Html->tag('dd', $department->name);
-								echo $theme->Html->tag('dt', 'Job Title:');
-								echo $theme->Html->tag('dd', $meta['title']);
-								echo $theme->Html->tag('dt', 'Hometown:');
-								echo $theme->Html->tag('dd', $meta['hometown']);
-								echo $theme->Html->tag('dt', 'Family:');
-								echo $theme->Html->tag('dd', $meta['family']);
+							$department = get_term($meta['department'], 'department');
+							$meta['department'] = $department->name;
+							$metaLabels = array(
+								'email' => 'Email',
+								'phone' => 'Phone',
+								'department' => 'Ministry',
+								'title' => 'Job Title',
+								'hometown' => 'Hometown',
+								'family' => 'Family'
+							);
+							foreach ($metaLabels as $metaName => $metaLabel) {
+								if (!empty($meta[$metaName])) {
+									echo $theme->Html->tag('dt', $metaLabel.':');
+									echo $theme->Html->tag('dd', $meta[$metaName]);
+								}
+							}
 							?>
 							</dl>
 						</div>
 					</div>
-					<?php the_content(__('Read More', 'rockharbor')); ?>
+					<div class="staff-bio">
+						<?php the_content(__('Read More', 'rockharbor')); ?>
+					</div>
 				</div>
 			</article>
 		</section>

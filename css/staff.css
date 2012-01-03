@@ -4,28 +4,44 @@
  
 /*= Archive Page
 -----------------------------------------*/
-#content article.staff {
-	width: 28.875%;
-	padding-right: 1.125%;
+.page-template #content article.staff {
+	width: 15.541%;
+	margin: 0 0.5625%;
 	float: left;
 	border-bottom: none;
 	text-align: center;
 }
 
+.page-template #content article.staff .staff-picture {
+	-webkit-transition: opacity .3s ease-in-out;
+	-moz-transition: opacity .3s ease-in-out;
+	-o-transition: opacity .3s ease-in-out;
+	transition: opacity .3s ease-in-out;
+}
+
+.page-template #content article.staff .staff-picture:hover {
+	opacity: .7;
+}
+
 /*= Single Page
 -----------------------------------------*/
-#content .single-staff article.staff {
+.single-staff #content article.staff {
 	width: 100%;
 	text-align: left;
 }
 
-#content .single-staff article.staff .staff-picture {
+.single-staff #content article.staff .staff-details {
 	float: left;
 	width: 28.875%;
-	padding-right: 1.125%;
+	margin-right: 1.125%;
 }
 
-#content .single-staff article.staff .staff-bio {
+.single-staff #content article.staff .staff-details dd,
+.single-staff #content article.staff .staff-details dt {
+	float: none;
+}
+
+.single-staff #content article.staff .staff-bio {
 	float: left;
 	width: 70%;
 }
