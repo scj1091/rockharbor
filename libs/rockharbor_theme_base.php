@@ -128,7 +128,7 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
-		$this->addFeatures();
+		add_action('init', array($this, 'addFeatures'));
 		
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
@@ -177,6 +177,10 @@ class RockharborThemeBase {
 
 /**
  * Adds features if they are supported by the child theme
+ * 
+ * If you create custom post types outside of the `init` action, WordPress seems
+ * to erase the list of taxonomies you told it to include. It will include all
+ * ones specifically assigned to the post type, but skip existing ones. #YAWPH?
  * 
  * @return void 
  */
