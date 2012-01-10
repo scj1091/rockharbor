@@ -63,6 +63,13 @@ class PostType {
  * @var array
  */
 	public $archiveQuery = array();
+	
+/**
+ * The name of the post type, derived from the name if none is defined
+ * 
+ * @var string
+ */
+	public $name = null;
 
 /**
  * Creates the post type
@@ -80,12 +87,16 @@ class PostType {
 		
 		$this->theme = $theme;
 		
+		if ($this->name === null) {
+			$this->name = str_replace(array('-', '_', ' '), '', strtolower($this->options['name']));
+		}
+		
 		if (!$this->options['plural']) {
 			// ghetto pluralize
 			$this->options['plural'] = $this->options['name'].'s';
 		}
 		
-		register_post_type($this->options['slug'], array(
+		register_post_type($this->name, array(
 			'label' => __($this->options['plural'], 'rockharbor'),
 			'singular_label' =>__($this->options['name'], 'rockharbor'),
 			'description' => __('Add '.$this->options['name'], 'rockharbor'),
@@ -114,9 +125,9 @@ class PostType {
 		wp_enqueue_style($this->options['slug']);
 			
 		// filters and actions if we're adding or editing this post type
-		if ((isset($_GET['post']) && get_post_type($_GET['post']) == $this->options['slug'] )
-			|| (isset($_GET['post_type']) && $_GET['post_type'] == $this->options['slug'])
-			|| (isset($_POST['post_type']) && $_POST['post_type'] == $this->options['slug'])
+		if ((isset($_GET['post']) && get_post_type($_GET['post']) == $this->name)
+			|| (isset($_GET['post_type']) && $_GET['post_type'] == $this->name)
+			|| (isset($_POST['post_type']) && $_POST['post_type'] == $this->name)
 			) {
 			add_action('admin_init', array($this, 'adminInit'));
 			add_filter('wp_insert_post_data', array($this, '_proxyOnSave'), 1, 1);
@@ -153,7 +164,7 @@ class PostType {
 		$_old_query = $wp_query;
 		
 		$query = array(
-			'post_type' => $this->options['slug']
+			'post_type' => $this->name
 		);
 		$query += $attrs;
 		
@@ -201,7 +212,7 @@ class PostType {
  */
 	public function setTemplate() {
 		global $post;
-		if ($post->post_type == $this->options['slug'] && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php') && !is_search()) {
+		if ($post->post_type == $this->name && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php') && !is_search()) {
 			the_post();
 			include $this->theme->info('base_path').DS.$this->options['slug'].'.php';
 			die();
