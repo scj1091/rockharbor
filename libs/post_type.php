@@ -190,6 +190,7 @@ class PostType {
 		if (method_exists($this, 'beforeSave')) {
 			return call_user_func(array($this, 'beforeSave'), $data);
 		}
+		return $data;
 	}
 
 /**
