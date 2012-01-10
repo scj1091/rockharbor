@@ -5,6 +5,7 @@
 require_once 'basics.php';
 require_once 'html_helper.php';
 require_once 'shortcodes.php';
+require_once 'post_type.php';
 
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
@@ -20,6 +21,8 @@ class RockharborThemeBase {
  * ### Options
  * - `$slug` The slug for this theme (no spaces, special chars, etc)
  * - `$short_name` The short name for this campus, i.e., without RH preceding
+ * - `$supports` An array of supported features for this particular site. See
+ * the README for more information about the features
  * 
  * @var array
  */
@@ -115,6 +118,11 @@ class RockharborThemeBase {
 		
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
+		
+		if ($this->supports('staff')) {
+			require_once 'staff.php';
+			$this->Staff = new Staff($this);
+		}
 		
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');

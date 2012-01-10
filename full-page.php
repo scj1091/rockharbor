@@ -18,9 +18,6 @@ get_header();
 				while (have_posts()) {
 					the_post();
 					$sub = get_post_type();
-					if ($archive) {
-						$sub .= '-more';
-					}
 					get_template_part('content', $sub); 
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);

@@ -83,6 +83,23 @@ shortcode:
 Where link1 is a link for the first feature and link2 is a link for the second
 (probably static pages within the site).
 
+## Features
+
+Since each site is a child of the main site and can have any feature it has, you
+must dictate what features you would like the subsite to use using the `supports`
+key in the `$themeOptions` var. Turning a feature on or off does not affect the
+database.
+
+The following features are available:
+
+### staff
+Creates a post type for adding staff and makes the `[staff]` shortcode available. 
+Adding `[staff]` to a page will embed the `staff.php` template in that page. The
+staff template shows a thumbnail (the featured image) for each staff member.
+
+It also creates various conveniences, including a taxonomy for staff called 
+"department" and meta boxes to organize the information.
+
 ## Specialness
 
 _YAWPH_ (yah-ff)
