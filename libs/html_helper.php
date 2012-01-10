@@ -191,7 +191,7 @@ class HtmlHelper {
 		if (!empty($before)) {
 			$out .= $before;
 		}
-		if ($options['label'] !== false && empty($options['options'])) {
+		if ($options['label'] !== false && (empty($options['options']) || $options['type'] == 'select')) {
 			$out .= $this->tag('label', $options['label'], array(
 				'for' => $options['id'],
 				'class' => 'description'

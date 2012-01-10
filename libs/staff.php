@@ -31,7 +31,7 @@ class Staff extends PostType {
  * @var array
  */
 	public $archiveQuery = array(
-		'posts_per_page' => 1,
+		'posts_per_page' => -1,
 		'orderby' => 'title',
 		'order' => 'ASC'
 	);
@@ -45,7 +45,7 @@ class Staff extends PostType {
 	public function __construct($theme = null) {
 		parent::__construct($theme);
 		
-		register_taxonomy('department', 'staff', array(
+		register_taxonomy('department', $this->name, array(
 			'label' => __('Department', 'rockharbor'),
 			'sort' => true,
 			'rewrite' => array('slug' => 'department')
@@ -68,8 +68,8 @@ class Staff extends PostType {
  * Inits extra admin goodies
  */
 	public function adminInit() {
-		add_meta_box('staff_details', 'Details', array($this, 'detailsMetaBox'), 'staff', 'normal');
-		remove_meta_box('tagsdiv-department', 'staff', 'side');
+		add_meta_box('staff_details', 'Details', array($this, 'detailsMetaBox'), $this->name, 'normal');
+		remove_meta_box('tagsdiv-department', $this->name, 'side');
 	}
 	
 /**
