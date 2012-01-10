@@ -102,6 +102,15 @@ class RockharborThemeBase {
  * @var array 
  */
 	public $messages = array();
+	
+/**
+ * List of possible features for child themes
+ * 
+ * @var array 
+ */
+	public $features = array(
+		'staff' => 'Staff'
+	);
 
 /**
  * Sets up the theme
@@ -119,10 +128,7 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
-		if ($this->supports('staff')) {
-			require_once 'staff.php';
-			$this->Staff = new Staff($this);
-		}
+		$this->addFeatures();
 		
 		// tagline is the same for all - vision statement
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
@@ -166,6 +172,20 @@ class RockharborThemeBase {
 		// start session
 		if (!session_id()) {
 			session_start();
+		}
+	}
+
+/**
+ * Adds features if they are supported by the child theme
+ * 
+ * @return void 
+ */
+	function addFeatures() {
+		foreach ($this->features as $postType => $className) {
+			if ($this->supports($postType)) {
+				require_once str_replace('-', '_', $postType).'.php';
+				$this->{$className} = new $className($this);
+			}
 		}
 	}
 
