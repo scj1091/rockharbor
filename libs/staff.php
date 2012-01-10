@@ -31,7 +31,7 @@ class Staff extends PostType {
  * @var array
  */
 	public $archiveQuery = array(
-		'numberofposts' => -1,
+		'posts_per_page' => 1,
 		'orderby' => 'title',
 		'order' => 'ASC'
 	);
@@ -50,17 +50,6 @@ class Staff extends PostType {
 			'sort' => true,
 			'rewrite' => array('slug' => 'department')
 		));
-	}
-
-/**
- * Modifies the query for showing the archive pages
- * 
- * @param array $query The existing query
- * @return array Modified query
- */
-	public function query($query) {
-		$query['numberofposts'] = -1;
-		return $query;
 	}
 
 /**

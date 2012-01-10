@@ -208,11 +208,4 @@ class PostType {
 		}
 	}
 	
-/**
- * Called to modify the query executed when showing a post type archive page
- * 
- * @param array $query The existing query
- * @return array Modified query
- */
-	public function query($query) {}
 }
