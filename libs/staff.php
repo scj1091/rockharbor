@@ -31,7 +31,7 @@ class Staff extends PostType {
  * @var array
  */
 	public $archiveQuery = array(
-		'posts_per_page' => 1,
+		'posts_per_page' => -1,
 		'orderby' => 'title',
 		'order' => 'ASC'
 	);
