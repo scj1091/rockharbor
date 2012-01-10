@@ -147,7 +147,7 @@ class PostType {
  * @return string Post type's archives
  */
 	public function shortcode($attrs = array()) {
-		global $wp_query;
+		global $wp_query, $wp_rewrite;
 		$attrs = shortcode_atts($this->archiveQuery, $attrs);
 		
 		$_old_query = $wp_query;
@@ -167,6 +167,9 @@ class PostType {
 			the_post();
 			get_template_part('content', $this->options['slug']);
 		}
+		$this->theme->set('wp_rewrite', $wp_rewrite);
+		$this->theme->set('wp_query', $wp_query);
+		echo $this->theme->render('pagination');
 		$return = ob_get_clean();
 		
 		// back to the old query
@@ -206,11 +209,4 @@ class PostType {
 		}
 	}
 	
-/**
- * Called to modify the query executed when showing a post type archive page
- * 
- * @param array $query The existing query
- * @return array Modified query
- */
-	public function query($query) {}
 }
