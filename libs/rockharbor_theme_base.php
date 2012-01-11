@@ -533,6 +533,8 @@ class RockharborThemeBase {
 			require_once ($class);
 			new TanTanWordPressS3PluginPublic();
 		}
+		wp_register_script('admin_scripts', $this->info('base_url').'/js/admin.js');
+		wp_enqueue_script('admin_scripts');
 	}
 	
 /**
