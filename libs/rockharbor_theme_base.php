@@ -102,6 +102,15 @@ class RockharborThemeBase {
  * @var array 
  */
 	public $messages = array();
+	
+/**
+ * List of possible features for child themes
+ * 
+ * @var array 
+ */
+	public $features = array(
+		'staff'
+	);
 
 /**
  * Sets up the theme
