@@ -22,6 +22,13 @@ if (!defined('DS')) {
 }
 
 /**
+ * Short version of DIRECTORY_SEPARATOR
+ */
+if (!defined('LIBS')) {
+	define('LIBS', dirname(__FILE__));
+}
+
+/**
  * Quick access to debugging
  *
  * @param string $var Var to debug

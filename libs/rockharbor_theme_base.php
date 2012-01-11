@@ -187,7 +187,7 @@ class RockharborThemeBase {
 	function addFeatures() {
 		foreach ($this->features as $postType => $className) {
 			if ($this->supports($postType)) {
-				require_once str_replace('-', '_', $postType).'.php';
+				require_once LIBS . DS . str_replace('-', '_', $postType).'.php';
 				$this->{$className} = new $className($this);
 			}
 		}
