@@ -100,6 +100,14 @@ staff template shows a thumbnail (the featured image) for each staff member.
 It also creates various conveniences, including a taxonomy for staff called 
 "department" and meta boxes to organize the information.
 
+### message
+Creates a post type for adding messages and makes a `[message]` shortcode
+that displays the archive.
+
+The message post type contains two taxonomies, "series" and "teachers." Series are
+like categories for the messages, and teachers are the speakers who taught the
+message. Unlike teachers, only one series can be defined per message.
+
 ## Specialness
 
 _YAWPH_ (yah-ff)
