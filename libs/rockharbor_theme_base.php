@@ -109,7 +109,7 @@ class RockharborThemeBase {
  * @var array 
  */
 	public $features = array(
-		'staff'
+		'staff' => 'Staff'
 	);
 
 /**
