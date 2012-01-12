@@ -63,6 +63,17 @@ class Message extends PostType {
 	}
 
 /**
+ * Called after a post is saved. Adds enclosures
+ * 
+ * @param type $data Post data
+ * @param type $postId Post id
+ */
+	function afterSave($data, $postId) {
+		do_enclose($_POST['meta']['video_url'], $postId);
+		do_enclose($_POST['meta']['audio_url'], $postId);
+	}
+
+/**
  * Inits extra admin goodies
  */
 	public function adminInit() {
