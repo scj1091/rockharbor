@@ -130,7 +130,8 @@ class PostType {
 			|| (isset($_POST['post_type']) && $_POST['post_type'] == $this->name)
 			) {
 			add_action('admin_init', array($this, 'adminInit'));
-			add_filter('wp_insert_post_data', array($this, '_proxyOnSave'), 1, 1);
+			add_filter('wp_insert_post_data', array($this, '_proxyBeforeSave'), 1, 1);
+			add_filter('wp_insert_post', array($this, '_proxyAfterSave'), 1, 2);
 		}
 		
 		// add shortcode if this is an archive type
@@ -195,16 +196,28 @@ class PostType {
 	public function adminInit() {}
 	
 /**
- * Called when a post is saved
+ * Called before a post is saved
  *
  * @param array $data Post data
  * @return array Modified post data from `beforeSave()`
  */
-	public function _proxyOnSave($data) {
+	public function _proxyBeforeSave($data) {
 		if (method_exists($this, 'beforeSave')) {
 			return call_user_func(array($this, 'beforeSave'), $data);
 		}
 		return $data;
+	}
+		
+/**
+ * Called after a post is saved
+ *
+ * @param array $data Post data
+ * @return void
+ */
+	public function _proxyAfterSave($data, $postId) {
+		if (!empty($_POST) && method_exists($this, 'afterSave')) {
+			call_user_func(array($this, 'afterSave'), $postId, $data);
+		}
 	}
 
 /**
