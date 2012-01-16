@@ -72,7 +72,6 @@ $flashvarsurl = implode('&', $flashvarsurl);
 		<!--<![endif]-->
 	</object>
 </div>
-<div id="debug"></div>
 <script type='text/javascript'>
 	 swfobject.registerObject("embedded-video-<?php echo $id; ?>", "9.0.115", "expressInstall.swf");
 </script>
