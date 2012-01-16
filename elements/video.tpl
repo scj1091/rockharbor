@@ -1,18 +1,24 @@
 <?php
 global $post;
 
-// find the enclosure
+// find the enclosure - gets the first video enclosure
 $enclosure = get_post_meta($post->ID, 'enclosure');
-if (!empty($enclosure[0])) {
-	$enclosure = explode("\n", $enclosure[0]);
-	if (empty($enclosure[2]) || strpos($enclosure[2], 'video/') === false) {
+$file = null;
+if (!empty($enclosure)) {
+	foreach ($enclosure as $enclosed) {
+		$enclosedSplit = explode("\n", $enclosed);
+		if (!empty($enclosedSplit[2]) && strpos($enclosedSplit[2], 'video/') !== false) {
+			$file = $enclosedSplit[0];
+			break;
+		}
+	}
+	if (empty($file)) {
 		return null;
 	}
 } else {
 	return null;
 }
 
-$file = $enclosure[0];
 $file = str_replace(array("\r\n", "\r", "\n"), '', $file);
 $tantan = get_option('tantan_wordpress_s3', false);
 if ($tantan && !empty($tantan['bucket'])) {
