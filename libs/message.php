@@ -50,13 +50,13 @@ class Message extends PostType {
 		register_taxonomy('series', $this->name, array(
 			'label' => __('Series', 'rockharbor'),
 			'sort' => true,
-			'rewrite' => array('slug' => 'series')
+			'rewrite' => array('slug' => 'series', 'with_front' => false)
 		));
 		
 		register_taxonomy('teacher', $this->name, array(
 			'label' => __('Teachers', 'rockharbor'),
 			'sort' => true,
-			'rewrite' => array('slug' => 'teachers')
+			'rewrite' => array('slug' => 'teachers', 'with_front' => false)
 		));
 		
 		register_taxonomy_for_object_type('post_tag', $this->name);
