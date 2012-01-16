@@ -1,5 +1,5 @@
 <?php
-global $post;
+global $post, $theme;
 
 // find the enclosure - gets the first video enclosure
 $enclosure = get_post_meta($post->ID, 'enclosure');
@@ -31,7 +31,7 @@ $flashvars = array(
 	'autostart' => 'false',
 	'skin' => $theme->info('base_url').'/swf/rhskin.zip',
 	'provider' => 'rtmp',
-	'streamer' => 'rtmp://'.$streamer.'.cloudfront.net/cfx/st'
+	'streamer' => 'rtmp://'.$theme->options('s3_streamer').'.cloudfront.net/cfx/st'
 );
 if (has_post_thumbnail()) {
 	$attach_id = get_post_thumbnail_id($post->ID);
