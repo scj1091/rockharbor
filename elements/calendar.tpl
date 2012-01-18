@@ -13,21 +13,9 @@
 	},
 	events: function(start, end, callback) {
 		jQuery.ajax({
-			url: 'https://core.rockharbor.org/homes/publicCalendar/<?php echo $id; ?>/'+Math.round(start.getTime()/1000)+'/'+Math.round(end.getTime()/1000)+'/json',
+			url: 'http://core2.local/dates/calendar<?php echo !empty($id) ? "/Ministry:$id" : null; ?>/full.json?start='+Math.round(start.getTime()/1000)+'&end='+Math.round(end.getTime()/1000),
 			dataType: 'jsonp',
-			success: function(data) {
-				var events = [];
-				for (var e in data) {
-					events.push({
-						title: data[e].Events.event_name,
-						start: data[e].EventDates.start_date,
-						end: data[e].EventDates.end_date,
-						allDay: false,
-						url: 'https://core.rockharbor.org/events/'+data[e].Events.event_id
-					});
-				}
-				callback(events);
-			}
+			success: callback
 		});
 	}
 });</script>

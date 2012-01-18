@@ -39,7 +39,7 @@ $coreid = $theme->options('core_id');
 	</div>
 	<div class="body">
 		<?php
-		$theme->set('events', $theme->getCoreHomepageEvents($coreid));
+		$theme->set('events', $theme->fetchCoreFeed($coreid));
 		echo $theme->render('core_public_calendar');
 		?>
 	</div>
