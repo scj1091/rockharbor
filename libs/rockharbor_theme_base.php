@@ -237,7 +237,7 @@ class RockharborThemeBase {
  * @return array Normalized event array
  */
 	public function fetchCoreFeed($ministry_ids = null, $involvement_ids = null) {
-		$url = 'http://core2.local/dates/calendar';
+		$url = 'https://core.rockharbor.org/dates/calendar';
 		if (!empty($ministry_ids)) {
 			$url .= '/Ministry:'.$ministry_ids;
 		}
