@@ -430,6 +430,7 @@ th {
 
 #banner img {
   max-width: 26%;
+  display: inline;
 }
 
 #banner img.full, #banner .withvid div.image img {
