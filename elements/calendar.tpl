@@ -13,7 +13,7 @@
 	},
 	events: function(start, end, callback) {
 		jQuery.ajax({
-			url: 'http://core2.local/dates/calendar<?php echo !empty($id) ? "/Ministry:$id" : null; ?>/full.json?start='+Math.round(start.getTime()/1000)+'&end='+Math.round(end.getTime()/1000),
+			url: 'https://core.rockharbor.org/dates/calendar<?php echo !empty($id) ? "/Campus:$id" : null; ?>/full.json?start='+Math.round(start.getTime()/1000)+'&end='+Math.round(end.getTime()/1000),
 			dataType: 'jsonp',
 			success: callback
 		});
