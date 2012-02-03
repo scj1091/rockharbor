@@ -233,11 +233,16 @@ class RockharborThemeBase {
  * - `$ministry_ids` Comma-delimited list of ministry ids to pull
  * - `$involvement_ids` Comma-delimited list of involvement ids to pull
  * 
- * @param integer $id The ministry id
+ * @param integer $campus_ids The Campus id(s) to pull
+ * @param integer $ministry_ids The Ministry id(s) to pull
+ * @param integer $involvement_ids The Involvement id(s) to pull
  * @return array Normalized event array
  */
-	public function fetchCoreFeed($ministry_ids = null, $involvement_ids = null) {
+	public function fetchCoreFeed($campus_ids = null, $ministry_ids = null, $involvement_ids = null) {
 		$url = 'https://core.rockharbor.org/dates/calendar';
+		if (!empty($campus_ids)) {
+			$url .= '/Campus:'.$campus_ids;
+		}
 		if (!empty($ministry_ids)) {
 			$url .= '/Ministry:'.$ministry_ids;
 		}

@@ -49,7 +49,7 @@ get_header();
 		), $metadata);
 		// sidebar-core will render core_public_calendar which uses events
 		$involvement_ids = trim($meta['core_event_id'], ',').','.trim($meta['core_group_id'], ',').','.trim($meta['core_team_id'], ',').','.trim($meta['core_involvement_id'], ',');
-		$events = $theme->fetchCoreFeed($meta['core_id'], $involvement_ids);
+		$events = $theme->fetchCoreFeed(null, $meta['core_id'], $involvement_ids);
 		if (!empty($events)):
 		?>
 		<section id="sidebar" role="complementary">
