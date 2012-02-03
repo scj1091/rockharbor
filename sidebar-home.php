@@ -28,7 +28,7 @@ $coreid = $theme->options('core_id');
 		<?php
 		$calendarpageid = $theme->options('calendar_page_id');
 		if (empty($calendarpageid)) {
-			$link = "https://core.rockharbor.org/ministries/$coreid";
+			$link = "https://core.rockharbor.org/campuses/view/Campus:$coreid";
 			$target = ' target="_blank"';
 		} else {
 			$link = get_permalink($calendarpageid);
