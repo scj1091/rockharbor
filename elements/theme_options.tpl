@@ -60,7 +60,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'before' => '<th>',
 						'label' => 'CORE ID',
 						'between' => '</th><td>',
-						'after' => '<br /><small>(the ministry ID to pull calendar events from)</small></td>'
+						'after' => '<br /><small>(the campus ID to pull calendar events from)</small></td>'
 					)); 
 				?>
 			</tr>

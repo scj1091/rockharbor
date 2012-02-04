@@ -42,10 +42,14 @@ get_header();
 		$metadata = $theme->metaToData($post->ID);
 		$meta = array_merge(array(
 			'core_id' => 0,
-			'core_event_id' => 0
+			'core_involvement_id' => 0,
+			'core_event_id' => 0,
+			'core_group_id' => 0,
+			'core_team_id' => 0
 		), $metadata);
 		// sidebar-core will render core_public_calendar which uses events
-		$events = $theme->getCoreMinistryEvents($meta['core_id'], $meta['core_event_id'], $meta['core_group_id'], $meta['core_team_id']);
+		$involvement_ids = trim($meta['core_event_id'], ',').','.trim($meta['core_group_id'], ',').','.trim($meta['core_team_id'], ',').','.trim($meta['core_involvement_id'], ',');
+		$events = $theme->fetchCoreFeed(null, $meta['core_id'], $involvement_ids);
 		if (!empty($events)):
 		?>
 		<section id="sidebar" role="complementary">
