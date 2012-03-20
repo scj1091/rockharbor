@@ -23,16 +23,21 @@ echo $theme->Html->tag('div', $out);
 ?>
 <script>
 	(function($) {
+		$('#feature-1, #feature-2').each(function() {
+			$(this).data('src', $(this).children('img').attr('src'));
+		});
 		// some good old fashioned javascript image swapping :/ #YAWPH
 		$('#feature-1, #feature-2').mouseover(function() {
+			var now = new Date().getTime();
 			var id = $(this).attr('id');
-			var src = $(this).children('img').attr('src');
-			$(this).children('img').attr('src', src.replace(id, id+'-hover'));
+			var src = $(this).data('src');
+			$(this).children('img').attr('src', src.replace(id, id+'-hover')+'?_t='+now);
 		});
 		$('#feature-1, #feature-2').mouseout(function() {
+			var now = new Date().getTime();
 			var id = $(this).attr('id');
-			var src = $(this).children('img').attr('src');
-			$(this).children('img').attr('src', src.replace(id+'-hover', id));
+			var src = $(this).data('src');
+			$(this).children('img').attr('src', src.replace(id+'-hover', id)+'?_t='+now);
 		});
 	})(jQuery);
 </script>
