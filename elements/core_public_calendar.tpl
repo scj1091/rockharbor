@@ -7,7 +7,9 @@ if (!empty($events)):
 				<?php
 				$theme->set('date', $event['start']);
 				echo $theme->render('posted_date');
-				if ($event['end'] != $event['start']) {
+				$start = date('Y-m-d', strtotime($event['start']));
+				$end = date('Y-m-d', strtotime($event['end']));
+				if ($start != $end) {
 					$theme->set('date', $event['end']);
 					echo ' - '.$theme->render('posted_date');
 				}
