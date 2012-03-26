@@ -1027,7 +1027,6 @@ input:focus, textarea:focus, select:focus {
 -----------------------------------------*/
 .core-events time {
   float: none;
-  display: block;
   margin-bottom: 5px;
 }
 
