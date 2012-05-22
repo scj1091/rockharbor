@@ -3,6 +3,7 @@ global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
+$core_calendar_id = $theme->options('core_calendar_id');
 ?>
 <div id="pre-secondary">
 	<?php
@@ -39,7 +40,7 @@ $coreid = $theme->options('core_id');
 	</div>
 	<div class="body">
 		<?php
-		$theme->set('events', $theme->fetchCoreFeed($coreid));
+		$theme->set('events', $theme->fetchCoreFeed($core_calendar_id));
 		echo $theme->render('core_public_calendar');
 		?>
 	</div>

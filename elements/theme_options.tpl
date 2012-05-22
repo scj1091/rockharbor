@@ -60,7 +60,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'before' => '<th>',
 						'label' => 'CORE ID',
 						'between' => '</th><td>',
-						'after' => '<br /><small>(the campus ID to pull calendar events from)</small></td>'
+						'after' => '<br /><small>(the CORE campus ID)</small></td>'
 					)); 
 				?>
 			</tr>
@@ -125,6 +125,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 					));
 				?>
 				</td>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('core_calendar_id', array(
+						'before' => '<th>',
+						'label' => 'CORE Calendar Campus ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(the campus ID(s) to pull calendar events from)</small></td>'
+					)); 
+				?>
 			</tr>
 		</table>
 		<p class="submit">
