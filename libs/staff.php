@@ -82,10 +82,13 @@ class Staff extends PostType {
 		));
 		$departments = array();
 		foreach ($taxes as $tax) {
-			$departments[$tax->term_id] = $tax->name;
+			$departments[$tax->slug] = $tax->name;
 		}
+		$data = $this->theme->metaToData($post->ID);
+		$selectedDepartment = wp_get_post_terms($post->ID, 'department');
+		$data['tax_input']['department'] = $selectedDepartment[0]->slug;
 		$this->theme->set('departments', $departments);
-		$this->theme->set('data', $this->theme->metaToData($post->ID));
+		$this->theme->set('data', $data);
 		echo $this->theme->render('staff_details_meta_box');
 	}
 }

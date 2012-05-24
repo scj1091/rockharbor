@@ -17,8 +17,10 @@
 				$meta = get_post_custom();
 				echo $meta['first_name'][0] . ' ' . $meta['last_name'][0];
 				echo '<br />';
-				$department = get_term($meta['department'][0], 'department');
-				echo $department->name;
+				$department = wp_get_post_terms($post->ID, 'department');
+				if (!empty($department)) {
+					echo $department[0]->name;
+				}
 				?>
 			</a>
 		</div>

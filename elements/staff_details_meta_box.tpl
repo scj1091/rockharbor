@@ -33,7 +33,8 @@ echo $theme->Html->input('title', array(
 	'div' => 'half',
 	'after' => '</p>'
 ));
-echo $theme->Html->input('department', array(
+$theme->Html->inputPrefix = null;
+echo $theme->Html->input('tax_input[department]', array(
 	'before' => '<p>',
 	'label' => 'Ministry',
 	'type' => 'select',
@@ -41,6 +42,7 @@ echo $theme->Html->input('department', array(
 	'div' => 'half',
 	'after' => '</p>'
 ));
+$theme->Html->inputPrefix = 'meta';
 echo $theme->Html->input('hometown', array(
 	'before' => '<p>',
 	'label' => 'Hometown',
