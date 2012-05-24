@@ -430,6 +430,7 @@ th {
 
 #banner img {
   max-width: 26%;
+  display: inline;
 }
 
 #banner img.full, #banner .withvid div.image img {
@@ -944,21 +945,25 @@ dl dt.gallery-icon {
 
 /*= Forms
 -----------------------------------------*/
-input, textarea {
+input, textarea, select {
   background: #ffffff;
   border: 1px solid #747474;
   padding: 5px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  margin-bottom: 5px;
+  margin-bottom: 5px !important;
   width: 100%;
   color: #747474;
   font-family: Lucida, Helvetica, Arial, sans-serif;
   font-size: 100%;
 }
 
-input:focus, textarea:focus {
+select {
+	width: auto;
+}
+
+input:focus, textarea:focus, select:focus {
   border: 1px solid #ff0000;
 }
 
@@ -1026,7 +1031,6 @@ input:focus, textarea:focus, select:focus {
 -----------------------------------------*/
 .core-events time {
   float: none;
-  display: block;
   margin-bottom: 5px;
 }
 

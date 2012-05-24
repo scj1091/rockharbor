@@ -36,7 +36,7 @@ class Shortcodes {
  */
 	public function calendar($attr) {
 		$attrs = shortcode_atts(array(
-			'id' => $this->theme->options('core_id')
+			'id' => $this->theme->options('core_calendar_id')
 		), $attr);
 		$id = $attrs['id'];
 		$this->theme->set(compact('id'));

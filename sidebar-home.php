@@ -3,6 +3,7 @@ global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
+$core_calendar_id = $theme->options('core_calendar_id');
 ?>
 <div id="pre-secondary">
 	<?php
@@ -28,7 +29,7 @@ $coreid = $theme->options('core_id');
 		<?php
 		$calendarpageid = $theme->options('calendar_page_id');
 		if (empty($calendarpageid)) {
-			$link = "https://core.rockharbor.org/ministries/$coreid";
+			$link = "https://core.rockharbor.org/campuses/view/Campus:$coreid";
 			$target = ' target="_blank"';
 		} else {
 			$link = get_permalink($calendarpageid);
@@ -39,7 +40,7 @@ $coreid = $theme->options('core_id');
 	</div>
 	<div class="body">
 		<?php
-		$theme->set('events', $theme->getCoreHomepageEvents($coreid));
+		$theme->set('events', $theme->fetchCoreFeed($core_calendar_id));
 		echo $theme->render('core_public_calendar');
 		?>
 	</div>

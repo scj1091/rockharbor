@@ -228,133 +228,36 @@ class RockharborThemeBase {
 	}
 	
 /**
- * Pulls events from the public calendar and normalizes it into a standard array
- * that the element can read
+ * Pulls events from CORE
  * 
- * @param integer $id The ministry id
+ * ### Options:
+ * - `$ministry_ids` Comma-delimited list of ministry ids to pull
+ * - `$involvement_ids` Comma-delimited list of involvement ids to pull
+ * 
+ * @param integer $campus_ids The Campus id(s) to pull
+ * @param integer $ministry_ids The Ministry id(s) to pull
+ * @param integer $involvement_ids The Involvement id(s) to pull
  * @return array Normalized event array
  */
-	public function getCoreHomepageEvents($id = null) {
-		if (!$id) {
-			$id = 0;
+	public function fetchCoreFeed($campus_ids = null, $ministry_ids = null, $involvement_ids = null) {
+		$url = 'https://core.rockharbor.org/dates/calendar';
+		if (!empty($campus_ids)) {
+			$url .= '/Campus:'.$campus_ids;
 		}
-		$response = wp_remote_get("https://core.rockharbor.org/homes/publicCalendar/$id/0/0/json", array('sslverify' => false));
+		if (!empty($ministry_ids)) {
+			$url .= '/Ministry:'.$ministry_ids;
+		}
+		if (!empty($involvement_ids)) {
+			$url .= '/Involvement:'.$involvement_ids;
+		}
+		$url .= '/full.json?start='.strtotime('now').'&end='.strtotime('+60 days');
+		$response = wp_remote_get($url, array('sslverify' => false));
 		if (is_wp_error($response)) {
 			$response = array(
 				'body' => json_encode(array())
 			);
 		}
-		$items = json_decode($response['body'], true);
-		
-		$events = array();
-		foreach ($items as $item) {
-			$events[] = array(
-				'Event' => array(
-					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name'],
-					'type' => 'event'
-				),
-				'Date' => array(
-					array(
-						'start_date' => $item['EventDates']['start_date'],
-						'end_date' => $item['EventDates']['end_date']
-					)
-				)
-			);
-		}
-		return $events;
-	}
-
-/**
- * Gets all involvement for ministries. Can include specific events as well.
- * Normalizes the array to match the return that `getCoreHomepageEvents()`
- * returns
- * 
- * @param string $ids Comma delimited list of ministry IDs to pull involvement from
- * @param string $event_ids Comma delimited list of events to include as well
- * @param string $group_ids Comma delimited list of groups to include as well
- * @param string $team_ids Comma delimited list of teams to include as well
- * @return array 
- */
-	public function getCoreMinistryEvents($ids = null, $event_ids = null, $group_ids = null, $team_ids = null) {
-		if (empty($ids)) {
-			$ids = 0;
-		}
-		if (empty($event_ids)) {
-			$event_ids = 0;
-		}
-		if (empty($group_ids)) {
-			$group_ids = 0;
-		}
-		if (empty($team_ids)) {
-			$team_ids = 0;
-		}
-		$response = wp_remote_get("https://core.rockharbor.org/ministries/involvement/$ids/$event_ids/$group_ids/$team_ids/json", array('sslverify' => false));
-		if (is_wp_error($response)) {
-			$response = array(
-				'body' => json_encode(array(
-					'InvolvementEvents' => array(),
-					'InvolvmentTeams' => array(),
-					'InvolvmentGroups' => array()
-				))
-			);
-		}
-		$items = json_decode($response['body'], true);
-		
-		$events = array();
-		$days = array(
-			'' => 'sunday',
-			'SUN' => 'sunday',
-			'MON' => 'monday',
-			'TUE' => 'tuesday',
-			'WED' => 'wednesday',
-			'THU' => 'thursday',
-			'FRI' => 'friday',
-			'SAT' => 'saturday'
-		);
-		foreach ($items['InvolvementEvents'] as $item) {
-			$events[] = array(
-				'Event' => array(
-					'id' => $item['Events']['event_id'],
-					'name' => $item['Events']['event_name']	,
-					'type' => 'event'				
-				),
-				'Date' => array(
-					array(
-						'start_date' => $item['EventDates']['start_date']
-					)
-				)
-			);
-		}
-		foreach ($items['InvolvementTeams'] as $item) {
-			$events[] = array(
-				'Event' => array(
-					'id' => $item['Teams']['team_id'],
-					'name' => $item['Teams']['team_name'],
-					'type' => 'team'					
-				),
-				'Date' => array(
-					array(
-						'start_date' => date('Y-m-d', strtotime('next '.$days[$item['Teams']['meetingDay']]))
-					)
-				)
-			);
-		}
-		foreach ($items['InvolvementGroups'] as $item) {
-			$events[] = array(
-				'Event' => array(
-					'id' => $item['Groups']['group_id'],
-					'name' => $item['Groups']['group_name'],
-					'type' => 'group'
-				),
-				'Date' => array(
-					array(
-						'start_date' => date('Y-m-d', strtotime('next '.$days[$item['Groups']['meetingDay']]))
-					)
-				)
-			);
-		}
-		return $events;
+		return json_decode($response['body'], true);
 	}
 
 /**
