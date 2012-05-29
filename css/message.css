@@ -1,0 +1,65 @@
+/*= Message series
+-----------------------------------------*/
+#content article.message-series {
+	float: left;
+	width: 24%;
+	margin-right: 1%;
+	padding-bottom: 0;
+	
+	border-bottom: none;
+}
+
+#content article.message-series span {
+	display: block;
+	line-height: 15px;
+}
+
+#content article.message-series .series-date {
+	font-size: 90%;
+}
+
+/*= Latest message (in message series)
+-----------------------------------------*/
+#content article.first.message-series {
+	width: 100%;
+}
+
+#content article.first.message-series .series-title {
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 150%;
+	color: #383838;
+}
+
+#content article.first.message-series .series-title a {
+	font-style: normal;
+}
+
+#content article.first.message-series time span {
+	display: inline;
+	line-height: 15px;
+}
+
+#content article.first.message-series time {
+	float: none;
+}
+
+#content article.first.message-series .series-image {
+	width: 40%;
+	padding-right: 2.5%;
+	float: left;
+}
+
+#content article.first.message-series .series-details {
+	width: 57.5%;
+	float: right;
+}
+
+#content article.first.message-series .message-links  {
+	padding-top: 10px;
+}
+
+#content article.first.message-series .message-links a {
+	display: block;
+	
+}
