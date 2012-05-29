@@ -29,9 +29,9 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 				</span>
 				<span class="series-date">
 					<?php
-					echo date('Y-m-d', strtotime($item->series_start_date));
+					echo date('M. j, Y', strtotime($item->series_start_date));
 					if ($item->series_start_date != $item->series_end_date) {
-						echo ' - '.date('Y-m-d', strtotime($item->series_end_date));
+						echo ' - '.date('M. j, Y', strtotime($item->series_end_date));
 					}
 					?>
 				</span>
