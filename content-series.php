@@ -37,7 +37,8 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 				</span>
 				<span class="series-count">
 					<?php 
-					echo $theme->Html->tag('a', $item->series_message_count, array(
+					$suf = $item->series_message_count > 0 ? 'Messages' : 'Message';
+					echo $theme->Html->tag('a', $item->series_message_count." $suf", array(
 						'href' => $termlink,
 						'title' => $item->name
 					));
