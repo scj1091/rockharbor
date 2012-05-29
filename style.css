@@ -887,22 +887,24 @@ footer.related h2 a, .entry-header h1.entry-title a {
   color: #ff0000;
 }
 
-.core-events time, .entry-header time {
-  float: right;
-  font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-size: 120%;
+time {
+	float: right;
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 120%;
 }
 
-.core-events time span, .entry-header time span {
-  padding: 0 3px;
+time span {
+	padding: 0 3px;
 }
 
-.core-events time .month,
-.core-events time .day,
-.entry-header time .month,
-.entry-header time .day {
-  border-right: 1px solid #ff0000;
+time span:first-child {
+	padding-left: 0;
+}
+
+time .month,
+time .day {
+	border-right: 1px solid #ff0000;
 }
 
 article footer {
