@@ -8,6 +8,7 @@
  */
 global $theme, $post, $item;
 $permalink = get_permalink($item->last->ID);
+$termlink = get_term_link((int)$item->term_id, 'series');
 ?>
 	<article id="post-<?php echo $item->term_id ?>" class="first message-series clearfix">
 		<div class="entry-content">
@@ -39,6 +40,18 @@ $permalink = get_permalink($item->last->ID);
 				</span>
 				<span class="message-excerpt">
 					<?php echo $item->last->post_excerpt; ?>
+				</span>
+				<span class="message-links">
+					<?php
+					echo $theme->Html->tag('a', 'Watch This Message', array(
+						'href' => $permalink,
+						'title' => $item->last->post_title
+					));
+					echo $theme->Html->tag('a', 'More Messages in "'.$item->name.'"', array(
+						'href' => $termlink,
+						'title' => $item->name
+					));
+					?>
 				</span>
 			</div>
 		</div>
