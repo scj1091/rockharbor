@@ -74,8 +74,9 @@ class Message extends PostType {
 		
 		$_old_query = $wp_query;
 		
-		$termsperpage = 1;
 		$page = (get_query_var('paged')) ? get_query_var('paged')-1 : 0;
+		// if on the first page, show the first message in addition to other series
+		$termsperpage = $page == 0 ? 17 : 16;
 		$offset = $page*$termsperpage;
 		
 		// get all series and include their first post date, last post date, 
@@ -114,7 +115,7 @@ class Message extends PostType {
 		$count = $count[0]->{'FOUND_ROWS()'};
 		
 		ob_start();
-		foreach ($series as $seriesItem) {
+		foreach ($series as $num => $seriesItem) {
 			$taxQuery = array(
 				array(
 					'taxonomy' => 'series',
@@ -135,11 +136,15 @@ class Message extends PostType {
 			
 			$item = $seriesItem;
 			
-			get_template_part('content', 'series');
+			if ($num == 0 && $page == 0) {
+				get_template_part('content', 'series-first');
+			} else {
+				get_template_part('content', 'series');
+			}
 		}
 		
 		$this->theme->set('wp_rewrite', $wp_rewrite);
-		$wp_query->max_num_pages = $count;
+		$wp_query->max_num_pages = ceil($count / $termsperpage);
 		$this->theme->set('wp_query', $wp_query);
 		$return = ob_get_clean();
 		
