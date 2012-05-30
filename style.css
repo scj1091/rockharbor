@@ -1041,6 +1041,12 @@ input:focus, textarea:focus, select:focus {
   margin-bottom: 15px;
 }
 
+/*= Share buttons
+-----------------------------------------*/
+.fb_iframe_widget {
+	vertical-align: top;
+}
+
 /*= Campus menu
 A lot of !important declarations because of the order in which this appears.
 Also skipped using id's to override since there are 2 menus on the page
