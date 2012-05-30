@@ -850,20 +850,6 @@ footer h3 {
   text-decoration: none !important;
 }
 
-/*= Navigation only template
------------------------------------------*/
-.page-template-navigation-only-php #content {
-	width: 95%;
-}
-
-.page-template-navigation-only-php #content nav#submenu {
-	width: 16.25%;
-}
-
-.page-template-navigation-only-php article {
-	width: 81.25%;
-}
-
 /*= Articles
 -----------------------------------------*/
 .entry-header {
