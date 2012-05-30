@@ -72,6 +72,7 @@
 	});
 </script>
 <?php endif; ?>
+<script src="<?php echo $theme->info('base_url'); ?>/js/audio-player.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/swfobject.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.fitvids.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
@@ -86,6 +87,9 @@
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
+	});
+	AudioPlayer.setup('<?php echo $theme->info('base_url'); ?>/swf/audio-player.swf', {
+		width: 200
 	});
 </script>
 <!--[if !IE]>-->
