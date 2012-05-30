@@ -66,3 +66,16 @@
 	display: block;
 	
 }
+
+/*= Message content
+-----------------------------------------*/
+article.message .message-details.with-image {
+	float: right;
+	width: 70%;
+}
+
+article.message .message-image {
+	float: left;
+	width: 28%;
+	padding-right: 2%;
+}
