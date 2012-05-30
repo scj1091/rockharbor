@@ -63,8 +63,9 @@
       $allVideos.each(function(){
         var $this = $(this);
         if (this.tagName.toLowerCase() == 'embed' && $this.parent('object').length || $this.parent('.fluid-width-video-wrapper').length) { return; } 
-        var height = this.tagName.toLowerCase() == 'object' ? $this.attr('height') : $this.height(),
-            aspectRatio = height / $this.width();
+        var height = this.tagName.toLowerCase() == 'object' ? $this.attr('height') : $this.height();
+        var width = this.tagName.toLowerCase() == 'object' ? $this.attr('width') : $this.width();
+		var aspectRatio = height / width;
         $this.wrap('<div class="fluid-width-video-wrapper" />').parent('.fluid-width-video-wrapper').css('padding-top', (aspectRatio * 100)+"%");
         $this.removeAttr('height').removeAttr('width');
 		$this.parent('.fluid-width-video-wrapper').parent('object').removeAttr('height').removeAttr('width');
