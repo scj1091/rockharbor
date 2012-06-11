@@ -6,7 +6,7 @@
 			<?php endif; ?>
 			<?php 
 			$theme->set('pubdate', true);
-			$theme->set('date', get_the_date());
+			$theme->set('date', $post->post_date);
 			echo $theme->render('posted_date'); 
 			?>
 		</header>
