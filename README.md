@@ -18,6 +18,7 @@ At the very least, the following files should be created.
             header.jpg
             out.png
             twitter-icon.png
+            facebook-icon.png
         /libs
             child_theme.php
         functions.php

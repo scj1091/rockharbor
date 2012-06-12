@@ -67,6 +67,56 @@
 	
 }
 
+/*= Single message
+-----------------------------------------*/
+article.message {
+	color: #747474;
+}
+
+article.message .message-title {
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 150%;
+	color: #383838;
+	font-style: normal;
+}
+
+article.message .meta-title {
+	margin-right: 5px;
+	
+	text-transform: uppercase;
+}
+
+article.message .embedded-video {
+	margin-bottom: 10px;
+}
+
+article.message .message-audio object {
+	display: inline;
+	vertical-align: middle;
+}
+
+article.message .message-more,
+article.message .message-related {
+	padding-top: 10px;
+}
+
+article.message .message-more {
+	margin-top: 20px;
+	border-top: 1px dotted #747474;
+}
+
+article.message .share h1 {
+	display: inline;
+	margin-right: 5px;
+}
+
+article.message .share div {
+	display: inline;
+	margin-right: 10px;
+	max-height: 20px;
+}
+
 /*= Message content
 -----------------------------------------*/
 article.message .message-details.with-image {
