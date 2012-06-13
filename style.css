@@ -433,6 +433,10 @@ th {
   display: inline;
 }
 
+#banner .embedded-video img {
+	max-width: 100%;
+}
+
 #banner img.full, #banner .withvid div.image img {
   max-width: 100%;
 }
@@ -848,6 +852,10 @@ footer h3 {
 
 .page-link a:hover {
   text-decoration: none !important;
+}
+
+.embedded-audio {
+	display: inline-block;
 }
 
 /*= Articles

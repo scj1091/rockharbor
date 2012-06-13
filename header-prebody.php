@@ -32,6 +32,7 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/mediaelementplayer.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/style.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
@@ -53,7 +54,6 @@
 	wp_head();
 ?>
 <?php if (is_front_page()): ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.dimensions.min.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
 <script>
 	jQuery(document).ready(function() {
@@ -72,9 +72,7 @@
 	});
 </script>
 <?php endif; ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/audio-player.js"></script>
-<script src="<?php echo $theme->info('base_url'); ?>/js/swfobject.js"></script>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.fitvids.js"></script>
+<script src="<?php echo $theme->info('base_url'); ?>/js/mediaelement-and-player.min.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
 <script>
 	jQuery(document).ready(function() {
@@ -88,14 +86,19 @@
 			.removeAttr('width')
 			.removeAttr('height');
 	});
-	AudioPlayer.setup('<?php echo $theme->info('base_url'); ?>/swf/audio-player.swf', {
-		width: 200
-	});
 </script>
 <!--[if !IE]>-->
 <script>
 	jQuery(document).ready(function() {
-		jQuery('.embedded-video').fitVids();
+		jQuery('video').mediaelementplayer({
+			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/'
+		});
+		jQuery('audio').mediaelementplayer({
+			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
+			audioWidth: 200,
+			audioHeight: 30,
+			features: ['playpause', 'progress', 'current']
+		});
 	});
 </script>
 <!--<![endif]-->

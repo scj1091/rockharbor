@@ -111,7 +111,7 @@ article.message .share h1 {
 	margin-right: 5px;
 }
 
-article.message .share div {
+article.message .share > div {
 	display: inline;
 	margin-right: 10px;
 	max-height: 20px;

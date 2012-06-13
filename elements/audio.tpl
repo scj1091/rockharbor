@@ -22,9 +22,9 @@ if (!empty($enclosure)) {
 $file = str_replace(array("\r\n", "\r", "\n"), '', $file);
 $id = uniqid();
 ?>
-<div class="embedded-audio" id="player-<?php echo $id;?>"></div>
-<script type='text/javascript'>
-	 AudioPlayer.embed('player-<?php echo $id;?>', {
-		 soundFile: '<?php echo $file; ?>'
-	 });
-</script>
+<div class="embedded-audio" id="player-<?php echo $id;?>">
+	<audio
+		src="<?php echo $file; ?>"
+		preload="none"
+	></audio>
+</div>
