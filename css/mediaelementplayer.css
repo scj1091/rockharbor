@@ -1,3 +1,80 @@
+.embedded-video {
+	position: relative;
+}
+
+.embedded-video .share-video {
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	
+	background: rgba(0,0,0,.7);
+}
+
+.embedded-video:hover .share-video {
+	display: block;
+}
+
+.embedded-video .share-video a,
+.embedded-video .share-modal a {
+	padding: 10px;
+	display: block;
+	
+	color: #ffffff !important;
+	text-decoration: none;
+	font-family: Helvetica, Arial;
+	font-size: 10px;
+	text-transform: uppercase;
+	font-style: normal !important;
+}
+
+.embedded-video .share-modal a {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.embedded-video .share-modal {
+	z-index: 10;
+	position: absolute;
+	display: none;
+	padding: 10px;
+	padding-top: 30px;
+	
+	font-size: 11px;
+	text-align: center;
+	color: #ffffff;
+	font-family: Helvetica, Arial;
+	
+	background: rgba(0,0,0,.7);
+}
+
+.embedded-video .share-modal p {
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.embedded-video .share-modal textarea,
+.embedded-video .share-modal input {
+	padding: 5px;
+	width: auto;
+	
+	border: 1px solid #000000;
+	font-family: Helvetica, Arial;
+}
+
+.embedded-video .share-modal label {
+	text-transform: uppercase;
+}
+
+.embedded-video .share-modal textarea {
+	margin: 0 auto;
+	display: block;
+	width: 80%;
+	margin-bottom: 5px;
+}
+
 .mejs-container {
 	position: relative;
 	background: #000;
