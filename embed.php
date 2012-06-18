@@ -60,7 +60,7 @@ $theme = new $class;
 			switch_to_blog($_GET['blog']);
 			query_posts(array(
 				'p' => $_GET['post'],
-				'post_type' => 'message'
+				'post_type' => get_post_types()
 			));
 			if (have_posts()) {
 				the_post();
