@@ -31,6 +31,9 @@ $theme = new $class;
 <html>
 	<head>
 		<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/mediaelementplayer.css" />
+		<?php if ($theme->isChildTheme()): ?>
+		<link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
+		<?php endif; ?>
 		<?php
 			wp_enqueue_script('jquery');
 			wp_head();
