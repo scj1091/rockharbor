@@ -109,7 +109,8 @@ class RockharborThemeBase {
  * @var array 
  */
 	public $features = array(
-		'staff' => 'Staff'
+		'staff' => 'Staff',
+		'message' => 'Message'
 	);
 
 /**
@@ -174,7 +175,7 @@ class RockharborThemeBase {
 			session_start();
 		}
 	}
-
+	
 /**
  * Adds features if they are supported by the child theme
  * 
@@ -634,6 +635,33 @@ class RockharborThemeBase {
 			$this->_vars = array();
 		}
 		return $out;
+	}
+
+/**
+ * Gets a file from an enclosure
+ * 
+ * @param string $type The type of enclosure to get (audio or video)
+ * @param integer $postId The post id. Default is current post
+ * @return string
+ */
+	public function getEnclosure($type = 'video', $postId = null) {
+		global $post;
+		if (empty($postId)) {
+			$postId = $post->ID;
+		}
+		$enclosure = get_post_meta($postId, 'enclosure');
+		$file = null;
+		if (!empty($enclosure)) {
+			foreach ($enclosure as $enclosed) {
+				$enclosedSplit = explode("\n", $enclosed);
+				if (!empty($enclosedSplit[2]) && strpos($enclosedSplit[2], "$type/") !== false) {
+					$file = $enclosedSplit[0];
+					break;
+				}
+			}
+		}
+		$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
+		return $file;
 	}
 	
 /**

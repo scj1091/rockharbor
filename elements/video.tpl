@@ -1,72 +1,95 @@
 <?php
-global $post;
+global $post, $theme;
 
-// find the enclosure
-$enclosure = get_post_meta($post->ID, 'enclosure');
-if (!empty($enclosure[0])) {
-	$enclosure = explode("\n", $enclosure[0]);
-	if (empty($enclosure[2]) || strpos($enclosure[2], 'video/') === false) {
-		return null;
-	}
-} else {
+if (!isset($showUrl)) {
+	$showUrl = false;
+}
+
+$file = $theme->getEnclosure('video');
+if (empty($file)) {
 	return null;
 }
 
-$file = $enclosure[0];
-$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
-$tantan = get_option('tantan_wordpress_s3', false);
-if ($tantan && !empty($tantan['bucket'])) {
-	$file = str_replace('http://'.$tantan['bucket'].'.s3.amazonaws.com/', '', $file);
-}
-
-$flashvars = array(
-	'controllbar' => 'over',
-	'file' => $file,
-	'autostart' => 'false',
-	'skin' => $theme->info('base_url').'/swf/rhskin.zip',
-	'provider' => 'rtmp',
-	'streamer' => 'rtmp://'.$streamer.'.cloudfront.net/cfx/st'
-);
+$poster = null;
 if (has_post_thumbnail()) {
 	$attach_id = get_post_thumbnail_id($post->ID);
 	$attach = wp_get_attachment_image_src($attach_id, 'large');
-	$flashvars['image'] = $attach[0];
+	$poster = $attach[0];
 }
-// doesn't really matter as it will be sized with jQuery().fitVids()
-$width = 500;
-$height = $width*9/16;
 
 $id = uniqid();
-
-$flashvarsurl = array();
-foreach ($flashvars as $var => $val) {
-	$flashvarsurl[] = $var.'='.urlencode($val);
-}
-$flashvarsurl = implode('&', $flashvarsurl);
 ?>
 <div class="embedded-video" id="player-<?php echo $id;?>">
-	<object id="embedded-video-<?php echo $id; ?>" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="<?php echo $width; ?>" height="<?php echo $height; ?>">
-		<param name="movie" value="<?php echo $theme->info('base_url'); ?>/swf/player.swf" />
-		<param name="allowfullscreen" value="true" />
-		<param name="allowscriptaccess" value="always" />
-		<param name="flashvars" value="<?php echo $flashvarsurl; ?>" />
-		<param name="wmode" value="transparent" /> 
-		<!--[if !IE]>-->
-		<object type="application/x-shockwave-flash" data="<?php echo $theme->info('base_url'); ?>/swf/player.swf"  width="<?php echo $width; ?>" height="<?php echo $height; ?>">
-			<param name="allowfullscreen" value="true" />
-			<param name="allowscriptaccess" value="always" />
-			<param name="flashvars" value="<?php echo $flashvarsurl; ?>" />
-			<param name="wmode" value="transparent" /> 
-		<!--<![endif]-->
-			<a href="http://www.adobe.com/go/getflashplayer">
-				<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
-			</a>
-		<!--[if !IE]>-->
-		</object>
-		<!--<![endif]-->
-	</object>
+	<?php if ($showUrl): ?>
+	<div class="referring-url">
+		<a href="<?php echo get_permalink(); ?>" target="_blank" class="referer-link" title="<?php echo get_permalink(); ?>">View <?php echo ucfirst($post->post_type); ?></a>
+	</div>
+	<?php endif; ?>
+	<div class="share-video">
+		<a href="javascript:;" class="embed-link">Share</a>
+	</div>
+	<div class="share-modal">
+		<a href="javascript:;" class="embed-link">X</a>
+		<p>To embed this video, copy and paste this code into your website.</p>
+		<textarea id="code-<?php echo $id;?>"><iframe src="<?php echo $theme->info('base_url'); ?>/embed.php?post=<?php echo $post->ID; ?>&blog=<?php echo $theme->info('id'); ?>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></textarea>
+		<label for="width-<?php echo $id;?>">Width:</label>
+		<input type="text" value="400" id="width-<?php echo $id;?>" size="10" />
+		<label for="height-<?php echo $id;?>">Height:</label>
+		<input type="text" value="225" id="height-<?php echo $id;?>" size="10" />
+	</div>
+	<video 
+		id="embedded-player-<?php echo $id;?>"
+		src="<?php echo $file; ?>"
+		controls
+		preload="auto"
+		width="100%"
+		height="100%"
+		<?php
+		if (!empty($poster)) {
+			echo 'poster="'.$poster.'"';
+		}
+		?>
+	></video>
 </div>
-<div id="debug"></div>
-<script type='text/javascript'>
-	 swfobject.registerObject("embedded-video-<?php echo $id; ?>", "9.0.115", "expressInstall.swf");
+<script type="text/javascript">
+	jQuery('#player-<?php echo $id;?> .share-video a').click(function() {
+		jQuery('#player-<?php echo $id;?> .share-modal').show();
+		var h = jQuery('#player-<?php echo $id;?> .share-modal').outerHeight();
+		var w = jQuery('#player-<?php echo $id;?> .share-modal').outerWidth();
+		jQuery('#player-<?php echo $id;?> .share-modal').hide();
+		var t = (jQuery('#player-<?php echo $id;?>').height() - 30) / 2 - h/2;
+		var l = jQuery('#player-<?php echo $id;?>').width() / 2 - w/2;
+		jQuery('#player-<?php echo $id;?> .share-modal').css({
+			top: t+'px',
+			left: l+'px'
+		}).fadeIn();
+	});
+	jQuery('#player-<?php echo $id;?> .share-modal a').click(function() {
+		jQuery(this).parent().fadeOut();
+	});
+	jQuery('#code-<?php echo $id;?>').click(function() {
+		this.focus();
+		this.select();
+	});
+	jQuery('#width-<?php echo $id;?>, #height-<?php echo $id;?>').change(function() {
+		var w, h;
+		if (jQuery(this).attr('id') == 'width-<?php echo $id;?>') {
+			w = jQuery(this).val();
+			h = w*9/16;
+		} else {
+			h = jQuery(this).val();
+			w = h*16/9;
+		}
+		
+		w = Math.ceil(w);
+		h = Math.ceil(h);
+		
+		jQuery('#width-<?php echo $id;?>').val(w);
+		jQuery('#height-<?php echo $id;?>').val(h);
+		
+		var embed = jQuery('#code-<?php echo $id;?>').val();
+		embed = embed.replace(/width="([0-9]+)"/, 'width="'+w+'"');
+		embed = embed.replace(/height="([0-9]+)"/, 'height="'+h+'"');
+		jQuery('#code-<?php echo $id;?>').val(embed);
+	});
 </script>

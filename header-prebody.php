@@ -15,6 +15,7 @@
 <head>
 <meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+<?php echo $theme->render('meta'); ?>
 <title><?php
 	wp_title('|', true, 'right');
 
@@ -32,6 +33,7 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/mediaelementplayer.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/style.css" />
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
@@ -53,7 +55,6 @@
 	wp_head();
 ?>
 <?php if (is_front_page()): ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.dimensions.min.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
 <script>
 	jQuery(document).ready(function() {
@@ -72,8 +73,7 @@
 	});
 </script>
 <?php endif; ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/swfobject.js"></script>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.fitvids.js"></script>
+<script src="<?php echo $theme->info('base_url'); ?>/js/mediaelement-and-player.min.js"></script>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
 <script>
 	jQuery(document).ready(function() {
@@ -82,7 +82,7 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
-		jQuery('.message').delay(5000).slideUp();
+		jQuery('.flash-message').delay(5000).slideUp();
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
@@ -91,26 +91,17 @@
 <!--[if !IE]>-->
 <script>
 	jQuery(document).ready(function() {
-		jQuery('.embedded-video').fitVids();
+		jQuery('video').mediaelementplayer({
+			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/'
+		});
+		jQuery('audio').mediaelementplayer({
+			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
+			audioWidth: 200,
+			audioHeight: 30,
+			features: ['playpause', 'progress', 'current']
+		});
 	});
 </script>
 <!--<![endif]-->
 <?php
-// no analytics if we're local
-if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
-?>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<?php echo $ga; ?>']);
-  _gaq.push(['_setAccount', 'UA-7415608-7']);
-  _gaq.push(['_setDomainName', 'rockharbor.org']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-<?php endif; ?>
-</head>
+echo $theme->render('analytics');

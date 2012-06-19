@@ -139,8 +139,6 @@ class PostType {
 			// shortcode to show the archive
 			add_shortcode($this->options['slug'], array($this, 'shortcode'));
 		}
-		
-		add_action('template_redirect', array($this, 'setTemplate'));
 	}
 
 /**
@@ -205,6 +203,7 @@ class PostType {
 		if (method_exists($this, 'beforeSave')) {
 			return call_user_func(array($this, 'beforeSave'), $data);
 		}
+		return $data;
 	}
 		
 /**
@@ -216,19 +215,6 @@ class PostType {
 	public function _proxyAfterSave($data, $postId) {
 		if (!empty($_POST) && method_exists($this, 'afterSave')) {
 			call_user_func(array($this, 'afterSave'), $postId, $data);
-		}
-	}
-
-/**
- * For single pages under this post type, the template will be changed to 
- * `$slug.php` if it exists.
- */
-	public function setTemplate() {
-		global $post;
-		if ($post->post_type == $this->name && file_exists($this->theme->info('base_path').DS.$this->options['slug'].'.php') && !is_search()) {
-			the_post();
-			include $this->theme->info('base_path').DS.$this->options['slug'].'.php';
-			die();
 		}
 	}
 	

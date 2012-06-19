@@ -525,4 +525,26 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
+	
+	function testTaxInput() {
+		$this->Base->Html->data(array(
+			'tax_input' => array(
+				'something' => 'nothing'
+			)
+		));
+		$input = $this->Base->Html->input('tax_input[something]', array('label' => false));
+		$inputTag = array(
+			'tag' => 'div',
+			'child' => array(
+				'tag' => 'input',
+				'attributes' => array(
+					'name' => 'tax_input[something]',
+					'id' => 'taxinputsomething',
+					'type' => 'text',
+					'value' => 'nothing'
+				)
+			)
+		);
+		$this->assertTag($inputTag, $input);
+	}
 }
