@@ -64,6 +64,7 @@ $theme = new $class;
 			));
 			if (have_posts()) {
 				the_post();
+				$theme->set('showUrl', true);
 				echo $theme->render('video');
 			}
 		}

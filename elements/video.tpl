@@ -1,6 +1,10 @@
 <?php
 global $post, $theme;
 
+if (!isset($showUrl)) {
+	$showUrl = false;
+}
+
 $file = $theme->getEnclosure('video');
 if (empty($file)) {
 	return null;
@@ -16,6 +20,11 @@ if (has_post_thumbnail()) {
 $id = uniqid();
 ?>
 <div class="embedded-video" id="player-<?php echo $id;?>">
+	<?php if ($showUrl): ?>
+	<div class="referring-url">
+		<a href="<?php echo get_permalink(); ?>" target="_blank" class="referer-link" title="<?php echo get_permalink(); ?>">View <?php echo ucfirst($post->post_type); ?></a>
+	</div>
+	<?php endif; ?>
 	<div class="share-video">
 		<a href="javascript:;" class="embed-link">Share</a>
 	</div>
