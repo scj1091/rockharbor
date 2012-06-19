@@ -905,3 +905,31 @@
 	font-size: 10px;
 }
 /* End: SourceChooser */
+
+
+/* Start: audio */
+.mejs-audio.mejs-container .mejs-controls {
+	height: 20px;
+}
+
+.mejs-audio.mejs-container .mejs-controls div {	
+	height: 15px;
+}
+
+.mejs-audio.mejs-container .mejs-controls .mejs-button button {
+	margin: 2px 7px;
+}
+
+.mejs-audio.mejs-container .mejs-time-rail {
+	padding-top: 0;
+}
+
+.mejs-audio.mejs-container .mejs-controls .mejs-time {
+	padding-top: 2px;
+}
+
+.mejs-audio.mejs-container audio,
+.mejs-audio.mejs-container .mejs-mediaelement {
+	height: 20px;
+}
+/* End: audio */

@@ -97,7 +97,7 @@
 		jQuery('audio').mediaelementplayer({
 			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
 			audioWidth: 200,
-			audioHeight: 30,
+			audioHeight: 20,
 			features: ['playpause', 'progress', 'current']
 		});
 	});
