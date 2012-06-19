@@ -158,6 +158,7 @@ class RockharborThemeBase {
 		
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
+		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
@@ -322,6 +323,19 @@ class RockharborThemeBase {
  */
 	protected function _mail($to, $subject, $body, $headers) {
 		return mail($to, $subject, $body, $headers);
+	}
+
+/**
+ * Brings in all of the post types when showing an archive page
+ * 
+ * @param WP_Query $query
+ * @return WP_Query
+ */
+	public function aggregateArchives($query) {
+		if (is_archive()) {
+			$query->set('post_type', get_post_types());
+		}
+		return $query;
 	}
 
 /**
