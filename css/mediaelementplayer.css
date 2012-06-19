@@ -8,7 +8,14 @@
 	position: absolute;
 	display: none;
 	
-	background: rgba(0,0,0,.7);
+	background: url(images/background.png);
+	background: rgba(0, 0, 0, 0.7);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(50,50,50,0.7)), to(rgba(0,0,0,0.7)));
+	background: -webkit-linear-gradient(top, rgba(50,50,50,0.7), rgba(0,0,0,0.7)); 
+	background: -moz-linear-gradient(top, rgba(50,50,50,0.7), rgba(0,0,0,0.7));
+	background: -o-linear-gradient(top, rgba(50,50,50,0.7), rgba(0,0,0,0.7)); 
+	background: -ms-linear-gradient(top, rgba(50,50,50,0.7), rgba(0,0,0,0.7)); 	
+	background: linear-gradient(rgba(50,50,50,0.7), rgba(0,0,0,0.7));
 }
 
 .embedded-video:hover .referring-url,
