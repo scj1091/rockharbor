@@ -32,6 +32,9 @@ get_header();
 							?>
 						</div>
 						<div class="message-meta">
+							<span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span>
+						</div>
+						<div class="message-meta">
 							<span class="meta-title">Series:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'series'); ?></span>
 						</div>
 						<div class="message-meta">
