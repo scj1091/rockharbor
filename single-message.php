@@ -52,7 +52,10 @@ get_header();
 					<div class="message-more share">
 						<div class="message-share">
 							<h1>Share</h1>
-							<?php echo $theme->render('share'); ?>
+							<?php 
+							$theme->set('message', 'Watch "'.get_the_title().'" from @'.$theme->options('twitter_user').' at ');
+							echo $theme->render('share'); 
+							?>
 						</div>
 						<div class="message-download">
 							<h1>Download</h1>
