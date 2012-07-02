@@ -353,20 +353,20 @@ class RockharborThemeBase {
 		$blogs = $this->getBlogs();
 
 		$fields = '`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `post_name`, `guid`, `post_type`, `blog_id`, `comment_status`, `ping_status`';
-		$group = "GROUP BY ID";
 		$query = "SELECT SQL_CALC_FOUND_ROWS $fields FROM (";
 		// primary table - this blog
-		$query .= "SELECT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id) $group";
+		$query .= "SELECT DISTINCT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id)";
+		$query .= "WHERE post_type = 'post' AND post_status = 'publish'";
 		foreach ($blogs as $blog) {
 			if ($blog['blog_id'] == $this->id) {
 				continue;
 			}
 			// other blogs merged into the query
-			$query .= " UNION (SELECT $fields FROM";
+			$query .= " UNION DISTINCT (SELECT $fields FROM";
 			$wpdb->set_blog_id($blog['blog_id']);
 			$query .= " $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID AND meta_key = 'cross_post_$this->id')";
 			$query .= " LEFT JOIN $wpdb->blogs ON (blog_id = {$blog['blog_id']})";
-			$query .= " WHERE meta_value = 1 $group)";
+			$query .= " WHERE meta_value = 1)";
 		}
 
 		// conditions affecting all queries
