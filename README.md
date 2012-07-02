@@ -18,6 +18,7 @@ At the very least, the following files should be created.
             header.jpg
             out.png
             twitter-icon.png
+            facebook-icon.png
         /libs
             child_theme.php
         functions.php
@@ -90,15 +91,21 @@ must dictate what features you would like the subsite to use using the `supports
 key in the `$themeOptions` var. Turning a feature on or off does not affect the
 database.
 
+If you pass `$archive == true` in the post type's option var, a shortcode will 
+automatically be created for that post type, e.g. [staff]. This will embed
+the archives for that type using the template `content-$post_type.php`. For single
+views, it will use the `single-$post_type.php` template.
+
 The following features are available:
 
 ### staff
-Creates a post type for adding staff and makes the `[staff]` shortcode available. 
-Adding `[staff]` to a page will embed the `staff.php` template in that page. The
-staff template shows a thumbnail (the featured image) for each staff member.
-
 It also creates various conveniences, including a taxonomy for staff called 
 "department" and meta boxes to organize the information.
+
+### message
+The message post type contains two taxonomies, "series" and "teachers." Series are
+like categories for the messages, and teachers are the speakers who taught the
+message. Unlike teachers, only one series can be defined per message.
 
 ## Specialness
 

@@ -38,26 +38,6 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-		<?php
-		$metadata = $theme->metaToData($post->ID);
-		$meta = array_merge(array(
-			'core_id' => 0,
-			'core_involvement_id' => 0
-		), $metadata);
-		// sidebar-core will render core_public_calendar which uses events
-		$events = $theme->fetchCoreFeed(null, $meta['core_id'], $meta['core_involvement_id']);
-		if (!empty($events)):
-		?>
-		<section id="sidebar" role="complementary">
-			<header id="sidebar-title">
-				<h1 class="sub-title"><span>CORE</span></h1>
-			</header>
-			<?php
-			$theme->set('events', $events);
-			get_sidebar('core');
-			?>
-		</section>
-		<?php endif;?>
 
 <?php 
 get_footer();

@@ -63,7 +63,7 @@
 		
 		<?php 
 		if (isset($_SESSION['message'])) {
-			echo $theme->Html->tag('div', $_SESSION['message'], array('class' => 'message'));
+			echo $theme->Html->tag('div', $_SESSION['message'], array('class' => 'flash-message'));
 			unset($_SESSION['message']);
 		}
 		?>

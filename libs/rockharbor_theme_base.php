@@ -109,7 +109,8 @@ class RockharborThemeBase {
  * @var array 
  */
 	public $features = array(
-		'staff' => 'Staff'
+		'staff' => 'Staff',
+		'message' => 'Message'
 	);
 
 /**
@@ -157,6 +158,7 @@ class RockharborThemeBase {
 		
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
+		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
@@ -174,7 +176,7 @@ class RockharborThemeBase {
 			session_start();
 		}
 	}
-
+	
 /**
  * Adds features if they are supported by the child theme
  * 
@@ -324,6 +326,19 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Brings in all of the post types when showing an archive page
+ * 
+ * @param WP_Query $query
+ * @return WP_Query
+ */
+	public function aggregateArchives($query) {
+		if (is_archive()) {
+			$query->set('post_type', get_post_types());
+		}
+		return $query;
+	}
+
+/**
  * Aggregates posts from all sites that have the meta 'cross_post_<THISBLOGID>'
  * and includes them in The Loop with this blog's posts
  */
@@ -338,20 +353,20 @@ class RockharborThemeBase {
 		$blogs = $this->getBlogs();
 
 		$fields = '`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `post_name`, `guid`, `post_type`, `blog_id`, `comment_status`, `ping_status`';
-		$group = "GROUP BY ID";
 		$query = "SELECT SQL_CALC_FOUND_ROWS $fields FROM (";
 		// primary table - this blog
-		$query .= "SELECT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id) $group";
+		$query .= "SELECT DISTINCT $fields FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID) LEFT JOIN $wpdb->blogs ON (blog_id = $this->id)";
+		$query .= "WHERE post_type = 'post' AND post_status = 'publish'";
 		foreach ($blogs as $blog) {
 			if ($blog['blog_id'] == $this->id) {
 				continue;
 			}
 			// other blogs merged into the query
-			$query .= " UNION (SELECT $fields FROM";
+			$query .= " UNION DISTINCT (SELECT $fields FROM";
 			$wpdb->set_blog_id($blog['blog_id']);
 			$query .= " $wpdb->posts LEFT JOIN $wpdb->postmeta ON (post_id = ID AND meta_key = 'cross_post_$this->id')";
 			$query .= " LEFT JOIN $wpdb->blogs ON (blog_id = {$blog['blog_id']})";
-			$query .= " WHERE meta_value = 1 $group)";
+			$query .= " WHERE meta_value = 1)";
 		}
 
 		// conditions affecting all queries
@@ -634,6 +649,33 @@ class RockharborThemeBase {
 			$this->_vars = array();
 		}
 		return $out;
+	}
+
+/**
+ * Gets a file from an enclosure
+ * 
+ * @param string $type The type of enclosure to get (audio or video)
+ * @param integer $postId The post id. Default is current post
+ * @return string
+ */
+	public function getEnclosure($type = 'video', $postId = null) {
+		global $post;
+		if (empty($postId)) {
+			$postId = $post->ID;
+		}
+		$enclosure = get_post_meta($postId, 'enclosure');
+		$file = null;
+		if (!empty($enclosure)) {
+			foreach ($enclosure as $enclosed) {
+				$enclosedSplit = explode("\n", $enclosed);
+				if (!empty($enclosedSplit[2]) && strpos($enclosedSplit[2], "$type/") !== false) {
+					$file = $enclosedSplit[0];
+					break;
+				}
+			}
+		}
+		$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
+		return $file;
 	}
 	
 /**
