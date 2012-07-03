@@ -37,6 +37,7 @@ class Roles {
 			add_role('production', 'Production Staff', array(
 				'upload_files' => true,
 				'edit_posts' => false,
+				'delete_posts' => true,
 				'read' => true
 			));
 		}
