@@ -129,6 +129,11 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
+		if (is_admin()) {
+			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
+			$this->Admin = new Admin($this);
+		}
+		
 		add_action('init', array($this, 'addFeatures'));
 		
 		// tagline is the same for all - vision statement
