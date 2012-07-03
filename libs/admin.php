@@ -103,7 +103,7 @@ class Admin {
  * @return string Default content
  */
 	public function setDefaultComments($content = '', $post) {
-		if (in_array($post->post_type, $this->disableComments)) {
+		if (in_array($post->post_type, $this->theme->disableComments)) {
 			$post->comment_status = 'closed';
 			$post->ping_status = 'closed';
 		}

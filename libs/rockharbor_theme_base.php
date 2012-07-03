@@ -36,7 +36,7 @@ class RockharborThemeBase {
  * 
  * @var array
  */
-	protected $disableComments = array(
+	public $disableComments = array(
 		'page'
 	);
 
@@ -129,12 +129,12 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		
+		add_action('init', array($this, 'addFeatures'));
+		
 		if (is_admin()) {
 			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
 			$this->Admin = new Admin($this);
 		}
-		
-		add_action('init', array($this, 'addFeatures'));
 		
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
