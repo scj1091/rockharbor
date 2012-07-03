@@ -134,6 +134,8 @@ class RockharborThemeBase {
 		if (is_admin()) {
 			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
 			$this->Admin = new Admin($this);
+			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
+			$this->Roles = new Roles($this);
 		}
 		
 		// change rss feed to point to feedburner link
