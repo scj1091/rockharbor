@@ -183,7 +183,7 @@ class Admin {
  * Renders the theme options panel
  */
 	public function admin() {
-		$out = $this->theme->render('theme_options');
+		$out = $this->theme->render('admin'.DS.'theme_options');
 		echo $out;
 	}
 	
@@ -218,7 +218,7 @@ class Admin {
 		}
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
 		$this->theme->set('blogs', $blogs);
-		echo $this->theme->render('cross_post');
+		echo $this->theme->render('admin'.DS.'cross_post');
 	}
 
 /**
@@ -227,7 +227,7 @@ class Admin {
 	public function coreMetaBox() {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		echo $this->theme->render('core_meta_box');
+		echo $this->theme->render('admin'.DS.'core_meta_box');
 	}
 
 /**
@@ -236,7 +236,7 @@ class Admin {
 	public function featuredImageLinkMetaBox() {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		echo $this->theme->render('featured_image_link_meta_box');
+		echo $this->theme->render('admin'.DS.'featured_image_link_meta_box');
 	}
 	
 }

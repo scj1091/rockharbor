@@ -89,6 +89,6 @@ class Staff extends PostType {
 		$data['tax_input']['department'] = $selectedDepartment[0]->slug;
 		$this->theme->set('departments', $departments);
 		$this->theme->set('data', $data);
-		echo $this->theme->render('staff_details_meta_box');
+		echo $this->theme->render('staff'.DS.'staff_details_meta_box');
 	}
 }

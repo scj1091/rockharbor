@@ -191,7 +191,7 @@ class Message extends PostType {
 		$selectedSeries = wp_get_post_terms($post->ID, 'series');
 		$data['tax_input']['series'] = $selectedSeries[0]->slug;
 		$this->theme->set('data', $data);
-		echo $this->theme->render('message_details_meta_box');
+		echo $this->theme->render('message'.DS.'message_details_meta_box');
 	}
 
 /**
@@ -200,6 +200,6 @@ class Message extends PostType {
 	public function mediaMetaBox() {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		echo $this->theme->render('message_media_meta_box');
+		echo $this->theme->render('message'.DS.'message_media_meta_box');
 	}
 }
