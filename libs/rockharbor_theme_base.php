@@ -640,6 +640,21 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Converts user data to a data array for the HtmlHelper
+ * 
+ * @param int $userId The user id
+ * @return array
+ */
+	public function userMetaToData($userId) {
+		$meta = get_userdata($userId);
+		$data = array();
+		foreach ($meta as $name => $value) {
+			$data[$name] = $value;
+		}
+		return $data;
+	}
+
+/**
  * Returns a list of blogs in this network
  * 
  * @return array 

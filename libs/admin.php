@@ -68,6 +68,11 @@ class Admin {
 			return;
 		}
 		
+		add_action('edit_user_profile', array($this, 'userPage'));
+		add_action('show_user_profile', array($this, 'userPage'));
+		add_action('personal_options_update', array($this, 'onUserSave'));
+		add_action('edit_user_profile_update', array($this, 'onUserSave'));
+		
 		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
@@ -92,6 +97,37 @@ class Admin {
  */
 	public function frontPage() {
 		add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
+	}
+	
+/**
+ * Any meta boxes that go on the user profile page
+ * 
+ * @param WP_User $user The user object
+ * @return void 
+ */
+	public function userPage($user) {
+		// only show these options to administrators
+		if (current_user_can('delete_users')) {
+			$this->theme->set('userId', $user->ID);
+			$this->theme->set('data', $this->theme->userMetaToData($user->ID));
+			echo $this->theme->render('admin'.DS.'user_details');
+		}
+	}
+
+/**
+ * Saves user meta
+ * 
+ * @param int $userId The user id
+ */
+	public function onUserSave($userId) {
+		// only save these options if logged in user is an administrator
+		if (current_user_can('delete_users')) {
+			if (isset($_POST['usermeta'])) {
+				foreach ($_POST['usermeta'] as $name => $value) {
+					update_user_meta($userId, $name, $value);
+				}
+			}
+		}
 	}
 
 /**
