@@ -23,7 +23,13 @@ class Roles {
 		$this->theme = $theme;
 		add_filter('init', array($this, 'init'));
 	}
-	
+
+/**
+ * Adds new roles if they are missing. Also takes care of other access control
+ * related filters.
+ * 
+ * @return void
+ */
 	public function init() {
 		global $wp_roles;
 		if (!$wp_roles->is_role('production')) {
