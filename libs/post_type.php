@@ -117,7 +117,8 @@ class PostType {
 				'not_found_in_trash' => 'No '.$this->options['plural'].' found in trash.',
 				'parent_item_colon' => 'Parent'.$this->options['name'].':',
 				'all_items' => 'All '.$this->options['plural']
-			)
+			),
+			'map_meta_cap' => true
 		));
 		
 		// load css
