@@ -2,21 +2,15 @@
 $theme->Html->inputPrefix = 'usermeta';
 $theme->Html->data($data);
 ?>
-<h3>ROCKHARBOR CMS Permissions</h3>
+<h3>Permissions</h3>
 <table class="form-table">
 	<tbody>
 		<tr>
-			<th>
-				<?php 
-				echo $theme->Html->tag('label', 'Can only access own posts', array(
-					'for' => 'usermetashowonlyownedposts'
-				));
-				?>
-			</th>
+			<th>User can</th>
 			<td>
 				<?php
 				echo $theme->Html->input('show_only_owned_posts', array(
-					'label' => false,
+					'label' => 'Only access his/her posts',
 					'type' => 'checkbox'
 				));
 				?>
