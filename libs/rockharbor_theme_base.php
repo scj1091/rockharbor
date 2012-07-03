@@ -451,7 +451,7 @@ class RockharborThemeBase {
  * @param string $view The view name
  * @return string Rendered view
  */	
-	public function render($view, $emptyVars = true) {
+	public function render($view) {
 		global $theme;
 		extract($this->_vars);
 		$file = $this->themePath.DS.'elements'.DS.$view.'.tpl';
@@ -461,9 +461,6 @@ class RockharborThemeBase {
 		ob_start();
 		include $file;
 		$out = ob_get_clean();
-		if ($emptyVars) {
-			$this->_vars = array();
-		}
 		return $out;
 	}
 
