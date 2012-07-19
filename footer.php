@@ -3,6 +3,7 @@ global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
+$mailchimp = $theme->options('mailchimp_id');
 $feedburnerid = $theme->options('feedburner_main');
 ?>
 	</div>
@@ -32,6 +33,15 @@ $feedburnerid = $theme->options('feedburner_main');
 				<a target="_blank" href="https://core.rockharbor.org/campuses/view/Campus:<?php echo $coreid; ?>"><?php echo $theme->Html->image('core-footer-icon.png', array('parent' => true)); ?></a>
 			</p>
 			<hr />
+			<?php if (!empty($mailchimp)): ?>
+			<h3>ebulletin</h3>
+			<form action="http://rockharbor.us4.list-manage.com/subscribe/post?u=185dbb9016568292b89c8731c&amp;id=06151f2612" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+				<input placeholder="email address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="width: 80%;margin-right:1%">
+				<input type="hidden" value="<?php echo $mailchimp; ?>" name="group[405][<?php echo $mailchimp; ?>]">
+				<input type="submit" value="Go" name="subscribe" id="mc-embedded-subscribe" class="button" style="width: 18%">
+			</form>
+			<hr />
+			<?php endif; ?>
 			<p>
 				3095 Redhill Ave.<br />Costa Mesa, CA 92626<br />(714) 384-0914
 			</p>
