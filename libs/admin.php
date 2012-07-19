@@ -80,12 +80,105 @@ class Admin {
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
 		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
 	}
+	
+	public function syncAmazon() {
+		include_once $this->theme->info('base_path') . DS . 'vendors' . DS . 'S3.php';
+		
+		if (!class_exists('S3')) {
+			$message = 'Missing Amazon S3 class.';
+			$this->theme->set('message', $message);
+			echo $this->theme->render('admin'.DS.'sync_amazon');
+			return;
+		}
+		
+		$s3options = get_option('tantan_wordpress_s3');
+		$storage = new S3($s3options['key'], $s3options['secret']);
+		S3::$useExceptions = true;
+		$bucket = $s3options['bucket'];
+		
+		if (isset($_POST) && !empty($_POST)) {
+			/**
+			 * Okay, so the current TanTanS3 plugin stores items differently depending
+			 * on if this is a subsite or not, so we'll need to use their "method"
+			 * to find the new path.
+			 * 
+			 * This *needs* to be cleaned up (see #11)
+			 */
+			include_once WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'class-plugin.php';
+			$tanTan = new TanTanWordPressS3Plugin();
+			add_filter('option_siteurl', array($tanTan, 'upload_path'));
+			$uploadDir = wp_upload_dir();
+			remove_filter('option_siteurl', array($tanTan, 'upload_path'));
+			$parts = parse_url($uploadDir['url']);
+			$prefix = substr($parts['path'], 1) .'/';
+			
+			$errors = array();
+			foreach ($_POST['objects'] as $object => $val) {
+				$moved = 0;
+				if ($val != 0) {
+					// copy to proper wp uploads path
+					$success = false;
+					try {
+						$success = $storage->copyObject($bucket, 'messages/'.$object, $bucket, $prefix.$object, S3::ACL_PUBLIC_READ);
+					} catch (S3Exception $e) {
+						$errors[] = $e->getMessage();
+					}
+					if ($success) {
+						// save to wp db
+						$attachment = array(
+							'post_mime_type' => 'video/mp4', // hardcode for now
+							'guid' => get_site_url()."/$prefix$object",
+							'post_title' => $object,
+							'post_name' => $object,
+							'post_date' => current_time('mysql'),
+							'post_date_gmt' => current_time('mysql', 1)
+						);
+						$id = wp_insert_attachment($attachment);
+						if ($id > 0) {
+							// delete from old path
+							try {
+								$storage->deleteObject($bucket, 'messages/'.$object);
+							} catch (S3Exception $e) {
+								$errors[] = $e->getMessage();
+							}
+							$moved++;
+							// tan tan junk
+							delete_post_meta($id, 'amazonS3_info');
+							add_post_meta($id, 'amazonS3_info', array(
+								'bucket' => $bucket,
+								'key' => $prefix.$object
+							));
+						}
+					}
+				}
+			}
+			
+			$errorMsg = null;
+			if (!empty($errors)) {
+				$errorMsg = '<br /><br />Errors:<br />'.implode('<br />', $errors);
+			}
+			$this->theme->set('message', "$moved objects added to the media library.$errorMsg");
+		}
+		
+		$results = $storage->getBucket($s3options['bucket'], 'messages');	
+		$objects = array();
+		foreach ($results as $result) {
+			if ($result['name'] == 'messages/') {
+				continue;
+			}
+			$objects[] = str_replace('messages/', '', $result['name']);
+		}
+
+		$this->theme->set('objects', $objects);
+		echo $this->theme->render('admin'.DS.'sync_amazon');
+	}
 
 /**
  * Adds any additional menus 
  */
 	public function adminMenus() {
 		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
+		add_media_page(__('Sync Messages', 'rockharbor'), __('Sync Messages', 'rockharbor'), 'upload_files', 'sync_s3', array($this, 'syncAmazon'));
 	}
 		
 /**
