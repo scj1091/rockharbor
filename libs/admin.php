@@ -123,9 +123,19 @@ class Admin {
 				$errors[] = $e->getMessage();
 			}
 			if ($success) {
+				$explode = explode('.', $object);
+				$ext = array_pop($explode);
+				switch ($ext) {
+					case 'mp3':
+						$mime = 'audio/mp3';
+					break;
+					default:
+						$mime = 'video/mp4';
+					break;
+				}
 				// save to wp db
 				$attachment = array(
-					'post_mime_type' => 'video/mp4', // hardcode for now
+					'post_mime_type' => $mime, // hardcode for now
 					'guid' => get_site_url()."/$prefix$object",
 					'post_title' => $object,
 					'post_name' => $object,
