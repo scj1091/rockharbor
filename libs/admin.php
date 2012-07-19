@@ -113,43 +113,39 @@ class Admin {
 			$prefix = substr($parts['path'], 1) .'/';
 			
 			$errors = array();
-			foreach ($_POST['objects'] as $object => $val) {
-				$moved = 0;
-				if ($val != 0) {
-					// copy to proper wp uploads path
-					$success = false;
+			
+			$object = $_POST['name'];
+			// copy to proper wp uploads path
+			$success = false;
+			try {
+				$success = $storage->copyObject($bucket, 'messages/'.$object, $bucket, $prefix.$object, S3::ACL_PUBLIC_READ);
+			} catch (S3Exception $e) {
+				$errors[] = $e->getMessage();
+			}
+			if ($success) {
+				// save to wp db
+				$attachment = array(
+					'post_mime_type' => 'video/mp4', // hardcode for now
+					'guid' => get_site_url()."/$prefix$object",
+					'post_title' => $object,
+					'post_name' => $object,
+					'post_date' => current_time('mysql'),
+					'post_date_gmt' => current_time('mysql', 1)
+				);
+				$id = wp_insert_attachment($attachment);
+				if ($id > 0) {
+					// delete from old path
 					try {
-						$success = $storage->copyObject($bucket, 'messages/'.$object, $bucket, $prefix.$object, S3::ACL_PUBLIC_READ);
+						$storage->deleteObject($bucket, 'messages/'.$object);
 					} catch (S3Exception $e) {
 						$errors[] = $e->getMessage();
 					}
-					if ($success) {
-						// save to wp db
-						$attachment = array(
-							'post_mime_type' => 'video/mp4', // hardcode for now
-							'guid' => get_site_url()."/$prefix$object",
-							'post_title' => $object,
-							'post_name' => $object,
-							'post_date' => current_time('mysql'),
-							'post_date_gmt' => current_time('mysql', 1)
-						);
-						$id = wp_insert_attachment($attachment);
-						if ($id > 0) {
-							// delete from old path
-							try {
-								$storage->deleteObject($bucket, 'messages/'.$object);
-							} catch (S3Exception $e) {
-								$errors[] = $e->getMessage();
-							}
-							$moved++;
-							// tan tan junk
-							delete_post_meta($id, 'amazonS3_info');
-							add_post_meta($id, 'amazonS3_info', array(
-								'bucket' => $bucket,
-								'key' => $prefix.$object
-							));
-						}
-					}
+					// tan tan junk
+					delete_post_meta($id, 'amazonS3_info');
+					add_post_meta($id, 'amazonS3_info', array(
+						'bucket' => $bucket,
+						'key' => $prefix.$object
+					));
 				}
 			}
 			
@@ -157,7 +153,7 @@ class Admin {
 			if (!empty($errors)) {
 				$errorMsg = '<br /><br />Errors:<br />'.implode('<br />', $errors);
 			}
-			$this->theme->set('message', "$moved objects added to the media library.$errorMsg");
+			$this->theme->set('message', "$object added to the media library!$errorMsg");
 		}
 		
 		$results = $storage->getBucket($s3options['bucket'], 'messages');	
