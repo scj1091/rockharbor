@@ -22,6 +22,9 @@ class Admin {
 	public function __construct($theme = null) {
 		$this->theme = $theme;
 		
+		if (!$this->theme->isChildTheme()) {
+			add_action('admin_menu', array($this, 'adminMenus'));
+		}
 		add_action('admin_init', array($this, 'init'));
 	}
 	
@@ -73,10 +76,16 @@ class Admin {
 		add_action('personal_options_update', array($this, 'onUserSave'));
 		add_action('edit_user_profile_update', array($this, 'onUserSave'));
 		
-		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
 		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
+	}
+
+/**
+ * Adds any additional menus 
+ */
+	public function adminMenus() {
+		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
 	}
 		
 /**
