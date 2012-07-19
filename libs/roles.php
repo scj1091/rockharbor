@@ -21,7 +21,7 @@ class Roles {
  */
 	function __construct($theme = null) {
 		$this->theme = $theme;
-		add_filter('init', array($this, 'init'));
+		add_action('admin_init', array($this, 'init'));
 	}
 
 /**
