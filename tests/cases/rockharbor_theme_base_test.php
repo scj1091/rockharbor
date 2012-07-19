@@ -108,14 +108,10 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		$this->Base->setTestPaths();
 		
 		$this->Base->set('var', 'content');
-		$content = $this->Base->render('test', false);
+		$content = $this->Base->render('test');
 		$this->assertEquals($content, 'child content');
 		$vars = $this->Base->getVars();
 		$this->assertEquals($vars['var'], 'content');
-		
-		$content = $this->Base->render('test');
-		$vars = $this->Base->getVars();
-		$this->assertEquals($vars, array());
 		
 		$content = $this->Base->render('test2');
 		$this->assertEquals($content, 'content or something');

@@ -110,6 +110,9 @@ function customErrorHandler($errno, $errstr, $errfile, $errline) {
 	if (defined('WP_SUPER_DEBUG') && WP_SUPER_DEBUG == true) {
 		$show = true;
 	}
+	if (!$show && error_reporting() == 0) {
+		return true;
+	}
 	if (stripos($errfile, 'plugins'.DS) === false) {
 		$show = true;
 	}
