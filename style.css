@@ -950,6 +950,12 @@ article footer ul.related li:first-child {
   border: 0;
 }
 
+dl.gallery-item {
+	float: left;
+	width: 32%;
+	margin-right: 1%;
+}
+
 dl dt.gallery-icon {
 	float: none;
 	margin-right: 10px;
