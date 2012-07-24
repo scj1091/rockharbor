@@ -205,7 +205,7 @@ class RockharborThemeBase {
 		wp_enqueue_script('media');
 		
 		// dequeue stuff we don't need
-		wp_dequeue_style('thickbox');
+		wp_deregister_style('thickbox');
 		
 		// conditional assets
 		if (is_singular() && get_option('thread_comments')) {
