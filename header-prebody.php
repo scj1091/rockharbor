@@ -29,13 +29,6 @@
 	}
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/reset.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/fonts.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/lightbox.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/comments.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/mediaelementplayer.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/style.css" />
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('url'); ?>/style.css" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
@@ -47,13 +40,7 @@
 <link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie7.css" />
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<?php
-	wp_enqueue_script('jquery');
-	if (is_singular() && get_option('thread_comments')) {
-		wp_enqueue_script('comment-reply');
-	}
-	wp_head();
-?>
+<?php wp_head(); ?>
 <?php if (is_front_page()): ?>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
 <script>
@@ -73,8 +60,6 @@
 	});
 </script>
 <?php endif; ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/mediaelement-and-player.min.js"></script>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.lightbox.min.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		// put galleries in lightboxes

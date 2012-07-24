@@ -138,6 +138,8 @@ class RockharborThemeBase {
 			$this->Roles = new Roles($this);
 		}
 		
+		$this->setupAssets();
+		
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
 		
@@ -169,6 +171,48 @@ class RockharborThemeBase {
 		// start session
 		if (!session_id()) {
 			session_start();
+		}
+	}
+
+/**
+ * Registers and queues assets
+ */
+	function setupAssets() {
+		// register assets
+		$base = $this->info('base_url');
+		wp_deregister_script('jquery'); // deregister WP's version
+		wp_register_script('jquery', "$base/js/jquery-1.7.2.min.js");
+		wp_register_script('lightbox', "$base/js/jquery.lightbox.min.js");
+		wp_register_script('media', "$base/js/mediaelement-and-player.min.js");
+		wp_register_style('reset', "$base/css/reset.css");
+		wp_register_style('fonts', "$base/css/fonts.css");
+		wp_register_style('lightbox', "$base/css/lightbox.css");
+		wp_deregister_style('media');
+		wp_register_style('media', "$base/css/mediaelementplayer.css");
+		wp_register_style('base', "$base/style.css");
+		$base = $this->info('url');
+		wp_register_style('child_base', "$base/style.css");
+		
+		// queue them
+		wp_enqueue_style('reset');
+		wp_enqueue_style('fonts');
+		wp_enqueue_style('lightbox');
+		wp_enqueue_style('media');
+		wp_enqueue_style('base');
+
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('lightbox');
+		wp_enqueue_script('media');
+		
+		// dequeue stuff we don't need
+		wp_dequeue_style('thickbox');
+		
+		// conditional assets
+		if (is_singular() && get_option('thread_comments')) {
+			wp_enqueue_script('comment-reply');
+		}
+		if ($this->isChildTheme()) {
+			wp_enqueue_style('child_base');
 		}
 	}
 	
