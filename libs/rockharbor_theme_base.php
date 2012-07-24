@@ -136,9 +136,9 @@ class RockharborThemeBase {
 			$this->Admin = new Admin($this);
 			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
 			$this->Roles = new Roles($this);
+		} else {
+			$this->setupAssets();
 		}
-		
-		$this->setupAssets();
 		
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
