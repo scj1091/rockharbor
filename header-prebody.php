@@ -73,12 +73,17 @@
 			.removeAttr('height');
 	});
 </script>
-<!--[if !IE]>-->
 <script>
 	jQuery(document).ready(function() {
-		jQuery('video').mediaelementplayer({
-			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/'
-		});
+		jQuery('video')
+			.each(function() {
+				var w = $(this).width();
+				var h = w*9/16;
+				$(this).attr('height', h);
+			})
+			.mediaelementplayer({
+				pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/'
+			});
 		jQuery('audio').mediaelementplayer({
 			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
 			audioWidth: 200,
@@ -87,6 +92,5 @@
 		});
 	});
 </script>
-<!--<![endif]-->
 <?php
 echo $theme->render('analytics');

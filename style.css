@@ -181,10 +181,6 @@ th {
   color: #00ff00;
 }
 
-.embedded-video object {
-	background: #000000;
-}
-
 .alignleft {
 	float: left;
 	margin: 0 10px 10px 0;

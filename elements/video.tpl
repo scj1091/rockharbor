@@ -41,9 +41,8 @@ $id = uniqid();
 		id="embedded-player-<?php echo $id;?>"
 		src="<?php echo $file; ?>"
 		controls
-		preload="auto"
-		width="100%"
-		height="100%"
+		preload="none"
+		style="width: 100%"
 		<?php
 		if (!empty($poster)) {
 			echo 'poster="'.$poster.'"';
