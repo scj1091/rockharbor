@@ -11,9 +11,9 @@ if (empty($file)) {
 }
 
 $poster = null;
-if (has_post_thumbnail()) {
-	$attach_id = get_post_thumbnail_id($post->ID);
-	$attach = wp_get_attachment_image_src($attach_id, 'large');
+$thumb = get_post_thumbnail_id($post->ID);
+if (!empty($thumb)) {
+	$attach = wp_get_attachment_image_src($thumb, 'large');
 	$poster = $attach[0];
 }
 
