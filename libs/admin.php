@@ -353,7 +353,7 @@ class Admin {
 	public function crossPostMetaBox() {
 		global $post;
 		$blogs = $this->theme->getBlogs();
-		if ($this->theme->id != BLOG_ID_CURRENT_SITE) {
+		if ($this->theme->info('id') != BLOG_ID_CURRENT_SITE) {
 			// main blog only
 			$blogs = array($blogs[0]);
 		} else {
