@@ -120,6 +120,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 					)); 
 				?>
 			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('media_sync_key', array(
+						'before' => '<th>',
+						'label' => 'Media Syncing Key',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(used to authorize running sync.php)</small></td>'
+					)); 
+				?>
+			</tr>
 			<tr>
 				<th>
 					<label for="calendar_page_id" class="description">Calendar Page</label>
