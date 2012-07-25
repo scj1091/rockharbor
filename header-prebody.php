@@ -67,14 +67,13 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
+		
 		jQuery('.flash-message').delay(5000).slideUp();
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
-	});
-</script>
-<script>
-	jQuery(document).ready(function() {
+		
+		// improve media elements
 		jQuery('video')
 			.each(function() {
 				var w = $(this).width();
