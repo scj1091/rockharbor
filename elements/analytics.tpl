@@ -1,7 +1,3 @@
-<?php
-// no analytics if we're local
-if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
-?>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-7415608-7']);
@@ -14,4 +10,3 @@ if (stripos($_SERVER['SCRIPT_URI'], 'rockharbor.org') !== false):
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<?php endif; ?>
