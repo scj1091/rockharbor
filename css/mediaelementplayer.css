@@ -103,6 +103,11 @@
 
 .me-plugin {
 	position: absolute;
+	width: 100%;
+}
+
+.me-plugin embed {
+	width: 100%;
 }
 
 .mejs-embed, .mejs-embed body {
