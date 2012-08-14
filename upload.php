@@ -60,10 +60,35 @@ $client = new IXR_Client(get_option('home').'/xmlrpc.php');
 $fileparts = explode('.', $_FILES['file']['name']);
 $ext = array_pop($fileparts);
 
+// sometimes curl doesn't get the mime type right. I'm trusting the client here
+// since it's us who's encoding it
+$type = null;
+switch ($ext) {
+	case 'mp4':
+	case 'mov':
+	case 'mpeg':
+	case 'mpeg4':
+		$type = 'video/mp4';
+	break;
+	case 'mp3':
+		$type = 'audio/mp3';
+	break;
+}
+
+// unsupported at this time. We only want messages
+if ($type === null) {
+	$response = array(
+		'errors' => array('Invalid file type'),
+		'message' => 'Only messages (video and audio) are supported.'
+	);
+	echo json_encode($response);
+	exit;
+}
+
 // upload the file
 $postdata = array(
 	'name' => $_FILES['file']['name'],
-	'type' => $_FILES['file']['type'],
+	'type' => $type,
 	'bits' => new IXR_Base64(file_get_contents($_FILES['file']['tmp_name'])),
 	'overwrite' => 0
 );
