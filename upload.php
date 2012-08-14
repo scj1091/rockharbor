@@ -33,12 +33,8 @@ if (empty($_POST)
 /**
  * Load wordpress
  */
-require_once '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'wp-config.php';
-
-/**
- * Load special classes 
- */
-require_once ABSPATH . 'wp-includes' . DIRECTORY_SEPARATOR . 'class-IXR.php';
+require_once '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'wp-load.php';
+include_once ABSPATH . 'wp-admin/includes/admin.php';
 
 /**
  * Load theme base
