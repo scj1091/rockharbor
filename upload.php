@@ -57,14 +57,12 @@ $theme = new $class;
 $client = new IXR_Client(get_option('home').'/xmlrpc.php');
 
 // new filename
-$date = date('Ymd', strtotime('last sunday'));
 $fileparts = explode('.', $_FILES['file']['name']);
 $ext = array_pop($fileparts);
-$newfilename = $date.'_'.$theme->info('slug').'_message.'.$ext;
 
 // upload the file
 $postdata = array(
-	'name' => $newfilename,
+	'name' => $_FILES['file']['name'],
 	'type' => $_FILES['file']['type'],
 	'bits' => new IXR_Base64(file_get_contents($_FILES['file']['tmp_name'])),
 	'overwrite' => 0
