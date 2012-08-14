@@ -1,6 +1,4 @@
 <?php
-header("Content-type: application/json");
-
 /**
  * This file is a publicly accessible end-point to uploading a file using the
  * WordPress XMLRPC API, thereby calling all hooks and filters associated with
@@ -14,20 +12,32 @@ header("Content-type: application/json");
  * &password=<wordpress_password>
  */
 
+/**
+ * Sends json response
+ * 
+ * @param string $message
+ * @param array $errors 
+ */
+function respond($message, $errors = array()) {
+	header("Content-type: application/json");
+	header("Connection: close");
+	$response = compact('message');
+	if (!empty($errors)) {
+		$response['errors'] = (array)$errors;
+	}
+	echo json_encode($response);
+	exit;
+}
+
 if (empty($_POST) 
 	|| empty($_FILES)
 	|| empty($_POST['username']) 
 	|| empty($_POST['password']) 
 	) {
-	$response = array(
-		'errors' => array(
-			'Invalid authorization key',
-			'Invalid POST data'
-		),
-		'message' => 'Please leave. KTHXBYE.'
+	$errors = array(
+		'Invalid POST data'
 	);
-	echo json_encode($response);
-	exit;
+	respond('Please leave. KTHXBYE.', $errors);
 }
 
 /**
@@ -47,12 +57,29 @@ if (file_exists($file)) {
 	$class = 'ChildTheme';
 }
 
+global $wpdb;
 $theme = new $class;
 
-// go through WordPress' API to pass off authentication responsibilities
-$client = new IXR_Client(get_option('home').'/xmlrpc.php');
+$message = 'Error, could not upload.';
 
-// new filename
+// login
+$username = $wpdb->escape($_POST['username']);
+$password = $wpdb->escape($_POST['password']);
+$user = wp_authenticate($username, $password);
+if (is_wp_error($user)) {
+	respond($message, 'Invalid authorization key');
+}
+
+// check permissions
+wp_set_current_user($user->ID);
+if (!current_user_can('upload_files')) {
+	respond($message, 'Insufficient permissions.');
+}
+
+// allow upload process to go for a while
+set_time_limit(3600);
+
+// prepare file
 $fileparts = explode('.', $_FILES['file']['name']);
 $ext = array_pop($fileparts);
 
@@ -73,35 +100,23 @@ switch ($ext) {
 
 // unsupported at this time. We only want messages
 if ($type === null) {
-	$response = array(
-		'errors' => array('Invalid file type'),
-		'message' => 'Only messages (video and audio) are supported.'
-	);
-	echo json_encode($response);
-	exit;
+	respond('Only messages (video and audio) are supported.', 'Invalid file type');
 }
 
-// upload the file
-$postdata = array(
-	'name' => $_FILES['file']['name'],
-	'type' => $type,
-	'bits' => new IXR_Base64(file_get_contents($_FILES['file']['tmp_name'])),
-	'overwrite' => 0
-);
-$rep = $client->query('wp.uploadFile', $theme->info('id'), $_POST['username'], $_POST['password'], $postdata);
-
-if (!$rep) {
-	$response = array(
-		'errors' => $client->getErrorCode(),
-		'message' => $client->getErrorMessage()
-	);
-	echo json_encode($response);
-	exit;
+$uploadError = apply_filters('pre_upload_error', false);
+if ($uploadError) {
+	respond($message, $uploadError);
 }
 
-$response = array(
-	'errors' => array(),
-	'message' => 'File successfully added to '.$theme->info('name').' media library'
-);
-echo json_encode($response);
-exit;
+// trick WP into thinking this is a form submission (really? this is their check?)
+$_POST['action'] = 'wp_handle_upload';
+// upload
+$id = media_handle_upload('file', 0);
+$errors = array();
+if (!is_wp_error($id)) {
+	$message = $_FILES['file']['name'].' successfully added to '.$theme->info('name').' media library';
+} else {
+	$errors[] = $id->get_error_message();
+}
+
+respond($message, $errors);
