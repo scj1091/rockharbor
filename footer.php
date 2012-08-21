@@ -5,6 +5,7 @@ $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
 $mailchimp = $theme->options('mailchimp_id');
 $feedburnerid = $theme->options('feedburner_main');
+$ebulletinpage = $theme->options('ebulletin_archive_page_id');
 ?>
 	</div>
 </div>
@@ -40,6 +41,12 @@ $feedburnerid = $theme->options('feedburner_main');
 				<input type="hidden" value="<?php echo $mailchimp; ?>" name="group[405][<?php echo $mailchimp; ?>]">
 				<input type="submit" value="Go" name="subscribe" id="mc-embedded-subscribe" class="button" style="width: 18%">
 			</form>
+			<?php if (!empty($ebulletinpage)) {
+				echo $theme->Html->tag('a', 'View archive', array(
+					'href' => get_permalink($ebulletinpage)
+				));
+			}
+			?>
 			<hr />
 			<?php endif; ?>
 			<p>

@@ -613,11 +613,14 @@ footer h3 {
   display: block;
 }
 
-#footer, #footer ul.menu li a {
+#footer, 
+#footer a,
+#footer ul.menu li a {
   color: #747474;
   text-decoration: none;
 }
 
+#footer a:hover,
 #footer ul.menu li a:hover {
   text-decoration: underline;
 }
