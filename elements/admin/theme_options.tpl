@@ -75,6 +75,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('mailchimp_folder_id', array(
+						'before' => '<th>',
+						'label' => 'MailChimp Folder ID',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(the campaigns folder id in MailChimp)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
 				<td colspan="2"><h2>Notifications</h2><p>Forms and notifications that require an email address.</p></td>
 			</tr>
 			<tr valign="top">

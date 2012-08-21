@@ -26,6 +26,22 @@ class Shortcodes {
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
 		add_shortcode('directions', array($this, 'directions'));
 		add_shortcode('calendar', array($this, 'calendar'));
+		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
+	}
+	
+/**
+ * Renders an ebulletin archive (generated via mailchimp)
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string 
+ */
+	public function ebulletinArchive($attr) {
+		$id = $this->theme->options('mailchimp_folder_id');
+		if (empty($id)) {
+			return null;
+		}
+		$this->theme->set(compact('id'));
+		return $this->theme->render('ebulletin_archive');
 	}
 	
 /**
