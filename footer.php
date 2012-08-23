@@ -39,7 +39,7 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 			<form action="http://rockharbor.us4.list-manage.com/subscribe/post?u=185dbb9016568292b89c8731c&amp;id=06151f2612" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
 				<input placeholder="email address" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" style="width: 80%;margin-right:1%">
 				<input type="hidden" value="<?php echo $mailchimp; ?>" name="group[405][<?php echo $mailchimp; ?>]">
-				<input type="submit" value="Go" name="subscribe" id="mc-embedded-subscribe" class="button" style="width: 18%">
+				<input type="submit" value="Go" name="subscribe" id="mc-embedded-subscribe" class="button" style="width: 16%">
 			</form>
 			<?php if (!empty($ebulletinpage)) {
 				echo $theme->Html->tag('a', 'View archive', array(
