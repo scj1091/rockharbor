@@ -29,13 +29,14 @@ function respond($message, $errors = array()) {
 	exit;
 }
 
-if (empty($_POST) 
-	|| empty($_FILES)
-	|| empty($_POST['username']) 
-	|| empty($_POST['password']) 
-	) {
+$code = '';
+$code .= empty($_FILES) ? '1' : '0';
+$code .= empty($_FILES['file']) ? '1' : '0';
+$code .= empty($_POST['username']) ? '1' : '0';
+$code .= empty($_POST['password']) ? '1' : '0';
+if ($code !== '0000') {
 	$errors = array(
-		'Invalid POST data'
+		$code.': Invalid POST data'
 	);
 	respond('Please leave. KTHXBYE.', $errors);
 }
