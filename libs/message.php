@@ -116,15 +116,8 @@ class Message extends PostType {
 		
 		ob_start();
 		foreach ($series as $num => $seriesItem) {
-			$taxQuery = array(
-				array(
-					'taxonomy' => 'series',
-					'field' => 'id',
-					'terms' => $seriesItem->term_id
-				)
-			);
 			$last = get_posts(array(
-				'tax_query' => $taxQuery,
+				'series' => $seriesItem->name,
 				'post_type' => $this->options['slug'],
 				'orderby' => 'post_date',
 				'order' => 'DESC',
