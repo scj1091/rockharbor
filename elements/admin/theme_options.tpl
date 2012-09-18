@@ -124,9 +124,19 @@ if (!isset($_REQUEST['settings-updated'])) {
 				<?php 
 					echo $theme->Html->input('s3_streamer', array(
 						'before' => '<th>',
-						'label' => 'Amazon S3 Streaming Distibution ID',
+						'label' => 'Amazon S3 Streaming Distribution',
 						'between' => '</th><td>',
-						'after' => '<br /><small>(<strong>&lt;ID&gt;</strong>.cloudfront.net)</small></td>'
+						'after' => '<br /><small>(<strong>&lt;ID&gt;.cloudfront.net/cfx/st</strong>)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('s3_bucket', array(
+						'before' => '<th>',
+						'label' => 'Amazon S3 Bucket',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(<strong>&lt;bucket&gt;</strong>.s3.amazonaws.com)</small></td>'
 					)); 
 				?>
 			</tr>

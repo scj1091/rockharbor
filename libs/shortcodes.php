@@ -97,7 +97,6 @@ class Shortcodes {
  * @return string
  */
 	public function video($attr) {
-		$this->theme->set('streamer', $this->theme->options('s3_streamer'));
 		$this->theme->set(shortcode_atts(array(
 			'src' => null
 		), $attr));

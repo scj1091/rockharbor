@@ -81,7 +81,13 @@
 				$(this).attr('height', h);
 			})
 			.mediaelementplayer({
-				pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/'
+				pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
+				success: function(media, node) {
+					if (media.pluginType !== 'native' && jQuery(node).attr('data-streamfile')) {
+						media.setSrc(jQuery(node).attr('data-streamfile'));
+						media.load();
+					}
+				}
 			});
 		jQuery('audio').mediaelementplayer({
 			pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',

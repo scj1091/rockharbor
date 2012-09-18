@@ -10,6 +10,9 @@ if (empty($file)) {
 	return null;
 }
 
+$streamer = $theme->options('s3_streamer');
+$bucket = $theme->options('s3_bucket');
+
 $poster = null;
 $thumb = get_post_thumbnail_id($post->ID);
 if (!empty($thumb)) {
@@ -45,7 +48,13 @@ $id = uniqid();
 		style="width: 100%"
 		<?php
 		if (!empty($poster)) {
-			echo 'poster="'.$poster.'"';
+			echo ' poster="'.$poster.'"';
+		}
+		if (!empty($streamer)) {
+			if (stripos($file, $bucket) !== false) {
+				$filename = str_replace("http://$bucket.s3.amazonaws.com/", 'mp4:', $file);
+				echo " data-streamfile=\"rtmp://$streamer/$filename\"";
+			}
 		}
 		?>
 	></video>
