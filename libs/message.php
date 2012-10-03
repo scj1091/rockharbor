@@ -86,6 +86,7 @@ class Message extends PostType {
 				# fields
 				`$wpdb->terms`.`term_id`,
 				`$wpdb->terms`.`name`,
+				`$wpdb->terms`.`slug`,
 				MIN(`$wpdb->posts`.`post_date`) AS series_start_date,
 				MAX(`$wpdb->posts`.`post_date`) AS series_end_date,
 				COUNT(`$wpdb->posts`.`ID`) AS series_message_count
@@ -117,7 +118,7 @@ class Message extends PostType {
 		ob_start();
 		foreach ($series as $num => $seriesItem) {
 			$last = get_posts(array(
-				'series' => $seriesItem->name,
+				'series' => $seriesItem->slug,
 				'post_type' => $this->options['slug'],
 				'orderby' => 'post_date',
 				'order' => 'DESC',
