@@ -162,6 +162,7 @@ class RockharborThemeBase {
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
+		add_filter('wp_get_attachment_url', array($this, 's3Url'));
 		
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
@@ -721,5 +722,16 @@ class RockharborThemeBase {
 			return false;
 		}
 		return in_array($feature, $this->themeOptions['supports']);
+	}
+
+/**
+ * Replaces an attachment url with its S3 counterpart
+ * 
+ * @param string $url File url
+ */
+	public function s3Url($url) {
+		$options = get_option('tantan_wordpress_s3');
+		$path = 'http://'.$options['bucket'].'.s3.amazonaws.com';
+		return str_replace(site_url(), $path, $url);
 	}
 }
