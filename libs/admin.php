@@ -206,11 +206,6 @@ class Admin {
  * @return array
  */
 	public function deleteLocalFile($data, $postID) {
-		$tantan = get_option('tantan_wordpress_s3', false);
-		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
-		if (!$tantan || empty($tantan['key'])) {
-			return $data;
-		}
 		if (file_exists($data['file'])) {
 			unlink($data['file']);
 		}
