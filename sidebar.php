@@ -14,19 +14,21 @@ global $post, $theme;
 <div id="sub-navigation" class="widget-area">
 	<ul>
 	<?php
-	if (empty($post->post_parent)) {
-		// no parents, show children of this page
-		$page = $post->ID;
-	} else {
-		// has parents, show this page's siblings
-		$page = $post->post_parent;
+	if (!is_search() && !is_404()) {
+		if (empty($post->post_parent)) {
+			// no parents, show children of this page
+			$page = $post->ID;
+		} else {
+			// has parents, show this page's siblings
+			$page = $post->post_parent;
+		}
+
+		wp_list_pages(array(
+			'child_of' => $page,
+			'title_li' => null,
+			'depth' => 2
+		));
 	}
-	
-	wp_list_pages(array(
-		'child_of' => $page,
-		'title_li' => null,
-		'depth' => 2
-	));
 	?>
 	</ul>
 </div>

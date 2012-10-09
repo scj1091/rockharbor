@@ -39,15 +39,17 @@ get_header();
 
 		</section>
 		<?php
-		$metadata = $theme->metaToData($post->ID);
-		$meta = array_merge(array(
-			'core_id' => 0,
-			'core_involvement_id' => 0
-		), $metadata);
-		// sidebar-core will render core_public_calendar which uses events
 		$events = array();
-		if (!empty($meta['core_id']) || !empty($meta['core_involvement_id'])) {
-			$events = $theme->fetchCoreFeed(null, $meta['core_id'], $meta['core_involvement_id']);
+		if (!is_search() && !is_404()) {
+			$metadata = $theme->metaToData($post->ID);
+			$meta = array_merge(array(
+				'core_id' => 0,
+				'core_involvement_id' => 0
+			), $metadata);
+			// sidebar-core will render core_public_calendar which uses events
+			if (!empty($meta['core_id']) || !empty($meta['core_involvement_id'])) {
+				$events = $theme->fetchCoreFeed(null, $meta['core_id'], $meta['core_involvement_id']);
+			}
 		}
 		if (!empty($events)):
 		?>
