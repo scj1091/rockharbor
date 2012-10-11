@@ -9,8 +9,16 @@
 	border-bottom: none;
 }
 
+#content article.message-series .series-image img {
+	min-height: 20px;
+}
+
 #content article.message-series span {
 	display: block;
+	overflow: hidden;
+	
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	line-height: 15px;
 }
 
