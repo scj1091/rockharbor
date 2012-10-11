@@ -9,5 +9,5 @@ $reverse = isset($reverse) ? $reverse : false;
 	<li><a href="http://fullerton.rockharbor.org" class="fullerton">Fullerton</a></li>
 	<li><a href="http://huntingtonbeach.rockharbor.org" class="huntington-beach">Huntington Beach</a></li>
 	<li><a href="http://orange.rockharbor.org" class="orange">Orange</a></li>
-	<li><a href="http://www.rockharbor.org" class="central">Central</a></li>
+	<li><a href="http://www.rockharbor.org" class="central">Costa Mesa</a></li>
 </ul>
