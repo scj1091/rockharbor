@@ -59,7 +59,7 @@ if ($related): ?>
 	<?php endforeach; ?>
 </ul>
 <script>
-	$(document).ready(function() {
+	setTimeout(function() {
 		// make the boxes equal height
 		$('.related').each(function() {
 			var maxHeight = 0;
@@ -72,6 +72,6 @@ if ($related): ?>
 					height: maxHeight
 				});
 		});
-	});
+	}, 500);
 </script>
 <?php endif; ?>
