@@ -917,15 +917,12 @@ article footer ul.related li {
   background: #e8e8e8;
   padding: 1.125%;
   width: 30.3333333333%;
-  min-height: 130px;
-  max-height: 130px;
+  height: 100%;
 }
 
 article footer ul.related li div {
-  overflow: hidden;
   margin-bottom: 5px;
-  min-height: 65px;
-  max-height: 65px;
+  
 }
 
 article footer ul.related li:first-child {

@@ -38,9 +38,36 @@ if ($related): ?>
 	?>
 	<li>
 		<h2><a href="<?php echo get_permalink($related_post->ID); ?>"><?php echo $related_post->post_title; ?></a></h2>
-		<div><?php echo $related_post->post_content; ?></div>
+		<div><?php 
+		if (has_post_thumbnail($related_post->ID)) {
+			$thumb = get_the_post_thumbnail($related_post->ID, 'full');
+			echo $theme->Html->tag('a', $thumb, array(
+				'href' => get_permalink($related_post->ID)
+			));
+		} else {
+			$clean = strip_tags($related_post->post_content, 'p');
+			$clean = strip_shortcodes($clean);
+			echo $clean;
+		}
+		?></div>
 		<a href="<?php echo get_permalink($related_post->ID); ?>">Read More</a>
 	</li>
 	<?php endforeach; ?>
 </ul>
+<script>
+	$(document).ready(function() {
+		// make the boxes equal height
+		$('.related').each(function() {
+			var maxHeight = 0;
+			$(this)
+				.children('li').each(function() {
+					if ($(this).height() > maxHeight) {
+						maxHeight = $(this).height();
+					}
+				}).css({
+					height: maxHeight
+				});
+		});
+	});
+</script>
 <?php endif; ?>
