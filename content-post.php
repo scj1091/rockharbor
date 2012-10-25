@@ -40,6 +40,7 @@
 		<?php
 		global $more;
 		if ($more) {
+			$theme->set('types', array('post', 'message', 'page'));
 			$related = $theme->render('related_content');
 			$comments = '';
 			if (comments_open()) {
