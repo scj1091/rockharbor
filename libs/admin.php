@@ -46,6 +46,10 @@ class Admin {
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
 		
+		// add tags to 'page' post type
+		add_meta_box('tagsdiv-post_tag', __('Page Tags'), 'post_tags_meta_box', 'page', 'side');
+		register_taxonomy_for_object_type('post_tag', 'page'); 
+		
 		// special admin front page only tasks
 		if (isset($_GET['post']) && ($_GET['post'] == get_option('page_on_front'))) {
 			$this->frontPage();
