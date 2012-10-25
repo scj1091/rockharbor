@@ -21,7 +21,7 @@ if ($tags) {
 		'tag__in' => $terms,
 		'post__not_in' => array($post->ID),
 		'post_type' => $_types,
-		'posts_per_page' => $limit
+		'numberposts' => $limit
 	));
 }
 $c = 0;
