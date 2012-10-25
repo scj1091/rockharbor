@@ -11,7 +11,7 @@ if (!isset($types)) {
 	$types = array();
 }
 $_types = array('post');
-$_types = array_merge($_types, (array)$types);
+$_types = $_types + (array)$types;
 if ($tags) {
 	$terms = array();
 	foreach ($tags as $tag) {
