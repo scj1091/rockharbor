@@ -45,7 +45,11 @@ if ($related): ?>
 				'href' => get_permalink($related_post->ID)
 			));
 		} else {
-			$clean = strip_tags($related_post->post_content, 'p');
+			// do a *simplistic* truncation
+			$clean = strip_tags($related_post->post_content);
+			$words = explode(' ', $clean);
+			$words = array_slice($words, 0, 40);
+			$clean = wp_trim_excerpt(implode(' ', $words));
 			$clean = strip_shortcodes($clean);
 			echo $clean;
 		}
