@@ -23,12 +23,15 @@ class RockharborThemeBase {
  * - `$short_name` The short name for this campus, i.e., without RH preceding
  * - `$supports` An array of supported features for this particular site. See
  * the README for more information about the features
+ * - `$hide_name_in_global_nav` Boolean whether or not to *hide* the campus name
+ * in the global navigation bar (negative for backwards compatibility)
  * 
  * @var array
  */
 	protected $themeOptions = array(
 		'slug' => 'rockharbor',
-		'short_name' => 'Central'
+		'short_name' => 'Central',
+		'hide_name_in_global_nav' => false
 	);
 
 /**

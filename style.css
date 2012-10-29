@@ -222,11 +222,10 @@ th {
 }
 
 #global-navigation span.title {
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 #global-navigation h1 img {
-  margin-right: 10px;
   vertical-align: middle;
 }
 
