@@ -57,6 +57,10 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 			'field' => 'value'
 		);
 		$theme = $this->getMock('TestTheme', array('_mail', 'info', 'options'), array(), 'MockTestTheme', false);
+		$html = $this->getMock('HtmlHelper', array('validateCaptcha'), array(), 'MockHtmlHelper');
+		$html->expects($this->any())
+			->method('validateCaptcha')
+			->will($this->returnValue(true));
 		$theme->expects($this->any())
 			->method('info')
 			->with($this->stringContains('_email'))
@@ -68,6 +72,7 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 			->method('_mail')
 			->will($this->returnValue(true));
 		$theme->__construct();
+		$theme->Html = $html;
 		$theme->v('name', 'Test Theme');
 		$results = $theme->email();
 		$expected = array(
