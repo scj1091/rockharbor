@@ -443,8 +443,10 @@ class RockharborThemeBase {
 	}
 	
 /**
- * Returns all theme info
+ * Returns all theme info. If `$var` is null, all options are returned. If an
+ * option is missing, `null` is returned.
  * 
+ * @param string $var Option to fetch
  * @return array
  */
 	public function info($var = null) {
@@ -454,13 +456,15 @@ class RockharborThemeBase {
 			'base_path' => $this->basePath,
 			'base_url' => $this->baseUrl,
 			'name' => $this->name,
-			'short_name' => $this->themeOptions['short_name'],
-			'slug' => $this->themeOptions['slug'],
 			'id' => $this->id,
 			'email' => get_bloginfo('admin_email')
 		);
-		if ($var === null || !isset($vars[$var])) {
+		$vars += $this->themeOptions;
+		if ($var === null) {
 			return $vars;
+		}
+		if (!isset($vars[$var])) {
+			return null;
 		}
 		return $vars[$var];
 	}

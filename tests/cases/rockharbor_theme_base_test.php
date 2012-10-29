@@ -90,6 +90,12 @@ class RockharborThemeBaseTest extends PHPUnit_Framework_TestCase {
 		
 		$url = $this->Base->info('base_url');
 		$this->assertRegExp('/rockharbor/', $url);
+		
+		$var = $this->Base->info('short_name');
+		$this->assertEquals('test theme', $var);
+		
+		$var = $this->Base->info('missing_var');
+		$this->assertNull($var);
 	}
 	
 	function testSet() {
