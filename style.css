@@ -834,6 +834,7 @@ footer h3 {
 	width: 49%;
 	margin-right: 1%;
 	float: left;
+	overflow: hidden;
 	
 	background: #ff0000;
 	background-position: 50% 50%;
