@@ -109,7 +109,7 @@ class Admin {
  * @return void 
  */
 	public function frontPage() {
-		add_meta_box('featured-image-link', 'Featured Image Link', array($this, 'featuredImageLinkMetaBox'), 'page', 'side');
+		add_meta_box('front-page-options', 'Front Page Options', array($this, 'frontPageOptions'), 'page');
 	}
 	
 /**
@@ -275,12 +275,12 @@ class Admin {
 	}
 
 /**
- * Renders the featured image link meta box
+ * Renders the options meta box for the front page
  */
-	public function featuredImageLinkMetaBox() {
+	public function frontPageOptions() {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		echo $this->theme->render('admin'.DS.'featured_image_link_meta_box');
+		echo $this->theme->render('admin'.DS.'front_page_options');
 	}
 	
 }
