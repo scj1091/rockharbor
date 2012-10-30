@@ -845,9 +845,10 @@ footer h3 {
 
 .story-box .title {
 	position: absolute;
-	bottom: 10px;
-	left: 10px;
+	bottom: 0;
+	left: 0;
 	padding: 5px;
+	margin: 10px;
 	
 	background: rgba(0, 0, 0, .5);
 	
