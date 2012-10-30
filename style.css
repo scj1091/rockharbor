@@ -251,6 +251,7 @@ th {
   text-decoration: underline;
 }
 
+#global-navigation nav > ul > ul,
 #global-navigation nav > ul > li {
   height: 100%;
   float: left;
