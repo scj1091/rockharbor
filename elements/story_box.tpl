@@ -33,6 +33,10 @@ if (empty($imageUrl)) {
 	$options['style'] .= "min-height:120px; background-image:url($imageUrl);";
 }
 
+if ($height) {
+	$options['style'] .= "height: {$height}px";
+}
+
 if (!empty($title)) {
 	$out .= $theme->Html->tag('span', $title, array('class' => 'title'));
 }
