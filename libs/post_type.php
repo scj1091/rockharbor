@@ -159,14 +159,17 @@ class PostType {
  */
 	public function shortcode($attrs = array()) {
 		global $wp_query, $wp_rewrite;
-		$attrs = shortcode_atts($this->archiveQuery, $attrs);
 		
 		$_old_query = $wp_query;
 		
 		$query = array(
 			'post_type' => $this->name
 		);
-		$query += $attrs;
+		$query += $this->archiveQuery;
+		
+		if (isset($attrs['campus'])) {
+			switch_to_blog($attrs['campus']);
+		}
 		
 		$wp_query = new WP_Query($query);
 		$wp_query->query($query);
@@ -185,6 +188,10 @@ class PostType {
 		
 		// back to the old query
 		$wp_query = $_old_query;
+		
+		if (isset($attrs['campus'])) {
+			restore_current_blog();
+		}
 		
 		return $return;
 	}
