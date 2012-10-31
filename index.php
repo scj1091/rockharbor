@@ -10,7 +10,10 @@ get_header();
 				</h1>
 			</header>
 			<nav id="submenu">
-				<?php get_sidebar(); ?>
+				<?php 
+				get_sidebar(); 
+				dynamic_sidebar('sidebar-subnav');
+				?>
 			</nav>
 			<?php if (have_posts()): 
 
@@ -38,31 +41,6 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-		<?php
-		$events = array();
-		if (!is_search() && !is_404()) {
-			$metadata = $theme->metaToData($post->ID);
-			$meta = array_merge(array(
-				'core_id' => 0,
-				'core_involvement_id' => 0
-			), $metadata);
-			// sidebar-core will render core_public_calendar which uses events
-			if (!empty($meta['core_id']) || !empty($meta['core_involvement_id'])) {
-				$events = $theme->fetchCoreFeed(null, $meta['core_id'], $meta['core_involvement_id']);
-			}
-		}
-		if (!empty($events)):
-		?>
-		<section id="sidebar" role="complementary">
-			<header id="sidebar-title">
-				<h1 class="sub-title"><span>CORE</span></h1>
-			</header>
-			<?php
-			$theme->set('events', $events);
-			get_sidebar('core');
-			?>
-		</section>
-		<?php endif;?>
 
 <?php 
 get_footer();

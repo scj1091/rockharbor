@@ -592,7 +592,8 @@ class RockharborThemeBase {
 	}
 
 /**
- * Registers sidebar/widget/whatevertheyare areas
+ * Registers sidebar/widget/whatevertheyare areas. Also registers the widgets
+ * included in this theme
  */
 	public function registerSidebars() {
 		register_sidebar(array(

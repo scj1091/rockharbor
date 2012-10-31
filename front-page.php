@@ -39,7 +39,7 @@ get_header();
 		
 		<section id="sidebar" role="complementary">
 			<?php
-			get_sidebar('home');
+			dynamic_sidebar('sidebar-frontpage');
 			?>
 		</section>
 
