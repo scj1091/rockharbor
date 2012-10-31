@@ -23,7 +23,6 @@ class Shortcodes {
 		
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
-		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
 		add_shortcode('directions', array($this, 'directions'));
 		add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
@@ -71,20 +70,6 @@ class Shortcodes {
 			'link' => null
 		), $attr));
 		return $this->theme->render('directions');
-	}
-
-/**
- * Renders default featured graphics
- * 
- * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string
- */
-	public function defaultFeature($attr) {
-		$this->theme->set(shortcode_atts(array(
-			'link1' => null,
-			'link2' => null
-		), $attr));
-		return $this->theme->render('default_feature');
 	}
 
 /**

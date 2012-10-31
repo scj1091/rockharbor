@@ -13,8 +13,6 @@ At the very least, the following files should be created.
     /<theme_name>
         /img
             direction-icon.png
-            feature-1-hover.png
-            feature-2-hover.png
             header.jpg
             out.png
             twitter-icon.png
@@ -68,21 +66,11 @@ choose your homepage
 - Go to Network Admin (top right), then to Settings and make sure subsites are
 allowed to upload content
 
-### Homepage
+### Front page
 
-The homepage is a static page that displays its content above the main nav bar,
-and a list of blogs where the content normally is. Make sure to set up the front
-page to be this static page under Settings > Reading.
-
-There is a special shortcode for the homepage to show the default featured graphics
-if you don't have any at the time. The default featured graphics are the "Who
-Leads This Campus?" and "Why This City?" To enable them, use the following 
-shortcode:
-
-    [defaultfeature link1="http://example.com/link.html" link2="http://example.com/link.html"]
-
-Where link1 is a link for the first feature and link2 is a link for the second
-(probably static pages within the site).
+The featured stories area above the fold on the front page is controlled by a 
+menu area called "featured." To add a feature, add a menu item to the "featured"
+area's menu.
 
 ## Features
 
