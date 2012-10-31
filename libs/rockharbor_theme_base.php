@@ -6,6 +6,7 @@ require_once 'basics.php';
 require_once 'html_helper.php';
 require_once 'shortcodes.php';
 require_once 'post_type.php';
+require_once 'widget.php';
 
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
