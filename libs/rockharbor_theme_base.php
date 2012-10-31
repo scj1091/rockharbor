@@ -618,6 +618,8 @@ class RockharborThemeBase {
 		
 		include_once 'widgets' . DS . 'core.php';
 		register_widget('Core');
+		include_once 'widgets' . DS . 'social.php';
+		register_widget('Social');
 	}
 
 /**
