@@ -73,7 +73,7 @@ class Widget extends WP_Widget {
 		if (!empty($title)) {
 			echo $args['before_title'].$title.$args['after_title'];
 		}
-		$this->theme->set('data', $args);
+		$this->theme->set('data', $data);
 		echo $this->theme->render('widgets' . DS . $this->settings['base_id']);
 		echo $args['after_widget'];
 	}
