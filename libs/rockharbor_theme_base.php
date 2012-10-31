@@ -615,6 +615,9 @@ class RockharborThemeBase {
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		));
+		
+		include_once 'widgets' . DS . 'core.php';
+		register_widget('Core');
 	}
 
 /**
