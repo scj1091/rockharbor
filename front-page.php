@@ -20,6 +20,7 @@ get_header();
 					</span>
 				</h1>
 			</header>
+			<div class="stories-2">
 			<?php 
 				// make WordPress treat these as partial posts
 				$more = 0;
@@ -28,13 +29,17 @@ get_header();
 				while (have_posts()) {
 					the_post();
 					switch_to_blog($post->blog_id);
-					get_template_part('content', get_post_type()); 
+					$theme->set('id', $post->ID);
+					$theme->set('title', $post->post_title);
+					$theme->set('type', $post->post_type);
+					echo $theme->render('story_box');
 				}
 				switch_to_blog($theme->info('id'));
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
 				echo $theme->render('pagination');
 				?>
+			</div>
 		</section>
 		
 		<section id="sidebar" role="complementary">
