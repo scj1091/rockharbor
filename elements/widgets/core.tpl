@@ -22,5 +22,3 @@ if (!empty($events)):
 <p>There are no upcoming events.</p>
 <?php endif; ?>
 </div>
-
-
