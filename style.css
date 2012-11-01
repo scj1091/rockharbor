@@ -973,6 +973,7 @@ input, textarea, select {
   font-size: 100%;
 }
 
+input[type="radio"],
 select {
 	width: auto;
 }
@@ -1022,23 +1023,6 @@ input:focus, textarea:focus, select:focus {
   font-size: 140%;
   font-style: normal;
   text-transform: uppercase;
-}
-
-/*= Share your story form
------------------------------------------*/
-#share-your-story div.half {
-  position: relative;
-  float: left;
-  width: 48.5%;
-  margin-left: 3%;
-}
-
-#share-your-story div.half:first-child {
-  margin: 0;
-}
-
-#share-your-story div.submit {
-  text-align: right;
 }
 
 /*= CORE

@@ -12,9 +12,9 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 <footer role="contentinfo">
 	<div id="footer">
 		<div class="first">
-			<h3>Prayer Requests</h3>
+			<h3>Send Us a Message</h3>
 			<?php
-			echo $theme->render('prayer_request');
+			echo $theme->render('quick_contact');
 			?>
 		</div>
 		<div>
