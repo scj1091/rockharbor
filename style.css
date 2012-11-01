@@ -872,7 +872,7 @@ footer h3 {
   float: left;
 }
 
-footer.related h2 a, .entry-header h1.entry-title a {
+.entry-header h1.entry-title a {
   font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   text-decoration: none;
@@ -903,30 +903,6 @@ time .day {
 article footer {
   border-top: 1px dotted #747474;
   background: transparent;
-}
-
-article footer ul.related {
-	list-style: none;
-	margin-top: 10px;
-	margin-left: 0;
-}
-
-article footer ul.related li {
-  float: left;
-  margin-left: 1.125%;
-  background: #e8e8e8;
-  padding: 1.125%;
-  width: 30.3333333333%;
-  height: 100%;
-}
-
-article footer ul.related li div {
-  margin-bottom: 5px;
-  
-}
-
-article footer ul.related li:first-child {
-  margin-left: 0;
 }
 
 .entry-footer {
