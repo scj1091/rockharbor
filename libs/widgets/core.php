@@ -29,6 +29,7 @@ class Core extends Widget {
 		$events = array();
 		
 		$defaults = array(
+			'core_campus_id' => null,
 			'core_id' => null,
 			'core_involvement_id' => null
 		);
@@ -39,10 +40,10 @@ class Core extends Widget {
 			$data = array_merge($data, $metadata);
 		}
 		
-		if (empty($data['core_id']) && empty($data['core_involvement_id'])) {
+		if (empty($data['core_campus_id']) && empty($data['core_id']) && empty($data['core_involvement_id'])) {
 			return;
 		}
-		$events = $this->theme->fetchCoreFeed(null, $data['core_id'], $data['core_involvement_id']);
+		$events = $this->theme->fetchCoreFeed($data['core_campus_id'], $data['core_id'], $data['core_involvement_id']);
 		$this->theme->set('events', $events);
 		parent::widget($args, $data);
 	}
@@ -54,6 +55,7 @@ class Core extends Widget {
  */
 	public function form($data) {
 		$defaults = array(
+			'core_campus_id' => null,
 			'core_id' => null,
 			'core_involvement_id' => null
 		);

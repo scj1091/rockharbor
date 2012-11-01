@@ -10,6 +10,16 @@
 <p>Leave the following fields blank if you wish to fallback to using the settings
 	defined in the post.</p>
 <p>
+	<label for="<?php echo $widget->get_field_id('core_campus_id'); ?>">CORE Campus ID(s)</label>
+	<input 
+		class="widefat" 
+		id="<?php echo $widget->get_field_id('core_campus_id'); ?>" 
+		name="<?php echo $widget->get_field_name('core_campus_id'); ?>"
+		value="<?php echo esc_attr($data['core_campus_id']); ?>"
+	/>
+	<small>A comma-delimited list of CORE Campus IDs to show events from</small>
+</p>
+<p>
 	<label for="<?php echo $widget->get_field_id('core_id'); ?>">CORE Ministry ID(s)</label>
 	<input 
 		class="widefat" 
