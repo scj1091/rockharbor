@@ -17,18 +17,28 @@
 				if (isset($locations['featured'])) {
 					$banner = '';
 					$items = wp_get_nav_menu_items('featured');
+					$first = $items[0];
 					// only 4 items allowed
-					$items = array_slice($items, 0, 4);
-					foreach ($items as $key => $item) {
+					$items = array_slice($items, 1, 3);
+					if (!empty($meta['first_featured_story_height'])) {
+						$theme->set('height', $meta['first_featured_story_height']);
+					}
+					$theme->set('id', $first->object_id);
+					$theme->set('title', $first->title);
+					$theme->set('type', $first->object);
+					$banner .= $theme->Html->tag('div', $theme->render('story_box'));
+					
+					$banner3 = '';
+					foreach ($items as $item) {
 						$theme->set('height', null);
-						if ($key === 0 && !empty($meta['first_featured_story_height'])) {
-							$theme->set('height', $meta['first_featured_story_height']);
-						}
 						$theme->set('id', $item->object_id);
 						$theme->set('title', $item->title);
 						$theme->set('type', $item->object);
-						$banner .= $theme->render('story_box');
+						$banner3 .= $theme->render('story_box');
 					}
+					$banner .= $theme->Html->tag('div', $banner3, array(
+						'class' => 'stories-3'
+					));
 					echo $theme->Html->tag('div', $banner, array(
 						'id' => 'banner',
 						'class' => 'clearfix'

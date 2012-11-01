@@ -27,7 +27,7 @@ if ($tags) {
 $c = 0;
 
 if ($related): ?>
-<div class="related clearfix">
+<div class="related clearfix stories-3">
 	<?php 
 	foreach ($related as $related_post) {
 		$theme->set('id', $related_post->ID);
