@@ -10,19 +10,19 @@ foreach ($tweets as $item):
 		</a>
 	</div>
 	<div class="twitter-copy">
-		<div class="twitter-author">
+		<p class="twitter-author">
 			<a target="_blank" href="http://www.twitter.com/<?php echo $item['from_user']; ?>">@<?php echo $item['from_user'];?></a>
-		</div>
-		<div class="twitter-tweet"><?php
+		</p>
+		<p class="twitter-tweet"><?php
 		$item['text'] = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $item['text']);
 		$item['text'] = preg_replace('/(@)(\w+)/', '<a href="http://twitter.com/$2">$1$2</a>', $item['text']);	
 		echo $item['text'];
-		?></div>
-		<div class="twitter-time">
+		?></p>
+		<p class="twitter-time">
 			<a target="_blank" href="http://twitter.com/#!/<?php echo $item['from_user']; ?>/status/<?php echo $item['id_str']; ?>">
 			<?php echo human_time_diff(strtotime($item['created_at']));?> ago
 			</a>
-		</div>
+		</p>
 	</div>
 </div>
 <?php endforeach; ?>
