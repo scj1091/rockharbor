@@ -223,7 +223,6 @@ th {
 /*= Global navigation
 -----------------------------------------*/
 #global-navigation {
-	margin-bottom: 10px;
 	position: relative;
 	padding-right: 5px;
 	
@@ -343,6 +342,8 @@ th {
 /*= Main navigation
 -----------------------------------------*/
 #access {
+	padding: 10px 0;
+	
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
 }
@@ -447,16 +448,20 @@ th {
 
 /*= Main layout
 -----------------------------------------*/
-#branding {
-	margin: 20px 0;
+#main-feature {
+	padding: 10px;
+	
+	background: #fff;
 }
 
-#branding > div {
-	margin-bottom: 20px;
+#main-feature .story-box .title {
+	max-width: 70%;
+	
 	font-size: 2.4em; /*= 24px */
+	text-transform: uppercase;
 }
 
-#banner .stories-3 .story-box {
+#main-feature .stories-3 .story-box {
 	margin-bottom: 0;
 }
 
