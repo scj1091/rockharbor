@@ -385,7 +385,7 @@ th {
 	top: 100%;
 	z-index: 100;
 	width: 120px;
-	box-shadow: 0 0 2px 1px #383838;
+	box-shadow: 0 0 2px 2px #000;
 	
 	background: #fff;
 }
