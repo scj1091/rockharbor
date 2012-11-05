@@ -516,19 +516,6 @@ article {
 	width: 75%;
 }
 
-#sidebar {
-	position: relative;
-	float: right;
-	padding: 2% 2.5% 2.5% 2.5%;
-	width: 22%;
-	
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	
-	border-left: 1px dotted #747474;
-}
-
 #content nav#submenu {
 	width: 22.5%;
 	float: left;
@@ -647,81 +634,16 @@ footer h3 {
 /*= Home content
 -----------------------------------------*/
 .home #content {
-	width: 65%;
+	width: 70%;
+	margin-right: 2%;
 }
 
 .home #sidebar {
-	width: 29%;
-}
-
-#secondary.home-widget-area {
-	position: relative;
-	background: transparent;
-	
-	border: none;
-}
-
-#secondary.home-widget-area div.title {
-	background: #ff0000;
-	padding: 5px;
-}
-
-#secondary.home-widget-area div.title img {
-	vertical-align: middle;
-	margin-right: 5px;
-}
-
-#secondary.home-widget-area h3 {
-	display: inline;
-	
-	cursor: pointer;
-	
-	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
-	font-size: 2.5em; /*= 25px */
-	color: #00ff00;
-	text-transform: uppercase;
-}
-
-#secondary.home-widget-area div.title.reverse {
-	background: #00ff00;
-}
-
-#secondary.home-widget-area div.title.reverse h3 {
-	color: #ff0000;
-}
-
-#secondary.home-widget-area div.title.white {
-	background: #ffffff;
-}
-
-#secondary.home-widget-area div.title.white h3 {
-	color: #747474;
-}
-
-#secondary.home-widget-area div.title.white.reverse {
-	background: #383838;
-}
-
-#secondary.home-widget-area div.title.white.reverse h3 {
-	color: #747474;
-}
-
-#secondary.home-widget-area a.title-icon {
-	position: absolute;
-	right: 10px;
-}
-
-#pre-secondary {
-	margin-bottom: 10px;
-}
-
-#pre-secondary a {
-	color: #00ff00;
-	text-decoration: none;
+	float: right;
+	width: 28%;
 }
 
 .home article {
-	float: left;
 	width: 95%;
 }
 
@@ -729,20 +651,12 @@ footer h3 {
 	background: transparent;
 }
 
-.home #sidebar {
-	padding: 0 0 2.5% 2.5%;
-	
-	background: transparent;
-	
-	border: none;
-}
-
 .home .archive-page-link {
 	width: 100%;
 }
 
-#secondary.home-widget-area .body {
-	margin: 10px 0;
+.home aside {
+	
 }
 
 /*= Main content
@@ -853,13 +767,23 @@ article a:hover {
 	display: inline-block;
 }
 
-/*= Sections
+.home aside {
+	box-shadow: 0 0 2px 2px #000;
+}
+
+.home aside header h1 {
+	box-shadow: 1px 1px 2px 1px #000;
+}
+
+/*= Sections and Asides
 -----------------------------------------*/
-section header {
+section header,
+aside header {
 	margin-right: -10px;
 }
 
-section header h1 {
+section header h1,
+aside header h1 {
 	display: inline-block;
 	padding: 10px;
 	
@@ -877,6 +801,23 @@ section header h1 {
 
 section article {
 	padding: 2% 2.5% 2.5% 2.5%;
+}
+
+aside {
+	width: 100%;
+	position: relative;
+	float: left;
+	margin-bottom: 20px;
+	
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	
+	background: #ffffff;
+}
+
+aside .widget-body {
+	padding: 10px;
 }
 
 /*= Story box

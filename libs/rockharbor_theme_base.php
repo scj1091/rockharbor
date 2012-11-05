@@ -602,9 +602,9 @@ class RockharborThemeBase {
 			'id' => 'sidebar-subnav',
 			'description' => __('Additional items for after the sub-nav.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</aside>",
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
+			'after_widget' => "</div></aside>",
+			'before_title' => '<header><h1>',
+			'after_title' => '</h1></header><div class="widget-body">',
 		));
 
 		register_sidebar(array(
@@ -612,9 +612,9 @@ class RockharborThemeBase {
 			'id' => 'sidebar-frontpage',
 			'description' => __('Widgets that appear in the right sidebar on the homepage.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</aside>",
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
+			'after_widget' => "</div></aside>",
+			'before_title' => '<header><h1>',
+			'after_title' => '</h1></header><div class="widget-body">',
 		));
 		
 		include_once 'widgets' . DS . 'core.php';
