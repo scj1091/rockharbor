@@ -487,10 +487,6 @@ th {
 	margin-bottom: 0;
 }
 
-#branding {
-	margin-bottom: 10px;
-}
-
 #content {
 	float: left;
 	width: 72%;
@@ -663,6 +659,8 @@ footer h3 {
 }
 
 #featured {
+	margin-bottom: 10px;
+	
 	background: #ffffff;
 }
 
