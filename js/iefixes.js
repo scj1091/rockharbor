@@ -5,5 +5,8 @@
 		// fix for lack of nth-child support
 		$('#access ul li div.submenu.cols2 ul:nth-child(2n+2)').addClass('nthreset');
 		$('#access ul li div.submenu.cols2 ul:nth-child(3n+3)').addClass('nthreset');
+		$(".stories-2 .story-box:nth-child(2n+2)").addClass('nthreset');
+		$(".stories-3 .story-box:nth-child(3n+3)").addClass('nthreset');
+		$(".stories-4 .story-box:nth-child(4n+4)").addClass('nthreset');
 	});
 }(jQuery))
