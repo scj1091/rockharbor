@@ -9,7 +9,7 @@
 		echo $theme->render('global_navigation');
 		?>
 		
-		<header id="branding" role="banner">
+		<header id="branding" role="banner" class="clearfix">
 			<?php 
 			if (is_front_page()) {
 				$meta = $theme->metaToData($post->ID);

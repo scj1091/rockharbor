@@ -36,28 +36,10 @@ section header h1,
 	margin-bottom: -1px;
 }
 
-#content {
-	width: 70%
-}
-
-#sidebar {
-	width: 19%;
-}
-
 #global-navigation {
 	width: 100%;
 	position: relative;
 	z-index: 10;
-}
-
-#branding {
-	position: relative;
-	z-index: 5;
-}
-
-#main {
-	position: relative;
-	z-index: 0;
 }
 
 #global-navigation #searchform input#s {

@@ -484,6 +484,10 @@ th {
 	margin-bottom: 0;
 }
 
+#branding {
+	margin-bottom: 10px;
+}
+
 #content {
 	float: left;
 	width: 72%;
@@ -655,8 +659,8 @@ footer h3 {
 	width: 100%;
 }
 
-.home aside {
-	
+#featured .story-box {
+	margin-bottom: 0;
 }
 
 /*= Main content
