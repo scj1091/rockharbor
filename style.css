@@ -28,7 +28,7 @@ embed {
 body {
 	font-size: 62.5%; /*= reset browser to 10px */
 	font-family: 'Lucida Sans', Helvetica, Arial, sans-serif;
-	color: #747474;
+	color: #383838;
 	text-align: center;
 	
 	background: #e8e8e8;
@@ -64,6 +64,7 @@ p {
 	margin-bottom: 10px;
 	
 	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
 }
 
 a {
@@ -92,8 +93,13 @@ h4 {
 }
 
 h1 {
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	
 	font-size: 2.4em; /*= 24px */
 	color: #ff0000;
+	
+	border-bottom: 1px solid #383838;
 }
 
 h2 {
@@ -120,18 +126,26 @@ blockquote {
 	border-left: 1px dotted #747474;
 }
 
+.widget-body ul,
 .entry-content ul {
+	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
+	
 	margin-left: 10px;
 	margin-bottom: 10px;
 	
 	list-style: disc inside;
 }
 
+.widget-body ol,
 .entry-content ol {
+	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
+	
 	margin-left: 10px;
 	margin-bottom: 10px;
 	
-	list-style: lower-roman inside;
+	list-style: decimal inside;
 }
 
 abbr {
@@ -236,8 +250,11 @@ th {
 
 #global-navigation h1 {
 	margin: 0;
+	padding: 0;
 	display: inline-block;
 	float: left;
+	
+	border: none;
 	
 	font-size: 2.4em; /*= 24px */
 }
@@ -665,7 +682,7 @@ footer h3 {
 }
 
 #featured div {
-	padding: 0 10px 10px 10px;
+	padding: 10px;
 }
 
 #featured .story-box {
@@ -779,10 +796,13 @@ section header h1,
 aside header h1 {
 	display: inline-block;
 	padding: 10px;
+	margin: 0;
 	
 	box-shadow: 0 0 2px 2px #000;
 	
 	background: #ff0000;
+	
+	border: none;
 	
 	font-size: 2.5em; /*= 25px */
 	color: #ffffff;
