@@ -659,6 +659,14 @@ footer h3 {
 	width: 100%;
 }
 
+#featured {
+	background: #ffffff;
+}
+
+#featured div {
+	padding: 0 10px 10px 10px;
+}
+
 #featured .story-box {
 	margin-bottom: 0;
 }

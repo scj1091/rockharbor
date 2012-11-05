@@ -88,7 +88,7 @@
 					echo '<section id="featured">';
 					$h1 = $theme->Html->tag('h1', 'Featured Content');
 					echo $theme->Html->tag('header', $h1);
-					echo '<div class="stories-3">';
+					echo '<div class="stories-3 clearfix">';
 					$items = wp_get_nav_menu_items('featured');
 					// only items 2,3,4 allowed
 					$items = array_slice($items, 1, 3);
