@@ -466,21 +466,6 @@ th {
 	margin-bottom: 0;
 }
 
-nav.breadcrumb {
-	margin-bottom: 10px;
-	
-	font-size: 1em; /*= 10px */
-}
-
-nav.breadcrumb a {
-	color: #686868;
-	text-decoration: none;
-}
-
-nav.breadcrumb a:hover {
-	text-decoration: underline;
-}
-
 #content {
 	float: left;
 	width: 72%;
