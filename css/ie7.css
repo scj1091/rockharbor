@@ -12,6 +12,7 @@
 .page-link .page-numbers,
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers,
+section header h1,
 #banner .icon-map {
 	zoom: 1;
 	*display:inline;

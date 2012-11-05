@@ -81,6 +81,7 @@ h4 {
 	margin-bottom: 10px;
 	
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	font-weight: normal;
 	text-transform: uppercase;
 	color: #383838;
 }
@@ -484,7 +485,7 @@ nav.breadcrumb a:hover {
 	float: left;
 	width: 72%;
 	min-height: 100px;
-	padding: 2% 2.5% 2.5% 2.5%;
+	
 	position: relative;
 	
 	background: #ffffff;
@@ -510,12 +511,6 @@ article {
 	border-bottom: 1px dotted #747474;
 	float: right;
 	width: 75%;
-}
-
-#content header#content-title,
-#sidebar header#sidebar-title {
-	height: 40px;
-	padding-bottom: 20px;
 }
 
 #sidebar {
@@ -724,7 +719,7 @@ footer h3 {
 
 .home article {
 	float: left;
-	width: 100%;
+	width: 95%;
 }
 
 .home #main {
@@ -770,58 +765,6 @@ article a {
 .core-events a:hover,
 article a:hover {
 	text-decoration: underline;
-}
-
-.page-title {
-	position: absolute;
-	left: -6px;
-	top: 25px;
-	
-	font-size: 2.5em; /*= 25px */
-}
-
-.sub-title {
-	position: absolute;
-	right: -6px;
-	top: 20px;
-	
-	font-size: 1.8em; /*= 18px */
-}
-
-.page-title span,
-.sub-title span {
-	padding: 8px 20px;
-	position: relative;
-	
-	color: #ffffff;
-	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
-	text-decoration: none;
-	text-transform: uppercase;
-	text-align: center;
-	
-	background: #ff0000;
-}
-
-.page-title span:after,
-.sub-title span:after {
-	left: 0;
-	position: absolute;
-	top: 100%;
-	z-index: -1;
-	
-	content: '';
-	
-	background: none;
-	
-	border-left: 45px inset transparent;
-	border-top: 45px solid #00ff00;
-}
-
-.sub-title span:after {
-	right: 0;
-	
-	border-left: none;
-	border-right: 45px inset transparent;
 }
 
 .archive-page-link {
@@ -905,6 +848,32 @@ article a:hover {
 
 .embedded-audio {
 	display: inline-block;
+}
+
+/*= Sections
+-----------------------------------------*/
+section header {
+	margin-right: -10px;
+}
+
+section header h1 {
+	display: inline-block;
+	padding: 10px;
+	
+	box-shadow: 0 0 2px 1px #999;
+	
+	background: #ff0000;
+	
+	font-size: 2.5em; /*= 25px */
+	color: #ffffff;
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+section article {
+	padding: 2% 2.5% 2.5% 2.5%;
 }
 
 /*= Story box

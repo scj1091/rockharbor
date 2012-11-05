@@ -20,7 +20,7 @@ get_header();
 					</span>
 				</h1>
 			</header>
-			<div class="stories-2">
+			<article class="stories-2">
 			<?php 
 				// make WordPress treat these as partial posts
 				$more = 0;
@@ -39,7 +39,7 @@ get_header();
 				$theme->set('wp_query', $wp_query);
 				echo $theme->render('pagination');
 				?>
-			</div>
+			</article>
 		</section>
 		
 		<section id="sidebar" role="complementary">
