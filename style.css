@@ -500,6 +500,10 @@ th {
 
 /*= Main layout
 -----------------------------------------*/
+#main {
+	background: #ffffff;
+}
+
 #content {
 	float: left;
 	width: 72%;
@@ -649,17 +653,20 @@ footer h3 {
 
 /*= Home content
 -----------------------------------------*/
-.home #content {
+.home #frontpage-content {
+	float: left;
 	width: 70%;
 	margin-right: 2%;
+	
+	background: #ffffff;
 }
 
-.home #sidebar {
+.home #frontpage-sidebar {
 	float: right;
 	width: 28%;
 }
 
-.home article {
+.home #frontpage-content article {
 	width: 95%;
 }
 

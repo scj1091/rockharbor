@@ -10,15 +10,9 @@
 global $wp_rewrite, $wp_query, $more, $wpdb, $post;
 get_header(); 
 ?>
-		<section id="content" role="main">
-			<header id="content-title">
-				<h1 class="page-title">
-					<span>
-						<?php 
-						echo $post->post_title; 
-						?>
-					</span>
-				</h1>
+		<section id="frontpage-content" role="main">
+			<header id="frontpage-title">
+				<h1><?php echo $post->post_title; ?></h1>
 			</header>
 			<article class="stories-2">
 			<?php 
@@ -42,7 +36,7 @@ get_header();
 			</article>
 		</section>
 		
-		<section id="sidebar" role="complementary">
+		<section id="frontpage-sidebar" role="complementary">
 			<?php
 			dynamic_sidebar('sidebar-frontpage');
 			?>
