@@ -13,9 +13,9 @@
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers,
 section header h1,
-#banner .icon-map {
+aside header h1 {
 	zoom: 1;
-	*display:inline;
+	display:inline !important;
 }
 
 .dropdown {
