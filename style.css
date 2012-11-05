@@ -940,6 +940,7 @@ aside .widget-body {
 
 time {
 	float: right;
+	display: inline-block;
 	
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
@@ -947,16 +948,12 @@ time {
 }
 
 time span {
-	padding: 0 3px;
+	display: inline-block;
+	padding: 1px;
 }
 
-time span:first-child {
-	padding-left: 0;
-}
-
-time .month,
 time .day {
-	border-right: 1px solid #ff0000;
+	border: 2px solid #ff0000;
 }
 
 article footer {
@@ -1075,12 +1072,25 @@ label {
 /*= CORE
 -----------------------------------------*/
 .core-events time {
-	float: none;
-	margin-bottom: 5px;
+	clear: both;
+	float: left;
+	width: 38%;
+	padding-right: 2%;
+	margin-bottom: 10px;
+	
+	text-align: right;
 }
 
-.core-events .core-event {
-	margin-bottom: 15px;
+.core-events a {
+	float: right;
+	width: 60%;
+	overflow: hidden;
+	margin-bottom: 5px;
+	
+	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 /*= Share buttons

@@ -13,6 +13,8 @@
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers,
 section header h1,
+time,
+time span,
 aside header h1 {
 	zoom: 1;
 	display:inline !important;
