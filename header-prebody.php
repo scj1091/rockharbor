@@ -41,6 +41,9 @@
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
+<!--[if lte IE 8]>
+<script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
+<![endif]-->
 <?php if (is_front_page()): ?>
 <script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
 <script>

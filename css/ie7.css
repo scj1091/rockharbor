@@ -68,3 +68,7 @@ section header h1,
 *:first-child+html .clearfix {
 	zoom: 1;
 }
+
+.nthreset {
+	margin-right: 0 !important;
+}
