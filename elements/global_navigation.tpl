@@ -8,7 +8,7 @@
 		</a>
 	</h1>
 	<nav>
-		<ul>
+		<ul class="clearfix">
 			<li>
 				<a class="dropdown" href="#">Campuses</a>
 				<?php

@@ -244,6 +244,7 @@ th {
 #global-navigation {
 	position: relative;
 	padding-right: 5px;
+	height: 51px;
 	
 	background: #383838;
 }
@@ -283,6 +284,13 @@ th {
 
 #global-navigation nav {
 	float: right;
+	display: table;
+	height: 100%;
+}
+
+#global-navigation nav > ul {
+	display: table;
+	height: 100%;
 }
 
 #global-navigation nav a {
@@ -294,12 +302,6 @@ th {
 
 #global-navigation nav a:hover {
 	text-decoration: underline;
-}
-
-#global-navigation nav > ul > ul,
-#global-navigation nav > ul > li {
-	height: 100%;
-	float: left;
 }
 
 #global-navigation nav a {
@@ -320,6 +322,17 @@ th {
 #global-navigation nav ul li {
 	display: block;
 	position: relative;
+}
+
+#global-navigation nav > ul > ul,
+#global-navigation nav > ul > li {
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#global-navigation nav > ul > ul li {
+	float: left;
 }
 
 #global-navigation nav ul li:hover ul {
