@@ -487,23 +487,6 @@ th {
 
 /*= Main layout
 -----------------------------------------*/
-#main-feature {
-	padding: 10px;
-	
-	background: #fff;
-}
-
-#main-feature .story-box .title {
-	max-width: 70%;
-	
-	font-size: 2.4em; /*= 24px */
-	text-transform: uppercase;
-}
-
-#main-feature .stories-3 .story-box {
-	margin-bottom: 0;
-}
-
 #content {
 	float: left;
 	width: 72%;
@@ -686,6 +669,23 @@ footer h3 {
 }
 
 #featured .story-box {
+	margin-bottom: 0;
+}
+
+#main-feature {
+	padding: 10px;
+	
+	background: #fff;
+}
+
+#main-feature .story-box .title {
+	max-width: 70%;
+	
+	font-size: 2.4em; /*= 24px */
+	text-transform: uppercase;
+}
+
+#main-feature .stories-3 .story-box {
 	margin-bottom: 0;
 }
 
