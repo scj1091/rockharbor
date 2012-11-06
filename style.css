@@ -542,7 +542,7 @@ aside header h1 {
 }
 
 section article {
-	padding: 2% 2.5% 2.5% 2.5%;
+	padding: 10px;
 }
 
 aside {
@@ -694,7 +694,7 @@ footer h3 {
 #content-title.page-title {
 	position: relative;
 	left: 0;
-	top: 40px;
+	top: 20px;
 	width: 100%;
 }
 
@@ -703,15 +703,15 @@ footer h3 {
 }
 
 #content.page-content {
-	margin-top: -40px;
+	margin-top: 30px; /* "#content-title.page-title" top + 10px padding */
+}
+
+#content.page-content article > img.wp-post-image {
+	margin-top: -75px; /* -"section article" padding - #content.page-content margin - #content-title height */
 }
 
 #sidebar.page-sidebar {
-	margin-top: 65px;  /* height of #content-title + 20px padding */
-}
-
-#content.page-content .embedded-video {
-	margin-top: 85px; /* negative margin + height of #content-title */
+	margin-top: 30px; /* "#content-title.page-title" top + 10px padding */
 }
 
 /*= Home content
