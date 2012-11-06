@@ -29,11 +29,13 @@ get_header();
 					echo $theme->render('story_box');
 				}
 				switch_to_blog($theme->info('id'));
-				$theme->set('wp_rewrite', $wp_rewrite);
-				$theme->set('wp_query', $wp_query);
-				echo $theme->render('pagination');
 				?>
 			</article>
+			<?php
+			$theme->set('wp_rewrite', $wp_rewrite);
+			$theme->set('wp_query', $wp_query);
+			echo $theme->render('pagination');
+			?>
 		</section>
 		
 		<section id="frontpage-sidebar" role="complementary">
