@@ -27,6 +27,19 @@ class Shortcodes {
 		add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 	}
+
+/**
+ * Removes a shortcode
+ * 
+ * Useful for when you're taking a video out of the content flow to display
+ * elsewhere and don't want the video to be repeated.
+ * 
+ * @param string $shortcode Shortcode to remove
+ * @see http://stackoverflow.com/questions/9440423/wordpress-strip-single-shortcode-from-posts
+ */
+	public function remove($shortcode) {
+		add_shortcode($shortcode, '__return_false');
+	}
 	
 /**
  * Renders an ebulletin archive (generated via mailchimp)
