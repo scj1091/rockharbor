@@ -154,6 +154,8 @@ class RockharborThemeBase {
 			return;
 		}
 		
+		add_filter('the_content', array($this, 'filterContent'));
+		
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
 		add_action('widgets_init', array($this, 'registerSidebars'));
@@ -176,6 +178,24 @@ class RockharborThemeBase {
 		if (!session_id()) {
 			session_start();
 		}
+	}
+
+/**
+ * Filter content before outputting it
+ * 
+ * @param string $content
+ * @return string 
+ */
+	function filterContent($content = '') {
+		$count = preg_match_all('/<!--column-->/', $content, $matches);
+		if ($count) {
+			$colSize = floor(100 / ($count+1)) - 1;
+			$columnDiv = "<div style=\"float:left;width:$colSize%;margin-right: 1%;\">";
+			
+			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
+			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
+		}
+		return $content;
 	}
 
 /**

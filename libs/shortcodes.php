@@ -129,6 +129,7 @@ class Shortcodes {
  */
 	public function registerButtons($buttons) {
 	   array_push($buttons, '|', 'videoShortcode');
+	   array_push($buttons, '|', 'columns');
 	   return $buttons;
 	}
 /**
@@ -139,6 +140,7 @@ class Shortcodes {
  */
 	public function addEditorPlugins($plugin_array) {
 	   $plugin_array['videoShortcode'] = $this->theme->info('base_url').'/js/mceplugins/video_plugin.js';
+	   $plugin_array['columns'] = $this->theme->info('base_url').'/js/mceplugins/columns_plugin.js';
 	   return $plugin_array;
 	}
 
