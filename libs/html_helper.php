@@ -159,7 +159,9 @@ class HtmlHelper {
 			}
 			if (strpos($options['name'], 'tax_input') !== false) {
 				if (preg_match('/tax_input\[(.+)\]/i', $options['name'], $matches)) {
-					$data[$options['name']] = $data['tax_input'][$matches[1]];
+					if (!empty($data['tax_input'])) {
+						$data[$options['name']] = $data['tax_input'][$matches[1]];
+					}
 				}
 			}
 			if (isset($data[$options['name']])) {

@@ -29,8 +29,10 @@ the_post();
 						<div>
 							<dl>
 							<?php
-							$department = get_term($meta['department'], 'department');
-							$meta['department'] = $department->name;
+							if (!empty($meta['department'])) {
+								$department = get_term($meta['department'], 'department');
+								$meta['department'] = $department->name;
+							}
 							$metaLabels = array(
 								'email' => 'Email',
 								'phone' => 'Phone',
