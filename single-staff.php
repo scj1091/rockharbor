@@ -1,6 +1,7 @@
 <?php
 global $theme;
 get_header();
+the_post();
 ?>
 		<header id="content-title">
 			<h1><?php echo wp_title(''); ?></h1>
@@ -24,8 +25,10 @@ get_header();
 						<div>
 							<dl>
 							<?php
-							$department = get_term($meta['department'], 'department');
-							$meta['department'] = $department->name;
+							if (!empty($meta['department'])) {
+								$department = get_term($meta['department'], 'department');
+								$meta['department'] = $department->name;
+							}
 							$metaLabels = array(
 								'email' => 'Email',
 								'phone' => 'Phone',

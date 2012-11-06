@@ -59,8 +59,13 @@ class Staff extends PostType {
  * @return array Modified post data
  */
 	public function beforeSave($data) {
-		$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
-		$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
+		if (!empty($_POST)) {
+			foreach ($_POST['meta'] as $key => $value) {
+				$_POST['meta'][$key] = trim($value);
+			}
+			$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
+			$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
+		}
 		return $data;
 	}
 
@@ -86,7 +91,9 @@ class Staff extends PostType {
 		}
 		$data = $this->theme->metaToData($post->ID);
 		$selectedDepartment = wp_get_post_terms($post->ID, 'department');
-		$data['tax_input']['department'] = $selectedDepartment[0]->slug;
+		if (!empty($selectedDepartment)) {
+			$data['tax_input']['department'] = $selectedDepartment[0]->slug;
+		}
 		$this->theme->set('departments', $departments);
 		$this->theme->set('data', $data);
 		echo $this->theme->render('staff'.DS.'staff_details_meta_box');

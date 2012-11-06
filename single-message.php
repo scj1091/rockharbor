@@ -1,6 +1,7 @@
 <?php
 global $theme, $post;
 get_header();
+the_post();
 ?>
 		<header id="content-title">
 			<h1><?php echo wp_title(''); ?></h1>
