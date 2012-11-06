@@ -617,10 +617,10 @@ class RockharborThemeBase {
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
 		
-		include_once 'widgets' . DS . 'core.php';
-		register_widget('Core');
-		include_once 'widgets' . DS . 'social.php';
-		register_widget('Social');
+		include_once 'widgets' . DS . 'core_widget.php';
+		register_widget('CoreWidget');
+		include_once 'widgets' . DS . 'social_widget.php';
+		register_widget('SocialWidget');
 	}
 
 /**

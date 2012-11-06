@@ -5,7 +5,7 @@
  * @package rockharbor
  * @subpackage rockharbor.libs.widgets
  */
-class Social extends Widget {
+class SocialWidget extends Widget {
 
 /**
  * Widget settings

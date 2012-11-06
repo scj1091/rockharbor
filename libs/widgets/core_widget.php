@@ -5,7 +5,7 @@
  * @package rockharbor
  * @subpackage rockharbor.libs.widgets
  */
-class Core extends Widget {
+class CoreWidget extends Widget {
 	
 	public $settings = array(
 		'base_id' => 'core',
