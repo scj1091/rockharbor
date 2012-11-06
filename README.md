@@ -30,6 +30,9 @@ The child theme CSS should only contain styles for that child theme that need to
 be overridden. This usually just includes colors, but can include styles that
 utilize images.
 
+There is a stylesheet called `_style.css` that serves as a template for child 
+theme css sheets.
+
 #### Including the theme class
 
 Also required is a class within `/libs` called `ChildTheme()`. It must
