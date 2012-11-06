@@ -651,6 +651,31 @@ footer h3 {
 	vertical-align: middle;
 }
 
+/*= Page template
+-----------------------------------------*/
+#content-title.page-title {
+	position: relative;
+	left: 0;
+	top: 40px;
+	width: 100%;
+}
+
+#content-title.page-title h1 {
+	padding-left: 25%; 
+}
+
+#content.page-content {
+	margin-top: -40px;
+}
+
+#sidebar.page-sidebar {
+	margin-top: 65px;  /* height of #content-title + 20px padding */
+}
+
+#content.page-content .embedded-video {
+	margin-top: 85px; /* negative margin + height of #content-title */
+}
+
 /*= Home content
 -----------------------------------------*/
 .home #frontpage-content {

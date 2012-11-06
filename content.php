@@ -1,5 +1,14 @@
 <?php global $theme; ?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<?php
+		$video = $theme->render('video');
+		if (empty($video) && has_post_thumbnail()) {
+			the_post_thumbnail($post->ID, 'full');
+		} else {
+			$theme->Shortcodes->remove('videoplayer');
+			echo $video;
+		}
+		?>
 		<?php if (is_single() || is_search()): ?>
 		<header class="entry-header clearfix">
 			<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
