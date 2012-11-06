@@ -60,6 +60,9 @@ class Staff extends PostType {
  */
 	public function beforeSave($data) {
 		if (!empty($_POST)) {
+			foreach ($_POST['meta'] as $key => $value) {
+				$_POST['meta'][$key] = trim($value);
+			}
 			$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
 			$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
 		}
