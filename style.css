@@ -783,11 +783,6 @@ footer h3 {
 	background: #ffffff;
 }
 
-.archive-page-link {
-	float: right;
-	width: 80%;
-}
-
 .archive-page-link,
 .page-link {
 	margin: 10px 0;
@@ -795,48 +790,44 @@ footer h3 {
 	text-align: center;
 }
 
-.archive-page-link a,
-.page-link a {
+a.page-numbers {
 	text-decoration: none;
+}
+
+a.next,
+a.prev {
+	text-decoration: underline;
+}
+
+.page-numbers {
+	display: inline-block;
+	margin: 0 3px;
+	padding: 3px;
+	width: 1em;
+	
+	font-size: 1.3em; /*= 13px */
+	
+	border: 1px solid #ff0000;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
 }
 
 .archive-page-link .page-numbers.current,
 .page-link .page-numbers {
-	min-width: 10px;
-	display: inline-block;
-	min-width: 15px;
-	margin: 0 3px;
-	
 	color: #ffffff;
-	
-	border: 1px solid #ff0000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
 	
 	background: #ff0000;
 }
 
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers {
-	min-width: 10px;
-	display: inline-block;
-	min-width: 15px;
-	margin: 0 3px;
-	
 	color: #ff0000;
-	
-	border: 1px solid #ff0000;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
 	
 	background: #ffffff;
 }
 
 .archive-page-link .page-numbers.dots {
-	color: #747474;
-	
 	background: none;
 	
 	border: none;
@@ -844,20 +835,16 @@ footer h3 {
 
 .archive-page-link a.prev,
 .archive-page-link a.next {
-	color: #686868;
+	padding: 0;
+	width: auto;
 	
 	border: none;
 	
 	background: none;
 }
 
-.archive-page-link a.prev:hover,
-.archive-page-link a.next:hover {
-	text-decoration: underline;
-}
-
 .page-link a:hover {
-	text-decoration: none !important;
+	text-decoration: none;
 }
 
 .embedded-audio {
