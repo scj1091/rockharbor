@@ -1,20 +1,10 @@
 <?php 
 get_header(); 
 ?>
+		<header id="content-title">
+			<h1><?php echo $post->post_title; ?></h1>
+		</header>
 		<section id="content" role="main">
-			<header id="content-title">
-				<h1 class="page-title">
-					<span>
-						<?php echo wp_title(''); ?>
-					</span>
-				</h1>
-			</header>
-			<nav id="submenu">
-				<?php 
-				get_sidebar(); 
-				dynamic_sidebar('sidebar-subnav');
-				?>
-			</nav>
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -28,8 +18,8 @@ get_header();
 			 else: ?>
 
 			<article id="post-0" class="post no-results not-found">
-				<header class="entry-header clearfix">
-					<h1 class="entry-title"><?php _e('Nothing Found', 'rockharbor'); ?></h1>
+				<header>
+					<h1><?php _e('Nothing Found', 'rockharbor'); ?></h1>
 				</header>
 
 				<div class="entry-content">
@@ -40,6 +30,16 @@ get_header();
 
 			<?php endif; ?>
 
+		</section>
+		<section id="sidebar" role="complementary" class="clearfix">
+			<nav id="submenu">
+				<?php 
+				get_sidebar(); 
+				?>
+			</nav>
+			<?php
+			dynamic_sidebar('sidebar-subnav');
+			?>
 		</section>
 
 <?php 

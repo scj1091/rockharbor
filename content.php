@@ -10,8 +10,8 @@
 		}
 		?>
 		<?php if (is_single() || is_search()): ?>
-		<header class="entry-header clearfix">
-			<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
+		<header>
+			<h1><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
 		</header>
 		<?php endif; ?>
 
