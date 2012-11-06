@@ -573,6 +573,11 @@ article {
 	float: left;
 }
 
+#submenu {
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
 #submenu #sub-navigation a {
 	border-left: 2px solid transparent;
 	padding-left: 5px;
@@ -582,6 +587,7 @@ article {
 	font-family: Lucida, Helvetica, Arial, sans-serif;
 	text-decoration: none;
 	color: #686868;
+	font-size: 1.3em; /*= 13px */
 }
 
 #submenu #sub-navigation li.current-menu-item a,
@@ -623,6 +629,7 @@ article {
 	font-family: Lucida, Helvetica, Arial, sans-serif;
 	text-decoration: none;
 	color: #686868;
+	font-size: 1.3em; /*= 13px */
 }
 
 #submenu .breadcrumb a:hover {
