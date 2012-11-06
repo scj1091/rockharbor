@@ -1,6 +1,7 @@
 <?php
 global $theme, $post;
 get_header();
+the_post();
 ?>
 		<section id="content" role="main" class="full">
 			<header id="content-title">
