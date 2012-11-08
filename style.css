@@ -691,31 +691,6 @@ footer h3 {
 	vertical-align: middle;
 }
 
-/*= Page template
------------------------------------------*/
-#content-title.page-title {
-	position: relative;
-	left: 0;
-	top: 20px;
-	width: 100%;
-}
-
-#content-title.page-title h1 {
-	padding-left: 25%; 
-}
-
-#content.page-content {
-	margin-top: 30px; /* "#content-title.page-title" top + 10px padding */
-}
-
-#content.page-content article > img.wp-post-image {
-	margin-top: -75px; /* -"section article" padding - #content.page-content margin - #content-title height */
-}
-
-#sidebar.page-sidebar {
-	margin-top: 30px; /* "#content-title.page-title" top + 10px padding */
-}
-
 /*= Home content
 -----------------------------------------*/
 .home #frontpage-content {
