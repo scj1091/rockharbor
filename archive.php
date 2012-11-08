@@ -31,14 +31,5 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-
-		<section id="sidebar" role="complementary" class="clearfix">
-			<nav id="submenu">
-				<?php 
-				get_sidebar(); 
-				?>
-			</nav>
-		</section>
-
 <?php 
 get_footer();

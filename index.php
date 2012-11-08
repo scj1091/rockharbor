@@ -4,6 +4,11 @@ get_header();
 		<header id="content-title">
 			<h1><?php echo $post->post_title; ?></h1>
 		</header>
+		<nav id="submenu">
+			<?php 
+			get_sidebar(); 
+			?>
+		</nav>
 		<section id="content" role="main">
 			<?php if (have_posts()): 
 
@@ -32,11 +37,6 @@ get_header();
 
 		</section>
 		<section id="sidebar" role="complementary" class="clearfix">
-			<nav id="submenu">
-				<?php 
-				get_sidebar(); 
-				?>
-			</nav>
 			<?php
 			dynamic_sidebar('sidebar-subnav');
 			?>

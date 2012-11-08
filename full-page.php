@@ -6,9 +6,14 @@ Template Name: Full page
 get_header(); 
 ?>
 		<header id="content-title">
-			<h1><?php echo wp_title(''); ?></h1>
+			<h1><?php echo $post->post_title; ?></h1>
 		</header>
-		<section id="content" role="main" class="full">
+		<nav id="submenu">
+			<?php 
+			get_sidebar(); 
+			?>
+		</nav>
+		<section id="content" role="main">
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -34,6 +39,11 @@ get_header();
 
 			<?php endif; ?>
 
+		</section>
+		<section id="sidebar" role="complementary" class="clearfix">
+			<?php
+			dynamic_sidebar('sidebar-subnav');
+			?>
 		</section>
 <?php 
 get_footer();

@@ -506,6 +506,7 @@ th {
 	background: #ffffff;
 }
 
+#sidebar,
 #content {
 	float: right;
 	width: 75%;
@@ -547,6 +548,10 @@ section article {
 	padding: 10px;
 }
 
+section article:first-child {
+	padding-top: 0;
+}
+
 aside {
 	width: 100%;
 	position: relative;
@@ -570,12 +575,8 @@ article {
 	border-bottom: 1px dotted #747474;
 }
 
-#sidebar {
-	width: 25%;
-	float: left;
-}
-
 #submenu {
+	float: left;
 	padding-left: 10px;
 	padding-bottom: 10px;
 }
