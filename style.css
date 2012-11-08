@@ -376,7 +376,6 @@ th {
 /*= Main navigation
 -----------------------------------------*/
 #access {
-	padding-bottom: 10px;
 	z-index: 100;
 	
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
@@ -504,6 +503,10 @@ th {
 -----------------------------------------*/
 #main {
 	background: #ffffff;
+}
+
+#branding {
+	padding-bottom: 10px;
 }
 
 #sidebar,
