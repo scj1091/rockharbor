@@ -88,31 +88,31 @@
 				echo $theme->Html->tag('ul', $output, array('class' => 'menu clearfix'));
 				?>
 			</nav>
-			<?php 
-			if (is_front_page()) {
-				$meta = $theme->metaToData($post->ID);
-				$locations = get_nav_menu_locations();
-				if (isset($locations['featured'])) {
-					echo '<section id="featured">';
-					$h1 = $theme->Html->tag('h1', 'Featured Content');
-					echo $theme->Html->tag('header', $h1);
-					echo '<div class="stories-3 clearfix">';
-					$items = wp_get_nav_menu_items('featured');
-					// only items 2,3,4 allowed
-					$items = array_slice($items, 1, 3);
-					foreach ($items as $item) {
-						$theme->set('height', null);
-						$theme->set('id', $item->object_id);
-						$theme->set('title', $item->title);
-						$theme->set('type', $item->object);
-						echo $theme->render('story_box');
-					}
-					echo '</div>';
-					echo '</section>';
-				}
-			}
-			?>
 		</header>
+		<?php 
+		if (is_front_page()) {
+			$meta = $theme->metaToData($post->ID);
+			$locations = get_nav_menu_locations();
+			if (isset($locations['featured'])) {
+				echo '<section id="featured">';
+				$h1 = $theme->Html->tag('h1', 'Featured Content');
+				echo $theme->Html->tag('header', $h1);
+				echo '<div class="stories-3 clearfix">';
+				$items = wp_get_nav_menu_items('featured');
+				// only items 2,3,4 allowed
+				$items = array_slice($items, 1, 3);
+				foreach ($items as $item) {
+					$theme->set('height', null);
+					$theme->set('id', $item->object_id);
+					$theme->set('title', $item->title);
+					$theme->set('type', $item->object);
+					echo $theme->render('story_box');
+				}
+				echo '</div>';
+				echo '</section>';
+			}
+		}
+		?>
 		
 		<?php 
 		if (isset($_SESSION['message'])) {
