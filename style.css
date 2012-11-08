@@ -435,10 +435,12 @@ th {
 }
 
 #access ul li div.submenu {
+	width: 250px;
 	padding: 5px;
 }
 
 #access ul li div.submenu ul {
+	width: 100%;
 	float: left;
 	
 	background: transparent;
