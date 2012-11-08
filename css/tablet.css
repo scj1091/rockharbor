@@ -8,6 +8,10 @@ This stylesheet is applied to tablets (max 768px) only.
 	width: 100%;
 }
 
+#footer .column {
+	width: 100%;
+}
+
 /*= Main navigation
 -----------------------------------------*/
 #access ul li:hover div.submenu {

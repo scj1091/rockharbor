@@ -47,7 +47,8 @@ aside header h1,
 .page-link .page-numbers,
 .story-box,
 button,
-input[type=submit]
+input[type=submit],
+#footer .tabs a.selected
 {
 	background: #ff0000;
 }

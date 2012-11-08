@@ -649,18 +649,34 @@ footer {
 	background: #383838;
 }
 
-#footer > div {
-	margin: 0 1.25%;
-	width: 23.125%;
+#footer .tabs {
+	display: none;
+}
+
+#footer .tabs a.selected {
+	background: #ff0000;
+}
+
+#footer .column > div {
+	margin: 0 1%;
+	width: 49%;
 	float: left;
 	padding: 10px 0 20px 0;
 }
 
-#footer .first {
+#footer .column {
+	width: 48%;
+	margin: 0 1%;
+	float: left;
+}
+
+#footer .column .first,
+#footer .column .third {
 	margin-left: 0px;
 }
 
-#footer .last {
+#footer .column .second,
+#footer .column .last {
 	margin-right: 0px;
 }
 
