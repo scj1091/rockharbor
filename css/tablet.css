@@ -2,6 +2,12 @@
 This stylesheet is applied to tablets (max 768px) only.
 */
 
+/*= Main layout
+-----------------------------------------*/
+#page {
+	width: 100%;
+}
+
 /*= Main navigation
 -----------------------------------------*/
 #access ul li:hover div.submenu {
@@ -10,4 +16,42 @@ This stylesheet is applied to tablets (max 768px) only.
 
 #access>ul>li:hover:after {
 	display: none;
+}
+
+/*= Home content
+-----------------------------------------*/
+.home #frontpage-sidebar {
+	float: none;
+	width: 100%;
+	margin: 0;
+}
+
+.home #frontpage-sidebar:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+	
+	font-size: 0;
+	line-height: 0;
+}
+
+.home #frontpage-sidebar aside {
+	width: 49%;
+}
+
+.home #frontpage-sidebar aside:nth-child(odd) {
+	margin-right: 1%;
+}
+
+.home #frontpage-sidebar aside:nth-child(even) {
+	margin-left: 1%;
+}
+
+.home #frontpage-content {
+	float: none;
+	width: 100%;
+	margin: 0;
 }

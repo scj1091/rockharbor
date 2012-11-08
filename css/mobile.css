@@ -4,8 +4,32 @@ This stylesheet is applied to mobile (max 480px) only.
 
 /*= Main layout
 -----------------------------------------*/
+#page {
+	width: 100%;
+}
+
 #branding {
 	padding: 0;
+}
+
+.page-title,
+#content-title,
+section header,
+aside header {
+	margin: 0;
+}
+
+.page-title h1,
+#content-title h1,
+section header h1,
+aside header h1 {
+	display: block;
+	
+	text-align: left;
+}
+
+aside {
+	float: none;
 }
 
 /*= Main navigation
@@ -20,6 +44,23 @@ This stylesheet is applied to mobile (max 480px) only.
 
 /*= Home content
 -----------------------------------------*/
+.home #frontpage-content {
+	float: none;
+	width: 100%;
+	margin: 0;
+}
+
+.home #frontpage-sidebar {
+	float: none;
+	width: 100%;
+}
+
+.home #frontpage-sidebar aside {
+	float: none;
+	width: 100%;
+	margin: 0;
+}
+
 #featured header {
 	width: 100%;
 }
@@ -31,18 +72,30 @@ This stylesheet is applied to mobile (max 480px) only.
 }
 
 #main-feature .story-box .title {
-	max-width: 100%;
+	max-width: 96%;
+	width: 96%;
+	bottom: 0;
+	left: 0;
+	padding: 2%;
+	margin: 0;
 }
 
 #featured .story-box {
-	display: inline-block;
-	clear: both;
+	margin-bottom: 10px;
+}
+
+/*= Story box
+-----------------------------------------*/
+.stories-2 .story-box,
+.stories-3 .story-box,
+.stories-3 .story-box {
 	overflow: visible;
+	float: none;
 	width: 70%;
 	margin-bottom: 10px;
 }
 
-#featured .story-box .title {
+.story-box .title {
 	left: 50%;
 	bottom: 50%;
 	margin: 0;
