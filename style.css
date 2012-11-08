@@ -740,17 +740,6 @@ footer h3 {
 	margin: 0;
 }
 
-#featured header {
-	width: 100%;
-	margin: 0;
-}
-
-#featured h1 {
-	display: block;
-	
-	text-align: left;
-}
-
 #main-feature .story-box .title {
 	max-width: 70%;
 	

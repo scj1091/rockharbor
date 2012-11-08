@@ -1,0 +1,41 @@
+/*
+This stylesheet is applied to mobile (max 480px) only.
+*/
+
+/*= Main layout
+-----------------------------------------*/
+#branding {
+	padding: 0;
+}
+
+/*= Home content
+-----------------------------------------*/
+#featured header {
+	width: 100%;
+}
+
+#featured header h1 {
+	display: block;
+	
+	text-align: left;
+}
+
+#main-feature .story-box .title {
+	max-width: 100%;
+}
+
+#featured .story-box {
+	display: inline-block;
+	clear: both;
+	overflow: visible;
+	width: 70%;
+	margin-bottom: 10px;
+}
+
+#featured .story-box .title {
+	left: 50%;
+	bottom: 50%;
+	margin: 0;
+	margin-bottom: -1em;
+	width: 85%; /*= (story-box width)* left + 50% */
+}
