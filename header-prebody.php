@@ -98,6 +98,18 @@
 			audioHeight: 20,
 			features: ['playpause', 'progress', 'current']
 		});
+		
+		// responsive breakpoints
+		mediaCheck({
+			media: '(max-width: 480px)',
+			entry: RH.mobileEnter,
+			exit: RH.mobileExit
+		});
+		mediaCheck({
+			media: '(max-width: 768px)',
+			entry: RH.tabletEnter,
+			exit: RH.tabletExit
+		});
 	});
 </script>
 <?php

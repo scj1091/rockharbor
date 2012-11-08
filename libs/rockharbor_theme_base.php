@@ -209,12 +209,17 @@ class RockharborThemeBase {
 		wp_register_script('jquery', "$base/js/jquery-1.7.2.min.js");
 		wp_register_script('lightbox', "$base/js/jquery.lightbox.min.js");
 		wp_register_script('media', "$base/js/mediaelement-and-player.min.js");
+		wp_register_script('mediaCheck', "$base/js/mediaCheck.min.js");
+		wp_register_script('mobile', "$base/js/mobile.js");
+		wp_register_script('tablet', "$base/js/tablet.js");
 		wp_register_style('reset', "$base/css/reset.css");
 		wp_register_style('fonts', "$base/css/fonts.css");
 		wp_register_style('lightbox', "$base/css/lightbox.css");
 		wp_deregister_style('media');
 		wp_register_style('media', "$base/css/mediaelementplayer.css");
 		wp_register_style('base', "$base/style.css");
+		wp_register_style('mobile', "$base/css/mobile.css", array(), false, 'screen and (max-width: 480px)');
+		wp_register_style('tablet', "$base/css/tablet.css", array(), false, 'screen and (max-width: 768px)');
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
 		
@@ -224,10 +229,15 @@ class RockharborThemeBase {
 		wp_enqueue_style('lightbox');
 		wp_enqueue_style('media');
 		wp_enqueue_style('base');
+		wp_enqueue_style('tablet');
+		wp_enqueue_style('mobile');
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('lightbox');
 		wp_enqueue_script('media');
+		wp_enqueue_script('mediaCheck');
+		wp_enqueue_script('mobile');
+		wp_enqueue_script('tablet');
 		
 		// dequeue stuff we don't need
 		wp_deregister_style('thickbox');
