@@ -8,6 +8,16 @@ This stylesheet is applied to mobile (max 480px) only.
 	padding: 0;
 }
 
+/*= Main navigation
+-----------------------------------------*/
+#access ul li {
+	float: none;
+}
+
+#access ul li a {
+	text-align: left;
+}
+
 /*= Home content
 -----------------------------------------*/
 #featured header {

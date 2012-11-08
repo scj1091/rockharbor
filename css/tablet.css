@@ -1,3 +1,13 @@
 /*
 This stylesheet is applied to tablets (max 768px) only.
 */
+
+/*= Main navigation
+-----------------------------------------*/
+#access ul li:hover div.submenu {
+	display: none;
+}
+
+#access>ul>li:hover:after {
+	display: none;
+}
