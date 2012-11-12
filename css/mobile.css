@@ -2,6 +2,18 @@
 This stylesheet is applied to mobile (max 480px) only.
 */
 
+/*= Generic styles
+-----------------------------------------*/
+.mobile-hide,
+.tablet-hide,
+.desktop-hide {
+	display: block;
+}
+
+.mobile-hide {
+	display: none;
+}
+
 /*= Main layout
 -----------------------------------------*/
 #page {

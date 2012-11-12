@@ -651,6 +651,66 @@ class RockharborThemeBase {
 		register_widget('CoreWidget');
 		include_once 'widgets' . DS . 'social_widget.php';
 		register_widget('SocialWidget');
+		
+		add_action('in_widget_form', array($this, 'addWidgetOptions'), 10, 3);
+		add_filter('dynamic_sidebar_params', array($this, 'addWidgetClasses'));
+	}
+
+/**
+ * Adds global widget options
+ * 
+ * @param WP_Widget $widget The widget class instance
+ * @param string $formHtml The current form HTML
+ * @param array $data Instance data
+ */
+	public function addWidgetOptions(&$widget, &$formHtml, $data) {
+		$_defaults = array(
+			'title' => 'Widget',
+			'hide_on_mobile' => 0,
+			'hide_on_tablet' => 0,
+			'hide_on_desktop' => 0
+		);
+		$data = array_merge($_defaults, $data);
+		
+		$this->set('data', $data);
+		$this->set('widget', $widget);
+		echo $this->render('admin' . DS . 'widgets' . DS . 'widget_options');
+	}
+
+/**
+ * Adds widget-specific classes
+ * 
+ * @param array $params Widget parameter array (good luck)
+ * @return array 
+ */
+	public function addWidgetClasses($params) {
+		global $wp_registered_widgets;
+		
+		$args = &$params[0];
+		
+		// the widget instance
+		$widget = $wp_registered_widgets[$args['widget_id']];
+		// get widget combined data
+		$allData = get_option($widget['callback'][0]->option_name);
+		// get *this* widget's data
+		$data = $allData[$widget['params'][0]['number']];
+		
+		$extraClasses = array();
+		if (!empty($data['hide_on_mobile'])) {
+			$extraClasses[] = 'mobile-hide';
+		}
+		if (!empty($data['hide_on_tablet'])) {
+			$extraClasses[] = 'tablet-hide';
+		}
+		if (!empty($data['hide_on_desktop'])) {
+			$extraClasses[] = 'desktop-hide';
+		}
+		
+		$args['before_widget'] = str_replace('class="widget ', 'class="widget '.implode(' ', $extraClasses).' ', $args['before_widget']);
+		
+		$args['description'] = 'blkajdlskfja';
+		
+		return $params;
 	}
 
 /**

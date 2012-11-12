@@ -239,6 +239,16 @@ th {
 	display: block;
 }
 
+.mobile-hide,
+.tablet-hide,
+.desktop-hide {
+	display: block;
+}
+
+.desktop-hide {
+	display: none;
+}
+
 /*= Global navigation
 -----------------------------------------*/
 #global-navigation {

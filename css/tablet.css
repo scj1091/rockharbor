@@ -2,6 +2,18 @@
 This stylesheet is applied to tablets (max 768px) only.
 */
 
+/*= Generic styles
+-----------------------------------------*/
+.mobile-hide,
+.tablet-hide,
+.desktop-hide {
+	display: block;
+}
+
+.tablet-hide {
+	display: none;
+}
+
 /*= Main layout
 -----------------------------------------*/
 #page {
