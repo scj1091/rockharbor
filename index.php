@@ -1,5 +1,7 @@
 <?php 
-get_header(); 
+get_header();
+$meta = $theme->metaToData($post->ID);
+$fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 ?>
 		<header id="content-title">
 			<h1><?php echo $post->post_title; ?></h1>
@@ -7,7 +9,7 @@ get_header();
 		<?php 
 		get_sidebar(); 
 		?>
-		<section id="content" role="main">
+		<section id="content" role="main" <?php if ($fullpage) { echo 'class="full"'; }?>>
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -34,11 +36,14 @@ get_header();
 			<?php endif; ?>
 
 		</section>
+		
+		<?php if (empty($meta['hide_widgets'])): ?>
 		<section id="sidebar" role="complementary" class="clearfix">
 			<?php
 			dynamic_sidebar('sidebar-subnav');
 			?>
 		</section>
+		<?php endif; ?>
 
 <?php 
 get_footer();

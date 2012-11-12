@@ -517,6 +517,11 @@ th {
 	background: #ffffff;
 }
 
+#content.full {
+	float: none;
+	width: 100%;
+}
+
 #submenu,
 #sidebar {
 	float: left;
