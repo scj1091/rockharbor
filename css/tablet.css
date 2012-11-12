@@ -8,6 +8,28 @@ This stylesheet is applied to tablets (max 768px) only.
 	width: 100%;
 }
 
+#sidebar,
+#content {
+	float: none;
+	width: 100%;
+}
+
+.page-title,
+#content-title,
+section header,
+aside header {
+	margin: 0;
+}
+
+.page-title h1,
+#content-title h1,
+section header h1,
+aside header h1 {
+	display: block;
+	
+	text-align: left;
+}
+
 #footer .column {
 	width: 100%;
 }
@@ -18,8 +40,14 @@ This stylesheet is applied to tablets (max 768px) only.
 
 #submenu {
 	float: none;
-	padding: 10px;
+	width: 98%;
+	padding: 1%;
 	background: #383838;
+}
+
+#submenu ul {
+	/* reverts columns to use element definition */
+	width: auto !important;
 }
 
 #submenu a {
@@ -76,4 +104,10 @@ This stylesheet is applied to tablets (max 768px) only.
 
 #featured {
 	margin: 10px 0;
+}
+
+#frontpage-content header h1,
+#frontpage-sidebar header h1,
+#featured header h1 {
+	display: inline-block;
 }
