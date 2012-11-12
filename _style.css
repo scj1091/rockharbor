@@ -42,7 +42,6 @@ footer h3
 #content-title h1,
 section header h1,
 aside header h1,
-#submenu .breadcrumb a:hover,
 .archive-page-link .page-numbers.current,
 .page-link .page-numbers,
 .story-box,
@@ -95,7 +94,6 @@ input[type=submit]
 	background: #00ff00;
 }
 
-#submenu .breadcrumb,
 button,
 input[type=submit],
 .fc-event-time, 

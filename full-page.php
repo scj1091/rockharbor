@@ -8,11 +8,9 @@ get_header();
 		<header id="content-title">
 			<h1><?php echo $post->post_title; ?></h1>
 		</header>
-		<nav id="submenu">
-			<?php 
-			get_sidebar(); 
-			?>
-		</nav>
+		<?php 
+		get_sidebar(); 
+		?>
 		<section id="content" role="main">
 			<?php if (have_posts()): 
 

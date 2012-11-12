@@ -12,6 +12,20 @@ This stylesheet is applied to tablets (max 768px) only.
 	width: 100%;
 }
 
+#branding {
+	padding: 0;
+}
+
+#submenu {
+	float: none;
+	padding: 10px;
+	background: #383838;
+}
+
+#submenu a {
+	color: #ffffff;
+}
+
 /*= Main navigation
 -----------------------------------------*/
 #access ul li:hover div.submenu {
@@ -58,4 +72,8 @@ This stylesheet is applied to tablets (max 768px) only.
 	float: none;
 	width: 100%;
 	margin: 0;
+}
+
+#featured {
+	margin: 10px 0;
 }

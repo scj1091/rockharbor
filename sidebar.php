@@ -1,34 +1,41 @@
 <?php 
 global $post, $theme;
 
+if (!is_search() && !is_404()):
+	$children = get_posts(array(
+		'numberposts' => -1,
+		'post_parent' => $post->ID,
+		'orderby' => 'menu_order',
+		'order' => 'ASC',
+		'post_type' => $post->post_type
+	));
+	$meta = $theme->metaToData($post->ID);
+	if (!empty($children)):
 ?>
-<?php if (!empty($post->post_parent)): ?>
-<div class="breadcrumb">
+<nav id="submenu" class="widget-area clearfix">
 	<?php
-	$link = get_permalink($post->post_parent);
-	$title = get_the_title($post->post_parent);
-	echo $theme->Html->tag('a', $title, array('title' => esc_attr($title), 'href' => $link));
-	?>
-</div>
-<?php endif; ?>
-<div id="sub-navigation" class="widget-area">
-	<ul>
-	<?php
-	if (!is_search() && !is_404()) {
-		if (empty($post->post_parent)) {
-			// no parents, show children of this page
-			$page = $post->ID;
-		} else {
-			// has parents, show this page's siblings
-			$page = $post->post_parent;
-		}
-
-		wp_list_pages(array(
-			'child_of' => $page,
-			'title_li' => null,
-			'depth' => 2
+	$output = '';
+	$maxRow = 5;
+	$i = 0;
+	$columns = ceil(count($children) / $maxRow);
+	$colSize = floor(100 / ($columns)) - 1;
+	$class = 'menu clearfix';
+	$style = "float:left;width:$colSize%;margin-right: 1%;";
+	foreach ($children as $post) {
+		$link = $theme->Html->tag('a', $post->post_title, array(
+			'href' => get_permalink($post->ID)
 		));
+		$output .= $theme->Html->tag('li', $link);
+		$i++;
+		if ($i % $maxRow == 0) {
+			echo $theme->Html->tag('ul', $output, compact('style', 'class'));
+			$output = '';
+		}
+	}
+	if (!empty($output)) {
+		echo $theme->Html->tag('ul', $output, compact('style', 'class'));
 	}
 	?>
-	</ul>
-</div>
+</nav>
+	<?php endif; ?>
+<?php endif; ?>
