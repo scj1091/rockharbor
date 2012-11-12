@@ -42,8 +42,24 @@ aside header h1 {
 	text-align: left;
 }
 
-#footer .column {
+#footer > div {
 	width: 100%;
+	display: none;
+}
+
+#footer .first {
+	display: block;
+}
+
+footer .tabs {
+	display: block;
+}
+
+footer .tabs a {
+	width: 0;
+	padding: 12.25%;
+	display: block;
+	float: left;
 }
 
 #branding {

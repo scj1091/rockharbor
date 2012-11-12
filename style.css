@@ -634,34 +634,28 @@ footer {
 	background: #383838;
 }
 
-#footer .tabs {
+footer .tabs {
 	display: none;
 }
 
-#footer .tabs a.selected {
+footer .tabs a.selected {
 	background: #ff0000;
 }
 
-#footer .column > div {
+#footer > div {
 	margin: 0 1%;
-	width: 49%;
+	width: 24%;
 	float: left;
 	padding: 10px 0 20px 0;
 }
 
-#footer .column {
-	width: 48%;
-	margin: 0 1%;
-	float: left;
-}
-
-#footer .column .first,
-#footer .column .third {
+#footer .first,
+#footer .third {
 	margin-left: 0px;
 }
 
-#footer .column .second,
-#footer .column .last {
+#footer .second,
+#footer .last {
 	margin-right: 0px;
 }
 

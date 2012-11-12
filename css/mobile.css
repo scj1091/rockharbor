@@ -32,26 +32,14 @@ aside {
 	float: none;
 }
 
-#footer .column > div {
+#footer > div {
 	width: 100%;
 	display: none;
 }
 
-#footer .column .first {
+#footer .first {
 	display: block;
 }
-
-#footer .tabs {
-	display: block;
-}
-
-#footer .tabs a {
-	width: 0;
-	padding: 12.25%;
-	display: block;
-	float: left;
-}
-
 
 /*= Main navigation
 -----------------------------------------*/
