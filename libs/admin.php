@@ -43,6 +43,7 @@ class Admin {
 		update_option('image_default_link_type', 'file');
 		
 		// add meta boxes for cross-posting
+		add_meta_box('template-options', 'Template Options', array($this, 'templateOptionsMetaBox'), 'page', 'side');
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
 		
@@ -281,6 +282,15 @@ class Admin {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
 		echo $this->theme->render('admin'.DS.'front_page_options');
+	}
+
+/**
+ * Renders the template options meta box
+ */
+	public function templateOptionsMetabox() {
+		global $post;
+		$this->theme->set('data', $this->theme->metaToData($post->ID));
+		echo $this->theme->render('admin'.DS.'template_options_meta_box');
 	}
 	
 }
