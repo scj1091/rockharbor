@@ -210,7 +210,7 @@ class RockharborThemeBase {
 	public function compressAssets() {
 		global $wp_scripts, $wp_styles;
 		$cachePath = WP_CONTENT_DIR . DS . 'cache';
-		if (!is_writable($cachePath)) {
+		if (!is_writable($cachePath) || is_admin()) {
 			return;
 		}
 		
