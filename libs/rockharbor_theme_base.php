@@ -155,6 +155,7 @@ class RockharborThemeBase {
 		}
 		
 		add_filter('the_content', array($this, 'filterContent'));
+		add_filter('wp_head', array($this, 'compressAssets'), 7);
 		
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
@@ -196,6 +197,80 @@ class RockharborThemeBase {
 			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
 		}
 		return $content;
+	}
+
+/**
+ * Compresses assets
+ * 
+ * Iterates through all registered scripts and styles, concatenates them, then
+ * empties the script/style queue and registers the new concatenated cache file.
+ * 
+ * @return void
+ */
+	public function compressAssets() {
+		global $wp_scripts, $wp_styles;
+		$cachePath = WP_CONTENT_DIR . DS . 'cache';
+		if (!is_writable($cachePath)) {
+			return;
+		}
+		
+		$scriptCache = $cachePath . DS . 'scripts.js';
+		$stylesCache = $cachePath . DS . 'styles.css';
+		
+		if (WP_DEBUG) {
+			// in debug  mode, create the cache file each request
+			unlink($scriptCache);
+			unlink($stylesCache);
+		}
+		
+		if (!file_exists($scriptCache)) {
+			$out = $this->_concat($wp_scripts);
+			if (file_put_contents($scriptCache, $out)) {
+				// cache successfully written, queue it up as the only script
+				$wp_scripts->queue = array();
+				wp_deregister_script('scripts');
+				wp_register_script('scripts', WP_CONTENT_URL . '/cache/scripts.js');
+				wp_enqueue_script('scripts');
+			}
+		}
+		
+		if (!file_exists($stylesCache)) {
+			$out = $this->_concat($wp_styles);
+			if (file_put_contents($stylesCache, $out)) {
+				// cache successfully written, queue it up as the only script
+				$wp_styles->queue = array();
+				wp_deregister_script('styles');
+				wp_register_style('styles', WP_CONTENT_URL . '/cache/styles.css');
+				wp_enqueue_style('styles');
+			}
+		}
+	}
+
+/**
+ * Concatenates files and dependencies
+ * 
+ * @param WP_Scripts|WP_Styles $object Queue to iterate
+ * @return string Concatenated file
+ */
+	private function _concat($object) {
+		$included = array();
+		$out = '';
+		foreach ($object->queue as $queue) {
+			foreach ($object->registered[$queue]->deps as $dep) {
+				if (!in_array($dep, $included)) {
+					// make sure to include dependencies first
+					$src = ltrim($object->registered[$dep]->src, '/');
+					$out .= file_get_contents($src);
+				}
+				$included[] = $dep;
+			}
+			if (!in_array($queue, $included)) {
+				$src = ltrim($object->registered[$queue]->src, '/');
+				$out .= file_get_contents($src);
+			}
+			$included[] = $queue;
+		}
+		return $out;
 	}
 
 /**
