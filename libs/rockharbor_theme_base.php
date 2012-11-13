@@ -259,20 +259,54 @@ class RockharborThemeBase {
 			foreach ($object->registered[$queue]->deps as $dep) {
 				if (!in_array($dep, $included)) {
 					// make sure to include dependencies first
-					$src = ltrim($object->registered[$dep]->src, '/');
-					$out .= file_get_contents($src);
+					$out .= $this->_process($object->registered[$dep]->src);
 				}
 				$included[] = $dep;
 			}
 			if (!in_array($queue, $included)) {
-				$src = ltrim($object->registered[$queue]->src, '/');
-				$out .= file_get_contents($src);
+				$out .= $this->_process($object->registered[$queue]->src);
 			}
 			$included[] = $queue;
 		}
 		return $out;
 	}
 
+/**
+ * Processes a file
+ * 
+ * - Changes relative CSS url paths to absolute
+ * 
+ * @param string $filename Path to file to process
+ * @return string New file contents
+ */
+	private function _process($filename) {
+		$filename = ltrim($filename, '/');
+		
+		$contents =  file_get_contents($filename);
+		
+		// check for relative css urls
+		if (preg_match_all("/url\((')?(.*?)(?(1)\1|)\)/", $contents, $matches)) {
+			$url = parse_url($filename);
+			$localPath = explode('/', $url['path']);
+			array_pop($localPath);
+			$localPath = implode('/', $localPath);
+			foreach ($matches[2] as $match) {
+				$path = trim($match, "'");
+				// make sure it's not absolute to webroot
+				if (stripos('/', $path) !== 0) {
+					// check current directory
+					if (stripos('./', $match) !== 0) {
+						$match = str_replace('./', '', $match);
+					}
+					$path = '/'.trim($localPath, '/').'/'.$path;
+				}
+				$contents = str_replace($match, "'$path'", $contents);
+			}
+		}
+		
+		return $contents;
+	}
+	
 /**
  * Registers and queues assets
  */
