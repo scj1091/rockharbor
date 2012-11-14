@@ -30,7 +30,7 @@
 						'class' => 'clearfix'
 					));
 				}
-			} else {
+			} elseif (is_page() || is_singular(array('post', 'message'))) {
 				$video = $theme->render('video');
 				if (empty($video) && has_post_thumbnail($post->ID)) {
 					echo get_the_post_thumbnail($post->ID, 'full');
