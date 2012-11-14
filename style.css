@@ -168,12 +168,15 @@ dl dt {
 	float: left;
 	
 	font-weight: bold;
+	font-size: 1.3em;
 }
 
 dl dd {
 	float: left;
 	margin-bottom: 5px;
 	padding-left: 5px;
+	
+	font-size: 1.3em;
 }
 
 table {

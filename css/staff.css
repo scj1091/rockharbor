@@ -7,6 +7,7 @@
 .page-template #content article.staff {
 	width: 15.541%;
 	margin: 0 0.5625%;
+	padding: 0;
 	float: left;
 	border-bottom: none;
 	text-align: center;
