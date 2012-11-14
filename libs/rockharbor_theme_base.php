@@ -259,12 +259,12 @@ class RockharborThemeBase {
 			foreach ($object->registered[$queue]->deps as $dep) {
 				if (!in_array($dep, $included)) {
 					// make sure to include dependencies first
-					$out .= $this->_process($object->registered[$dep]->src);
+					$out .= $this->_process($object->registered[$dep]);
 				}
 				$included[] = $dep;
 			}
 			if (!in_array($queue, $included)) {
-				$out .= $this->_process($object->registered[$queue]->src);
+				$out .= $this->_process($object->registered[$queue]);
 			}
 			$included[] = $queue;
 		}
@@ -276,11 +276,11 @@ class RockharborThemeBase {
  * 
  * - Changes relative CSS url paths to absolute
  * 
- * @param string $filename Path to file to process
+ * @param _WP_Dependency $object Object to process
  * @return string New file contents
  */
-	private function _process($filename) {
-		$filename = ltrim($filename, '/');
+	private function _process($object) {
+		$filename = ltrim($object->src, '/');
 		
 		$contents =  file_get_contents($filename);
 		
@@ -302,6 +302,10 @@ class RockharborThemeBase {
 				}
 				$contents = str_replace($match, "'$path'", $contents);
 			}
+		}
+		
+		if (!empty($object->args) && $object->args !== 'all') {
+			$contents = "@media $object->args { $contents }";
 		}
 		
 		return $contents;
