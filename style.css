@@ -671,13 +671,17 @@ footer h3 {
 
 #footer ul.menu li {
 	display: block;
+	height: 1em;
 }
 
-#footer,
-#footer a,
-#footer ul.menu li a {
+#footer {
+	color: #747474;
+}
+
+#footer a {
 	color: #747474;
 	text-decoration: none;
+	font-size: 1.3em;
 }
 
 #footer a:hover,
