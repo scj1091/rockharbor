@@ -706,8 +706,6 @@ class RockharborThemeBase {
 		
 		$args['before_widget'] = str_replace('class="widget ', 'class="widget '.implode(' ', $extraClasses).' ', $args['before_widget']);
 		
-		$args['description'] = 'blkajdlskfja';
-		
 		return $params;
 	}
 
