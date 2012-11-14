@@ -14,6 +14,23 @@ This stylesheet is applied to mobile (max 480px) only.
 	display: none;
 }
 
+/*= Global navigation
+-----------------------------------------*/
+#global-navigation {
+	height: 102px;
+}
+
+#global-navigation h1 .logo {
+	display: block;
+}
+
+#global-navigation h1 .title {
+	display: block;
+	height: 51px;
+	
+	line-height: 51px;
+}
+
 /*= Main layout
 -----------------------------------------*/
 #page {
