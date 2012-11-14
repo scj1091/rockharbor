@@ -13,17 +13,13 @@
 	min-height: 20px;
 }
 
-#content article.message-series span {
+#content article.message-series p {
 	display: block;
 	overflow: hidden;
+	margin-bottom: 0px;
 	
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	line-height: 15px;
-}
-
-#content article.message-series .series-date {
-	font-size: 90%;
 }
 
 /*= Latest message (in message series)
@@ -33,22 +29,6 @@
 	width: 100%;
 	
 	border-bottom: 1px dotted #747474;
-}
-
-#content article.first.message-series .series-title {
-	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
-	text-transform: uppercase;
-	font-size: 150%;
-	color: #383838;
-}
-
-#content article.first.message-series .series-title a {
-	font-style: normal;
-}
-
-#content article.first.message-series time span {
-	display: inline;
-	line-height: 15px;
 }
 
 #content article.first.message-series time {
@@ -66,37 +46,17 @@
 	float: right;
 }
 
-#content article.first.message-series .message-links  {
-	padding-top: 10px;
-}
-
-#content article.first.message-series .message-links a {
-	display: block;
+#content article.first.message-series p {
+	overflow: visible;
+	margin-bottom: 10px;
 	
+	white-space: normal;
 }
 
 /*= Single message
 -----------------------------------------*/
 article.message {
 	color: #747474;
-}
-
-article.message .message-title {
-	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
-	text-transform: uppercase;
-	font-size: 150%;
-	color: #383838;
-	font-style: normal;
-}
-
-article.message .meta-title {
-	margin-right: 5px;
-	
-	text-transform: uppercase;
-}
-
-article.message .embedded-video {
-	margin-bottom: 10px;
 }
 
 article.message .message-audio object {
@@ -114,7 +74,7 @@ article.message .message-more {
 	border-top: 1px dotted #747474;
 }
 
-article.message .share h1 {
+article.message .share h3 {
 	display: inline;
 	margin-right: 5px;
 }

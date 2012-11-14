@@ -12,53 +12,32 @@ the_post();
 				$meta = $theme->metaToData($post->ID);
 				?>
 				<div class="entry-content">
-					<?php 
-					$video = $theme->render('video');
-					if (empty($video) && has_post_thumbnail()) {
-						the_post_thumbnail($post->ID, 'full');
-					} else {
-						echo $video;
-					}
-					?>
 					<div class="message-details clearfix">
-						<div class="message-header clearfix">
-							<?php 
-							echo $theme->Html->tag('span', $post->post_title, array('class' => 'message-title')); 
-							$theme->set('date', $post->post_date);
-							echo $theme->render('posted_date');
-							?>
-						</div>
+						<?php 
+						$theme->set('date', $post->post_date);
+						echo $theme->render('posted_date');
+						?>
 						<div class="message-meta">
-							<span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span>
+							<p><span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span></p>
+							<p><span class="meta-title">Series:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'series'); ?></span></p>
+							<p><span class="meta-title">Teacher:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'teacher', '', ', '); ?></span></p>
+							<p><span class="meta-title">Scripture:</span><span class="meta-value"><?php echo $meta['scripture']; ?></span></p>
+							<p><span class="meta-title">Length:</span><span class="meta-value"><?php echo $meta['length']; ?></span></p>
 						</div>
-						<div class="message-meta">
-							<span class="meta-title">Series:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'series'); ?></span>
-						</div>
-						<div class="message-meta">
-							<span class="meta-title">Teacher:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'teacher', '', ', '); ?></span>
-						</div>
-						<div class="message-meta">
-							<span class="meta-title">Scripture:</span><span class="meta-value"><?php echo $meta['scripture']; ?></span>
-						</div>
-						<div class="message-meta">
-							<span class="meta-title">Length:</span><span class="meta-value"><?php echo $meta['length']; ?></span>
-						</div>
-						<div class="message-body">
-							<?php
-							echo apply_filters('the_content', $post->post_content);
-							?>
-						</div>
+						<?php
+						echo apply_filters('the_content', $post->post_content);
+						?>
 					</div>
 					<div class="message-more share">
 						<div class="message-share">
-							<h1>Share</h1>
+							<h3>Share</h3>
 							<?php 
 							$theme->set('message', 'Watch "'.get_the_title().'" from @'.$theme->options('twitter_user').' at ');
 							echo $theme->render('share'); 
 							?>
 						</div>
 						<div class="message-download">
-							<h1>Download</h1>
+							<h3>Download</h3>
 							<?php
 							if (!empty($meta['video_url'])) {
 								$icon = $theme->Html->image('video.png', array(
@@ -86,7 +65,7 @@ the_post();
 						</div>
 						<?php if (!empty($meta['audio_url'])): ?>
 						<div class="message-audio">
-							<h1>Listen</h1>
+							<h3>Listen</h3>
 							<?php
 							echo $theme->render('audio');
 							?>
