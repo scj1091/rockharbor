@@ -286,6 +286,7 @@ class RockharborThemeBase {
 		
 		// check for relative css urls
 		if (preg_match_all("/url\((')?(.*?)(?(1)\1|)\)/", $contents, $matches)) {
+			$matches[2] = array_unique($matches[2]);
 			$url = parse_url($filename);
 			$localPath = explode('/', $url['path']);
 			array_pop($localPath);
