@@ -4,7 +4,7 @@ get_header();
 		<header id="content-title">
 			<h1><?php echo wp_title(''); ?></h1>
 		</header>
-		<section id="content" role="main">
+		<section id="content" role="main" class="full">
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
