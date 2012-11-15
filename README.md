@@ -12,7 +12,6 @@ At the very least, the following files should be created.
 
     /<theme_name>
         /img
-            direction-icon.png
             header.jpg
             out.png
             twitter-icon.png
