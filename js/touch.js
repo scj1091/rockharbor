@@ -1,9 +1,19 @@
 var RH = RH || {};
 
 /**
+ * State-tracking to prevent memory leaks and reapplied effects
+ */
+RH.inTablet = false;
+RH.inMobile = false;
+
+/**
  * Called when entering the tablet breakpoint
  */
 RH.tabletEnter = function() {
+	if (RH.inTablet) {
+		return;
+	}
+	RH.inTablet = true;
 	// make nav the first element
 	jQuery('#branding nav').detach().prependTo('#branding');
 	// make footer touch-friendly
@@ -23,6 +33,10 @@ RH.tabletEnter = function() {
  * Called when exiting the tablet breakpoint
  */
 RH.tabletExit = function() {
+	if (!RH.inTablet) {
+		return;
+	}
+	RH.inTablet = false;
 	// make nav the last element
 	jQuery('#branding nav').detach().appendTo('#branding');
 	// reset footer
@@ -34,6 +48,10 @@ RH.tabletExit = function() {
  * Called when entering the mobile breakpoint
  */
 RH.mobileEnter = function() {
+	if (RH.inMobile) {
+		return;
+	}
+	RH.inMobile = true;
 	jQuery('#global-navigation li.menu').on('click', function() {
 		RH.hideMenuOptions('menu');
 		jQuery('#access').slideToggle();
@@ -52,6 +70,10 @@ RH.mobileEnter = function() {
  * Called when exiting the mobile breakpoint
  */
 RH.mobileExit = function() {
+	if (!RH.inMobile) {
+		return;
+	}
+	RH.inMobile = false;
 	jQuery('#global-navigation li.menu').off('click');
 	jQuery('#global-navigation li.campuses').off('click');
 	jQuery('#global-navigation li.search').off('click');
