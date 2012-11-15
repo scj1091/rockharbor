@@ -1,4 +1,4 @@
-<form action="<?php echo $theme->info('base_url') . '/action.php'; ?>" method="POST" id="quick-contact">
+<form action="<?php echo $theme->info('base_url') . '/action.php'; ?>" method="POST" id="quick-contact" class="clearfix">
 	<?php
 	echo $theme->Html->input('type', array(
 		'type' => 'radio',
@@ -16,6 +16,11 @@
 	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false));
 	echo $theme->Html->input('action', array('type' => 'hidden', 'value' => 'email'));
 	echo $theme->Html->captcha();
-	echo $theme->Html->input('Submit', array('type' => 'submit', 'label' => false, 'div' => 'submit'));
+	echo $theme->Html->input('Submit', array(
+		'type' => 'submit', 
+		'label' => false, 
+		'div' => false,
+		'style' => 'float:right'
+	));
 	?>
 </form>

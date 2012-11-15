@@ -23,6 +23,13 @@ This stylesheet is applied to tablets (max 768px) only.
 #sidebar,
 #content {
 	float: none;
+}
+
+#main {
+	margin-top: 0;
+}
+
+#footer .column {
 	width: 100%;
 }
 
@@ -97,7 +104,7 @@ footer .tabs a {
 .home #frontpage-sidebar {
 	float: none;
 	width: 100%;
-	margin: 0;
+	margin-top: 10px;
 }
 
 .home #frontpage-sidebar:after {
@@ -128,6 +135,7 @@ footer .tabs a {
 	float: none;
 	width: 100%;
 	margin: 0;
+	padding-bottom: 10px;
 }
 
 #featured {

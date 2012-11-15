@@ -44,7 +44,6 @@ section header h1,
 aside header h1,
 .archive-page-link .page-numbers.current,
 .page-link .page-numbers,
-.story-box,
 button,
 input[type=submit],
 #footer .tabs a.selected
@@ -77,7 +76,7 @@ select:focus
 }
 
 .mejs-overlay-button {
-	background-color: #ADA19A;
+	background-color: #ff0000;
 }
 
 /*= Secondary
@@ -89,7 +88,8 @@ input[type=submit]
 	color: #00ff00;
 }
 
-#global-navigation h1 a 
+#global-navigation h1 a,
+.story-box
 {
 	background: #00ff00;
 }

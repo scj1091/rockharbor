@@ -85,6 +85,16 @@ aside {
 	float: none;
 	width: 100%;
 	margin: 0;
+	margin-bottom: 10px;
+}
+
+.home #frontpage-sidebar aside:nth-child(even) {
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+#featured {
+	margin-top: 0;
 }
 
 #featured header {
