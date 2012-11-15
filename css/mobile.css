@@ -31,6 +31,74 @@ This stylesheet is applied to mobile (max 480px) only.
 	line-height: 51px;
 }
 
+#global-navigation nav ul li { 
+	position: static;
+}
+
+#global-navigation nav ul li:hover ul {
+	display: none;
+}
+
+#global-navigation li.menu,
+#global-navigation li.campuses,
+#global-navigation li.search {
+	display: block;
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin: 10px 5px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+}
+
+#global-navigation li.campuses > a {
+	text-indent: -9999px;
+}
+
+#global-navigation li.campuses > a:after {
+	display: none;
+}
+
+#global-navigation li.menu {
+	background-position: -19px -60px;
+}
+
+#global-navigation li.campuses {
+	background-position: -19px -30px;
+}
+
+#global-navigation li.search {
+	background-position: -19px -0;
+}
+
+#global-navigation #searchform {
+	position: absolute;
+	top: 100%;
+	width: 300px;
+}
+
+#global-navigation nav ul li ul,
+#global-navigation #searchform {
+	display: none;
+	top: 102px;
+	right: 0;
+	left: auto;
+	z-index: 102;
+	
+	background: #ffffff;
+}
+
+#global-navigation #searchform {
+	padding: 10px;
+}
+
+#global-navigation #searchform input {
+	font-size: 1.5em;
+	padding: 5px;
+}
+
+
 /*= Main layout
 -----------------------------------------*/
 #page {
@@ -60,6 +128,10 @@ aside {
 
 /*= Main navigation
 -----------------------------------------*/
+#access {
+	display: none;
+}
+
 #access ul li {
 	float: none;
 }

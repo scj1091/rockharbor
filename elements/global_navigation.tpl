@@ -9,14 +9,17 @@
 	</h1>
 	<nav>
 		<ul class="clearfix">
-			<li>
+			<li class="menu">
+				<!-- for mobile use only -->
+			</li>
+			<li class="campuses">
 				<a class="dropdown" href="#">Campuses</a>
 				<?php
 				echo $theme->render('campus_menu');
 				?>
 			</li>
 			<?php wp_nav_menu(array('theme_location' => 'global', 'items_wrap' => '%3$s', 'container' => false, 'menu_class' => false, 'depth' => 1, 'before' => ' | ', 'fallback_cb' => function() { })); ?>
-			<li>
+			<li class="search">
 				<?php get_search_form(); ?>
 			</li>
 		</ul>

@@ -330,7 +330,7 @@ th {
 	position: absolute;
 	top: 100%;
 	left: 0;
-	z-index: 100;
+	z-index: 101;
 	width: 200px;
 	
 	background: #c9c9c9;
