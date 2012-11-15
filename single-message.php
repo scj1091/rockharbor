@@ -5,6 +5,10 @@ the_post();
 ?>
 		<header id="content-title">
 			<h1><?php echo wp_title(''); ?></h1>
+			<?php 
+			$theme->set('date', $post->post_date);
+			echo $theme->render('posted_date');
+			?>
 		</header>
 		<section id="content" role="main" class="full">
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -13,10 +17,6 @@ the_post();
 				?>
 				<div class="entry-content">
 					<div class="message-details clearfix">
-						<?php 
-						$theme->set('date', $post->post_date);
-						echo $theme->render('posted_date');
-						?>
 						<div class="message-meta">
 							<p><span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span></p>
 							<p><span class="meta-title">Series:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'series'); ?></span></p>
