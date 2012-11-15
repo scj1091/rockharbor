@@ -93,6 +93,12 @@ The following features are available:
 It also creates various conveniences, including a taxonomy for staff called 
 "department" and meta boxes to organize the information.
 
+To pull from a specific campus, include the `campus` attribute along with the 
+WordPress blog id (see a list of the sites to get the id). For example, to pull
+all of the staff from the second blog:
+
+    [staff campus="2"]
+
 ### message
 The message post type contains two taxonomies, "series" and "teachers." Series are
 like categories for the messages, and teachers are the speakers who taught the
