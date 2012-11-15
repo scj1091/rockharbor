@@ -13,12 +13,6 @@ Author: Jeremy Harris
 Template: rockharbor
 */
 
-/*= Assets
------------------------------------------*/
-.icon-map {
-	background: url('img/direction-icon.png') 0 0 no-repeat;
-}
-
 /*= Primary
 -----------------------------------------*/
 a,
@@ -29,7 +23,8 @@ h1,
 #submenu a:hover,
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers,
-footer h3
+footer h3,
+.flash-message
 {
 	color: #ff0000;
 }

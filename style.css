@@ -196,12 +196,6 @@ th {
 	font-weight: bold;
 }
 
-.icon-map {
-	padding-left: 10px;
-	
-	background: url('img/direction-icon.png') 0 0 no-repeat;
-}
-
 .dropdown {
 	position: relative;
 	padding-right: 12px;
@@ -807,7 +801,6 @@ footer h3 {
 /*= Main content
 -----------------------------------------*/
 .flash-message {
-	margin-bottom: 20px;
 	padding: 5px;
 	
 	color: #ff0000;
