@@ -44,25 +44,6 @@
 <!--[if lte IE 8]>
 <script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
 <![endif]-->
-<?php if (is_front_page()): ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
-<script>
-	jQuery(document).ready(function() {
-		var header = 'div.title';
-		jQuery('#secondary').accordion({
-			autoheight: false,
-			header: header,
-			alwaysOpen: true,
-			event: false
-		});
-		jQuery('#secondary').find(header+' h3').each(function(index) {
-			jQuery(this).click(function() {
-				jQuery('#secondary').activate(index);
-			});
-		});
-	});
-</script>
-<?php endif; ?>
 <script>
 	jQuery(document).ready(function() {
 		// put galleries in lightboxes
