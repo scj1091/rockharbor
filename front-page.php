@@ -32,6 +32,11 @@ get_header();
 					$theme->set('id', $post->ID);
 					$theme->set('title', $post->post_title);
 					$theme->set('type', $post->post_type);
+					if ($post->blog_id !== $theme->info('id')) {
+						$theme->set('blog', $post->blog_id);
+					} else {
+						$theme->set('blog', null);
+					}
 					echo $theme->render('story_box');
 				}
 				switch_to_blog($theme->info('id'));

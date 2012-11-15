@@ -15,7 +15,8 @@
 section header h1,
 time,
 time span,
-aside header h1 {
+aside header h1,
+.story-box .title i {
 	zoom: 1;
 	display:inline !important;
 }

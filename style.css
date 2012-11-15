@@ -974,6 +974,42 @@ a.prev {
 	line-height: 0;
 }
 
+.story-box .title i {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-bottom: 2px;
+	
+	background-image: url('css/images/sprite.png');
+	background-repeat: no-repeat;
+}
+
+.story-box .title i.blog-1 {
+	background-position: 0 -100px;
+}
+
+.story-box .title i.blog-5 {
+	background-position: 0 -20px;
+}
+
+.story-box .title i.blog-6 {
+	background-position: 0 -60px;
+}
+
+.story-box .title i.blog-7 {
+	background-position: 0 -40px;
+}
+
+.story-box .title i.blog-8 {
+	background-position: 0 -80px;
+}
+
+.story-box .title i.blog-9 {
+	background-position: 0 0;
+}
+
 /*= Articles
 -----------------------------------------*/
 time {

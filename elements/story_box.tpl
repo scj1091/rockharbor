@@ -12,7 +12,8 @@ $defaults = array(
 	'id' => null,
 	'title' => null,
 	'type' => 'post',
-	'height' => null
+	'height' => null,
+	'blog' => null
 );
 extract($defaults, EXTR_SKIP);
 
@@ -38,6 +39,10 @@ if ($height) {
 }
 
 if (!empty($title)) {
-	$out .= $theme->Html->tag('span', $title, array('class' => 'title'));
+	$icon = null;
+	if ($blog) {
+		$icon = $theme->Html->tag('i', null, array('class' => "blog-$blog"));
+	}
+	$out .= $theme->Html->tag('span', $icon.$title, array('class' => 'title'));
 }
 echo $theme->Html->tag('a', $out, $options);
