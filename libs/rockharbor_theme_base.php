@@ -158,7 +158,7 @@ class RockharborThemeBase {
 		add_filter('the_content', array($this, 'filterContent'));
 		
 		// theme settings
-		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
+		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'), 1, 3);
 		add_action('widgets_init', array($this, 'registerSidebars'));
 		
 		// forced gallery settings
@@ -587,8 +587,7 @@ class RockharborThemeBase {
  * @see `wp_get_nav_menu_items`
  */
 	public function getNavMenu($items = array(), $menu = null, $args = array()) {
-		if (is_admin()) {
-			// don't mess with the backend
+		if (is_admin() || strtolower($menu->slug) !== 'main') {
 			return $items;
 		}
 		$subMenus = array();
