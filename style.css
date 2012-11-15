@@ -122,8 +122,6 @@ blockquote {
 	
 	text-indent: 1.666666667%;
 	color: #747474;
-	
-	border-left: 1px dotted #747474;
 }
 
 .widget-body p {
@@ -556,6 +554,7 @@ th {
 section header,
 aside header {
 	margin-right: -10px;
+	margin-bottom: 10px;
 }
 
 .page-title h1,
@@ -578,6 +577,10 @@ aside header h1 {
 	text-decoration: none;
 	text-transform: uppercase;
 	text-align: center;
+}
+
+aside header h1 {
+	font-size: 1.8em; /*= 18px */
 }
 
 section article {
@@ -603,12 +606,17 @@ aside {
 
 aside .widget-body {
 	padding: 10px;
+	padding-top: 0;
 }
 
 article {
 	padding-bottom: 20px;
 	margin-bottom: 20px;
 	border-bottom: 1px dotted #747474;
+}
+
+#submenu {
+	margin-bottom: 10px;
 }
 
 #submenu ul {
@@ -722,6 +730,24 @@ footer h3 {
 	width: 38%;
 }
 
+.home #frontpage-sidebar aside header h1 {
+	font-size: 2.4em;
+}
+
+.home #frontpage-sidebar .core-events time {
+	clear: both;
+	float: left;
+	width: 38%;
+	padding-right: 2%;
+	
+	text-align: right;
+}
+
+.home #frontpage-sidebar .core-events a {
+	float: right;
+	width: 60%;
+}
+
 .home #frontpage-content article {
 	width: 96%;
 	margin: 2%;
@@ -744,6 +770,10 @@ footer h3 {
 
 #featured div {
 	padding: 10px;
+}
+
+#featured header {
+	margin-bottom: 0;
 }
 
 #featured .story-box {
@@ -821,6 +851,9 @@ a.prev {
 }
 
 .archive-page-link .page-numbers.dots {
+	padding: 0;
+	margin: 0;
+	
 	background: none;
 	
 	border: none;
@@ -959,7 +992,7 @@ article footer {
 }
 
 .entry-footer {
-	padding: 2px 7px;
+	padding: 10px;
 	
 	background: #f1f1f1;
 }
@@ -1072,18 +1105,12 @@ label {
 /*= CORE
 -----------------------------------------*/
 .core-events time {
-	clear: both;
-	float: left;
-	width: 38%;
-	padding-right: 2%;
+	width: 100%;
 	margin-bottom: 10px;
-	
-	text-align: right;
 }
 
 .core-events a {
-	float: right;
-	width: 60%;
+	width: 100%;
 	overflow: hidden;
 	margin-bottom: 5px;
 	

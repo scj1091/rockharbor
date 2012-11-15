@@ -25,8 +25,8 @@ a,
 h1,
 .primary,
 #global-navigation h1 a,
-#submenu #sub-navigation li.current-menu-item a,
-#submenu #sub-navigation a:hover,
+#submenu li.current-menu-item a,
+#submenu a:hover,
 .archive-page-link .page-numbers,
 .page-link a span.page-numbers,
 footer h3
@@ -51,8 +51,8 @@ input[type=submit],
 	background: #ff0000;
 }
 
-#submenu #sub-navigation li.current-menu-item a,
-#submenu #sub-navigation a:hover,
+#submenu li.current-menu-item a,
+#submenu a:hover,
 #submenu ul.children,
 .flash-message,
 .page-numbers,

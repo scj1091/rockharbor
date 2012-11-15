@@ -22,6 +22,7 @@ This stylesheet is applied to tablets (max 768px) only.
 
 #sidebar,
 #content {
+	width: 100%;
 	float: none;
 }
 
@@ -38,6 +39,10 @@ This stylesheet is applied to tablets (max 768px) only.
 section header,
 aside header {
 	margin: 0;
+}
+
+aside header {
+	margin-bottom: 10px;
 }
 
 .page-title h1,
@@ -83,6 +88,7 @@ footer .tabs a {
 #submenu ul {
 	/* reverts columns to use element definition */
 	width: auto !important;
+	margin-top: 10px;
 }
 
 #submenu a {
@@ -146,4 +152,20 @@ footer .tabs a {
 #frontpage-sidebar header h1,
 #featured header h1 {
 	display: inline-block;
+}
+
+/*= CORE
+-----------------------------------------*/
+.core-events time {
+	clear: both;
+	float: left;
+	width: 30%;
+	padding-right: 2%;
+	
+	text-align: right;
+}
+
+.core-events a {
+	float: right;
+	width: 68%;
 }
