@@ -77,10 +77,76 @@ footer .tabs {
 }
 
 footer .tabs a {
+	position: relative;
 	width: 0;
-	padding: 12.25%;
+	padding: 12.5%;
 	display: block;
 	float: left;
+}
+
+/* 18 30 70 */
+footer .icon-more:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -260px 0;
+}
+
+footer .icon-message:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -190px 0;
+}
+
+footer .icon-connect:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -120px 0;
+}
+
+footer .icon-campus:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -50px 0;
 }
 
 #branding {

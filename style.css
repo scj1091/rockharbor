@@ -669,7 +669,7 @@ footer .tabs {
 }
 
 footer .tabs a.selected {
-	background: #ff0000;
+	background-color: #ff0000;
 }
 
 #footer > div {
@@ -1144,8 +1144,6 @@ label {
 }
 
 /*= Campus menu
-A lot of !important declarations because of the order in which this appears.
-Also skipped using id's to override since there are 2 menus on the page
 -----------------------------------------*/
 .campus-list a {
 	display: block !important;
@@ -1162,44 +1160,37 @@ Also skipped using id's to override since there are 2 menus on the page
 	text-decoration: none !important;
 }
 
-.campus-list .central {
-	background: #B5371A !important;
+#global-navigation .campus-list .costamesa,
+#footer .campus-list .costamesa {
+	background: #B5371A;
 	
-	color: #F45125 !important;
+	color: #F45125;
 }
 
-.campus-list .central-pm {
-	background: #F28255 !important;
+#global-navigation .campus-list .mission-viejo,
+#footer .campus-list .mission-viejo {
+	background: #5DDBCF;
 	
-	color: #DD4D05 !important;
+	color: #43A3A0;
 }
 
-.campus-list .mission-viejo {
-	background: #5DDBCF !important;
+#global-navigation .campus-list .fullerton,
+#footer .campus-list .fullerton {
+	background: #ADA19A;
 	
-	color: #43A3A0 !important;
+	color: #967666;
 }
 
-.campus-list .fullerton {
-	background: #ADA19A !important;
+#global-navigation .campus-list .huntington-beach,
+#footer .campus-list .huntington-beach {
+	background: #F7D614;
 	
-	color: #967666 !important;
+	color: #E58F05;
 }
 
-.campus-list .huntington-beach {
-	background: #F7D614 !important;
+#global-navigation .campus-list .orange,
+#footer .campus-list .orange {
+	background: #FF900B;
 	
-	color: #E58F05 !important;
-}
-
-.campus-list .orange {
-	background: #FF900B !important;
-	
-	color: #F46800 !important;
-}
-
-.campus-list .back {
-	background: #747474 !important;
-	
-	color: #ffffff !important;
+	color: #F46800;
 }

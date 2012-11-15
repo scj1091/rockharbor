@@ -46,9 +46,9 @@ aside header h1,
 .page-link .page-numbers,
 button,
 input[type=submit],
-#footer .tabs a.selected
+footer .tabs a.selected
 {
-	background: #ff0000;
+	background-color: #ff0000;
 }
 
 #submenu li.current-menu-item a,
@@ -91,7 +91,7 @@ input[type=submit]
 #global-navigation h1 a,
 .story-box
 {
-	background: #00ff00;
+	background-color: #00ff00;
 }
 
 button,

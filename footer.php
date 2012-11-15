@@ -11,10 +11,10 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 </div>
 <footer role="contentinfo">
 	<div class="tabs clearfix">
-		<a href="#footer" data-tab="#footer .first">S</a>
-		<a href="#footer" data-tab="#footer .second">M</a>
-		<a href="#footer" data-tab="#footer .third">C</a>
-		<a href="#footer" data-tab="#footer .last">C</a>
+		<a href="#footer" data-tab="#footer .first" class="icon-message"></a>
+		<a href="#footer" data-tab="#footer .second" class="icon-more"></a>
+		<a href="#footer" data-tab="#footer .third" class="icon-connect"></a>
+		<a href="#footer" data-tab="#footer .last" class="icon-campus"></a>
 	</div>
 	<div id="footer">
 		<div class="first">
@@ -62,7 +62,6 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 		<div class="last">
 			<h3>Campuses</h3>
 			<?php
-			$theme->set('reverse', true);
 			echo $theme->render('campus_menu');
 			?>
 		</div>
