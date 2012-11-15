@@ -2,7 +2,7 @@
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php if (is_single() || is_search()): ?>
 		<header>
-			<h1><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
+			<h2><a href="<?php the_permalink(); ?>" title="<?php printf(esc_attr__('Permalink to %s', 'rockharbor'), the_title_attribute('echo=0')); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 		</header>
 		<?php endif; ?>
 

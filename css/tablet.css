@@ -26,6 +26,10 @@ This stylesheet is applied to tablets (max 768px) only.
 	float: none;
 }
 
+#content {
+	margin-top: 10px;
+}
+
 #main {
 	margin-top: 0;
 }
@@ -163,7 +167,6 @@ footer .icon-campus:after {
 #submenu ul {
 	/* reverts columns to use element definition */
 	width: auto !important;
-	margin-top: 10px;
 }
 
 #submenu a {

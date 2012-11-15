@@ -18,12 +18,10 @@ $meta = $theme->metaToData($post->ID);
 						'class' => 'message-title',
 						'href' => get_permalink()
 					)); 
+					$theme->set('date', $post->post_date);
+					echo $theme->render('posted_date');
 					?>
 				</h2>
-				<?php
-				$theme->set('date', $post->post_date);
-				echo $theme->render('posted_date');
-				?>
 				<p><?php the_excerpt(); ?></p>
 				<div class="message-meta">
 					<p><span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span></p>
