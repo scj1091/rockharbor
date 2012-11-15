@@ -39,6 +39,7 @@ This stylesheet is applied to tablets (max 768px) only.
 section header,
 aside header {
 	margin: 0;
+	padding: 0;
 }
 
 aside header {
@@ -52,6 +53,14 @@ aside header h1 {
 	display: block;
 	
 	text-align: left;
+}
+
+.page-title time,
+#content-title time,
+section header time {
+	float: none;
+	margin-left: 10px;
+	padding-bottom: 10px;
 }
 
 #footer > div {
