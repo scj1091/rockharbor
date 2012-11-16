@@ -1,12 +1,17 @@
 /*= Message series
 -----------------------------------------*/
-#content article.message-series {
+#content .series-collection article.message-series {
 	float: left;
 	width: 24%;
 	margin-right: 1%;
+	padding: 0;
 	padding-bottom: 0;
 	
 	border-bottom: none;
+}
+
+#content .series-collection article.message-series:nth-child(4n+5) {
+	clear: both;
 }
 
 #content article.message-series .series-image img {
