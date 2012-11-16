@@ -1156,6 +1156,7 @@ label {
 }
 
 .core-events a {
+	display: block;
 	width: 100%;
 	overflow: hidden;
 	margin-bottom: 5px;
