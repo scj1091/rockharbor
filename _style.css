@@ -86,6 +86,7 @@ input[type=submit]
 }
 
 #global-navigation h1 a,
+#global-navigation .logo,
 .story-box
 {
 	background-color: #00ff00;

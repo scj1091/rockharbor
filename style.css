@@ -271,16 +271,20 @@ th {
 	font-size: 2.4em; /*= 24px */
 }
 
+#global-navigation .logo {
+	height: 51px;
+	
+	background: #00ff00;
+	
+	line-height: 51px;
+}
+
 #global-navigation span {
 	display: inline-block;
 }
 
 #global-navigation span.title {
 	margin: 0 10px;
-}
-
-#global-navigation h1 img {
-	vertical-align: middle;
 }
 
 #global-navigation h1 a {
