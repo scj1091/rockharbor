@@ -31,6 +31,7 @@ footer h3,
 	color: #ff0000;
 }
 
+#global-navigation .logo,
 #access li a:hover,
 #access li.current-menu-item > a,
 #access ul li ul li a:hover,
@@ -86,7 +87,6 @@ input[type=submit]
 }
 
 #global-navigation h1 a,
-#global-navigation .logo,
 .story-box
 {
 	background-color: #00ff00;

@@ -1,8 +1,14 @@
-<section id="global-navigation" class="clearfix">
+<?php
+$logoOnly = true;
+if (!$theme->info('hide_name_in_global_nav')) {
+	$logoOnly = false;
+}
+?>
+<section id="global-navigation" class="clearfix<?php echo $logoOnly ? ' logo-only' : null; ?>">
 	<h1>
 		<a href="/">
 			<span class="logo"><?php echo $theme->Html->image('header.png', array('alt' => 'This is ROCKHARBOR '.$theme->info('short_name'))); ?></span>
-			<?php if (!$theme->info('hide_name_in_global_nav')): ?>
+			<?php if (!$logoOnly): ?>
 			<span class="title"><?php echo $theme->info('short_name'); ?></span>
 			<?php endif; ?>
 		</a>

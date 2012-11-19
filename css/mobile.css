@@ -20,6 +20,10 @@ This stylesheet is applied to mobile (max 480px) only.
 	height: 102px;
 }
 
+#global-navigation.logo-only {
+	height: 51px;
+}
+
 #global-navigation h1 .logo {
 	display: block;
 }
@@ -47,10 +51,17 @@ This stylesheet is applied to mobile (max 480px) only.
 	height: 30px;
 	float: left;
 	margin: 10px;
-	margin-top: 36px; /*= global nav height / 2 - this.height/2 */
+	margin-top: 36px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
 	
 	background-image: url('images/sprite.png');
 	background-repeat: no-repeat;
+}
+
+#global-navigation.logo-only li.menu,
+#global-navigation.logo-only li.campuses,
+#global-navigation.logo-only li.search
+{
+	margin-top: 10.5px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
 }
 
 #global-navigation li.campuses > a {
