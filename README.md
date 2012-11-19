@@ -13,7 +13,6 @@ At the very least, the following files should be created.
     /<theme_name>
         /img
             header.jpg
-            out.png
             twitter-icon.png
             facebook-icon.png
         /libs
