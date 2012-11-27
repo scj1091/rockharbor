@@ -16,3 +16,10 @@
 .page-template #content article.staff:nth-child(3n+4) {
 	clear: both;
 }
+
+/*= Archive Page
+-----------------------------------------*/
+.single-staff #content article.staff .staff-details dd,
+.single-staff #content article.staff .staff-details dt {
+	overflow: hidden;
+}

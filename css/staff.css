@@ -7,6 +7,7 @@
 .page-template #content article.staff {
 	width: 15.541%;
 	margin: 0 0.5625%;
+	margin-bottom: 10px;
 	padding: 0;
 	float: left;
 	border-bottom: none;
@@ -33,6 +34,10 @@
 .single-staff #content article.staff {
 	width: 100%;
 	text-align: left;
+}
+
+.single-staff #content article.staff .staff-picture {
+	margin-bottom: 10px;
 }
 
 .single-staff #content article.staff .staff-details {

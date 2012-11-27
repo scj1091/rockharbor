@@ -14,5 +14,6 @@
 		$(".home #frontpage-sidebar aside:nth-child(odd)").addClass('nthreset');
 		$(".home #frontpage-sidebar aside:nth-child(even)").addClass('nthreset');
 		$("#content .series-collection article.message-series:nth-child(4n+5)").addClass('nthreset');
+		$(".page-template #content article.staff:nth-child(6n+7)").addClass('nthreset');
 	});
 }(jQuery))
