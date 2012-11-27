@@ -101,6 +101,11 @@ This stylesheet is applied to mobile (max 480px) only.
 	background: #ffffff;
 }
 
+#global-navigation.logo-only nav ul li ul,
+#global-navigation.logo-only #searchform {
+	top: 51px;
+}
+
 #global-navigation #searchform {
 	padding: 10px;
 }
