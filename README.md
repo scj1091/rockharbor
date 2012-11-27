@@ -19,6 +19,7 @@ At the very least, the following files should be created.
             out.png
             twitter-icon.png
             facebook-icon.png
+            favicon.ico
         /libs
             child_theme.php
         functions.php
