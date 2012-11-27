@@ -4,17 +4,17 @@
 #page, 
 #footer, 
 #global-navigation span,
+#global-navigation h1,
 #global-navigation h1 a,
 #global-navigation nav,
 #global-navigation nav > ul,
 #banner h1,
-.archive-page-link .page-numbers.current,
-.page-link .page-numbers,
-.archive-page-link .page-numbers,
-.page-link a span.page-numbers,
-section header h1,
+.page-numbers,
 time,
 time span,
+.page-title h1,
+#content-title h1,
+section header h1,
 aside header h1,
 .story-box .title i {
 	zoom: 1;
@@ -55,5 +55,9 @@ aside header h1,
 }
 
 .nthreset {
+	clear: both !important;
+}
+
+.marginreset {
 	margin-right: 0 !important;
 }

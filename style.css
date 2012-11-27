@@ -936,6 +936,10 @@ a.prev {
 	margin-right: 0;
 }
 
+.stories-2 .story-box:nth-child(2n+3) {
+	clear: both;
+}
+
 .stories-3 .story-box {
 	float: left;
 	width: 32.5%;
@@ -946,6 +950,10 @@ a.prev {
 	margin-right: 0;
 }
 
+.stories-3 .story-box:nth-child(3n+4) {
+	clear: both;
+}
+
 .stories-4 .story-box {
 	float: left;
 	width: 24.25%;
@@ -954,6 +962,10 @@ a.prev {
 
 .stories-4 .story-box:nth-child(4n+4) {
 	margin-right: 0;
+}
+
+.stories-4 .story-box:nth-child(4n+5) {
+	clear: both;
 }
 
 .stories-2:after,
