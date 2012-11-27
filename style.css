@@ -891,6 +891,7 @@ a.prev {
 	display: block;
 	position: relative;
 	width: 100%;
+	min-height: 120px;
 	margin-bottom: 10px;
 	overflow: hidden;
 
@@ -1019,6 +1020,35 @@ a.prev {
 
 .story-box .title i.blog-9 {
 	background-position: 0 0;
+}
+
+.story-box.default {
+	background-image: url('css/images/sprite.png');
+	background-repeat: no-repeat;
+}
+
+.story-box.curriculum {
+	background-image: url('css/images/curriculum.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.story-box.post {
+	background-image: url('css/images/post.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.story-box.page {
+	background-image: url('css/images/page.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.story-box.message {
+	background-image: url('css/images/message.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
 
 /*= Articles

@@ -30,8 +30,11 @@ if (!empty($attachId)) {
 	$out .= "<img src=\"$imageUrl\" alt=\"$title\" />";
 }
 if (empty($imageUrl)) {
-	$imageUrl = $theme->info('url').'/img/icon-'.$type.'.png';
-	$options['style'] .= "min-height:120px; background-image:url($imageUrl);";
+	$iconTypes = array('curriculum', 'post', 'page', 'message');
+	if (!in_array($type, $iconTypes)) {
+		$type = 'page';
+	}
+	$options['class'] .= " $type";
 }
 
 if ($height) {
