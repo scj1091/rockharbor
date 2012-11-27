@@ -25,7 +25,7 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 		</div>
 		<div class="second">
 			<h3>More</h3>
-			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => function() { })); ?>
+			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => create_function('', 'return;'))); ?>
 		</div>
 		<div class="third">
 			<h3>Connect</h3>

@@ -1,4 +1,7 @@
-<?php global $post, $theme; ?>
+<?php 
+global $post, $theme; 
+$locations = get_nav_menu_locations();
+?>
 <?php get_template_part('header', 'prebody') ?>
 <body <?php body_class(); ?>>
 
@@ -13,7 +16,6 @@
 			<?php 
 			if (is_front_page()) {
 				$meta = $theme->metaToData($post->ID);
-				$locations = get_nav_menu_locations();
 				$featuredItems = wp_get_nav_menu_items($locations['featured']);
 				if (!empty($featuredItems)) {
 					$first = $featuredItems[0];
@@ -42,9 +44,7 @@
 			?>
 			<nav id="access" role="navigation" class="clearfix">
 				<?php
-				$locations = get_nav_menu_locations();
-				$menu = wp_get_nav_menu_object($locations['main']);
-				$menu_items = wp_get_nav_menu_items($menu->term_id);
+				$menu_items = wp_get_nav_menu_items($locations['main'], array('auto_show_children' => true));
 				_wp_menu_item_classes_by_context($menu_items);
 				$menu = array();
 				$ids = array();
