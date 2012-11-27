@@ -14,9 +14,9 @@
 			if (is_front_page()) {
 				$meta = $theme->metaToData($post->ID);
 				$locations = get_nav_menu_locations();
-				if (isset($locations['featured'])) {
-					$items = wp_get_nav_menu_items('featured');
-					$first = $items[0];
+				$featuredItems = wp_get_nav_menu_items($locations['featured']);
+				if (!empty($featuredItems)) {
+					$first = $featuredItems[0];
 					if (!empty($meta['first_featured_story_height'])) {
 						$theme->set('height', $meta['first_featured_story_height']);
 					}
@@ -91,16 +91,13 @@
 		</header>
 		<?php 
 		if (is_front_page()) {
-			$meta = $theme->metaToData($post->ID);
-			$locations = get_nav_menu_locations();
-			if (isset($locations['featured'])) {
+			if (count($featuredItems) > 1) {
 				echo '<section id="featured">';
 				$h1 = $theme->Html->tag('h1', 'Featured Content');
 				echo $theme->Html->tag('header', $h1);
 				echo '<div class="stories-3 clearfix">';
-				$items = wp_get_nav_menu_items('featured');
 				// only items 2,3,4 allowed
-				$items = array_slice($items, 1, 3);
+				$items = array_slice($featuredItems, 1, 3);
 				foreach ($items as $item) {
 					$theme->set('height', null);
 					$theme->set('id', $item->object_id);
