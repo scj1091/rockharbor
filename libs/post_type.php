@@ -124,6 +124,20 @@ class PostType {
 		// load css
 		wp_register_style($this->options['slug'], $theme->info('base_url').'/css/'.$this->options['slug'].'.css');
 		wp_enqueue_style($this->options['slug']);
+		
+		// load mobile css if it exists
+		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-mobile.css')) {
+			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
+			wp_register_style($this->options['slug'].'-mobile', "$path-mobile.css", array(), false, 'screen and (max-width: 480px)');
+			wp_enqueue_style($this->options['slug'].'-mobile');
+		}
+		
+		// load tablet css if it exists
+		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-tablet.css')) {
+			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
+			wp_register_style($this->options['slug'].'-tablet', "$path-tablet.css", array(), false, 'screen and (max-width: 768px)');
+			wp_enqueue_style($this->options['slug'].'-tablet');
+		}
 			
 		// filters and actions if we're adding or editing this post type
 		if ((isset($_GET['post']) && get_post_type($_GET['post']) == $this->name)
@@ -159,14 +173,17 @@ class PostType {
  */
 	public function shortcode($attrs = array()) {
 		global $wp_query, $wp_rewrite;
-		$attrs = shortcode_atts($this->archiveQuery, $attrs);
 		
 		$_old_query = $wp_query;
 		
 		$query = array(
 			'post_type' => $this->name
 		);
-		$query += $attrs;
+		$query += $this->archiveQuery;
+		
+		if (isset($attrs['campus'])) {
+			switch_to_blog($attrs['campus']);
+		}
 		
 		$wp_query = new WP_Query($query);
 		$wp_query->query($query);
@@ -185,6 +202,10 @@ class PostType {
 		
 		// back to the old query
 		$wp_query = $_old_query;
+		
+		if (isset($attrs['campus'])) {
+			restore_current_blog();
+		}
 		
 		return $return;
 	}

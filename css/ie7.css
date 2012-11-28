@@ -4,17 +4,21 @@
 #page, 
 #footer, 
 #global-navigation span,
+#global-navigation h1,
 #global-navigation h1 a,
 #global-navigation nav,
 #global-navigation nav > ul,
 #banner h1,
-.archive-page-link .page-numbers.current,
-.page-link .page-numbers,
-.archive-page-link .page-numbers,
-.page-link a span.page-numbers,
-#banner .icon-map {
+.page-numbers,
+time,
+time span,
+.page-title h1,
+#content-title h1,
+section header h1,
+aside header h1,
+.story-box .title i {
 	zoom: 1;
-	*display:inline;
+	display:inline !important;
 }
 
 .dropdown {
@@ -35,28 +39,10 @@
 	margin-bottom: -1px;
 }
 
-#content {
-	width: 70%
-}
-
-#sidebar {
-	width: 19%;
-}
-
 #global-navigation {
 	width: 100%;
 	position: relative;
 	z-index: 10;
-}
-
-#branding {
-	position: relative;
-	z-index: 5;
-}
-
-#main {
-	position: relative;
-	z-index: 0;
 }
 
 #global-navigation #searchform input#s {
@@ -66,4 +52,12 @@
 * html .clearfix,
 *:first-child+html .clearfix {
 	zoom: 1;
+}
+
+.nthreset {
+	clear: both !important;
+}
+
+.marginreset {
+	margin-right: 0 !important;
 }

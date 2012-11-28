@@ -1,0 +1,249 @@
+/*
+This stylesheet is applied to tablets (max 768px) only.
+*/
+
+/*= Generic styles
+-----------------------------------------*/
+.mobile-hide,
+.tablet-hide,
+.desktop-hide {
+	display: block;
+}
+
+.tablet-hide {
+	display: none;
+}
+
+/*= Main layout
+-----------------------------------------*/
+#page {
+	width: 100%;
+}
+
+#sidebar,
+#content {
+	width: 100%;
+	float: none;
+}
+
+#content {
+	margin-top: 10px;
+}
+
+#main {
+	margin-top: 0;
+}
+
+#footer .column {
+	width: 100%;
+}
+
+.page-title,
+#content-title,
+section header,
+aside header {
+	margin: 0;
+	padding: 0;
+}
+
+aside header {
+	margin-bottom: 10px;
+}
+
+.page-title h1,
+#content-title h1,
+section header h1,
+aside header h1 {
+	display: block;
+	
+	text-align: left;
+}
+
+.page-title time,
+#content-title time,
+section header time {
+	float: none;
+	margin-left: 10px;
+	padding-bottom: 10px;
+}
+
+#footer > div {
+	width: 100%;
+	display: none;
+}
+
+#footer .first {
+	display: block;
+}
+
+footer .tabs {
+	display: block;
+}
+
+footer .tabs a {
+	position: relative;
+	width: 0;
+	padding: 12.5%;
+	display: block;
+	float: left;
+}
+
+/* 18 30 70 */
+footer .icon-more:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -260px 0;
+}
+
+footer .icon-message:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -190px 0;
+}
+
+footer .icon-connect:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -120px 0;
+}
+
+footer .icon-campus:after {
+	content: ' ';
+	display: block;
+    position: absolute;
+	width: 70px;
+	height: 70px;
+	left: 50%;
+	top: 50%;
+	margin-left: -35px;
+	margin-top: -35px;
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -50px 0;
+}
+
+#branding {
+	padding: 0;
+}
+
+#submenu {
+	float: none;
+	width: 98%;
+	padding: 1%;
+	background: #383838;
+}
+
+#submenu ul {
+	/* reverts columns to use element definition */
+	width: auto !important;
+}
+
+#submenu a {
+	color: #ffffff;
+}
+
+/*= Main navigation
+-----------------------------------------*/
+#access ul li:hover div.submenu {
+	display: none;
+}
+
+#access>ul>li:hover:after {
+	display: none;
+}
+
+/*= Home content
+-----------------------------------------*/
+.home #frontpage-sidebar {
+	float: none;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.home #frontpage-sidebar:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+	
+	font-size: 0;
+	line-height: 0;
+}
+
+.home #frontpage-sidebar aside {
+	width: 49%;
+}
+
+.home #frontpage-sidebar aside:nth-child(odd) {
+	margin-right: 1%;
+}
+
+.home #frontpage-sidebar aside:nth-child(even) {
+	margin-left: 1%;
+}
+
+.home #frontpage-content {
+	float: none;
+	width: 100%;
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+#featured {
+	margin: 10px 0;
+}
+
+#frontpage-content header h1,
+#frontpage-sidebar header h1,
+#featured header h1 {
+	display: inline-block;
+}
+
+/*= CORE
+-----------------------------------------*/
+.core-events time {
+	clear: both;
+	float: left;
+	width: 30%;
+	padding-right: 2%;
+	
+	text-align: right;
+}
+
+.core-events a {
+	float: right;
+	width: 68%;
+}

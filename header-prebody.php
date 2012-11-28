@@ -28,6 +28,7 @@
 		echo " | $site_description";
 	}
 	?></title>
+<link rel="icon" href="<?php echo $theme->info('url'); ?>/img/favicon.ico" type="image/x-icon" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
@@ -41,25 +42,9 @@
 <![endif]-->
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php wp_head(); ?>
-<?php if (is_front_page()): ?>
-<script src="<?php echo $theme->info('base_url'); ?>/js/jquery.accordion.js"></script>
-<script>
-	jQuery(document).ready(function() {
-		var header = 'div.title';
-		jQuery('#secondary').accordion({
-			autoheight: false,
-			header: header,
-			alwaysOpen: true,
-			event: false
-		});
-		jQuery('#secondary').find(header+' h3').each(function(index) {
-			jQuery(this).click(function() {
-				jQuery('#secondary').activate(index);
-			});
-		});
-	});
-</script>
-<?php endif; ?>
+<!--[if lte IE 8]>
+<script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
+<![endif]-->
 <script>
 	jQuery(document).ready(function() {
 		// put galleries in lightboxes
@@ -94,6 +79,18 @@
 			audioWidth: 200,
 			audioHeight: 20,
 			features: ['playpause', 'progress', 'current']
+		});
+		
+		// responsive breakpoints
+		mediaCheck({
+			media: '(max-width: 480px)',
+			entry: RH.mobileEnter,
+			exit: RH.mobileExit
+		});
+		mediaCheck({
+			media: '(max-width: 768px)',
+			entry: RH.tabletEnter,
+			exit: RH.tabletExit
 		});
 	});
 </script>

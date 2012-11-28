@@ -1,18 +1,14 @@
 <?php 
 get_header(); 
 ?>
+		<header id="content-title">
+			<h1<?php echo wp_title(''); ?></h1>
+		</header>
 		<section id="content" role="main">
-			<header id="content-title">
-				<h1 class="page-title">
-					<span>
-						<?php echo wp_title(''); ?>
-					</span>
-				</h1>
-			</header>
 
 			<article id="post-0" class="post no-results not-found">
-				<header class="entry-header clearfix">
-					<h1 class="entry-title"><?php _e('Nothing Found', 'rockharbor'); ?></h1>
+				<header>
+					<h1><?php _e('Nothing Found', 'rockharbor'); ?></h1>
 				</header>
 
 				<div class="entry-content">

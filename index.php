@@ -1,17 +1,15 @@
 <?php 
-get_header(); 
+get_header();
+$meta = $theme->metaToData($post->ID);
+$fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 ?>
-		<section id="content" role="main">
-			<header id="content-title">
-				<h1 class="page-title">
-					<span>
-						<?php echo wp_title(''); ?>
-					</span>
-				</h1>
-			</header>
-			<nav id="submenu">
-				<?php get_sidebar(); ?>
-			</nav>
+		<header id="content-title">
+			<h1><?php echo $post->post_title; ?></h1>
+		</header>
+		<?php 
+		get_sidebar(); 
+		?>
+		<section id="content" role="main" <?php if ($fullpage) { echo 'class="full"'; }?>>
 			<?php if (have_posts()): 
 
 				while (have_posts()) {
@@ -25,8 +23,8 @@ get_header();
 			 else: ?>
 
 			<article id="post-0" class="post no-results not-found">
-				<header class="entry-header clearfix">
-					<h1 class="entry-title"><?php _e('Nothing Found', 'rockharbor'); ?></h1>
+				<header>
+					<h1><?php _e('Nothing Found', 'rockharbor'); ?></h1>
 				</header>
 
 				<div class="entry-content">
@@ -38,31 +36,14 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-		<?php
-		$events = array();
-		if (!is_search() && !is_404()) {
-			$metadata = $theme->metaToData($post->ID);
-			$meta = array_merge(array(
-				'core_id' => 0,
-				'core_involvement_id' => 0
-			), $metadata);
-			// sidebar-core will render core_public_calendar which uses events
-			if (!empty($meta['core_id']) || !empty($meta['core_involvement_id'])) {
-				$events = $theme->fetchCoreFeed(null, $meta['core_id'], $meta['core_involvement_id']);
-			}
-		}
-		if (!empty($events)):
-		?>
-		<section id="sidebar" role="complementary">
-			<header id="sidebar-title">
-				<h1 class="sub-title"><span>CORE</span></h1>
-			</header>
+		
+		<?php if (empty($meta['hide_widgets'])): ?>
+		<section id="sidebar" role="complementary" class="clearfix">
 			<?php
-			$theme->set('events', $events);
-			get_sidebar('core');
+			dynamic_sidebar('sidebar-subnav');
 			?>
 		</section>
-		<?php endif;?>
+		<?php endif; ?>
 
 <?php 
 get_footer();

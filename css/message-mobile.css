@@ -1,0 +1,14 @@
+/*= Message series
+-----------------------------------------*/
+#content .series-collection article.message-series {
+	width: 49%;
+	margin-right: 1%;
+}
+
+#content .series-collection article.message-series:nth-child(4n+5) {
+	clear: none;
+}
+
+#content .series-collection article.message-series:nth-child(2n+3) {
+	clear: both;
+}

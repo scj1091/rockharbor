@@ -133,9 +133,13 @@ class Message extends PostType {
 			if ($num == 0 && $page == 0) {
 				get_template_part('content', 'series-first');
 			} else {
+				if ($num == 1) {
+					echo '<div class="series-collection">';
+				}
 				get_template_part('content', 'series');
 			}
 		}
+		echo '</div>';
 		
 		$this->theme->set('wp_rewrite', $wp_rewrite);
 		$wp_query->max_num_pages = ceil($count / $termsperpage);

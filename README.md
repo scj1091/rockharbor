@@ -12,13 +12,10 @@ At the very least, the following files should be created.
 
     /<theme_name>
         /img
-            direction-icon.png
-            feature-1-hover.png
-            feature-2-hover.png
             header.jpg
-            out.png
             twitter-icon.png
             facebook-icon.png
+            favicon.ico
         /libs
             child_theme.php
         functions.php
@@ -31,6 +28,9 @@ At the very least, the following files should be created.
 The child theme CSS should only contain styles for that child theme that need to 
 be overridden. This usually just includes colors, but can include styles that
 utilize images.
+
+There is a stylesheet called `_style.css` that serves as a template for child 
+theme css sheets.
 
 #### Including the theme class
 
@@ -68,21 +68,11 @@ choose your homepage
 - Go to Network Admin (top right), then to Settings and make sure subsites are
 allowed to upload content
 
-### Homepage
+### Front page
 
-The homepage is a static page that displays its content above the main nav bar,
-and a list of blogs where the content normally is. Make sure to set up the front
-page to be this static page under Settings > Reading.
-
-There is a special shortcode for the homepage to show the default featured graphics
-if you don't have any at the time. The default featured graphics are the "Who
-Leads This Campus?" and "Why This City?" To enable them, use the following 
-shortcode:
-
-    [defaultfeature link1="http://example.com/link.html" link2="http://example.com/link.html"]
-
-Where link1 is a link for the first feature and link2 is a link for the second
-(probably static pages within the site).
+The featured stories area above the fold on the front page is controlled by a 
+menu area called "featured." To add a feature, add a menu item to the "featured"
+area's menu.
 
 ## Features
 
@@ -101,6 +91,12 @@ The following features are available:
 ### staff
 It also creates various conveniences, including a taxonomy for staff called 
 "department" and meta boxes to organize the information.
+
+To pull from a specific campus, include the `campus` attribute along with the 
+WordPress blog id (see a list of the sites to get the id). For example, to pull
+all of the staff from the second blog:
+
+    [staff campus="2"]
 
 ### message
 The message post type contains two taxonomies, "series" and "teachers." Series are
