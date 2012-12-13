@@ -20,7 +20,7 @@ Secondary Color: #00ff00
 a,
 h1,
 .primary,
-#global-navigation h1 a,
+.global-navigation h1 a,
 #submenu li.current-menu-item a,
 #submenu a:hover,
 .archive-page-link .page-numbers,
@@ -31,7 +31,7 @@ footer h3,
 	color: #ff0000;
 }
 
-#global-navigation .logo,
+.global-navigation .logo,
 #access li a:hover,
 #access li.current-menu-item > a,
 #access ul li ul li a:hover,
@@ -86,7 +86,7 @@ input[type=submit]
 	color: #00ff00;
 }
 
-#global-navigation h1 a,
+.global-navigation h1 a,
 .story-box
 {
 	background-color: #00ff00;

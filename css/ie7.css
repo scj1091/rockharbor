@@ -3,11 +3,11 @@
 /* these are elements we want inline-block */
 #page, 
 #footer, 
-#global-navigation span,
-#global-navigation h1,
-#global-navigation h1 a,
-#global-navigation nav,
-#global-navigation nav > ul,
+.global-navigation span,
+.global-navigation h1,
+.global-navigation h1 a,
+.global-navigation nav,
+.global-navigation nav > ul,
 #banner h1,
 .page-numbers,
 time,
@@ -25,27 +25,27 @@ aside header h1,
 	padding-right: 0;
 }
 
-#global-navigation nav {
+.global-navigation nav {
 	display: inline;
 }
 
-#global-navigation nav ul li ul {
+.global-navigation nav ul li ul {
 	overflow: visible;
 }
 
-#global-navigation nav ul li ul li {
+.global-navigation nav ul li ul li {
 	width: 100%;
 	position: relative;
 	margin-bottom: -1px;
 }
 
-#global-navigation {
+.global-navigation {
 	width: 100%;
 	position: relative;
 	z-index: 10;
 }
 
-#global-navigation #searchform input#s {
+.global-navigation #searchform input#s {
 	width: 95px;
 }
 

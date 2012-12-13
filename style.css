@@ -252,7 +252,7 @@ th {
 
 /*= Global navigation
 -----------------------------------------*/
-#global-navigation {
+.global-navigation {
 	position: relative;
 	padding-right: 10px;
 	height: 51px;
@@ -260,7 +260,7 @@ th {
 	background: #383838;
 }
 
-#global-navigation h1 {
+.global-navigation h1 {
 	margin: 0;
 	padding: 0;
 	display: inline-block;
@@ -271,7 +271,7 @@ th {
 	font-size: 2.4em; /*= 24px */
 }
 
-#global-navigation .logo {
+.global-navigation .logo {
 	height: 51px;
 	
 	background: #00ff00;
@@ -279,15 +279,15 @@ th {
 	line-height: 51px;
 }
 
-#global-navigation span {
+.global-navigation span {
 	display: inline-block;
 }
 
-#global-navigation span.title {
+.global-navigation span.title {
 	margin: 0 10px;
 }
 
-#global-navigation h1 a {
+.global-navigation h1 a {
 	display: inline-block;
 	height: 100%;
 	
@@ -297,33 +297,33 @@ th {
 	background: #00ff00;
 }
 
-#global-navigation nav {
+.global-navigation nav {
 	float: right;
 	display: table;
 	height: 100%;
 }
 
-#global-navigation nav > ul {
+.global-navigation nav > ul {
 	display: table;
 	height: 100%;
 }
 
-#global-navigation nav a {
+.global-navigation nav a {
 	display: inline-block;
 	
 	color: #747474;
 	text-decoration: none;
 }
 
-#global-navigation nav a:hover {
+.global-navigation nav a:hover {
 	text-decoration: underline;
 }
 
-#global-navigation nav a {
+.global-navigation nav a {
 	margin: 0 3px;
 }
 
-#global-navigation nav ul li ul {
+.global-navigation nav ul li ul {
 	display: none;
 	position: absolute;
 	top: 100%;
@@ -334,31 +334,31 @@ th {
 	background: #c9c9c9;
 }
 
-#global-navigation nav ul li {
+.global-navigation nav ul li {
 	display: block;
 	position: relative;
 }
 
-#global-navigation nav > ul > ul,
-#global-navigation nav > ul > li {
+.global-navigation nav > ul > ul,
+.global-navigation nav > ul > li {
 	display: table-cell;
 	height: 100%;
 	vertical-align: middle;
 }
 
-#global-navigation nav > ul > ul li {
+.global-navigation nav > ul > ul li {
 	float: left;
 }
 
-#global-navigation nav ul li:hover ul {
+.global-navigation nav ul li:hover ul {
 	display: block;
 }
 
-#global-navigation #searchform {
+.global-navigation #searchform {
 	margin-left: 10px;
 }
 
-#global-navigation #searchform input {
+.global-navigation #searchform input {
 	padding: 2px 5px;
 	
 	color: #747474;
@@ -373,18 +373,18 @@ th {
 	border-radius: 5px;
 }
 
-#global-navigation #searchform input:focus,
-#global-navigation #searchform input:hover {
+.global-navigation #searchform input:focus,
+.global-navigation #searchform input:hover {
 	background: #5e5e5e;
 }
 
-#global-navigation #searchform input:focus {
+.global-navigation #searchform input:focus {
 	border: 1px solid #c9c9c9;
 	
 	color: #c9c9c9;
 }
 
-#global-navigation #searchform #searchsubmit {
+.global-navigation #searchform #searchsubmit {
 	display: none;
 }
 
@@ -705,13 +705,13 @@ footer h3 {
 	color: #747474;
 }
 
-#footer a {
+footer a {
 	color: #747474;
 	text-decoration: none;
 	font-size: 1.3em;
 }
 
-#footer a:hover,
+footer a:hover,
 #footer ul.menu li a:hover {
 	text-decoration: underline;
 }
@@ -1238,36 +1238,31 @@ label {
 	text-decoration: none !important;
 }
 
-#global-navigation .campus-list .costamesa,
-#footer .campus-list .costamesa {
+.campus-list .costamesa {
 	background: #B5371A;
 	
 	color: #F45125;
 }
 
-#global-navigation .campus-list .mission-viejo,
-#footer .campus-list .mission-viejo {
+.campus-list .mission-viejo {
 	background: #5DDBCF;
 	
 	color: #43A3A0;
 }
 
-#global-navigation .campus-list .fullerton,
-#footer .campus-list .fullerton {
+.campus-list .fullerton {
 	background: #ADA19A;
 	
 	color: #967666;
 }
 
-#global-navigation .campus-list .huntington-beach,
-#footer .campus-list .huntington-beach {
+.campus-list .huntington-beach {
 	background: #F7D614;
 	
 	color: #E58F05;
 }
 
-#global-navigation .campus-list .orange,
-#footer .campus-list .orange {
+.campus-list .orange {
 	background: #FF900B;
 	
 	color: #F46800;
