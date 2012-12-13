@@ -26,6 +26,36 @@ class Shortcodes {
 		add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
+		add_shortcode('service-times', array($this, 'serviceTimes'));
+		add_shortcode('address', array($this, 'address'));
+	}
+	
+/**
+ * Renders address
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function address($attr) {
+		$attrs = shortcode_atts(array(
+			'campus' => $this->theme->info('id')
+		), $attr);
+		$this->theme->set('address', $this->theme->options('address', false, $attrs['campus']));
+		return $this->theme->render('address');
+	}
+	
+/**
+ * Renders service times
+ * 
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function serviceTimes($attr) {
+		$attrs = shortcode_atts(array(
+			'campus' => $this->theme->info('id')
+		), $attr);
+		$this->theme->set('times', $this->theme->options('service_time', false, $attrs['campus']));
+		return $this->theme->render('service_times');
 	}
 	
 /**
