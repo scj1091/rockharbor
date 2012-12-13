@@ -673,8 +673,20 @@ class RockharborThemeBase {
  * @param mixed $var The value to set.
  * @return mixed
  */
-	public function options($option = null, $var = false) {
+	public function options($option = null, $var = false, $blog = null) {
+		if ($blog === null) {
+			$blog = $this->id;
+		}
+		
+		if ($blog !== $this->id) {
+			switch_to_blog($blog);
+		}
+		
 		$options = get_option('rockharbor_options');
+		
+		if ($blog !== $this->id) {
+			restore_current_blog();
+		}
 		
 		if ($options === false) {
 			$options = array();
