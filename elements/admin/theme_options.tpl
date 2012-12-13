@@ -16,8 +16,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 
 	<form method="post" action="options.php">
 		<?php 
-		settings_fields($theme->info('slug').'_options');
-		$theme->Html->inputPrefix = $theme->info('slug').'_options';
+		settings_fields('rockharbor_options');
+		$theme->Html->inputPrefix = 'rockharbor_options';
 		$theme->Html->data($theme->options());
 		?>
 		<table class="form-table">
@@ -35,15 +35,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 							'label' => false,
 							'after' => '<a style="display:none" href="javascript:;" onclick="RH.removeServiceTime(this)">X</a>'
 						));
-					}
-					foreach ($times as $key => $time) {
-						$style = 'style="display:none"';
-						echo $theme->Html->input('service_time', array(
-							'value' => $time,
-							'name' => $theme->Html->inputPrefix.'[service_time][]',
-							'label' => false,
-							'after' => '<a '.($key === 0 ? $style : null).' href="javascript:;" onclick="RH.removeServiceTime(this)">X</a>'
-						));
+					} else {
+						foreach ($times as $key => $time) {
+							$style = 'style="display:none"';
+							echo $theme->Html->input('service_time', array(
+								'value' => $time,
+								'name' => $theme->Html->inputPrefix.'[service_time][]',
+								'label' => false,
+								'after' => '<a '.($key === 0 ? $style : null).' href="javascript:;" onclick="RH.removeServiceTime(this)">X</a>'
+							));
+						}
 					}
 				?>
 				<a href="javascript:RH.addServiceTime()">+ Add a service time</a>

@@ -19,7 +19,6 @@ class RockharborThemeBase {
  * List of options for this theme (all required by subsites)
  * 
  * ### Options
- * - `$slug` The slug for this theme (no spaces, special chars, etc)
  * - `$short_name` The short name for this campus, i.e., without RH preceding
  * - `$supports` An array of supported features for this particular site. See
  * the README for more information about the features
@@ -29,7 +28,6 @@ class RockharborThemeBase {
  * @var array
  */
 	protected $themeOptions = array(
-		'slug' => 'rockharbor',
 		'short_name' => 'Central',
 		'hide_name_in_global_nav' => false
 	);
@@ -676,7 +674,7 @@ class RockharborThemeBase {
  * @return mixed
  */
 	public function options($option = null, $var = false) {
-		$options = get_option($this->info('slug').'_options');
+		$options = get_option('rockharbor_options');
 		
 		if ($options === false) {
 			$options = array();
@@ -684,12 +682,12 @@ class RockharborThemeBase {
 		
 		if (!is_null($option) && $var !== false) {
 			$options[$option] = $var;
-			update_option($this->info('slug').'_options', $options);
+			update_option('rockharbor_options', $options);
 		}
 		
 		if (!is_null($option) && is_null($var)) {
 			unset($options[$option]);
-			update_option($this->info('slug').'_options', $options);
+			update_option('rockharbor_options', $options);
 		}
 
 		if (!is_null($option)) {
