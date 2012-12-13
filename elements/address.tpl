@@ -1,2 +1,2 @@
 <?php
-echo nl2br($address);
+echo $address;
