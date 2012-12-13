@@ -22,6 +22,46 @@ if (!isset($_REQUEST['settings-updated'])) {
 		?>
 		<table class="form-table">
 			<tr valign="top">
+				<td colspan="2"><h2>Campus Info</h2><p>Campus-specific settings.</p></td>
+			</tr>
+			<tr valign="top" class="service-times">
+				<th>Service Times</th>
+				<td>
+				<?php 
+					$times = $theme->options('service_time');
+					if (empty($times)) {
+						echo $theme->Html->input('service_time', array(
+							'name' => $theme->Html->inputPrefix.'[service_time][]',
+							'label' => false,
+							'after' => '<a style="display:none" href="javascript:;" onclick="RH.removeServiceTime(this)">X</a>'
+						));
+					}
+					foreach ($times as $key => $time) {
+						$style = 'style="display:none"';
+						echo $theme->Html->input('service_time', array(
+							'value' => $time,
+							'name' => $theme->Html->inputPrefix.'[service_time][]',
+							'label' => false,
+							'after' => '<a '.($key === 0 ? $style : null).' href="javascript:;" onclick="RH.removeServiceTime(this)">X</a>'
+						));
+					}
+				?>
+				<a href="javascript:RH.addServiceTime()">+ Add a service time</a>
+				</td>
+			</tr>
+			<tr valign="top">
+				<?php 
+					echo $theme->Html->input('address', array(
+						'type' => 'textarea',
+						'rows' => '4',
+						'before' => '<th>',
+						'label' => 'Address',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(the campus\' meeting place)</small></td>'
+					)); 
+				?>
+			</tr>
+			<tr valign="top">
 				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
 			</tr>
 			<tr valign="top">

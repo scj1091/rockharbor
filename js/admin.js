@@ -33,3 +33,20 @@ RH.insertIntoEditor = function(text) {
 		window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, text);
 	}
 }
+
+/**
+ * Adds a service time input to the list
+ */
+RH.addServiceTime = function() {
+	var st = jQuery('.service-times div:first-child').clone();
+	st.children('input').val('');
+	st.children('a').show();
+	jQuery('.service-times div:last').after(st);
+}
+
+/**
+ * Removes a service time input
+ */
+RH.removeServiceTime = function(el) {
+	jQuery(el).parent('div').remove();
+}
