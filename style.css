@@ -1076,14 +1076,9 @@ Also skipped using id's to override since there are 2 menus on the page
   text-decoration: none !important;
 }
 
-.campus-list .central {
+.campus-list .costamesa {
   background: #B5371A !important;
   color: #F45125 !important;
-}
-
-.campus-list .central-pm {
-  background: #F28255 !important;
-  color: #DD4D05 !important;
 }
 
 .campus-list .mission-viejo {
