@@ -651,6 +651,8 @@ class RockharborThemeBase {
 		register_widget('CoreWidget');
 		include_once 'widgets' . DS . 'social_widget.php';
 		register_widget('SocialWidget');
+		include_once 'widgets' . DS . 'image_grid_widget.php';
+		register_widget('ImageGridWidget');
 		
 		add_action('in_widget_form', array($this, 'addWidgetOptions'), 10, 3);
 		add_filter('dynamic_sidebar_params', array($this, 'addWidgetClasses'));
