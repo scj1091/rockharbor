@@ -16,36 +16,36 @@ This stylesheet is applied to mobile (max 480px) only.
 
 /*= Global navigation
 -----------------------------------------*/
-#global-navigation {
+.global-navigation {
 	height: 102px;
 }
 
-#global-navigation.logo-only {
+.global-navigation.logo-only {
 	height: 51px;
 }
 
-#global-navigation h1 .logo {
+.global-navigation h1 .logo {
 	display: block;
 }
 
-#global-navigation h1 .title {
+.global-navigation h1 .title {
 	display: block;
 	height: 51px;
 	
 	line-height: 51px;
 }
 
-#global-navigation nav ul li { 
+.global-navigation nav ul li { 
 	position: static;
 }
 
-#global-navigation nav ul li:hover ul {
+.global-navigation nav ul li:hover ul {
 	display: none;
 }
 
-#global-navigation li.menu,
-#global-navigation li.campuses,
-#global-navigation li.search {
+.global-navigation li.menu,
+.global-navigation li.campuses,
+.global-navigation li.search {
 	display: block;
 	width: 30px;
 	height: 30px;
@@ -57,41 +57,41 @@ This stylesheet is applied to mobile (max 480px) only.
 	background-repeat: no-repeat;
 }
 
-#global-navigation.logo-only li.menu,
-#global-navigation.logo-only li.campuses,
-#global-navigation.logo-only li.search
+.global-navigation.logo-only li.menu,
+.global-navigation.logo-only li.campuses,
+.global-navigation.logo-only li.search
 {
 	margin-top: 10.5px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
 }
 
-#global-navigation li.campuses > a {
+.global-navigation li.campuses > a {
 	text-indent: -9999px;
 }
 
-#global-navigation li.campuses > a:after {
+.global-navigation li.campuses > a:after {
 	display: none;
 }
 
-#global-navigation li.menu {
+.global-navigation li.menu {
 	background-position: -19px -60px;
 }
 
-#global-navigation li.campuses {
+.global-navigation li.campuses {
 	background-position: -19px -30px;
 }
 
-#global-navigation li.search {
+.global-navigation li.search {
 	background-position: -19px -0;
 }
 
-#global-navigation #searchform {
+.global-navigation #searchform {
 	position: absolute;
 	top: 100%;
 	width: 300px;
 }
 
-#global-navigation nav ul li ul,
-#global-navigation #searchform {
+.global-navigation nav ul li ul,
+.global-navigation #searchform {
 	display: none;
 	top: 102px;
 	right: 0;
@@ -101,16 +101,16 @@ This stylesheet is applied to mobile (max 480px) only.
 	background: #ffffff;
 }
 
-#global-navigation.logo-only nav ul li ul,
-#global-navigation.logo-only #searchform {
+.global-navigation.logo-only nav ul li ul,
+.global-navigation.logo-only #searchform {
 	top: 51px;
 }
 
-#global-navigation #searchform {
+.global-navigation #searchform {
 	padding: 10px;
 }
 
-#global-navigation #searchform input {
+.global-navigation #searchform input {
 	font-size: 1.5em;
 	padding: 5px;
 }

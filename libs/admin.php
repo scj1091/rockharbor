@@ -35,7 +35,7 @@ class Admin {
  */
 	public function init() {
 		// register options
-		register_setting($this->theme->info('slug').'_options', $this->theme->info('slug').'_options');
+		register_setting('rockharbor_options', 'rockharbor_options');
 		
 		// default options
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
