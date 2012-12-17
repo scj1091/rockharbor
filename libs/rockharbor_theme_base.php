@@ -211,37 +211,39 @@ class RockharborThemeBase {
 	public function compressAssets() {
 		global $wp_scripts, $wp_styles;
 		$cachePath = WP_CONTENT_DIR . DS . 'cache';
+		$cacheUrl = WP_CONTENT_URL.'/cache';
 		if (!is_writable($cachePath) || is_admin()) {
 			return;
 		}
 		
-		$scriptCache = $cachePath . DS . 'scripts.js';
-		$stylesCache = $cachePath . DS . 'styles.css';
+		// names of files
+		$scriptFile = 'scripts' . $this->_key($wp_scripts).'.js';
+		$stylesFile = 'styles' . $this->_key($wp_styles).'.css';
 		
 		if (WP_DEBUG) {
 			// in debug  mode, create the cache file each request
-			unlink($scriptCache);
-			unlink($stylesCache);
+			unlink($cachePath . DS . $scriptFile);
+			unlink($cachePath . DS . $stylesFile);
 		}
 		
-		if (!file_exists($scriptCache)) {
+		if (!file_exists($cachePath . DS . $scriptFile)) {
 			$out = $this->_concat($wp_scripts);
-			if (file_put_contents($scriptCache, $out)) {
+			if (file_put_contents($cachePath . DS . $scriptFile, $out)) {
 				// cache successfully written, queue it up as the only script
 				$wp_scripts->queue = array();
 				wp_deregister_script('scripts');
-				wp_register_script('scripts', WP_CONTENT_URL . '/cache/scripts.js');
+				wp_register_script('scripts', "$cacheUrl/$scriptFile");
 				wp_enqueue_script('scripts');
 			}
 		}
 		
-		if (!file_exists($stylesCache)) {
+		if (!file_exists($cachePath . DS . $stylesFile)) {
 			$out = $this->_concat($wp_styles);
-			if (file_put_contents($stylesCache, $out)) {
+			if (file_put_contents($cachePath . DS . $stylesFile, $out)) {
 				// cache successfully written, queue it up as the only script
 				$wp_styles->queue = array();
 				wp_deregister_script('styles');
-				wp_register_style('styles', WP_CONTENT_URL . '/cache/styles.css');
+				wp_register_style('styles', "$cacheUrl/$stylesFile");
 				wp_enqueue_style('styles');
 			}
 		}
@@ -311,6 +313,31 @@ class RockharborThemeBase {
 		}
 		
 		return $contents;
+	}
+	
+/**
+ * Creates a hash from a list of scripts or styles
+ * 
+ * @param _WP_Dependency $object Object to key
+ * @return string
+ */
+	private function _key($object) {
+		$key = '';
+		$included = array();
+		foreach ($object->queue as $queue) {
+			foreach ($object->registered[$queue]->deps as $dep) {
+				if (!in_array($dep, $included)) {
+					// make sure to include dependencies first
+					$key .= $object->registered[$dep]->src;
+				}
+				$included[] = $dep;
+			}
+			if (!in_array($queue, $included)) {
+				$key .= $object->registered[$queue]->src;
+			}
+			$included[] = $queue;
+		}
+		return md5($key);
 	}
 	
 /**
