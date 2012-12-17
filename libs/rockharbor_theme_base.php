@@ -312,7 +312,7 @@ class RockharborThemeBase {
 			$contents = "@media $object->args { $contents }";
 		}
 		
-		return $contents;
+		return "\n$contents";
 	}
 	
 /**
