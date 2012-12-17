@@ -14,7 +14,7 @@ var RH = {};
  * @return void
  */
 RH.showMediaLibrary = function(callback) {
-	tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+	tb_show('', 'media-upload.php?type=image&post_id=0&TB_iframe=true');
 	window.send_to_editor = function(html) {
 		var ret = callback(html);
 		RH.insertIntoEditor(ret);
