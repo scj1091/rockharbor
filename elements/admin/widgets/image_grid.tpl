@@ -107,5 +107,6 @@ jQuery('.add_image').live('click', function() {
 		jQuery(el).siblings('input').val(url);
 		return '';
 	});
+	return false;
 });
 </script>
