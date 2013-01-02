@@ -226,25 +226,28 @@ class RockharborThemeBase {
 		
 		if (!file_exists($cachePath . DS . $scriptFile)) {
 			$out = $this->_concat($wp_scripts);
-			if (file_put_contents($cachePath . DS . $scriptFile, $out)) {
-				// cache successfully written, queue it up as the only script
-				$wp_scripts->queue = array();
-				wp_deregister_script('scripts');
-				wp_register_script('scripts', "$cacheUrl/$scriptFile");
-				wp_enqueue_script('scripts');
+			if (!file_put_contents($cachePath . DS . $scriptFile, $out)) {
+				return;
 			}
 		}
 		
 		if (!file_exists($cachePath . DS . $stylesFile)) {
 			$out = $this->_concat($wp_styles);
-			if (file_put_contents($cachePath . DS . $stylesFile, $out)) {
-				// cache successfully written, queue it up as the only script
-				$wp_styles->queue = array();
-				wp_deregister_script('styles');
-				wp_register_style('styles', "$cacheUrl/$stylesFile");
-				wp_enqueue_style('styles');
+			if (!file_put_contents($cachePath . DS . $stylesFile, $out)) {
+				return;
 			}
 		}
+
+		// queue it up as the only script
+		$wp_scripts->queue = array();
+		wp_deregister_script('scripts');
+		wp_register_script('scripts', "$cacheUrl/$scriptFile");
+		wp_enqueue_script('scripts');
+		// queue it up as the only script
+		$wp_styles->queue = array();
+		wp_deregister_style('styles');
+		wp_register_style('styles', "$cacheUrl/$stylesFile");
+		wp_enqueue_style('styles');
 	}
 
 /**
