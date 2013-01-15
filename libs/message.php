@@ -132,7 +132,11 @@ class Message extends PostType {
 			
 			if ($num == 0 && $page == 0) {
 				get_template_part('content', 'series-first');
+				echo '<div class="series-collection">';
 			} else {
+				if ($num == 0) {
+					echo '<div class="series-collection">';
+				}
 				get_template_part('content', 'series');
 			}
 		}
