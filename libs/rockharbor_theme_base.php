@@ -10,21 +10,21 @@ require_once 'post_type.php';
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
  * to make use of the overall site functionality
- * 
+ *
  * @package rockharbor
  */
 class RockharborThemeBase {
-	
+
 /**
  * List of options for this theme (all required by subsites)
- * 
+ *
  * ### Options
  * - `$short_name` The short name for this campus, i.e., without RH preceding
  * - `$supports` An array of supported features for this particular site. See
  * the README for more information about the features
  * - `$hide_name_in_global_nav` Boolean whether or not to *hide* the campus name
  * in the global navigation bar (negative for backwards compatibility)
- * 
+ *
  * @var array
  */
 	protected $themeOptions = array(
@@ -34,7 +34,7 @@ class RockharborThemeBase {
 
 /**
  * Post types to disable commenting by default
- * 
+ *
  * @var array
  */
 	public $disableComments = array(
@@ -43,71 +43,71 @@ class RockharborThemeBase {
 
 /**
  * Directory path to current theme
- * 
+ *
  * @var string
  */
 	protected $themePath = null;
-	
+
 /**
  * Uri path to current theme
- * 
+ *
  * @var string
  */
 	protected $themeUrl = null;
 
 /**
  * Directory path to base theme
- * 
+ *
  * @var string
  */
 	protected $basePath = null;
-	
+
 /**
  * Uri path to base theme
- * 
+ *
  * @var string
  */
-	protected $baseUrl = null;	
-	
+	protected $baseUrl = null;
+
 /**
  * Blog title
- * 
+ *
  * @var string
  */
 	protected $name = null;
-	
+
 /**
  * Vars set for the next render
- * 
+ *
  * @var array
  */
 	protected $_vars = array();
-	
+
 /**
  * The blog id
- * 
+ *
  * @var integer
  */
 	protected $id = null;
 
 /**
  * Array of actions that are allowed to be called via POSTing the `$action` var
- * 
+ *
  * @var array
  */
 	public $allowedActions = array('email');
-	
+
 /**
  * Array of messages
- * 
- * @var array 
+ *
+ * @var array
  */
 	public $messages = array();
-	
+
 /**
  * List of possible features for child themes
- * 
- * @var array 
+ *
+ * @var array
  */
 	public $features = array(
 		'staff' => 'Staff',
@@ -119,19 +119,19 @@ class RockharborThemeBase {
  */
 	public function __construct() {
 		global $wpdb;
-		
+
 		$this->themePath = rtrim(get_stylesheet_directory(), DS);
 		$this->themeUrl = rtrim(get_stylesheet_directory_uri(), '/');
 		$this->basePath = rtrim(get_template_directory(), DS);
 		$this->baseUrl = rtrim(get_template_directory_uri(), '/');
 		$this->name = get_bloginfo('name');
 		$this->id = $wpdb->blogid;
-		
+
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
-		
+
 		add_action('init', array($this, 'addFeatures'));
-		
+
 		if (is_admin()) {
 			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
 			$this->Admin = new Admin($this);
@@ -140,38 +140,38 @@ class RockharborThemeBase {
 		} else {
 			$this->setupAssets();
 		}
-		
+
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
-		
+
 		add_action('after_setup_theme', array($this, 'after'));
 		if ($this->isChildTheme()) {
 			// #YAWPH
-			// we're in a child theme, so we don't want add filters/actions for 
-			// the base class, otherwise we'll end up with duplicate filters/actions 
+			// we're in a child theme, so we don't want add filters/actions for
+			// the base class, otherwise we'll end up with duplicate filters/actions
 			return;
 		}
-		
+
 		add_filter('the_content', array($this, 'filterContent'));
-		
+
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'));
 		add_action('widgets_init', array($this, 'registerSidebars'));
-		
+
 		// forced gallery settings
 		add_filter('use_default_gallery_style', array($this, 'removeCss'));
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
-		
+
 		// other
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
-		
+
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
 			define('SOCIAL_COMMENTS_CSS', $this->baseUrl.'/css/comments.css');
 		}
-		
+
 		// start session
 		if (!session_id()) {
 			session_start();
@@ -180,16 +180,16 @@ class RockharborThemeBase {
 
 /**
  * Filter content before outputting it
- * 
+ *
  * @param string $content
- * @return string 
+ * @return string
  */
 	function filterContent($content = '') {
 		$count = preg_match_all('/<!--column-->/', $content, $matches);
 		if ($count) {
 			$colSize = floor(100 / ($count+1)) - 1;
 			$columnDiv = "<div style=\"float:left;width:$colSize%;margin-right: 1%;\">";
-			
+
 			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
 			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
 		}
@@ -214,7 +214,7 @@ class RockharborThemeBase {
 		wp_register_style('base', "$base/style.css");
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
-		
+
 		// queue them
 		wp_enqueue_style('reset');
 		wp_enqueue_style('fonts');
@@ -225,10 +225,10 @@ class RockharborThemeBase {
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('lightbox');
 		wp_enqueue_script('media');
-		
+
 		// dequeue stuff we don't need
 		wp_deregister_style('thickbox');
-		
+
 		// conditional assets
 		if (is_singular() && get_option('thread_comments')) {
 			wp_enqueue_script('comment-reply');
@@ -237,15 +237,15 @@ class RockharborThemeBase {
 			wp_enqueue_style('child_base');
 		}
 	}
-	
+
 /**
  * Adds features if they are supported by the child theme
- * 
+ *
  * If you create custom post types outside of the `init` action, WordPress seems
  * to erase the list of taxonomies you told it to include. It will include all
  * ones specifically assigned to the post type, but skip existing ones. #YAWPH?
- * 
- * @return void 
+ *
+ * @return void
  */
 	function addFeatures() {
 		foreach ($this->features as $postType => $className) {
@@ -258,7 +258,7 @@ class RockharborThemeBase {
 
 /**
  * Changes the rss link in the header to something actually useful
- * 
+ *
  * @param string $output Current output
  * @param string $type The feed type
  * @return string Modified feed link
@@ -275,7 +275,7 @@ class RockharborThemeBase {
  * YAWPH that allows us to pull the aggregated posts and use our own template
  * to customize the rss feed (which basically just switches the blogs so posts
  * from other sites are linked correctly)
- * 
+ *
  * @param WP_Query $query Query passed by WP
  * @return mixed Auto-echoes template or returns original query
  * @see README
@@ -288,14 +288,14 @@ class RockharborThemeBase {
 		load_template(TEMPLATEPATH . DS . 'rss.php');
 		die(/*in a fire*/);
 	}
-	
+
 /**
  * Pulls events from CORE
- * 
+ *
  * ### Options:
  * - `$ministry_ids` Comma-delimited list of ministry ids to pull
  * - `$involvement_ids` Comma-delimited list of involvement ids to pull
- * 
+ *
  * @param integer $campus_ids The Campus id(s) to pull
  * @param integer $ministry_ids The Ministry id(s) to pull
  * @param integer $involvement_ids The Involvement id(s) to pull
@@ -326,7 +326,7 @@ class RockharborThemeBase {
  * Constructs and sends an email to a predefined option. Passing `$_POST['type']`
  * will look up an option `$_POST['type'].'_email'` to email to. If none is found
  * the function will exit.
- * 
+ *
  * @return mixed `false` on failure, an array of what was sent on success. Error
  *	messages are stored in `$errors`
  */
@@ -365,7 +365,7 @@ class RockharborThemeBase {
 			$value = $name.': '.$value;
 		}
 		$headers = implode("\r\n", $headers);
-		
+
 		if ($this->_mail($to, $subject, $body, $headers)) {
 			$this->messages[] = 'Thanks for your message!';
 			return compact('to', 'subject', 'body', 'headers');
@@ -376,11 +376,11 @@ class RockharborThemeBase {
 
 /**
  * Sends an email
- * 
+ *
  * @param string $to
  * @param string $subject
  * @param string $body
- * @param string $headers 
+ * @param string $headers
  */
 	protected function _mail($to, $subject, $body, $headers) {
 		return mail($to, $subject, $body, $headers);
@@ -388,7 +388,7 @@ class RockharborThemeBase {
 
 /**
  * Brings in all of the post types when showing an archive page
- * 
+ *
  * @param WP_Query $query
  * @return WP_Query
  */
@@ -455,18 +455,18 @@ class RockharborThemeBase {
 		add_theme_support('post-thumbnails');
 		add_theme_support('automatic-feed-links');
 		load_theme_textdomain('rockharbor', $this->basePath.'/languages');
-		
+
 		register_nav_menus(array(
 			'main' => __('Main Navigation', 'rockharbor'),
 			'footer' => __('Footer Navigation', 'rockharbor'),
 			'global' => __('Global Navigation', 'rockharbor')
 		));
 	}
-	
+
 /**
  * Returns all theme info. If `$var` is null, all options are returned. If an
  * option is missing, `null` is returned.
- * 
+ *
  * @param string $var Option to fetch
  * @return array
  */
@@ -489,22 +489,22 @@ class RockharborThemeBase {
 		}
 		return $vars[$var];
 	}
-	
+
 /**
  * Checks if this is a child theme
- * 
+ *
  * @return boolean
  */
 	public function isChildTheme() {
 		return get_parent_class($this) !== false;
 	}
-	
+
 /**
  * Sets a var to use when the view is loaded
- * 
+ *
  * @param string $var The var name
  * @param mixed $value Value
- */	
+ */
 	public function set($var, $value = null) {
 		if (is_array($var)) {
 			foreach ($var as $name => $val) {
@@ -516,13 +516,13 @@ class RockharborThemeBase {
 	}
 
 /**
- * Adds variables to the view found in `<template_base>/elements` and returns it. 
+ * Adds variables to the view found in `<template_base>/elements` and returns it.
  * It looks for a child version of the view first. If it can't find it, it looks
  * for the parent version.
  *
  * @param string $view The view name
  * @return string Rendered view
- */	
+ */
 	public function render($view) {
 		global $theme;
 		extract($this->_vars);
@@ -538,7 +538,7 @@ class RockharborThemeBase {
 
 /**
  * Gets a file from an enclosure
- * 
+ *
  * @param string $type The type of enclosure to get (audio or video)
  * @param integer $postId The post id. Default is current post
  * @return string
@@ -562,7 +562,7 @@ class RockharborThemeBase {
 		$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
 		return $file;
 	}
-	
+
 /**
  * Called when generating a menu via `wp_nav_menu`
  *
@@ -636,7 +636,7 @@ class RockharborThemeBase {
 /**
  * Overrides the default WordPress functionality that adds a fixed width to the
  * div that wraps the image
- * 
+ *
  * @param string $randomParam Always ''
  * @param array $attr Attribute array
  * @param string $content The image
@@ -658,7 +658,7 @@ class RockharborThemeBase {
 
 /**
  * Filter to make sure and exclude built-in WP CSS when styling galleries
- * 
+ *
  * @return boolean False
  */
 	public function removeCss() {
@@ -668,7 +668,7 @@ class RockharborThemeBase {
 /**
  * Gets/sets theme options. If `$var` is false, acts as a getter. If `$var` is
  * null, it will delete the option
- * 
+ *
  * @param string $option An option to get. If `null`, all options are returned
  * @param mixed $var The value to set.
  * @return mixed
@@ -677,26 +677,26 @@ class RockharborThemeBase {
 		if ($blog === null) {
 			$blog = $this->id;
 		}
-		
+
 		if ($blog !== $this->id) {
 			switch_to_blog($blog);
 		}
-		
+
 		$options = get_option('rockharbor_options');
-		
+
 		if ($blog !== $this->id) {
 			restore_current_blog();
 		}
-		
+
 		if ($options === false) {
 			$options = array();
 		}
-		
+
 		if (!is_null($option) && $var !== false) {
 			$options[$option] = $var;
 			update_option('rockharbor_options', $options);
 		}
-		
+
 		if (!is_null($option) && is_null($var)) {
 			unset($options[$option]);
 			update_option('rockharbor_options', $options);
@@ -707,10 +707,10 @@ class RockharborThemeBase {
 		}
 		return $options;
 	}
-	
+
 /**
  * Converts garbagy output from get_post_custom to a useable data array
- * 
+ *
  * @param integer $postId The post to get meta from
  * @return array
  */
@@ -725,7 +725,7 @@ class RockharborThemeBase {
 
 /**
  * Converts user data to a data array for the HtmlHelper
- * 
+ *
  * @param int $userId The user id
  * @return array
  */
@@ -740,17 +740,17 @@ class RockharborThemeBase {
 
 /**
  * Returns a list of blogs in this network
- * 
- * @return array 
+ *
+ * @return array
  */
 	public function getBlogs() {
 		global $wpdb;
 		return $wpdb->get_results("SELECT * FROM $wpdb->blogs WHERE archived = '0' AND deleted = '0'", ARRAY_A);
 	}
-	
+
 /**
  * Checks if this theme or childtheme supports a feature
- * 
+ *
  * @param string $feature
  * @return boolean
  */
@@ -763,7 +763,7 @@ class RockharborThemeBase {
 
 /**
  * Replaces an attachment url with its S3 counterpart
- * 
+ *
  * @param string $url File url
  */
 	public function s3Url($url) {

@@ -18,13 +18,13 @@ the_post();
 				<div class="entry-content">
 					<div class="staff-details clearfix">
 						<div class="staff-picture">
-							<?php 
+							<?php
 							if (!has_post_thumbnail()) {
 								echo $theme->Html->image('notpictured.jpg', array('alt' => 'Not pictured', 'parent' => true));
 							} else {
 								the_post_thumbnail('full');
 							}
-							?>				
+							?>
 						</div>
 						<div>
 							<dl>
@@ -57,5 +57,5 @@ the_post();
 				</div>
 			</article>
 		</section>
-<?php 
+<?php
 get_footer();

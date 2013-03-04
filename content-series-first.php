@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * This template part is special and does not use `$wp_query`, but instead uses
  * what's made available in the manual `Message::shortcode()` loop.
- * 
- * This is especially special because it's used only to display the first 
+ *
+ * This is especially special because it's used only to display the first
  * series
  */
 global $theme, $post, $item;
@@ -24,7 +24,7 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 			</div>
 			<div class="series-details">
 				<span class="series-title">
-					<?php 
+					<?php
 					echo $theme->Html->tag('a', $item->last->post_title, array(
 						'href' => $permalink,
 						'title' => $item->last->post_title

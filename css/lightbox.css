@@ -10,15 +10,15 @@
 #jqlb_loading{
 	height:32px;
 	background-image:url('./images/loading.gif');
-	background-repeat:no-repeat;				
-	background-position:center center; 		
-}	
+	background-repeat:no-repeat;
+	background-position:center center;
+}
 #jqlb_closelabel{
 	height:22px;
 	background-image:url('./images/closelabel.gif');
-	background-repeat:no-repeat;				
+	background-repeat:no-repeat;
 	background-position:center center;
-}	
+}
 
 #lightbox a img{ border: none; }
 
@@ -79,7 +79,7 @@ padding-right: 20px;
 }
 #downloadLink{
 margin-left: 10px;
-}	
+}
 /*** END : next / previous text links ***/
 /*** START : added padding when navbar is on top ***/
 
@@ -99,7 +99,7 @@ margin-left: 10px;
 #imageData{
 	padding:0 10px;
 	}
-#imageData #imageDetails{ width: 70%; float: left; text-align: left; }	
+#imageData #imageDetails{ width: 70%; float: left; text-align: left; }
 #imageData #caption{ font-weight: bold;	}
 #imageData #numberDisplay{ display: block; clear: left; padding-bottom: 1.0em;	}
 #imageData #bottomNavClose{ width: 66px; float: right;  padding-bottom: 0.7em;	}
@@ -118,18 +118,18 @@ margin-left: 10px;
 	opacity: 0.6;
 	display: none;
 	}
-	
+
 
 .clearfix:after {
-	content: "."; 
-	display: block; 
-	height: 0; 
-	clear: both; 
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
 	visibility: hidden;
 	}
 
 * html>body .clearfix {
-	display: inline-block; 
+	display: inline-block;
 	width: 100%;
 	}
 
@@ -137,8 +137,8 @@ margin-left: 10px;
 	/* Hides from IE-mac \*/
 	height: 1%;
 	/* End hide from IE-mac */
-	}	
+	}
 
 #lightboxIframe {
 	display: none;
-}	
+}

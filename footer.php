@@ -1,5 +1,5 @@
-<?php 
-global $theme; 
+<?php
+global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');

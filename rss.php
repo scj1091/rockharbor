@@ -1,5 +1,5 @@
 <?php
-global $theme;				
+global $theme;
 header('Content-Type: ' . feed_content_type('rss-http') . '; charset=' . get_option('blog_charset'), true);
 $more = 1;
 
@@ -25,9 +25,9 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 	<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
 	<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 	<?php do_action('rss2_head'); ?>
-	<?php 
-	while( have_posts()): 
-		the_post(); 
+	<?php
+	while( have_posts()):
+		the_post();
 		switch_to_blog($post->blog_id);
 	?>
 	<item>
@@ -54,8 +54,8 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 <?php rss_enclosure(); ?>
 	<?php do_action('rss2_item'); ?>
 	</item>
-	<?php 
-	endwhile; 
+	<?php
+	endwhile;
 	?>
 </channel>
 </rss>

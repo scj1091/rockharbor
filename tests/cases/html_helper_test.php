@@ -1,11 +1,11 @@
 <?php
 
 class HtmlHelperTest extends PHPUnit_Framework_TestCase {
-	
+
 	function setUp() {
 		$this->Base = new RockharborThemeBase();
 	}
-	
+
 	function testImage() {
 		$image = $this->Base->Html->image('test.png');
 		$tags = array(
@@ -15,7 +15,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($tags, $image);
-		
+
 		$image = $this->Base->Html->image('test.png', array(
 			'alt' => 'Some picture or something'
 		));
@@ -27,7 +27,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($tags, $image);
-		
+
 		$image = $this->Base->Html->image('test.png', array(
 			'alt' => 'huh?',
 			'parent'
@@ -41,7 +41,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($tags, $image);
 	}
-	
+
 	function testTag() {
 		$result = $this->Base->Html->tag('p', 'Some content', array(
 			'onclick' => 'javascript:void();'
@@ -54,7 +54,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			'content' => 'Some content'
 		);
 		$this->assertTag($expected, $result);
-		
+
 		$result = $this->Base->Html->tag('p', array(
 			'onclick' => 'javascript:void();'
 		));
@@ -65,7 +65,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($expected, $result);
-		
+
 		$result = $this->Base->Html->tag('span', 'Hello, world!');
 		$expected = array(
 			'tag' => 'span',
@@ -73,7 +73,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($expected, $result);
 	}
-	
+
 	function testParseAttributes() {
 		$results = $this->Base->Html->parseAttributes(array(
 			'name' => 'title',
@@ -81,18 +81,18 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		));
 		$this->assertEquals($results, ' name="title" attr="value&quot;"');
 	}
-	
+
 	function testData() {
 		$data = $this->Base->Html->data();
 		$this->assertEmpty($data);
-		
+
 		$data = $this->Base->Html->data(array(
 			'value' => 'something'
 		));
 		$this->assertEquals($data, array(
 			'value' => 'something'
 		));
-		
+
 		$data = $this->Base->Html->data(array(
 			'value' => 'overridden'
 		));
@@ -100,7 +100,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			'value' => 'overridden'
 		));
 	}
-	
+
 	function testInput() {
 		$input = $this->Base->Html->input('myname');
 		$labelTag = array(
@@ -127,7 +127,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($labelTag, $input);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('myname', array('label' => false));
 		$labelTag = array(
 			'tag' => 'div',
@@ -153,7 +153,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertNotTag($labelTag, $input);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('myname', array('label' => 'Some label'));
 		$labelTag = array(
 			'tag' => 'div',
@@ -179,7 +179,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($labelTag, $input);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->data(array(
 			'myname' => 'test value'
 		));
@@ -197,7 +197,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->data(array(
 			'myname' => 'test value'
 		));
@@ -215,7 +215,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->inputPrefix = 'test_prefix';
 		$this->Base->Html->data(array(
 			'myname' => 'test value',
@@ -235,7 +235,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->inputPrefix = 'test_prefix';
 		$this->Base->Html->data(array(
 			'myname' => 'test value',
@@ -260,7 +260,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('myname', array('label' => false, 'div' => false, 'value' => 'test'));
 		$inputTag = array(
 			'tag' => 'input',
@@ -272,7 +272,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('myname', array('label' => false, 'div' => 'classname', 'value' => 'test'));
 		$inputTag = array(
 			'tag' => 'div',
@@ -291,7 +291,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testInputExtra() {
 		$input = $this->Base->Html->input('myname', array('before' => '<div>', 'between' => '</div>', 'after' => '<p>test</p>'));
 		$labelTag = array(
@@ -330,7 +330,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		$this->assertTag($inputTag, $input);
 		$this->assertTag($paraTag, $input);
 	}
-	
+
 	function testInputTextarea() {
 		$input = $this->Base->Html->input('myname', array('type' => 'textarea', 'class' => 'classname'));
 		$inputTag = array(
@@ -345,7 +345,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('myname', array('type' => 'textarea', 'value' => 'something', 'class' => 'classname'));
 		$inputTag = array(
 			'tag' => 'div',
@@ -361,7 +361,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testCheckbox() {
 		$input = $this->Base->Html->input('name', array('type' => 'checkbox', 'value' => 'something'));
 		$inputTag = array(
@@ -390,7 +390,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->data(array(
 			'name' => 1
 		));
@@ -409,7 +409,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->inputPrefix = 'meta';
 		$input = $this->Base->Html->input('name', array('type' => 'checkbox', 'value' => 'nothing'));
 		$inputTag = array(
@@ -425,7 +425,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$this->Base->Html->data(array(
 			'name1' => 'nothing'
 		));
@@ -446,7 +446,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testSubmit() {
 		$input = $this->Base->Html->input('Go!', array('type' => 'submit', 'value' => 'thiswillgoaway'));
 		$inputTag = array(
@@ -463,7 +463,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testHidden() {
 		$input = $this->Base->Html->input('hideme', array('type' => 'hidden', 'value' => 'myval'));
 		$inputTag = array(
@@ -477,7 +477,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testRadio() {
 		$this->Base->Html->data(array(
 			'name' => 'nothing'
@@ -508,7 +508,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$this->assertTag($inputTag, $input);
-		
+
 		$input = $this->Base->Html->input('name', array('type' => 'radio', 'value' => 'nothing'));
 		$inputTag = array(
 			'tag' => 'div',
@@ -525,7 +525,7 @@ class HtmlHelperTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertTag($inputTag, $input);
 	}
-	
+
 	function testTaxInput() {
 		$this->Base->Html->data(array(
 			'tax_input' => array(

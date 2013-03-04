@@ -3,7 +3,7 @@
 		<div class="entry-content">
 			<div class="staff-picture">
 				<a href="<?php the_permalink(); ?>">
-				<?php 
+				<?php
 				if (!has_post_thumbnail()) {
 					echo $theme->Html->image('notpictured.jpg', array('alt' => 'Not pictured', 'parent' => true));
 				} else {

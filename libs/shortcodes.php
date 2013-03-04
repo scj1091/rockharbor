@@ -1,26 +1,26 @@
 <?php
 /**
  * Holds all shortcode functions
- * 
+ *
  * @package rockharbor
  */
 class Shortcodes {
-	
+
 /**
  * The theme
- * 
- * @var RockharborThemeBase 
+ *
+ * @var RockharborThemeBase
  */
 	public $theme = null;
-	
+
 /**
  * Registers all shortcodes
- * 
- * @param RockharborThemeBase $theme 
+ *
+ * @param RockharborThemeBase $theme
  */
 	public function __construct($theme) {
 		$this->theme = $theme;
-		
+
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
@@ -31,10 +31,10 @@ class Shortcodes {
 		add_shortcode('service-times', array($this, 'serviceTimes'));
 		add_shortcode('address', array($this, 'address'));
 	}
-	
+
 /**
  * Renders address
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -45,10 +45,10 @@ class Shortcodes {
 		$this->theme->set('address', $this->theme->options('address', false, $attrs['campus']));
 		return $this->theme->render('address');
 	}
-	
+
 /**
  * Renders service times
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -59,27 +59,27 @@ class Shortcodes {
 		$this->theme->set('times', $this->theme->options('service_time', false, $attrs['campus']));
 		return $this->theme->render('service_times');
 	}
-	
+
 /**
  * Renders a grid layout of all children pages for the current page
- * 
+ *
  * ### Attrs:
  * - int `columns` Number of items per row
  * - int `limit` Number of items to show per page
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string 
+ * @return string
  */
 	public function childrenGrid($attr) {
 		global $wp_query, $wp_rewrite, $post;
-		
+
 		$attrs = shortcode_atts(array(
 			'columns' => 4,
 			'limit' => 16
 		), $attr);
-		
+
 		$_old_query = $wp_query;
-		
+
 		$page = (get_query_var('paged')) ? get_query_var('paged')-1 : 0;
 		$offset = $page*$attrs['limit'];
 		$query = array(
@@ -90,7 +90,7 @@ class Shortcodes {
 		);
 		$wp_query = new WP_Query($query);
 		$wp_query->query($query);
-		
+
 		// we have to gobble this up and return it so it doesn't just print everywhere
 		ob_start();
 		// loop within loop
@@ -119,18 +119,18 @@ class Shortcodes {
 		// close everything else
 		echo '</div>';
 		$return = ob_get_clean();
-		
+
 		// back to the old query
 		$wp_query = $_old_query;
-		
+
 		return $return;
 	}
-	
+
 /**
  * Renders an ebulletin archive (generated via mailchimp)
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string 
+ * @return string
  */
 	public function ebulletinArchive($attr) {
 		$id = $this->theme->options('mailchimp_folder_id');
@@ -140,10 +140,10 @@ class Shortcodes {
 		$this->theme->set(compact('id'));
 		return $this->theme->render('ebulletin_archive');
 	}
-	
+
 /**
  * Renders the full calendar
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -155,10 +155,10 @@ class Shortcodes {
 		$this->theme->set(compact('id'));
 		return $this->theme->render('calendar');
 	}
-	
+
 /**
  * Renders the directions link
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -172,7 +172,7 @@ class Shortcodes {
 
 /**
  * Renders default featured graphics
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -186,10 +186,10 @@ class Shortcodes {
 
 /**
  * Renders a video
- * 
+ *
  * ### Attrs:
  * - string $src The video source
- * 
+ *
  * @param array $attr Attributes sent by WordPress defined in the editor
  * @return string
  */
@@ -202,7 +202,7 @@ class Shortcodes {
 
 /**
  * Adds TinyMCE buttons for shortcodes
- * 
+ *
  * @return void
  */
 
@@ -217,7 +217,7 @@ class Shortcodes {
 			add_filter('mce_buttons', array($this, 'registerButtons'));
 		}
 	}
-	
+
 /**
  * Registers shortcode buttons
  *

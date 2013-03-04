@@ -3,10 +3,10 @@
  * This file is a publicly accessible end-point to uploading a file using the
  * WordPress XMLRPC API, thereby calling all hooks and filters associated with
  * it.
- * 
+ *
  * To call the sync, you *must* POST a request with the raw upload data and
  * include the following data:
- * 
+ *
  * file=<file>
  * &username=<wordpress_username>
  * &password=<wordpress_password>
@@ -14,9 +14,9 @@
 
 /**
  * Sends json response
- * 
+ *
  * @param string $message
- * @param array $errors 
+ * @param array $errors
  */
 function respond($message, $errors = array()) {
 	header("Content-type: application/json");

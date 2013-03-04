@@ -28,9 +28,9 @@ $c = 0;
 
 if ($related): ?>
 <ul class="related clearfix">
-	<?php 
-	foreach ($related as $related_post): 
-		$c++; 
+	<?php
+	foreach ($related as $related_post):
+		$c++;
 		if ($c > 3) {
 			$c = 0;
 			echo '</ul><ul class="related clearfix">';
@@ -38,7 +38,7 @@ if ($related): ?>
 	?>
 	<li>
 		<h2><a href="<?php echo get_permalink($related_post->ID); ?>"><?php echo $related_post->post_title; ?></a></h2>
-		<div><?php 
+		<div><?php
 		if (has_post_thumbnail($related_post->ID)) {
 			$thumb = get_the_post_thumbnail($related_post->ID, 'full');
 			echo $theme->Html->tag('a', $thumb, array(

@@ -1,5 +1,5 @@
-<?php 
-get_header(); 
+<?php
+get_header();
 ?>
 		<section id="content" role="main">
 			<header id="content-title">
@@ -12,12 +12,12 @@ get_header();
 			<nav id="submenu">
 				<?php get_sidebar(); ?>
 			</nav>
-			<?php if (have_posts()): 
+			<?php if (have_posts()):
 
 				while (have_posts()) {
 					the_post();
 					$sub = get_post_type();
-					get_template_part('content', $sub); 
+					get_template_part('content', $sub);
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
@@ -64,5 +64,5 @@ get_header();
 		</section>
 		<?php endif;?>
 
-<?php 
+<?php
 get_footer();

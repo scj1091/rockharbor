@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This template part is special and does not use `$wp_query`, but instead uses
  * what's made available in the manual `Message::shortcode()` loop.
@@ -20,7 +20,7 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 			</div>
 			<div class="series-details">
 				<span class="series-title">
-					<?php 
+					<?php
 					echo $theme->Html->tag('a', $item->name, array(
 						'href' => $termlink,
 						'title' => $item->name
@@ -36,7 +36,7 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 					?>
 				</span>
 				<span class="series-count">
-					<?php 
+					<?php
 					$suf = $item->series_message_count > 0 ? 'Messages' : 'Message';
 					echo $theme->Html->tag('a', $item->series_message_count." $suf", array(
 						'href' => $termlink,

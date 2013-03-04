@@ -1,6 +1,6 @@
 # ROCKHARBOR Theme Base
 
-This WordPress theme contains all of the necessary components for creating a 
+This WordPress theme contains all of the necessary components for creating a
 subsite. Subsites require a few special files for themselves to customize the
 colors.
 
@@ -29,14 +29,14 @@ At the very least, the following files should be created.
 
 #### CSS
 
-The child theme CSS should only contain styles for that child theme that need to 
+The child theme CSS should only contain styles for that child theme that need to
 be overridden. This usually just includes colors, but can include styles that
 utilize images.
 
 #### Including the theme class
 
 Also required is a class within `/libs` called `ChildTheme()`. It must
-extend `RockharborThemeBase`. All that needs to be defined are the `$themeOptions` 
+extend `RockharborThemeBase`. All that needs to be defined are the `$themeOptions`
 as explained in the base class.
 
 Next, create a `functions.php` file
@@ -64,7 +64,7 @@ site is created:
 - Menus needs to be created and assigned to the Main and Footer navigation areas
 - Theme options need to be defined, as they do not fall back on the parent theme
 - Site title in Settings > General needs to be defined
-- Under Settings > Reading, change the front page to display a static page and 
+- Under Settings > Reading, change the front page to display a static page and
 choose your homepage
 - Go to Network Admin (top right), then to Settings and make sure subsites are
 allowed to upload content
@@ -77,7 +77,7 @@ page to be this static page under Settings > Reading.
 
 There is a special shortcode for the homepage to show the default featured graphics
 if you don't have any at the time. The default featured graphics are the "Who
-Leads This Campus?" and "Why This City?" To enable them, use the following 
+Leads This Campus?" and "Why This City?" To enable them, use the following
 shortcode:
 
     [defaultfeature link1="http://example.com/link.html" link2="http://example.com/link.html"]
@@ -92,7 +92,7 @@ must dictate what features you would like the subsite to use using the `supports
 key in the `$themeOptions` var. Turning a feature on or off does not affect the
 database.
 
-If you pass `$archive == true` in the post type's option var, a shortcode will 
+If you pass `$archive == true` in the post type's option var, a shortcode will
 automatically be created for that post type, e.g. [staff]. This will embed
 the archives for that type using the template `content-$post_type.php`. For single
 views, it will use the `single-$post_type.php` template.
@@ -100,7 +100,7 @@ views, it will use the `single-$post_type.php` template.
 The following features are available:
 
 ### staff
-It also creates various conveniences, including a taxonomy for staff called 
+It also creates various conveniences, including a taxonomy for staff called
 "department" and meta boxes to organize the information.
 
 ### message

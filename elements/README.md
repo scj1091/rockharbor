@@ -10,5 +10,5 @@ use the methods in the theme base.
     // render the element here
     echo $theme->render('facebook');
 
-Elements should try as hard as possible to be reusable and to not contain any 
+Elements should try as hard as possible to be reusable and to not contain any
 database logic themselves.

@@ -9,29 +9,29 @@ class HtmlHelper {
 
 /**
  * The theme object
- * 
- * @var RockharborThemeBase 
+ *
+ * @var RockharborThemeBase
  */
 	protected $theme = null;
-	
+
 /**
  * The prefix to put before input names
- * 
+ *
  * @var string
  */
 	public $inputPrefix = '';
-	
+
 /**
  * Array of default data for inputs
- * 
+ *
  * @var array
  */
 	protected $data = array();
-	
+
 /**
  * Sets the theme object for use in this class
- * 
- * @param RockharborThemeBase $theme 
+ *
+ * @param RockharborThemeBase $theme
  */
 	public function __construct($theme = null) {
 		$this->theme = $theme;
@@ -39,7 +39,7 @@ class HtmlHelper {
 
 /**
  * Returns a captcha
- * 
+ *
  * @return string
  */
 	public function captcha() {
@@ -52,16 +52,16 @@ class HtmlHelper {
 
 /**
  * Validates a captcha
- * 
+ *
  * @return boolean
  */
 	public function validateCaptcha() {
 		global $str_key;
-		
+
 		if (!function_exists('cptch_display_captcha')) {
 			return true;
 		}
-		
+
 		if (empty($_POST['cptch_number'])) {
 			return false;
 		}
@@ -80,7 +80,7 @@ class HtmlHelper {
  * ### Attr
  * - boolean $parent If true, will pull from parent theme, otherwise child theme
  * - ...rest Attributes for the img tag
- * 
+ *
  * @param string $url The name of the image
  * @param array $attr Attributes and options
  * @return string Image code
@@ -98,13 +98,13 @@ class HtmlHelper {
 		$path = $options['parent'] ? $this->theme->info('base_url') : $this->theme->info('url');
 		return '<img src="'.$path.'/img/'.$url.'"'.$this->parseAttributes($attr).'/>';
 	}
-	
+
 /**
  * Creates a basic HTML tag.
- * 
- * If `$content` is an array, the tag is treated as a self-closing tag and 
+ *
+ * If `$content` is an array, the tag is treated as a self-closing tag and
  * `$content` is treated as the attributes.
- * 
+ *
  * @param string $tag Tag name
  * @param string $content Content to fill the tag
  * @param array $attr Array of attributes
@@ -126,13 +126,13 @@ class HtmlHelper {
 
 /**
  * Creates an input field
- * 
+ *
  * If `$label` is false, no label will be created. If no `$value` is defined,
  * it will look for one in `$this->data` and use it instead.
- * 
+ *
  * If `$div` is false, it won't be wrapped in a div. It's a string, the string
  * value will be used as a class.
- * 
+ *
  * @param string $name Name of input
  * @param array $options List of options
  */
@@ -181,19 +181,19 @@ class HtmlHelper {
 			$options['name'] = $this->inputPrefix.'['.$options['name'].']';
 		}
 		$options['id'] = preg_replace('/[^a-z0-9]+/i', '', $options['name']);
-		
+
 		if ($options['type'] == 'hidden') {
 			$options['label'] = false;
 			$options['div'] = false;
 		}
-		
+
 		$before = $options['before'];
 		unset($options['before']);
 		$after = $options['after'];
 		unset($options['after']);
 		$between = $options['between'];
 		unset($options['between']);
-		
+
 		$out = '';
 		if (!empty($before)) {
 			$out .= $before;
@@ -256,7 +256,7 @@ class HtmlHelper {
 			$out .= $after;
 		}
 		unset($options['after']);
-		
+
 		if ($div === false) {
 			return $out;
 		}
@@ -266,10 +266,10 @@ class HtmlHelper {
 		}
 		return $this->tag('div', $out, $attrs);
 	}
-	
+
 /**
  * Data for input fields
- * 
+ *
  * @param array $data Data to set
  * @return array
  */

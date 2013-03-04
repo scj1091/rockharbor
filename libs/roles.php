@@ -2,22 +2,22 @@
 
 /**
  * ROCKHARBOR Role class. Handles custom roles
- * 
+ *
  * @package rockharbor
  */
 class Roles {
-	
+
 /**
  * The theme
- * 
- * @var RockharborThemeBase 
+ *
+ * @var RockharborThemeBase
  */
 	public $theme = null;
 
 /**
  * Role setup
- * 
- * @param RockharborThemeBase $theme 
+ *
+ * @param RockharborThemeBase $theme
  */
 	function __construct($theme = null) {
 		$this->theme = $theme;
@@ -27,7 +27,7 @@ class Roles {
 /**
  * Adds new roles if they are missing. Also takes care of other access control
  * related filters.
- * 
+ *
  * @return void
  */
 	public function init() {
@@ -41,7 +41,7 @@ class Roles {
 				'read' => true
 			));
 		}
-		
+
 		$user = $this->theme->userMetaToData(get_current_user_id());
 		if (!empty($user['show_only_owned_posts'])) {
 			add_filter('pre_get_posts', array($this, 'limitPostsToUser'));
@@ -50,7 +50,7 @@ class Roles {
 
 /**
  * Limits posts that users see to their own
- * 
+ *
  * @param WP_Query $query The query object
  * @return WP_Query
  */
@@ -61,5 +61,5 @@ class Roles {
 		}
 		return $query;
 	}
-	
+
 }

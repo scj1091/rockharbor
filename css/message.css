@@ -5,7 +5,7 @@
 	width: 24%;
 	margin-right: 1%;
 	padding-bottom: 0;
-	
+
 	border-bottom: none;
 }
 
@@ -16,7 +16,7 @@
 #content article.message-series span {
 	display: block;
 	overflow: hidden;
-	
+
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	line-height: 15px;
@@ -31,7 +31,7 @@
 #content article.first.message-series {
 	padding-bottom: 20px;
 	width: 100%;
-	
+
 	border-bottom: 1px dotted #747474;
 }
 
@@ -72,7 +72,7 @@
 
 #content article.first.message-series .message-links a {
 	display: block;
-	
+
 }
 
 /*= Single message
@@ -91,7 +91,7 @@ article.message .message-title {
 
 article.message .meta-title {
 	margin-right: 5px;
-	
+
 	text-transform: uppercase;
 }
 

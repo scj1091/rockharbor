@@ -1,5 +1,5 @@
-<?php 
-global $theme; 
+<?php
+global $theme;
 $twitteruser = $theme->options('twitter_user');
 $fbuser = $theme->options('facebook_user');
 $coreid = $theme->options('core_id');
@@ -14,9 +14,9 @@ $core_calendar_id = $theme->options('core_calendar_id');
 <div id="secondary" class="home-widget-area">
 	<div class="title"><h3><?php echo $theme->Html->image('twitter-icon.png'); ?>Twitter</h3><a class="title-icon" target="_blank" href="http://twitter.com/<?php echo $twitteruser; ?>"><?php echo $theme->Html->image('out.png'); ?></a></div>
 	<div class="body">
-		<?php 
+		<?php
 		$theme->set('term', $theme->options('twitter_search'));
-		echo $theme->render('twitter'); 
+		echo $theme->render('twitter');
 		?>
 	</div>
 	<div class="title white"><h3><?php echo $theme->Html->image('story-icon.png', array('parent' => true)); ?>Share Your Story</h3></div>

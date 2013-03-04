@@ -1,5 +1,5 @@
-<?php 
-get_header(); 
+<?php
+get_header();
 ?>
 		<section id="content" role="main">
 			<header id="content-title">
@@ -23,5 +23,5 @@ get_header();
 
 		</section>
 
-<?php 
+<?php
 get_footer();

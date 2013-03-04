@@ -3,7 +3,7 @@
 Template Name: Full page
 */
 
-get_header(); 
+get_header();
 ?>
 		<section id="content" role="main" class="full">
 			<header id="content-title">
@@ -13,12 +13,12 @@ get_header();
 					</span>
 				</h1>
 			</header>
-			<?php if (have_posts()): 
+			<?php if (have_posts()):
 
 				while (have_posts()) {
 					the_post();
 					$sub = get_post_type();
-					get_template_part('content', $sub); 
+					get_template_part('content', $sub);
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
@@ -39,5 +39,5 @@ get_header();
 			<?php endif; ?>
 
 		</section>
-<?php 
+<?php
 get_footer();

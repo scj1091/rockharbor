@@ -362,12 +362,12 @@ th {
   width: 120px;
 }
 
-#access ul li div.submenu.cols2 { 
-	width: 240px; 
+#access ul li div.submenu.cols2 {
+	width: 240px;
 }
 
-#access ul li div.submenu.cols3 { 
-	width: 360px; 
+#access ul li div.submenu.cols3 {
+	width: 360px;
 }
 
 #access ul li div.submenu ul {
@@ -613,7 +613,7 @@ footer h3 {
   display: block;
 }
 
-#footer, 
+#footer,
 #footer a,
 #footer ul.menu li a {
   color: #747474;
@@ -922,7 +922,7 @@ article footer ul.related li {
 
 article footer ul.related li div {
   margin-bottom: 5px;
-  
+
 }
 
 article footer ul.related li:first-child {

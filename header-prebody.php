@@ -68,12 +68,12 @@
 			var id = jQuery(this).attr('id');
 			jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
 		}).lightbox();
-		
+
 		jQuery('.flash-message').delay(5000).slideUp();
 		jQuery('img')
 			.removeAttr('width')
 			.removeAttr('height');
-		
+
 		// improve media elements
 		jQuery('video')
 			.each(function() {

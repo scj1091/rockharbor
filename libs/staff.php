@@ -1,9 +1,9 @@
 <?php
 /**
- * Staff 
- * 
+ * Staff
+ *
  * Handles everything needed to create a Staff post type.
- * 
+ *
  * @package rockharbor
  * @subpackage rockharbor.libs
  */
@@ -11,7 +11,7 @@ class Staff extends PostType {
 
 /**
  * Post type options
- * 
+ *
  * @var array
  */
 	public $options = array(
@@ -24,10 +24,10 @@ class Staff extends PostType {
 			'thumbnail'
 		)
 	);
-	
+
 /**
  * Default archive query
- * 
+ *
  * @var array
  */
 	public $archiveQuery = array(
@@ -35,16 +35,16 @@ class Staff extends PostType {
 		'orderby' => 'title',
 		'order' => 'ASC'
 	);
-	
+
 /**
  * Sets the theme object for use in this class and instantiates the Staff post
  * type and related needs
- * 
- * @param RockharborThemeBase $theme 
+ *
+ * @param RockharborThemeBase $theme
  */
 	public function __construct($theme = null) {
 		parent::__construct($theme);
-		
+
 		register_taxonomy('department', $this->name, array(
 			'label' => __('Department', 'rockharbor'),
 			'sort' => true,
@@ -76,7 +76,7 @@ class Staff extends PostType {
 		add_meta_box('staff_details', 'Details', array($this, 'detailsMetaBox'), $this->name, 'normal');
 		remove_meta_box('tagsdiv-department', $this->name, 'side');
 	}
-	
+
 /**
  * Renders the meta box for core events on pages
  */

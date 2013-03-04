@@ -1,5 +1,5 @@
-<?php 
-global $theme, $post; 
+<?php
+global $theme, $post;
 $meta = $theme->metaToData($post->ID);
 ?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -13,11 +13,11 @@ $meta = $theme->metaToData($post->ID);
 			<?php endif; ?>
 			<div class="message-details<?php if (has_post_thumbnail()) { echo ' with-image'; } ?>">
 				<div class="message-header clearfix">
-					<?php 
+					<?php
 					echo $theme->Html->tag('a', $post->post_title, array(
 						'class' => 'message-title',
 						'href' => get_permalink()
-					)); 
+					));
 					$theme->set('date', $post->post_date);
 					echo $theme->render('posted_date');
 					?>

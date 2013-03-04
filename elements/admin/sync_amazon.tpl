@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (isset($message)) {
 	echo $theme->Html->tag('div', $theme->Html->tag('p', $message), array('class' => 'updated below-h2'));
 }

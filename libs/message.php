@@ -1,17 +1,17 @@
 <?php
 /**
- * Message 
- * 
+ * Message
+ *
  * Handles everything needed for message archives
- * 
+ *
  * @package rockharbor
  * @subpackage rockharbor.libs
  */
 class Message extends PostType {
-	
+
 /**
  * Post type options
- * 
+ *
  * @var array
  */
 	public $options = array(
@@ -26,10 +26,10 @@ class Message extends PostType {
 			'excerpt'
 		)
 	);
-	
+
 /**
  * Default archive query
- * 
+ *
  * @var array
  */
 	public $archiveQuery = array(
@@ -37,52 +37,52 @@ class Message extends PostType {
 		'orderby' => 'title',
 		'order' => 'ASC'
 	);
-	
+
 /**
  * Sets the theme object for use in this class and instantiates the post
  * type and related needs
- * 
- * @param RockharborThemeBase $theme 
+ *
+ * @param RockharborThemeBase $theme
  */
 	public function __construct($theme = null) {
 		parent::__construct($theme);
-		
+
 		register_taxonomy('series', $this->name, array(
 			'label' => __('Series', 'rockharbor'),
 			'sort' => true,
 			'rewrite' => array('slug' => 'series', 'with_front' => false)
 		));
-		
+
 		register_taxonomy('teacher', $this->name, array(
 			'label' => __('Teachers', 'rockharbor'),
 			'sort' => true,
 			'rewrite' => array('slug' => 'teachers', 'with_front' => false)
 		));
-		
+
 		register_taxonomy_for_object_type('post_tag', $this->name);
 	}
-	
+
 /**
  * Overrides `shortcode()` method to look up and group by categories instead
  * of messages
- * 
+ *
  * @param array $attrs Shortcode attributes
  * @return string Post type's archives
  */
 	public function shortcode($attrs = array()) {
 		global $wp_query, $wp_rewrite, $wpdb, $item;
-		
+
 		$_old_query = $wp_query;
-		
+
 		$page = (get_query_var('paged')) ? get_query_var('paged')-1 : 0;
 		// if on the first page, show the first message in addition to other series
 		$termsperpage = $page == 0 ? 17 : 16;
 		$offset = $page*$termsperpage;
-		
-		// get all series and include their first post date, last post date, 
+
+		// get all series and include their first post date, last post date,
 		// total count and other relevant information
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-		
+
 				# fields
 				`$wpdb->terms`.`term_id`,
 				`$wpdb->terms`.`name`,
@@ -90,31 +90,31 @@ class Message extends PostType {
 				MIN(`$wpdb->posts`.`post_date`) AS series_start_date,
 				MAX(`$wpdb->posts`.`post_date`) AS series_end_date,
 				COUNT(`$wpdb->posts`.`ID`) AS series_message_count
-				
-				FROM `$wpdb->term_taxonomy` 
-				
+
+				FROM `$wpdb->term_taxonomy`
+
 				# join term relationship
 				LEFT JOIN `$wpdb->term_relationships` ON (`$wpdb->term_relationships`.`term_taxonomy_id` = `$wpdb->term_taxonomy`.`term_taxonomy_id`)
-				
+
 				# bring in post info for counts
 				LEFT JOIN `$wpdb->posts` ON (`$wpdb->posts`.`ID` = `$wpdb->term_relationships`.`object_id`)
-				
+
 				# bring in series info
 				LEFT JOIN `$wpdb->terms` ON (`$wpdb->terms`.`term_id` = `$wpdb->term_taxonomy`.`term_id`)
-				
+
 				WHERE `$wpdb->term_taxonomy`.`taxonomy` = 'series'
 				AND `$wpdb->posts`.`post_status` = 'publish'
-				
+
 				GROUP BY `$wpdb->terms`.`term_id`
-				
+
 				ORDER BY series_end_date DESC
-				
+
 				LIMIT $offset,$termsperpage
 				;";
 		$series = $wpdb->get_results($sql);
 		$count = $wpdb->get_results('SELECT FOUND_ROWS();');
 		$count = $count[0]->{'FOUND_ROWS()'};
-		
+
 		ob_start();
 		foreach ($series as $num => $seriesItem) {
 			$last = get_posts(array(
@@ -127,9 +127,9 @@ class Message extends PostType {
 			if (!empty($last)) {
 				$seriesItem->last = $last[0];
 			}
-			
+
 			$item = $seriesItem;
-			
+
 			if ($num == 0 && $page == 0) {
 				get_template_part('content', 'series-first');
 				echo '<div class="series-collection">';
@@ -140,21 +140,21 @@ class Message extends PostType {
 				get_template_part('content', 'series');
 			}
 		}
-		
+
 		$this->theme->set('wp_rewrite', $wp_rewrite);
 		$wp_query->max_num_pages = ceil($count / $termsperpage);
 		$this->theme->set('wp_query', $wp_query);
 		$return = ob_get_clean();
-		
+
 		// back to the old query
 		$wp_query = $_old_query;
-		
+
 		return $return;
 	}
 
 /**
  * Called after a post is saved. Adds enclosures
- * 
+ *
  * @param type $data Post data
  * @param type $postId Post id
  */
@@ -194,7 +194,7 @@ class Message extends PostType {
 
 /**
  * Meta box for audio/video
- */	
+ */
 	public function mediaMetaBox() {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));

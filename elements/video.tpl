@@ -40,7 +40,7 @@ $id = uniqid();
 		<label for="height-<?php echo $id;?>">Height:</label>
 		<input type="text" value="225" id="height-<?php echo $id;?>" size="10" />
 	</div>
-	<video 
+	<video
 		id="embedded-player-<?php echo $id;?>"
 		src="<?php echo $file; ?>"
 		controls
@@ -88,13 +88,13 @@ $id = uniqid();
 			h = jQuery(this).val();
 			w = h*16/9;
 		}
-		
+
 		w = Math.ceil(w);
 		h = Math.ceil(h);
-		
+
 		jQuery('#width-<?php echo $id;?>').val(w);
 		jQuery('#height-<?php echo $id;?>').val(h);
-		
+
 		var embed = jQuery('#code-<?php echo $id;?>').val();
 		embed = embed.replace(/width="([0-9]+)"/, 'width="'+w+'"');
 		embed = embed.replace(/height="([0-9]+)"/, 'height="'+h+'"');

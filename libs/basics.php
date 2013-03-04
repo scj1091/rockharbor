@@ -1,7 +1,7 @@
 <?php
 /**
  * Adds some debugging functionality
- * 
+ *
  * Place a require in `wp_config.php` in order to avoid showing plugin errors
  * before `functions.php` is included.
  */

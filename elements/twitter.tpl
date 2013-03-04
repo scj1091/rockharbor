@@ -31,7 +31,7 @@ for ($t=0; $t<$limit; $t++): $item = $items['results'][$t]; if (!$item) { contin
 		</div>
 		<div class="twitter-tweet"><?php
 		$item['text'] = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $item['text']);
-		$item['text'] = preg_replace('/(@)(\w+)/', '<a href="http://twitter.com/$2">$1$2</a>', $item['text']);	
+		$item['text'] = preg_replace('/(@)(\w+)/', '<a href="http://twitter.com/$2">$1$2</a>', $item['text']);
 		echo $item['text'];
 		?></div>
 		<div class="twitter-time">

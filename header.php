@@ -2,13 +2,13 @@
 <?php get_template_part('header', 'prebody') ?>
 <body <?php body_class(); ?>>
 
-	
+
 	<div id="page" class="hfeed clearfix">
 
 		<?php
 		echo $theme->render('global_navigation');
 		?>
-		
+
 		<header id="branding" role="banner">
 			<div id="banner" class="clearfix"><?php echo $theme->render('banner'); ?></div>
 			<nav id="access" role="navigation" class="clearfix">
@@ -60,14 +60,14 @@
 				?>
 			</nav>
 		</header>
-		
-		<?php 
+
+		<?php
 		if (isset($_SESSION['message'])) {
 			echo $theme->Html->tag('div', $_SESSION['message'], array('class' => 'flash-message'));
 			unset($_SESSION['message']);
 		}
 		?>
-		
+
 		<?php if (!empty($post->post_parent)): ?>
 		<nav class="breadcrumb">
 			<?php
@@ -83,7 +83,7 @@
 				));
 			}
 			$links[] = $post->post_title;
-			
+
 			echo implode($sep, $links);
 			?>
 		</nav>

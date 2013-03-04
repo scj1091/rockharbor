@@ -16,7 +16,7 @@ the_post();
 				$meta = $theme->metaToData($post->ID);
 				?>
 				<div class="entry-content">
-					<?php 
+					<?php
 					$video = $theme->render('video');
 					if (empty($video) && has_post_thumbnail()) {
 						the_post_thumbnail($post->ID, 'full');
@@ -26,8 +26,8 @@ the_post();
 					?>
 					<div class="message-details clearfix">
 						<div class="message-header clearfix">
-							<?php 
-							echo $theme->Html->tag('span', $post->post_title, array('class' => 'message-title')); 
+							<?php
+							echo $theme->Html->tag('span', $post->post_title, array('class' => 'message-title'));
 							$theme->set('date', $post->post_date);
 							echo $theme->render('posted_date');
 							?>
@@ -56,9 +56,9 @@ the_post();
 					<div class="message-more share">
 						<div class="message-share">
 							<h1>Share</h1>
-							<?php 
+							<?php
 							$theme->set('message', 'Watch "'.get_the_title().'" from @'.$theme->options('twitter_user').' at ');
-							echo $theme->render('share'); 
+							echo $theme->render('share');
 							?>
 						</div>
 						<div class="message-download">
@@ -99,13 +99,13 @@ the_post();
 					</div>
 					<footer class="message-related">
 						<h1>Related</h1>
-						<?php 
+						<?php
 						$theme->set('types', array('post', 'message', 'page'));
-						echo $theme->render('related_content'); 
+						echo $theme->render('related_content');
 						?>
 					</footer>
 				</div>
 			</article>
 		</section>
-<?php 
+<?php
 get_footer();
