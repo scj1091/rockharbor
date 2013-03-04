@@ -21,11 +21,14 @@ if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
 
-/**
- * Short version of DIRECTORY_SEPARATOR
- */
+if (!defined('ROOT')) {
+	define('ROOT', dirname(dirname(__FILE__)));
+}
 if (!defined('LIBS')) {
-	define('LIBS', dirname(__FILE__));
+	define('LIBS', ROOT . DS . 'libs');
+}
+if (!defined('VENDORS')) {
+	define('VENDORS', ROOT . DS . 'vendors');
 }
 
 /**
