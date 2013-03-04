@@ -1,6 +1,5 @@
 <?php
-
-if (empty($_POST) || empty($_POST['action'])) {
+if (empty($_REQUEST['action'])) {
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
@@ -24,8 +23,8 @@ if (file_exists($file)) {
 $theme = new $class;
 
 // if an action is POSTed to the site, the action will be called here
-if (method_exists($theme, $_POST['action']) && in_array($_POST['action'], $theme->allowedActions)) {
-	$result = call_user_func(array($theme, $_POST['action']));
+if (method_exists($theme, $_REQUEST['action']) && in_array($_REQUEST['action'], $theme->allowedActions)) {
+	$result = call_user_func(array($theme, $_REQUEST['action']));
 	if (!empty($theme->messages)) {
 		$_SESSION['message']  = implode(', ', $theme->messages);
 	}
