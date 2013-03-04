@@ -16,6 +16,42 @@ class Twitter {
 	}
 
 /**
+ * Gets a Twitter search feed
+ *
+ * @param string $searchTerm Search term
+ * @param integer $limit Maximum items to show
+ * @return array Array of statuses
+ */
+	public function fetchFeed($searchTerm = null, $limit = 5) {
+		$authToken = $this->theme->options('twitter_oauth_token');
+		$authTokenSecret = $this->theme->options('twitter_oauth_token_secret');
+
+		if (empty($authToken) || empty($authTokenSecret)) {
+			return array();
+		}
+
+		$oauth = new tmhOAuth(array(
+			'consumer_key' => TWITTER_CONSUMER_KEY,
+			'consumer_secret' => TWITTER_CONSUMER_SECRET
+		));
+
+ 		$oauth->config['user_token'] = $authToken;
+		$oauth->config['user_secret'] = $authTokenSecret;
+
+		$searchTerm = urlencode($searchTerm);
+		$code = $oauth->request('GET', $oauth->url('1.1/search/tweets'), array(
+			'q' => urlencode($searchTerm),
+			'count' => $limit
+		));
+
+		if ($code == 200) {
+			$response = json_decode($oauth->response['response'], true);
+			return $response['statuses'];
+		}
+		return array();
+	}
+
+/**
  * Removes stored oauth tokens
  *
  * @return boolean
