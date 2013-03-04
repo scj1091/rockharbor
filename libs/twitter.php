@@ -31,8 +31,11 @@ class Twitter {
  *
  * @return string
  */
-	public function oauthCallback() {
-		return ($this->theme->info('base_url').'/action.php?action=oauth');
+	public function oauthCallback($nonce = null) {
+		if (is_null($nonce)) {
+			$nonce = wp_create_nonce('action-nonce');
+		}
+		return ($this->theme->info('base_url')."/action.php?action=oauth&_wpnonce=$nonce");
 	}
 
 /**

@@ -1,5 +1,8 @@
 <?php
-if (empty($_REQUEST['action'])) {
+session_start();
+
+if (empty($_REQUEST['action']) || empty($_REQUEST['_wpnonce'])) {
+	$_SESSION['message'] = 'Invalid request!';
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 	exit;
 }
@@ -21,6 +24,13 @@ if (file_exists($file)) {
 }
 
 $theme = new $class;
+
+// verify nonce
+if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'action-nonce')) {
+	$_SESSION['message'] = 'Invalid request!';
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+	exit;
+}
 
 // if an action is POSTed to the site, the action will be called here
 if (method_exists($theme, $_REQUEST['action']) && in_array($_REQUEST['action'], $theme->allowedActions)) {

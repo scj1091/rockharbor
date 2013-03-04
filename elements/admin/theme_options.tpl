@@ -69,10 +69,11 @@ if (!isset($_REQUEST['settings-updated'])) {
 				<th>Twitter</th>
 				<td>
 					<?php
+					$nonce = wp_create_nonce('action-nonce');
 					$authedTokens = $theme->options('twitter_oauth_token');
 					if (empty($authedTokens)) {
 						$token = $theme->Twitter->oauthRequestToken();
-						$cb = $theme->Twitter->oauthCallback();
+						$cb = $theme->Twitter->oauthCallback($nonce);
 						if (empty($token)) {
 							echo $this->Html->tag('p', 'ERROR: Invalid request tokens returned. Make sure all Twitter configuration is present.');
 						} else {
@@ -82,6 +83,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 								'parent' => true
 							));
 							$queryString = "oauth_token=$requestToken";
+							$queryString .= "&_wpnonce=$nonce";
 							echo $theme->Html->tag('a', $img, array(
 								'href' => "https://api.twitter.com/oauth/authorize?$queryString",
 								'target' => '_blank'
@@ -89,7 +91,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 						}
 					} else {
 						echo $theme->Html->tag('a', 'Deauthorize Twitter', array(
-							'href' => $this->info('base_url').'/action.php?action=oauth&clear=1'
+							'href' => $this->info('base_url')."/action.php?action=oauth&clear=1&_wpnonce=$nonce"
 						));
 					}
 					?>

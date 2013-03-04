@@ -1,5 +1,6 @@
 <form action="<?php echo $theme->info('base_url') . '/action.php'; ?>" method="POST" id="share-your-story">
 	<?php
+	wp_nonce_field('action-nonce');
 	echo $theme->Html->input('name', array('div' => 'half', 'label' => 'Name'));
 	echo $theme->Html->input('email', array('type' => 'email', 'div' => 'half', 'label' => 'Email'));
 	echo $theme->Html->input('story', array('type' => 'textarea', 'label' => false));
