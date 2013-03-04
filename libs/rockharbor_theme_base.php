@@ -6,6 +6,7 @@ require_once 'basics.php';
 require_once 'html_helper.php';
 require_once 'shortcodes.php';
 require_once 'post_type.php';
+require_once 'twitter.php';
 
 /**
  * ROCKHARBOR Theme base class. All child themes should extend this base class
@@ -132,6 +133,7 @@ class RockharborThemeBase {
 
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
+		$this->Twitter = new Twitter($this);
 
 		add_action('init', array($this, 'addFeatures'));
 
@@ -336,9 +338,9 @@ class RockharborThemeBase {
 		}
 
 		if (isset($_GET['clear'])) {
-			$this->Admin->clearOauthTokens();
+			$this->Twitter->clearOauthTokens();
 		} elseif (isset($_GET['oauth_verifier'])) {
-			$accessTokens = $this->Admin->oauthAccessToken($_GET['oauth_verifier']);
+			$accessTokens = $this->Twitter->oauthAccessToken($_GET['oauth_verifier']);
 			if (empty($accessTokens)) {
 				$_SESSION['message'] = 'Error getting access tokens.';
 			}
