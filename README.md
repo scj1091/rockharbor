@@ -69,6 +69,16 @@ choose your homepage
 - Go to Network Admin (top right), then to Settings and make sure subsites are
 allowed to upload content
 
+In order to pull Twitter feeds, a Twitter application must be made and the
+consumer credentials stored in `wp-config.php`:
+
+    define('TWITTER_CONSUMER_KEY', 'my consumer key');
+    define('TWITTER_CONSUMER_SECRET', 'my secret key');
+
+This allows themes to authenticate Twitter users (usually the site's Twitter
+account) against the application. The application only needs read permission
+as all it does it use Twitter's `/search/tweets` API endpoint.
+
 ### Homepage
 
 The homepage is a static page that displays its content above the main nav bar,
