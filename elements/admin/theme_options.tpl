@@ -90,6 +90,12 @@ if (!isset($_REQUEST['settings-updated'])) {
 							));
 						}
 					} else {
+						echo $theme->Html->input('twitter_oauth_token', array(
+							'type' => 'hidden'
+						));
+						echo $theme->Html->input('twitter_oauth_token_secret', array(
+							'type' => 'hidden'
+						));
 						echo $theme->Html->tag('a', 'Deauthorize Twitter', array(
 							'href' => $this->info('base_url')."/action.php?action=oauth&clear=1&_wpnonce=$nonce"
 						));
