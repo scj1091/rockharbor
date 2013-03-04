@@ -95,7 +95,10 @@ class RockharborThemeBase {
  *
  * @var array
  */
-	public $allowedActions = array('email');
+	public $allowedActions = array(
+		'email',
+		'oauth'
+	);
 
 /**
  * Array of messages
@@ -320,6 +323,28 @@ class RockharborThemeBase {
 			);
 		}
 		return json_decode($response['body'], true);
+	}
+
+/**
+ * Handles oauth flow
+ */
+	public function oauth() {
+		// redirect back to theme options
+		$url = '/wp-admin/themes.php?page=theme_options';
+		if (!is_user_logged_in()) {
+			$url = '/';
+		}
+
+		if (isset($_GET['clear'])) {
+			$this->Admin->clearOauthTokens();
+		} elseif (isset($_GET['oauth_verifier'])) {
+			$accessTokens = $this->Admin->oauthAccessToken($_GET['oauth_verifier']);
+			if (empty($accessTokens)) {
+				$_SESSION['message'] = 'Error getting access tokens.';
+			}
+		}
+
+		header("Location: $url");
 	}
 
 /**

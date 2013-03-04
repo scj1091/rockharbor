@@ -66,14 +66,34 @@ if (!isset($_REQUEST['settings-updated'])) {
 				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
 			</tr>
 			<tr valign="top">
-				<?php
-					echo $theme->Html->input('twitter_user', array(
-						'before' => '<th>',
-						'label' => 'Twitter User',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(twitter username, without the @ symbol)</small></td>'
-					));
-				?>
+				<th>Twitter</th>
+				<td>
+					<?php
+					$authedTokens = $theme->options('twitter_oauth_token');
+					if (empty($authedTokens)) {
+						$token = $theme->Admin->oauthRequestToken();
+						$cb = $theme->Admin->oauthCallback();
+						if (empty($token)) {
+							echo $this->Html->tag('p', 'ERROR: Invalid request tokens returned. Make sure all Twitter configuration is present.');
+						} else {
+							$requestToken = $token['oauth_token'];
+							$img = $theme->Html->image('sign-in-with-twitter-gray.png', array(
+								'alt' => 'Sign in with Twitter',
+								'parent' => true
+							));
+							$queryString = "oauth_token=$requestToken";
+							echo $theme->Html->tag('a', $img, array(
+								'href' => "https://api.twitter.com/oauth/authorize?$queryString",
+								'target' => '_blank'
+							));
+						}
+					} else {
+						echo $theme->Html->tag('a', 'Deauthorize Twitter', array(
+							'href' => $this->info('base_url').'/action.php?action=oauth&clear=1'
+						));
+					}
+					?>
+				</td>
 			</tr>
 			<tr valign="top">
 				<?php
