@@ -40,7 +40,7 @@ class Twitter {
 
 		$searchTerm = urlencode($searchTerm);
 		$code = $oauth->request('GET', $oauth->url('1.1/search/tweets'), array(
-			'q' => urlencode($searchTerm),
+			'q' => $searchTerm,
 			'count' => $limit
 		));
 
