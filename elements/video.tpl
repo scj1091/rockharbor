@@ -10,8 +10,13 @@ if (empty($file)) {
 	return null;
 }
 
-$streamer = $theme->options('s3_streamer');
-$bucket = $theme->options('s3_bucket');
+// check if we should pull streaming info from another blog
+if (!isset($campus) || empty($campus)) {
+	$campus = $theme->info('id');
+}
+
+$streamer = $theme->options('s3_streamer', false, $campus);
+$bucket = $theme->options('s3_bucket', false, $campus);
 
 $poster = null;
 $thumb = get_post_thumbnail_id($post->ID);
