@@ -10,18 +10,24 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 	</div>
 </div>
 <footer role="contentinfo">
+	<div class="tabs clearfix">
+		<a href="#footer" data-tab="#footer .first" class="icon-message"></a>
+		<a href="#footer" data-tab="#footer .second" class="icon-more"></a>
+		<a href="#footer" data-tab="#footer .third" class="icon-connect"></a>
+		<a href="#footer" data-tab="#footer .last" class="icon-campus"></a>
+	</div>
 	<div id="footer">
 		<div class="first">
-			<h3>Prayer Requests</h3>
+			<h3>Send Us a Message</h3>
 			<?php
-			echo $theme->render('prayer_request');
+			echo $theme->render('quick_contact');
 			?>
 		</div>
-		<div>
+		<div class="second">
 			<h3>More</h3>
-			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => function() { })); ?>
+			<?php wp_nav_menu(array('theme_location' => 'footer', 'menu_class' => 'menu', 'fallback_cb' => create_function('', 'return;'))); ?>
 		</div>
-		<div>
+		<div class="third">
 			<h3>Connect</h3>
 			<p class="icons">
 				<?php if (!empty($feedburnerid)): ?>
@@ -56,7 +62,6 @@ $ebulletinpage = $theme->options('ebulletin_archive_page_id');
 		<div class="last">
 			<h3>Campuses</h3>
 			<?php
-			$theme->set('reverse', true);
 			echo $theme->render('campus_menu');
 			?>
 		</div>

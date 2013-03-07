@@ -23,36 +23,38 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 				?>
 			</div>
 			<div class="series-details">
-				<span class="series-title">
+				<h2>
 					<?php
 					echo $theme->Html->tag('a', $item->last->post_title, array(
 						'href' => $permalink,
 						'title' => $item->last->post_title
 					));
 					?>
-				</span>
-				<span class="series-date">
-					<?php
-					$date = date('Y-m-d', strtotime($item->last->post_date));
-					$theme->set('date', $date);
-					echo $theme->render('posted_date');
-					?>
-				</span>
-				<span class="message-excerpt">
+				</h2>
+				<?php
+				$date = date('Y-m-d', strtotime($item->last->post_date));
+				$theme->set('date', $date);
+				echo $theme->render('posted_date');
+				?>
+				<p>
 					<?php echo $item->last->post_excerpt; ?>
-				</span>
-				<span class="message-links">
+				</p>
+				<p>
 					<?php
 					echo $theme->Html->tag('a', 'Watch This Message', array(
 						'href' => $permalink,
 						'title' => $item->last->post_title
 					));
+					?>
+				</p>
+				<p>
+					<?php
 					echo $theme->Html->tag('a', 'More Messages in "'.$item->name.'"', array(
 						'href' => $termlink,
 						'title' => $item->name
 					));
 					?>
-				</span>
+				</p>
 			</div>
 		</div>
 	</article>

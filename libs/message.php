@@ -140,6 +140,7 @@ class Message extends PostType {
 				get_template_part('content', 'series');
 			}
 		}
+		echo '</div>';
 
 		$this->theme->set('wp_rewrite', $wp_rewrite);
 		$wp_query->max_num_pages = ceil($count / $termsperpage);

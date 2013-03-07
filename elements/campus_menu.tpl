@@ -2,7 +2,6 @@
 /**
  * This is hard-coded because the order is defined here, not in the db. Also time.
  */
-$reverse = isset($reverse) ? $reverse : false;
 ?>
 <ul class="campus-list">
 	<li><a href="http://missionviejo.rockharbor.org" class="mission-viejo">Mission Viejo</a></li>

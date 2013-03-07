@@ -23,8 +23,6 @@ class Shortcodes {
 
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
-		add_shortcode('defaultfeature', array($this, 'defaultFeature'));
-		add_shortcode('directions', array($this, 'directions'));
 		add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
@@ -127,6 +125,19 @@ class Shortcodes {
 	}
 
 /**
+ * Removes a shortcode
+ *
+ * Useful for when you're taking a video out of the content flow to display
+ * elsewhere and don't want the video to be repeated.
+ *
+ * @param string $shortcode Shortcode to remove
+ * @see http://stackoverflow.com/questions/9440423/wordpress-strip-single-shortcode-from-posts
+ */
+	public function remove($shortcode) {
+		add_shortcode($shortcode, '__return_false');
+	}
+
+/**
  * Renders an ebulletin archive (generated via mailchimp)
  *
  * @param array $attr Attributes sent by WordPress defined in the editor
@@ -154,34 +165,6 @@ class Shortcodes {
 		$id = $attrs['id'];
 		$this->theme->set(compact('id'));
 		return $this->theme->render('calendar');
-	}
-
-/**
- * Renders the directions link
- *
- * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string
- */
-	public function directions($attr) {
-		$this->theme->set(shortcode_atts(array(
-			'title' => 'Get directions',
-			'link' => null
-		), $attr));
-		return $this->theme->render('directions');
-	}
-
-/**
- * Renders default featured graphics
- *
- * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string
- */
-	public function defaultFeature($attr) {
-		$this->theme->set(shortcode_atts(array(
-			'link1' => null,
-			'link2' => null
-		), $attr));
-		return $this->theme->render('default_feature');
 	}
 
 /**

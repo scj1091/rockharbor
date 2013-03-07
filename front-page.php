@@ -10,16 +10,17 @@
 global $wp_rewrite, $wp_query, $more, $wpdb, $post;
 get_header();
 ?>
-		<section id="content" role="main">
-			<header id="content-title">
-				<h1 class="page-title">
-					<span>
-						<?php
-						echo $post->post_title;
-						?>
-					</span>
-				</h1>
+		<section id="frontpage-sidebar" role="complementary">
+			<?php
+			dynamic_sidebar('sidebar-frontpage');
+			?>
+		</section>
+
+		<section id="frontpage-content" role="main">
+			<header id="frontpage-title">
+				<h1><?php echo $post->post_title; ?></h1>
 			</header>
+			<article class="stories-2">
 			<?php
 				// make WordPress treat these as partial posts
 				$more = 0;
@@ -28,18 +29,23 @@ get_header();
 				while (have_posts()) {
 					the_post();
 					switch_to_blog($post->blog_id);
-					get_template_part('content', get_post_type());
+					$theme->set('id', $post->ID);
+					$theme->set('title', $post->post_title);
+					$theme->set('type', $post->post_type);
+					if ($post->blog_id !== $theme->info('id')) {
+						$theme->set('blog', $post->blog_id);
+					} else {
+						$theme->set('blog', null);
+					}
+					echo $theme->render('story_box');
 				}
 				switch_to_blog($theme->info('id'));
-				$theme->set('wp_rewrite', $wp_rewrite);
-				$theme->set('wp_query', $wp_query);
-				echo $theme->render('pagination');
 				?>
-		</section>
-
-		<section id="sidebar" role="complementary">
+			</article>
 			<?php
-			get_sidebar('home');
+			$theme->set('wp_rewrite', $wp_rewrite);
+			$theme->set('wp_query', $wp_query);
+			echo $theme->render('pagination');
 			?>
 		</section>
 

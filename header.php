@@ -1,4 +1,7 @@
-<?php global $post, $theme; ?>
+<?php
+global $post, $theme;
+$locations = get_nav_menu_locations();
+?>
 <?php get_template_part('header', 'prebody') ?>
 <body <?php body_class(); ?>>
 
@@ -9,13 +12,39 @@
 		echo $theme->render('global_navigation');
 		?>
 
-		<header id="branding" role="banner">
-			<div id="banner" class="clearfix"><?php echo $theme->render('banner'); ?></div>
+		<header id="branding" role="banner" class="clearfix">
+			<?php
+			if (is_front_page()) {
+				$meta = $theme->metaToData($post->ID);
+				$featuredItems = wp_get_nav_menu_items($locations['featured']);
+				if (!empty($featuredItems)) {
+					$first = $featuredItems[0];
+					if (!empty($meta['first_featured_story_height'])) {
+						$theme->set('height', $meta['first_featured_story_height']);
+					}
+					$theme->set('id', $first->object_id);
+					$theme->set('title', $first->title);
+					$theme->set('type', $first->object);
+					$banner = $theme->Html->tag('div', $theme->render('story_box'));
+
+					echo $theme->Html->tag('div', $banner, array(
+						'id' => 'main-feature',
+						'class' => 'clearfix'
+					));
+				}
+			} elseif (is_page() || is_singular(array('post', 'message'))) {
+				$video = $theme->render('video');
+				if (empty($video) && has_post_thumbnail($post->ID)) {
+					echo get_the_post_thumbnail($post->ID, 'full');
+				} else {
+					$theme->Shortcodes->remove('videoplayer');
+					echo $video;
+				}
+			}
+			?>
 			<nav id="access" role="navigation" class="clearfix">
 				<?php
-				$locations = get_nav_menu_locations();
-				$menu = wp_get_nav_menu_object($locations['main']);
-				$menu_items = wp_get_nav_menu_items($menu->term_id);
+				$menu_items = wp_get_nav_menu_items($locations['main'], array('auto_show_children' => true));
 				_wp_menu_item_classes_by_context($menu_items);
 				$menu = array();
 				$ids = array();
@@ -60,6 +89,27 @@
 				?>
 			</nav>
 		</header>
+		<?php
+		if (is_front_page()) {
+			if (count($featuredItems) > 1) {
+				echo '<section id="featured">';
+				$h1 = $theme->Html->tag('h1', 'Featured Content');
+				echo $theme->Html->tag('header', $h1);
+				echo '<div class="stories-3 clearfix">';
+				// only items 2,3,4 allowed
+				$items = array_slice($featuredItems, 1, 3);
+				foreach ($items as $item) {
+					$theme->set('height', null);
+					$theme->set('id', $item->object_id);
+					$theme->set('title', $item->title);
+					$theme->set('type', $item->object);
+					echo $theme->render('story_box');
+				}
+				echo '</div>';
+				echo '</section>';
+			}
+		}
+		?>
 
 		<?php
 		if (isset($_SESSION['message'])) {
@@ -67,26 +117,5 @@
 			unset($_SESSION['message']);
 		}
 		?>
-
-		<?php if (!empty($post->post_parent)): ?>
-		<nav class="breadcrumb">
-			<?php
-			$ancestors = get_post_ancestors($post->ID);
-			$ancestors = array_reverse($ancestors);
-			$links = array();
-			$sep = '&nbsp;<span class="secondary">&gt;</span>&nbsp;';
-			foreach ($ancestors as $ancestor) {
-				$ancestorPost = get_post($ancestor);
-				$links[] = $theme->Html->tag('a', $ancestorPost->post_title, array(
-					'href' => get_permalink($ancestorPost->ID),
-					'title' => esc_attr($ancestorPost->post_title)
-				));
-			}
-			$links[] = $post->post_title;
-
-			echo implode($sep, $links);
-			?>
-		</nav>
-		<?php endif; ?>
 
 		<div id="main" class="clearfix">

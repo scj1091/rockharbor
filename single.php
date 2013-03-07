@@ -1,16 +1,21 @@
-<?php
+<?php 
 get_header();
 ?>
 		<header id="content-title">
-			<h1><?php echo wp_title(''); ?></h1>
+			<h1><?php echo $post->post_title; ?></h1>
+			<?php 
+			$theme->set('pubdate', true);
+			$theme->set('date', $post->post_date);
+			echo $theme->render('posted_date'); 
+			?>
 		</header>
 		<section id="content" role="main" class="full">
-			<?php if (have_posts()):
+			<?php if (have_posts()): 
 
 				while (have_posts()) {
 					the_post();
 					$sub = get_post_type();
-					get_template_part('content', $sub);
+					get_template_part('content', $sub); 
 				}
 				$theme->set('wp_rewrite', $wp_rewrite);
 				$theme->set('wp_query', $wp_query);
@@ -32,5 +37,5 @@ get_header();
 
 		</section>
 
-<?php
+<?php 
 get_footer();

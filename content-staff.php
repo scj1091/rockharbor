@@ -12,16 +12,18 @@
 				?>
 				</a>
 			</div>
-			<a href="<?php the_permalink(); ?>">
-				<?php
-				$meta = get_post_custom();
-				echo $meta['first_name'][0] . ' ' . $meta['last_name'][0];
-				echo '<br />';
-				$department = wp_get_post_terms($post->ID, 'department');
-				if (!empty($department)) {
-					echo $department[0]->name;
-				}
-				?>
-			</a>
+			<p>
+				<a href="<?php the_permalink(); ?>">
+					<?php
+					$meta = get_post_custom();
+					echo $meta['first_name'][0] . ' ' . $meta['last_name'][0];
+					echo '<br />';
+					$department = wp_get_post_terms($post->ID, 'department');
+					if (!empty($department)) {
+						echo $department[0]->name;
+					}
+					?>
+				</a>
+			</p>
 		</div>
 	</article>

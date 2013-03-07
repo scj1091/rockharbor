@@ -19,23 +19,23 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 				?>
 			</div>
 			<div class="series-details">
-				<span class="series-title">
+				<p>
 					<?php
 					echo $theme->Html->tag('a', $item->name, array(
 						'href' => $termlink,
 						'title' => $item->name
 					));
 					?>
-				</span>
-				<span class="series-date">
+				</p>
+				<p>
 					<?php
 					echo date('M. j, Y', strtotime($item->series_start_date));
 					if ($item->series_start_date != $item->series_end_date) {
 						echo ' - '.date('M. j, Y', strtotime($item->series_end_date));
 					}
 					?>
-				</span>
-				<span class="series-count">
+				</p>
+				<p>
 					<?php
 					$suf = $item->series_message_count > 0 ? 'Messages' : 'Message';
 					echo $theme->Html->tag('a', $item->series_message_count." $suf", array(
@@ -43,7 +43,7 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 						'title' => $item->name
 					));
 					?>
-				</span>
+				</p>
 			</div>
 		</div>
 	</article>

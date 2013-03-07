@@ -1,0 +1,235 @@
+/*
+This stylesheet is applied to mobile (max 480px) only.
+*/
+
+/*= Generic styles
+-----------------------------------------*/
+.mobile-hide,
+.tablet-hide,
+.desktop-hide {
+	display: block;
+}
+
+.mobile-hide {
+	display: none;
+}
+
+/*= Global navigation
+-----------------------------------------*/
+.global-navigation {
+	height: 102px;
+}
+
+.global-navigation.logo-only {
+	height: 51px;
+}
+
+.global-navigation h1 .logo {
+	display: block;
+}
+
+.global-navigation h1 .title {
+	display: block;
+	height: 51px;
+	
+	line-height: 51px;
+}
+
+.global-navigation nav ul li { 
+	position: static;
+}
+
+.global-navigation nav ul li:hover ul {
+	display: none;
+}
+
+.global-navigation li.menu,
+.global-navigation li.campuses,
+.global-navigation li.search {
+	display: block;
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin: 10px;
+	margin-top: 36px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
+	
+	background-image: url('images/sprite.png');
+	background-repeat: no-repeat;
+}
+
+.global-navigation.logo-only li.menu,
+.global-navigation.logo-only li.campuses,
+.global-navigation.logo-only li.search
+{
+	margin-top: 10.5px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
+}
+
+.global-navigation li.campuses > a {
+	text-indent: -9999px;
+}
+
+.global-navigation li.campuses > a:after {
+	display: none;
+}
+
+.global-navigation li.menu {
+	background-position: -19px -60px;
+}
+
+.global-navigation li.campuses {
+	background-position: -19px -30px;
+}
+
+.global-navigation li.search {
+	background-position: -19px -0;
+}
+
+.global-navigation #searchform {
+	position: absolute;
+	top: 100%;
+	width: 300px;
+}
+
+.global-navigation nav ul li ul,
+.global-navigation #searchform {
+	display: none;
+	top: 102px;
+	right: 0;
+	left: auto;
+	z-index: 102;
+	
+	background: #ffffff;
+}
+
+.global-navigation.logo-only nav ul li ul,
+.global-navigation.logo-only #searchform {
+	top: 51px;
+}
+
+.global-navigation #searchform {
+	padding: 10px;
+}
+
+.global-navigation #searchform input {
+	font-size: 1.5em;
+	padding: 5px;
+}
+
+
+/*= Main layout
+-----------------------------------------*/
+#page {
+	width: 100%;
+}
+
+#branding {
+	padding: 0;
+}
+
+#submenu ul {
+	float: none;
+}
+
+aside {
+	float: none;
+}
+
+#footer > div {
+	width: 100%;
+	display: none;
+}
+
+#footer .first {
+	display: block;
+}
+
+/*= Main navigation
+-----------------------------------------*/
+#access {
+	display: none;
+}
+
+#access ul li {
+	float: none;
+}
+
+#access ul li a {
+	text-align: left;
+}
+
+/*= Home content
+-----------------------------------------*/
+.home #frontpage-content {
+	float: none;
+	width: 100%;
+	margin: 0;
+}
+
+.home #frontpage-sidebar {
+	float: none;
+	width: 100%;
+}
+
+.home #frontpage-sidebar aside {
+	float: none;
+	width: 100%;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.home #frontpage-sidebar aside:nth-child(even) {
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+#featured {
+	margin-top: 0;
+}
+
+#featured header {
+	width: 100%;
+}
+
+#featured header h1 {
+	display: block;
+	
+	text-align: left;
+}
+
+#main-feature .story-box .title {
+	max-width: 96%;
+	width: 96%;
+	bottom: 0;
+	left: 0;
+	padding: 2%;
+	margin: 0;
+}
+
+#featured .story-box {
+	margin-bottom: 10px;
+}
+
+#frontpage-content header h1,
+#frontpage-sidebar header h1,
+#featured header h1 {
+	display: block;
+}
+
+/*= Story box
+-----------------------------------------*/
+.stories-2 .story-box,
+.stories-3 .story-box,
+.stories-3 .story-box {
+	overflow: visible;
+	float: none;
+	width: 70%;
+	margin-bottom: 10px;
+}
+
+.story-box .title {
+	left: 50%;
+	bottom: 50%;
+	margin: 0;
+	margin-bottom: -1em;
+	width: 85%; /*= (story-box width)* left + 50% */
+}
