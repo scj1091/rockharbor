@@ -116,7 +116,8 @@ class RockharborThemeBase {
  */
 	public $features = array(
 		'staff' => 'Staff',
-		'message' => 'Message'
+		'message' => 'Message',
+		'curriculum' => 'Curriculum'
 	);
 
 /**

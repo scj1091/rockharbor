@@ -42,7 +42,7 @@
 		<?php
 		global $more;
 		if ($more) {
-			$theme->set('types', array('post', 'message', 'page'));
+			$theme->set('types', array('post', 'message', 'page', 'curriculum'));
 			$related = $theme->render('related_content');
 			$comments = '';
 			if (comments_open()) {

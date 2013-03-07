@@ -75,7 +75,7 @@ the_post();
 					<footer class="message-related">
 						<h1>Related</h1>
 						<?php
-						$theme->set('types', array('post', 'message', 'page'));
+						$theme->set('types', array('post', 'message', 'page', 'curriculum'));
 						echo $theme->render('related_content');
 						?>
 					</footer>
