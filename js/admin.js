@@ -14,7 +14,7 @@ var RH = {};
  * @return void
  */
 RH.showMediaLibrary = function(callback) {
-	tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+	tb_show('', 'media-upload.php?type=image&post_id=0&TB_iframe=true');
 	window.send_to_editor = function(html) {
 		var ret = callback(html);
 		RH.insertIntoEditor(ret);
@@ -49,4 +49,25 @@ RH.addServiceTime = function() {
  */
 RH.removeServiceTime = function(el) {
 	jQuery(el).parent('div').remove();
+}
+
+/**
+ * Adds an image input to the list
+ * 
+ * @param string id The list id
+ */
+RH.addImageGridImage = function(id) {
+	var st = jQuery('#'+id+' p:first-child').clone();
+	st.children('input.img-src').val('');
+	st.children('a').show();
+	jQuery('#'+id+' p:last').after(st);
+}
+
+/**
+ * Removes an image input
+ * 
+ * @param string el The `<a>` element
+ */
+RH.removeImageGridImage = function(el) {
+	jQuery(el).parent('p').remove();
 }
