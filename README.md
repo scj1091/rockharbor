@@ -113,6 +113,10 @@ The message post type contains two taxonomies, "series" and "teachers." Series a
 like categories for the messages, and teachers are the speakers who taught the
 message. Unlike teachers, only one series can be defined per message.
 
+Aside from the archive-generating `[message]` shortcode, the message post type
+comes with a `[single-message]` shortcode that can be used to show a single
+message from any campus.
+
 ## Specialness
 
 _YAWPH_ (yah-ff)

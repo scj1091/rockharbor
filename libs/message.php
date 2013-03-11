@@ -60,6 +60,57 @@ class Message extends PostType {
 		));
 
 		register_taxonomy_for_object_type('post_tag', $this->name);
+		add_shortcode('single-message', array($this, 'singleMessage'));
+	}
+
+/**
+ * Shortcode that renders `content-message.php` for a single message. By default
+ * it displays the latest message.
+ *
+ * ### Shortcode attributes:
+ * - `campus` integer The blog id to pull from (default: current)
+ * - `id` integer The message id to show (default: latest message)
+ *
+ * @param array $attrs Shortcode attributes
+ * @return string
+ */
+	public function singleMessage($attrs = array()) {
+		$attrs = shortcode_atts(array(
+			'campus' => $this->theme->info('id'),
+			'id' => null
+		), $attrs);
+
+		if ($attrs['campus'] !== $this->theme->info('id')) {
+			switch_to_blog($attrs['campus']);
+		}
+
+		global $post;
+		$_post = $post;
+
+		$options = array(
+			'post_type' => $this->options['slug'],
+			'orderby' => 'post_date',
+			'order' => 'DESC',
+			'numberposts' => 1
+		);
+		if (!empty($attrs['id'])) {
+			$options['p'] = $attrs['id'];
+		}
+
+		$post = get_posts($options);
+
+		ob_start();
+		if (count($post) > 0) {
+			$post = $post[0];
+		 	get_template_part('content', 'message');
+		}
+		$out = ob_get_clean();
+
+		if ($attrs['campus'] !== $this->theme->info('id')) {
+			restore_current_blog();
+		}
+		$post = $_post;
+		return $out;
 	}
 
 /**

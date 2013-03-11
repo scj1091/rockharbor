@@ -4,14 +4,14 @@ $meta = $theme->metaToData($post->ID);
 ?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<div class="entry-content clearfix">
-			<?php if (has_post_thumbnail()): ?>
+			<?php if (has_post_thumbnail($post->ID)): ?>
 			<div class="message-image clearfix">
 				<a href="<?php the_permalink(); ?>">
-					<?php the_post_thumbnail($post->ID, 'full'); ?>
+					<?php echo get_the_post_thumbnail($post->ID, 'full'); ?>
 				</a>
 			</div>
 			<?php endif; ?>
-			<div class="message-details<?php if (has_post_thumbnail()) { echo ' with-image'; } ?>">
+			<div class="message-details<?php if (has_post_thumbnail($post->ID)) { echo ' with-image'; } ?>">
 				<h2>
 					<?php
 					echo $theme->Html->tag('a', $post->post_title, array(
