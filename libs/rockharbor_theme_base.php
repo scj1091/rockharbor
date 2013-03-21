@@ -305,7 +305,7 @@ class RockharborThemeBase {
 			foreach ($matches[2] as $match) {
 				$path = trim($match, "'");
 				// make sure it's not absolute to webroot
-				if (stripos('/', $path) !== 0) {
+				if (stripos($path, '/') !== 0) {
 					// check current directory
 					if (stripos('./', $match) !== 0) {
 						$match = str_replace('./', '', $match);
