@@ -161,6 +161,7 @@ class RockharborThemeBase {
 		}
 
 		add_filter('the_content', array($this, 'filterContent'));
+		add_filter('wp_head', array($this, 'compressAssets'), 7);
 
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'), 1, 3);
@@ -202,6 +203,149 @@ class RockharborThemeBase {
 			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
 		}
 		return $content;
+	}
+
+/**
+ * Compresses assets
+ *
+ * Iterates through all registered scripts and styles, concatenates them, then
+ * empties the script/style queue and registers the new concatenated cache file.
+ *
+ * @return void
+ */
+	public function compressAssets() {
+		global $wp_scripts, $wp_styles;
+		$cachePath = WP_CONTENT_DIR . DS . 'cache';
+		$cacheUrl = WP_CONTENT_URL.'/cache';
+		if (!is_writable($cachePath) || is_admin()) {
+			return;
+		}
+
+		// names of files
+		$scriptFile = 'scripts' . $this->_key($wp_scripts).'.js';
+		$stylesFile = 'styles' . $this->_key($wp_styles).'.css';
+
+		if (WP_DEBUG) {
+			// in debug  mode, create the cache file each request
+			unlink($cachePath . DS . $scriptFile);
+			unlink($cachePath . DS . $stylesFile);
+		}
+
+		if (!file_exists($cachePath . DS . $scriptFile)) {
+			$out = $this->_concat($wp_scripts);
+			if (!file_put_contents($cachePath . DS . $scriptFile, $out)) {
+				return;
+			}
+		}
+
+		if (!file_exists($cachePath . DS . $stylesFile)) {
+			$out = $this->_concat($wp_styles);
+			if (!file_put_contents($cachePath . DS . $stylesFile, $out)) {
+				return;
+			}
+		}
+
+		// queue it up as the only script
+		$wp_scripts->queue = array();
+		wp_deregister_script('scripts');
+		wp_register_script('scripts', "$cacheUrl/$scriptFile");
+		wp_enqueue_script('scripts');
+		// queue it up as the only script
+		$wp_styles->queue = array();
+		wp_deregister_style('styles');
+		wp_register_style('styles', "$cacheUrl/$stylesFile");
+		wp_enqueue_style('styles');
+	}
+
+/**
+ * Concatenates files and dependencies
+ *
+ * @param WP_Scripts|WP_Styles $object Queue to iterate
+ * @return string Concatenated file
+ */
+	private function _concat($object) {
+		$included = array();
+		$out = '';
+		foreach ($object->queue as $queue) {
+			foreach ($object->registered[$queue]->deps as $dep) {
+				if (!in_array($dep, $included)) {
+					// make sure to include dependencies first
+					$out .= $this->_process($object->registered[$dep]);
+				}
+				$included[] = $dep;
+			}
+			if (!in_array($queue, $included)) {
+				$out .= $this->_process($object->registered[$queue]);
+			}
+			$included[] = $queue;
+		}
+		return $out;
+	}
+
+/**
+ * Processes a file
+ *
+ * - Changes relative CSS url paths to absolute
+ *
+ * @param _WP_Dependency $object Object to process
+ * @return string New file contents
+ */
+	private function _process($object) {
+		$filename = ltrim($object->src, '/');
+
+		$contents =  file_get_contents($filename);
+
+		// check for relative css urls
+		if (preg_match_all("/url\((')?(.*?)(?(1)\1|)\)/", $contents, $matches)) {
+			$matches[2] = array_unique($matches[2]);
+			$url = parse_url($filename);
+			$localPath = explode('/', $url['path']);
+			array_pop($localPath);
+			$localPath = implode('/', $localPath);
+			foreach ($matches[2] as $match) {
+				$path = trim($match, "'");
+				// make sure it's not absolute to webroot
+				if (stripos('/', $path) !== 0) {
+					// check current directory
+					if (stripos('./', $match) !== 0) {
+						$match = str_replace('./', '', $match);
+					}
+					$path = '/'.trim($localPath, '/').'/'.$path;
+				}
+				$contents = str_replace($match, "'$path'", $contents);
+			}
+		}
+
+		if (!empty($object->args) && $object->args !== 'all') {
+			$contents = "@media $object->args { $contents }";
+		}
+
+		return "\n$contents";
+	}
+
+/**
+ * Creates a hash from a list of scripts or styles
+ *
+ * @param _WP_Dependency $object Object to key
+ * @return string
+ */
+	private function _key($object) {
+		$key = '';
+		$included = array();
+		foreach ($object->queue as $queue) {
+			foreach ($object->registered[$queue]->deps as $dep) {
+				if (!in_array($dep, $included)) {
+					// make sure to include dependencies first
+					$key .= $object->registered[$dep]->src;
+				}
+				$included[] = $dep;
+			}
+			if (!in_array($queue, $included)) {
+				$key .= $object->registered[$queue]->src;
+			}
+			$included[] = $queue;
+		}
+		return md5($key);
 	}
 
 /**
