@@ -31,7 +31,8 @@ class CoreWidget extends Widget {
 		$defaults = array(
 			'core_campus_id' => null,
 			'core_id' => null,
-			'core_involvement_id' => null
+			'core_involvement_id' => null,
+			'limit' => 0
 		);
 		$data = array_merge($defaults, $data);
 
@@ -45,6 +46,7 @@ class CoreWidget extends Widget {
 		}
 		$url = $this->theme->getCoreFeedUrl($data['core_campus_id'], $data['core_id'], $data['core_involvement_id']);
 		$this->theme->set('url', $url);
+		$this->theme->set('limit', $data['limit']);
 		parent::widget($args, $data);
 	}
 
@@ -57,7 +59,8 @@ class CoreWidget extends Widget {
 		$defaults = array(
 			'core_campus_id' => null,
 			'core_id' => null,
-			'core_involvement_id' => null
+			'core_involvement_id' => null,
+			'limit' => null
 		);
 		$data = array_merge($defaults, $data);
 		parent::form($data);

@@ -64,6 +64,10 @@
 				var months = ['January', 'February', 'March', 'April', 'May',
 				'June', 'July', 'August', 'September', 'October', 'November',
 				'December'];
+
+				if (self.data('core-limit') > 0) {
+					response.length = parseInt(self.data('core-limit'));
+				}
 				for (var event in response) {
 					var date = response[event].start.split(' ')[0].split('-');
 
