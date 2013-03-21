@@ -47,6 +47,59 @@
 <![endif]-->
 <script>
 	jQuery(document).ready(function() {
+		// core feeds
+		jQuery('.core-events').each(function() {
+			var self = $(this);
+			jQuery.ajax({
+				url: self.data('core-feed-url'),
+				type: 'get',
+				dataType: 'jsonp'
+			}).done(function(response, textStatus, jqXHR) {
+				if (response.length === 0) {
+					self.children('p').html('There are no upcoming events.');
+					return;
+				}
+				self.empty();
+				var lastStart = [];
+				var months = ['January', 'February', 'March', 'April', 'May',
+				'June', 'July', 'August', 'September', 'October', 'November',
+				'December'];
+				for (var event in response) {
+					var date = response[event].start.split(' ')[0].split('-');
+
+					if (date.toString() != lastStart.toString()) {
+						var time = document.createElement('time');
+						var span = document.createElement('span');
+						var month = span.cloneNode();
+						month.className = 'month';
+						month.innerHTML = months[parseInt(date[1]) - 1];
+						var day = span.cloneNode();
+						day.className = 'day';
+						day.innerHTML = parseInt(date[2]);
+						var year = span.cloneNode();
+						year.className = 'year';
+						year.innerHTML = date[0];
+						time.appendChild(month);
+						time.appendChild(day);
+						time.appendChild(year);
+
+						self.append(time);
+					}
+
+					lastStart = date;
+
+					var a = document.createElement('a');
+					a.target = '_blank';
+					a.href = response[event].url;
+					a.innerHTML = response[event].title;
+
+					self.append(a);
+				}
+			}).fail(function() {
+				self.children('p').html('There are no upcoming events.');
+			});
+		});
+
 		// put galleries in lightboxes
 		jQuery('.gallery').each(function() {
 			var id = jQuery(this).attr('id');
@@ -80,7 +133,7 @@
 			audioHeight: 20,
 			features: ['playpause', 'progress', 'current']
 		});
-		
+
 		// responsive breakpoints
 		mediaCheck({
 			media: '(max-width: 480px)',

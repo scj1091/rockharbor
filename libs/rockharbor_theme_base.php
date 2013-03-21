@@ -457,7 +457,7 @@ class RockharborThemeBase {
  * @param integer $involvement_ids The Involvement id(s) to pull
  * @return array Normalized event array
  */
-	public function fetchCoreFeed($campus_ids = null, $ministry_ids = null, $involvement_ids = null) {
+	public function getCoreFeedUrl($campus_ids = null, $ministry_ids = null, $involvement_ids = null) {
 		$url = 'https://core.rockharbor.org/dates/calendar';
 		if (!empty($campus_ids)) {
 			$url .= '/Campus:'.$campus_ids;
@@ -469,13 +469,7 @@ class RockharborThemeBase {
 			$url .= '/Involvement:'.$involvement_ids;
 		}
 		$url .= '/full.json?start='.strtotime('now').'&end='.strtotime('+60 days');
-		$response = wp_remote_get($url, array('sslverify' => false));
-		if (is_wp_error($response)) {
-			$response = array(
-				'body' => json_encode(array())
-			);
-		}
-		return json_decode($response['body'], true);
+		return $url;
 	}
 
 /**
