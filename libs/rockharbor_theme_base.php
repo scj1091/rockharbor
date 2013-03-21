@@ -308,7 +308,7 @@ class RockharborThemeBase {
 				if (stripos($path, '/') !== 0) {
 					$path = '/'.trim($localPath, '/').'/'.$path;
 				}
-				$contents = str_replace($match, "'$path'", $contents);
+				$contents = str_replace($match, "$path", $contents);
 			}
 		}
 
