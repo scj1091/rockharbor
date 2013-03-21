@@ -156,6 +156,7 @@ class RockharborThemeBase {
 			// #YAWPH
 			// we're in a child theme, so we don't want add filters/actions for
 			// the base class, otherwise we'll end up with duplicate filters/actions
+			$this->after();
 			return;
 		}
 
