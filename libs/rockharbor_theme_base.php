@@ -529,6 +529,24 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Gets a menu name #YAWPH
+ *
+ * @param string $location Menu location
+ * @return mixed The menu name, or `null` if it can't be found
+ */
+	public function getMenuName($location = null) {
+		$locations = get_nav_menu_locations();
+		if (!isset($locations[$location])) {
+			return null;
+		}
+		$menu = get_term($locations[$location], 'nav_menu');
+		if (!$menu || !isset($menu->name)) {
+			return null;
+		}
+		return $menu->name;
+	}
+
+/**
  * Checks if this is a child theme
  *
  * @return boolean
