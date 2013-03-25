@@ -1,6 +1,7 @@
 <?php
 global $post, $theme;
 $locations = get_nav_menu_locations();
+$featuredItems = array();
 ?>
 <?php get_template_part('header', 'prebody') ?>
 <body <?php body_class(); ?>>
@@ -14,7 +15,7 @@ $locations = get_nav_menu_locations();
 
 		<header id="branding" role="banner" class="clearfix">
 			<?php
-			if (is_front_page()) {
+			if (is_front_page() && !empty($locations['featured'])) {
 				$meta = $theme->metaToData($post->ID);
 				$featuredItems = wp_get_nav_menu_items($locations['featured']);
 				if (!empty($featuredItems)) {
