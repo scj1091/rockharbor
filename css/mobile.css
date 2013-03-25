@@ -31,11 +31,11 @@ This stylesheet is applied to mobile (max 480px) only.
 .global-navigation h1 .title {
 	display: block;
 	height: 51px;
-	
+
 	line-height: 51px;
 }
 
-.global-navigation nav ul li { 
+.global-navigation nav ul li {
 	position: static;
 }
 
@@ -52,7 +52,7 @@ This stylesheet is applied to mobile (max 480px) only.
 	float: left;
 	margin: 10px;
 	margin-top: 36px; /*= global nav height / 2 - this.outerHeight/2 + 10px margin */
-	
+
 	background-image: url('images/sprite.png');
 	background-repeat: no-repeat;
 }
@@ -97,7 +97,7 @@ This stylesheet is applied to mobile (max 480px) only.
 	right: 0;
 	left: auto;
 	z-index: 102;
-	
+
 	background: #ffffff;
 }
 
@@ -107,7 +107,12 @@ This stylesheet is applied to mobile (max 480px) only.
 }
 
 .global-navigation #searchform {
-	padding: 10px;
+	width: 90%;
+	padding: 2%;
+
+	background: #f2f2f2;
+
+	box-shadow: 0px 2px 1px 0px #888888;
 }
 
 .global-navigation #searchform input {
@@ -124,6 +129,10 @@ This stylesheet is applied to mobile (max 480px) only.
 
 #branding {
 	padding: 0;
+}
+
+#submenu {
+	padding-top: 15px;
 }
 
 #submenu ul {
@@ -155,6 +164,17 @@ aside {
 
 #access ul li a {
 	text-align: left;
+}
+
+/*= Footer
+-----------------------------------------*/
+#footer .third form input[type=email] {
+	width: 70%;
+	margin-right: 1%;
+}
+
+#footer .third form input[type=submit] {
+	width: 25%;
 }
 
 /*= Home content
@@ -192,7 +212,7 @@ aside {
 
 #featured header h1 {
 	display: block;
-	
+
 	text-align: left;
 }
 
@@ -213,6 +233,14 @@ aside {
 #frontpage-sidebar header h1,
 #featured header h1 {
 	display: block;
+}
+
+/*= Articles
+-----------------------------------------*/
+time {
+	float: none;
+	display: block;
+	margin-top: 5px;
 }
 
 /*= Story box

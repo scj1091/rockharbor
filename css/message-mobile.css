@@ -12,3 +12,16 @@
 #content .series-collection article.message-series:nth-child(2n+3) {
 	clear: both;
 }
+
+/*= Message content
+-----------------------------------------*/
+article.message .message-image {
+	margin-bottom: 5px;
+	float: none;
+	width: 100%;
+}
+
+article.message .message-details.with-image {
+	float: none;
+	width: 100%;
+}

@@ -15,7 +15,7 @@ RH.tabletEnter = function() {
 	}
 	RH.inTablet = true;
 	// make nav the first element
-	jQuery('#branding nav').detach().prependTo('#branding');
+	jQuery('nav#access').detach().insertBefore('#branding');
 	// make footer touch-friendly
 	jQuery('footer .tabs a').on('click', function() {
 		jQuery('footer .tabs a').removeClass('selected');
@@ -38,7 +38,7 @@ RH.tabletExit = function() {
 	}
 	RH.inTablet = false;
 	// make nav the last element
-	jQuery('#branding nav').detach().appendTo('#branding');
+	jQuery('nav#access').detach().insertAfter('#branding');
 	// reset footer
 	jQuery('#footer > div').show();
 	jQuery('footer .tabs a').off('click');
@@ -63,6 +63,10 @@ RH.mobileEnter = function() {
 	jQuery('.global-navigation li.search').on('click', function() {
 		RH.hideMenuOptions('search');
 		$(this).children('form').toggle();
+	});
+	jQuery('.global-navigation li.search form').on('click', function(event) {
+		// prevent clicking on input from closing the search form
+		event.stopPropagation();
 	});
 }
 
