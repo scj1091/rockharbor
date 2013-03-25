@@ -161,6 +161,7 @@ class RockharborThemeBase {
 		}
 
 		add_filter('the_content', array($this, 'filterContent'));
+		add_filter('wp_title', array($this, 'archiveTitle'));
 		add_filter('wp_head', array($this, 'compressAssets'), 7);
 
 		// theme settings
@@ -203,6 +204,21 @@ class RockharborThemeBase {
 			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
 		}
 		return $content;
+	}
+
+/**
+ * Filter title before outputting it
+ *
+ * @param string $title
+ * @return string
+ */
+	function archiveTitle($title = '') {
+		global $wp_query;
+		if (is_tax()) {
+			$term = $wp_query->get_queried_object();
+			$title = $term->name;
+		}
+		return $title;
 	}
 
 /**
