@@ -7,11 +7,11 @@ This stylesheet is applied to mobile (max 480px) only.
 .mobile-hide,
 .tablet-hide,
 .desktop-hide {
-	display: block;
+	display: inherit !important;
 }
 
 .mobile-hide {
-	display: none;
+	display: none !important;
 }
 
 /*= Global navigation

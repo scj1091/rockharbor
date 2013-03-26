@@ -243,11 +243,11 @@ th {
 .mobile-hide,
 .tablet-hide,
 .desktop-hide {
-	display: block;
+	display: inherit !important;
 }
 
 .desktop-hide {
-	display: none;
+	display: none !important;
 }
 
 /*= Global navigation

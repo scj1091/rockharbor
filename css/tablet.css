@@ -7,11 +7,11 @@ This stylesheet is applied to tablets (max 768px) only.
 .mobile-hide,
 .tablet-hide,
 .desktop-hide {
-	display: block;
+	display: inherit !important;
 }
 
 .tablet-hide {
-	display: none;
+	display: none !important;
 }
 
 /*= Main layout
