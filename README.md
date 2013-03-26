@@ -12,7 +12,7 @@ At the very least, the following files should be created.
 
     /<theme_name>
         /img
-            header.jpg
+            logo.png
             twitter-icon.png
             facebook-icon.png
             favicon.ico
