@@ -4,7 +4,7 @@ $meta = $theme->metaToData($post->ID);
 $fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 ?>
 		<header id="content-title">
-			<h1><?php echo $post->post_title; ?></h1>
+			<h1><?php wp_title(false); ?></h1>
 		</header>
 		<?php
 		get_sidebar();
