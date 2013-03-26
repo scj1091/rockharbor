@@ -1,16 +1,29 @@
-<?php
-$logoOnly = true;
-if (!$theme->info('hide_name_in_global_nav')) {
-	$logoOnly = false;
-}
-?>
-<section class="global-navigation clearfix<?php echo $logoOnly ? ' logo-only' : null; ?>">
-	<h1>
+<section class="global-navigation clearfix">
+	<h1 class="clearfix">
 		<a href="/">
-			<span class="logo"><?php echo $theme->Html->image('header.png', array('alt' => 'This is ROCKHARBOR '.$theme->info('short_name'))); ?></span>
-			<?php if (!$logoOnly): ?>
-			<span class="title"><?php echo $theme->info('short_name'); ?></span>
-			<?php endif; ?>
+			<?php
+			echo '<div class="logo">';
+			echo $theme->Html->image('logo.png', array(
+				'alt' => 'RH',
+				'parent' => false
+			));
+			echo $this->Html->tag('span', $theme->info('short_name'), array(
+				'class' => 'secondary desktop-hide tablet-hide'
+			));
+			echo $theme->Html->image('textlogo-white.png', array(
+				'alt' => 'ROCKHARBOR',
+				'class' => 'mobile-hide',
+				'parent' => true
+			));
+			echo '</div>';
+			echo '<div class="title">';
+			if (!$theme->info('hide_name_in_global_nav')) {
+				echo $this->Html->tag('span', $theme->info('name'), array(
+					'class' => 'mobile-hide'
+				));
+			}
+			echo '</div>';
+			?>
 		</a>
 	</h1>
 	<nav>
