@@ -664,7 +664,8 @@ class RockharborThemeBase {
 			'url' => $this->themeUrl,
 			'base_path' => $this->basePath,
 			'base_url' => $this->baseUrl,
-			'name' => $this->name,
+			'name' => $this->options('campus_name'),
+			'short_name' => $this->options('campus_short_name'),
 			'id' => $this->id,
 			'email' => get_bloginfo('admin_email')
 		);

@@ -38,7 +38,7 @@ class Admin {
 
 		// default options
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
-		update_option('blogname', 'RH '.$this->theme->info('short_name'));
+		update_option('blogname', 'RH '.$this->theme->info('name'));
 		update_option('image_default_link_type', 'file');
 
 		// add meta boxes for cross-posting

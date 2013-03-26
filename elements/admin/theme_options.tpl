@@ -24,6 +24,26 @@ if (!isset($_REQUEST['settings-updated'])) {
 			<tr valign="top">
 				<td colspan="2"><h2>Campus Info</h2><p>Campus-specific settings.</p></td>
 			</tr>
+			<tr valign="top">
+				<?php
+					echo $theme->Html->input('campus_name', array(
+						'before' => '<th>',
+						'label' => 'Campus Name',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(full campus name, without RH prefix)</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
+					echo $theme->Html->input('campus_short_name', array(
+						'before' => '<th>',
+						'label' => 'Campus Short Name',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(campus short name, with RH prefix)</small></td>'
+					));
+				?>
+			</tr>
 			<tr valign="top" class="service-times">
 				<th>Service Times</th>
 				<td>
