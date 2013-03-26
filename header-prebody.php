@@ -149,6 +149,20 @@
 			entry: RH.tabletEnter,
 			exit: RH.tabletExit
 		});
+
+		$('#access > ul > li').hover(function() {
+			var menu = $(this).children('.submenu');
+			if (menu.length === 0) {
+				return;
+			}
+			var pos = $(this).position();
+			var width = $(window).width();
+			if (pos.left + menu.width() > width) {
+				menu.css({
+					right: 0
+				});
+			}
+		})
 	});
 </script>
 <?php
