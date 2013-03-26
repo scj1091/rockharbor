@@ -59,4 +59,4 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 		</div>
 	</article>
 
-	<h1>Past Messages</h1>
+	<h1>Past Series</h1>
