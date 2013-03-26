@@ -15,7 +15,7 @@ RH.tabletEnter = function() {
 	}
 	RH.inTablet = true;
 	// make nav the first element
-	jQuery('nav#access').detach().insertBefore('#branding');
+	jQuery('nav#access').insertBefore('#branding');
 	// make footer touch-friendly
 	jQuery('footer .tabs a').on('click', function() {
 		jQuery('footer .tabs a').removeClass('selected');
@@ -38,7 +38,7 @@ RH.tabletExit = function() {
 	}
 	RH.inTablet = false;
 	// make nav the last element
-	jQuery('nav#access').detach().insertAfter('#branding');
+	jQuery('nav#access').insertAfter('#branding');
 	// reset footer
 	jQuery('#footer > div').show();
 	jQuery('footer .tabs a').off('click');
