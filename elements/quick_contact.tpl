@@ -4,11 +4,13 @@
 	echo $theme->Html->input('type', array(
 		'type' => 'radio',
 		'label' => 'Story',
+		'id' => 'story',
 		'value' => 'story',
 		'checked' => true
 	));
 	echo $theme->Html->input('type', array(
 		'type' => 'radio',
+		'id' => 'prayer',
 		'label' => 'Prayer Request',
 		'value' => 'prayer_request'
 	));
