@@ -1,7 +1,7 @@
 <?php
 global $post;
 if (!isset($page) || empty($page)) {
-	$page = $_SERVER['HTTP_REFERER'];
+	$page = get_permalink($post->ID);
 }
 if (!isset($title) || empty($title)) {
 	$title = get_the_title();
