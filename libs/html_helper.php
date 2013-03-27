@@ -180,7 +180,9 @@ class HtmlHelper {
 		if (!empty($this->inputPrefix) && stripos($options['name'], $this->inputPrefix) === false) {
 			$options['name'] = $this->inputPrefix.'['.$options['name'].']';
 		}
-		$options['id'] = preg_replace('/[^a-z0-9]+/i', '', $options['name']);
+		if (empty($options['id'])) {
+			$options['id'] = preg_replace('/[^a-z0-9]+/i', '', $options['name']);
+		}
 
 		if ($options['type'] == 'hidden') {
 			$options['label'] = false;
