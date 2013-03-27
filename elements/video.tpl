@@ -4,9 +4,10 @@ global $post, $theme;
 if (!isset($showUrl)) {
 	$showUrl = false;
 }
-
-$file = $theme->getEnclosure('video');
-if (empty($file)) {
+if (!isset($src)) {
+	$src = $theme->getEnclosure('video');
+}
+if (empty($src)) {
 	return null;
 }
 
@@ -47,7 +48,7 @@ $id = uniqid();
 	</div>
 	<video
 		id="embedded-player-<?php echo $id;?>"
-		src="<?php echo $file; ?>"
+		src="<?php echo $src; ?>"
 		controls
 		preload="none"
 		style="width: 100%"
@@ -56,8 +57,8 @@ $id = uniqid();
 			echo ' poster="'.$poster.'"';
 		}
 		if (!empty($streamer)) {
-			if (stripos($file, $bucket) !== false) {
-				$filename = str_replace("http://$bucket.s3.amazonaws.com/", 'mp4:', $file);
+			if (stripos($src, $bucket) !== false) {
+				$filename = str_replace("http://$bucket.s3.amazonaws.com/", 'mp4:', $src);
 				echo " data-streamfile=\"rtmp://$streamer/$filename\"";
 			}
 		}
