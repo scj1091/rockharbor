@@ -23,6 +23,7 @@ class Shortcodes {
 
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
+		add_shortcode('audioplayer', array($this, 'audio'));
 		add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
@@ -165,6 +166,24 @@ class Shortcodes {
 		$id = $attrs['id'];
 		$this->theme->set(compact('id'));
 		return $this->theme->render('calendar');
+	}
+
+/**
+ * Renders an audio player
+ *
+ * ### Attrs:
+ * - string $src The audio source
+ * - string $campus The campus/blog id
+ *
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function audio($attr) {
+		$this->theme->set(shortcode_atts(array(
+			'src' => null,
+			'campus' => null
+		), $attr));
+		return $this->theme->render('audio');
 	}
 
 /**
