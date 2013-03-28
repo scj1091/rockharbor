@@ -399,7 +399,8 @@ class RockharborThemeBase {
 		wp_enqueue_script('touch');
 
 		// dequeue stuff we don't need
-		wp_deregister_style('thickbox');
+		wp_dequeue_script('thickbox');
+		wp_dequeue_style('thickbox');
 
 		// conditional assets
 		if (is_singular() && get_option('thread_comments')) {
