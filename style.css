@@ -67,6 +67,13 @@ p {
 	line-height: 1.4em; /*= 14px */
 }
 
+p a,
+p label,
+p input
+{
+	font-size: inherit;
+}
+
 a {
 	text-decoration: underline;
 	color: #ff0000;
@@ -111,7 +118,8 @@ h3 {
 }
 
 h4 {
-	font-size: 100%;
+	font-size: 1.6em; /*= 16px */
+	margin-bottom: 0;
 }
 
 blockquote {
@@ -156,6 +164,7 @@ abbr {
 	border-bottom: 1px dotted #c9c9c9;
 }
 
+code,
 pre {
 	padding: 5px;
 
@@ -297,7 +306,7 @@ th {
 /* add spacing between logo and whatever is next (text or RH text-only logo) */
 .global-navigation h1 .logo span:last-of-type,
 .global-navigation h1 .logo img:last-of-type {
-	margin-left: 10px;
+	margin-left: 2px;
 }
 
 .global-navigation h1 div.title {
@@ -345,6 +354,13 @@ th {
 	margin: 0 3px;
 }
 
+.global-navigation nav li.menu,
+.global-navigation nav li.search,
+.global-navigation nav li.campuses
+{
+	line-height: 51px;
+}
+
 .global-navigation nav ul li ul {
 	display: none;
 	position: absolute;
@@ -355,6 +371,8 @@ th {
 	width: 200px;
 
 	background: #c9c9c9;
+
+	line-height: normal;
 }
 
 .global-navigation nav ul li {
@@ -593,11 +611,6 @@ th {
 	width: 25%;
 }
 
-aside header {
-	margin-right: -10px;
-	margin-bottom: 10px;
-}
-
 .page-title,
 #content-title,
 section header {
@@ -635,11 +648,16 @@ aside header h1 {
 }
 
 section article {
-	padding: 10px;
+	padding: 20px;
 }
 
-section article:first-child {
+section article:first-of-type {
 	padding-top: 0;
+}
+
+section article:last-of-type {
+	border-bottom: none;
+	padding-bottom: 0;
 }
 
 .archive article {
@@ -766,13 +784,14 @@ footer h3 {
 	color: #747474;
 }
 
-footer a {
+#footer div:not(:last-of-type) a
+{
 	color: #747474;
 	text-decoration: none;
 	font-size: 1.3em;
 }
 
-footer a:hover,
+#footer div:not(:last-of-type) a:hover,
 #footer ul.menu li a:hover {
 	text-decoration: underline;
 }
@@ -811,6 +830,7 @@ footer a:hover,
 	float: left;
 	width: 38%;
 	padding-right: 2%;
+	margin-top: 0;
 
 	text-align: right;
 }
@@ -1128,6 +1148,8 @@ h2 time span {
 }
 
 article footer {
+	padding-top: 10px;
+
 	border-top: 1px dotted #747474;
 
 	background: transparent;
@@ -1186,6 +1208,13 @@ select {
 }
 
 input[type="radio"],
+input[type="checkbox"]
+{
+	background: none;
+	border: none;
+}
+
+input[type="radio"],
 select {
 	width: auto;
 }
@@ -1220,7 +1249,16 @@ select:focus {
 }
 
 label {
+	display: block;
+	margin-bottom: 5px;
+
 	font-size: 1.3em; /*= 13px */
+}
+
+input[type=radio] ~ label,
+input[type=checkbox] ~ label
+{
+	display: inline-block;
 }
 
 .form-submit input {
@@ -1252,7 +1290,12 @@ label {
 -----------------------------------------*/
 .core-events time {
 	width: 100%;
-	margin-bottom: 10px;
+	margin: 10px 0;
+	float: none;
+}
+
+.core-events time:first-of-type {
+	margin-top: 0;
 }
 
 .core-events a {

@@ -89,6 +89,10 @@ article.message .share > div {
 	max-height: 20px;
 }
 
+article.message .message-details .message-meta .meta-title {
+	margin-right: 5px;
+}
+
 /*= Message content
 -----------------------------------------*/
 article.message .message-details.with-image {

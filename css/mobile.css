@@ -18,6 +18,8 @@ This stylesheet is applied to mobile (max 480px) only.
 -----------------------------------------*/
 .global-navigation {
 	height: 51px;
+
+	box-shadow: 0px 0px 3px 0px #888888;
 }
 
 .global-navigation nav ul li {
@@ -152,6 +154,10 @@ aside {
 
 /*= Home content
 -----------------------------------------*/
+#branding .stories-3 .story-box {
+	margin-bottom: 10px;
+}
+
 .home #frontpage-content {
 	float: none;
 	width: 100%;
