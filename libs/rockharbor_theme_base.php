@@ -752,19 +752,11 @@ class RockharborThemeBase {
 		if (empty($postId)) {
 			$postId = $post->ID;
 		}
-		$enclosure = get_post_meta($postId, 'enclosure');
-		$file = null;
-		if (!empty($enclosure)) {
-			foreach ($enclosure as $enclosed) {
-				$enclosedSplit = explode("\n", $enclosed);
-				if (!empty($enclosedSplit[2]) && strpos($enclosedSplit[2], "$type/") !== false) {
-					$file = $enclosedSplit[0];
-					break;
-				}
-			}
+		$file = get_post_meta($postId, $type . '_url');
+		if (!empty($file)) {
+			return $file[0];
 		}
-		$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
-		return $file;
+		return null;
 	}
 
 /**
