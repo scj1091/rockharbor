@@ -145,7 +145,8 @@ class RockharborThemeBase {
 			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
 			$this->Roles = new Roles($this);
 		} else {
-			$this->setupAssets();
+			add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
+			add_action('wp_enqueue_scripts', array($this, 'compressAssets'));
 		}
 
 		// change rss feed to point to feedburner link
@@ -162,7 +163,6 @@ class RockharborThemeBase {
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
-		add_filter('wp_head', array($this, 'compressAssets'), 7);
 
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'), 1, 3);
