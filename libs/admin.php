@@ -41,7 +41,9 @@ class Admin {
 		update_option('blogname', 'RH '.$this->theme->info('name'));
 		update_option('image_default_link_type', 'file');
 
-		// add meta boxes for cross-posting
+		// add meta boxes
+		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'page', 'normal');
+		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'post', 'normal');
 		add_meta_box('template-options', 'Template Options', array($this, 'templateOptionsMetaBox'), 'page', 'side');
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
@@ -272,6 +274,15 @@ class Admin {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
 		echo $this->theme->render('admin'.DS.'core_meta_box');
+	}
+
+/**
+ * Renders the meta box for core events on pages
+ */
+	public function mediaMetaBox() {
+		global $post;
+		$this->theme->set('data', $this->theme->metaToData($post->ID));
+		echo $this->theme->render('admin'.DS.'media_meta_box');
 	}
 
 /**
