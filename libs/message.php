@@ -212,7 +212,6 @@ class Message extends PostType {
  */
 	function afterSave($data, $postId) {
 		do_enclose($_POST['meta']['video_url'], $postId);
-		do_enclose($_POST['meta']['audio_url'], $postId);
 	}
 
 /**
