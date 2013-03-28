@@ -20,9 +20,9 @@ RH.tabletEnter = function() {
 	jQuery('footer .tabs a').on('click', function() {
 		jQuery('footer .tabs a').removeClass('selected');
 		jQuery('#footer > div').hide();
-		var selector = $(this).data('tab');
-		$(selector).show();
-		$(this).addClass('selected');
+		var selector = jQuery(this).data('tab');
+		jQuery(selector).show();
+		jQuery(this).addClass('selected');
 	});
 	jQuery('footer .tabs a:first-child').click();
 	// for you people resizing the browser :)
@@ -58,11 +58,11 @@ RH.mobileEnter = function() {
 	});
 	jQuery('.global-navigation li.campuses').on('click', function() {
 		RH.hideMenuOptions('campuses');
-		$(this).children('ul').toggle();
+		jQuery(this).children('ul').toggle();
 	});
 	jQuery('.global-navigation li.search').on('click', function() {
 		RH.hideMenuOptions('search');
-		$(this).children('form').toggle();
+		jQuery(this).children('form').toggle();
 	});
 	jQuery('.global-navigation li.search form').on('click', function(event) {
 		// prevent clicking on input from closing the search form
@@ -86,17 +86,17 @@ RH.mobileExit = function() {
 RH.hideMenuOptions = function(keep) {
 	if (keep !== 'menu') {
 		jQuery('#access').slideUp(function() {
-			$(this).css('display', '');
+			jQuery(this).css('display', '');
 		});
 	}
 	if (keep !== 'campuses') {
 		jQuery('.global-navigation li.campuses ul').hide(function() {
-			$(this).css('display', '');
+			jQuery(this).css('display', '');
 		});
 	}
 	if (keep !== 'search') {
 		jQuery('.global-navigation li.search form').hide(function() {
-			$(this).css('display', '');
+			jQuery(this).css('display', '');
 		});
 	}
 }

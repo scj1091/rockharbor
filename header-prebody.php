@@ -49,7 +49,7 @@
 	jQuery(document).ready(function() {
 		// core feeds
 		jQuery('.core-events').each(function() {
-			var self = $(this);
+			var self = jQuery(this);
 			jQuery.ajax({
 				url: self.data('core-feed-url'),
 				type: 'get',
@@ -165,13 +165,13 @@
 			exit: RH.tabletExit
 		});
 
-		$('#access > ul > li').hover(function() {
-			var menu = $(this).children('.submenu');
+		jQuery('#access > ul > li').hover(function() {
+			var menu = jQuery(this).children('.submenu');
 			if (menu.length === 0) {
 				return;
 			}
-			var pos = $(this).position();
-			var width = $(window).width();
+			var pos = jQuery(this).position();
+			var width = jQuery(window).width();
 			if (pos.left + menu.width() > width) {
 				menu.css({
 					right: 0
