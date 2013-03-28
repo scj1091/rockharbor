@@ -1,6 +1,4 @@
-/*
-This stylesheet is applied to mobile (max 480px) only.
-*/
+@media screen and (max-width: 480px) {
 
 /*= Generic styles
 -----------------------------------------*/
@@ -239,4 +237,6 @@ time {
 	margin: 0;
 	margin-bottom: -1em;
 	width: 85%; /*= (story-box width)* left + 50% */
+}
+
 }

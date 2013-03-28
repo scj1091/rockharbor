@@ -328,10 +328,6 @@ class RockharborThemeBase {
 			}
 		}
 
-		if (!empty($object->args) && $object->args !== 'all') {
-			$contents = "@media $object->args { $contents }";
-		}
-
 		return "\n$contents";
 	}
 
@@ -378,8 +374,8 @@ class RockharborThemeBase {
 		wp_deregister_style('media');
 		wp_register_style('media', "$base/css/mediaelementplayer.css");
 		wp_register_style('base', "$base/style.css");
-		wp_register_style('mobile', "$base/css/mobile.css", array(), false, 'screen and (max-width: 480px)');
-		wp_register_style('tablet', "$base/css/tablet.css", array(), false, 'screen and (max-width: 768px)');
+		wp_register_style('mobile', "$base/css/mobile.css");
+		wp_register_style('tablet', "$base/css/tablet.css");
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
 

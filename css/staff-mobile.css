@@ -1,7 +1,9 @@
+@media screen and (max-width: 480px) {
+
 /**
  * Styles for the `staff` feature
  */
- 
+
 /*= Archive Page
 -----------------------------------------*/
 .page-template #content article.staff {
@@ -22,4 +24,6 @@
 .single-staff #content article.staff .staff-details dd,
 .single-staff #content article.staff .staff-details dt {
 	overflow: hidden;
+}
+
 }
