@@ -115,13 +115,19 @@
 			.removeAttr('width')
 			.removeAttr('height');
 
+		var preserveAspectRatio = function(container) {
+			var element = $(container).find('video');
+			if (element.length === 0 || typeof $(element)[0].player === 'undefined') {
+				return;
+			}
+			var player = $(element)[0].player;
+			var w = $(container).width();
+			var h = w*9/16;
+			player.setPlayerSize(w, h);
+		}
+
 		// improve media elements
 		jQuery('video')
-			.each(function() {
-				var w = $(this).width();
-				var h = w*9/16;
-				$(this).attr('height', h);
-			})
 			.mediaelementplayer({
 				pluginPath: '<?php echo $theme->info('base_url'); ?>/swf/',
 				success: function(media, node) {
@@ -137,6 +143,15 @@
 			audioHeight: 20,
 			features: ['playpause', 'progress', 'current']
 		});
+
+		if (jQuery('video').length > 0) {
+			jQuery(window).resize(function() {
+				jQuery('.embedded-video').each(function() {
+					preserveAspectRatio(this);
+				});
+			});
+			jQuery(window).resize();
+		}
 
 		// responsive breakpoints
 		mediaCheck({
