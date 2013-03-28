@@ -58,7 +58,6 @@ $hasHeader =
 				if (empty($video) && has_post_thumbnail($post->ID)) {
 					echo get_the_post_thumbnail($post->ID, 'full');
 				} else {
-					$theme->Shortcodes->remove('videoplayer');
 					echo $video;
 				}
 			}
