@@ -93,7 +93,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 					$authedTokens = $theme->options('twitter_oauth_token');
 					if (empty($authedTokens)) {
 						$token = $theme->Twitter->oauthRequestToken();
-						$cb = $theme->Twitter->oauthCallback($nonce);
 						if (empty($token)) {
 							echo $this->Html->tag('p', 'ERROR: Invalid request tokens returned. Make sure all Twitter configuration is present.');
 						} else {
