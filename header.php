@@ -6,11 +6,13 @@ if (!empty($locations['featured'])) {
 	$featuredItems = wp_get_nav_menu_items($locations['featured']);
 }
 $video = $theme->render('video');
+$meta = $theme->metaToData($post->ID);
 $hasHeader =
 	(is_front_page() && count($featuredItems))
 	|| (
 		is_singular(array('post', 'page', 'message'))
 		&& !empty($video) || has_post_thumbnail($post->ID) && is_page()
+		&& (empty($meta['hide_featured_content']) || !$meta['hide_featured_content'])
 	);
 ?>
 <?php get_template_part('header', 'prebody') ?>
@@ -27,7 +29,6 @@ $hasHeader =
 		<header id="branding" role="banner" class="clearfix">
 			<?php
 			if (is_front_page() && count($featuredItems)) {
-				$meta = $theme->metaToData($post->ID);
 				if (!empty($featuredItems)) {
 					$first = $featuredItems[0];
 					if (!empty($meta['first_featured_story_height'])) {
