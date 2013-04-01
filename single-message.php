@@ -67,6 +67,7 @@ the_post();
 						<div class="message-audio">
 							<h3>Listen</h3>
 							<?php
+							$theme->set('src', $meta['audio_url']);
 							echo $theme->render('audio');
 							?>
 						</div>
