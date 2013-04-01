@@ -963,7 +963,6 @@ a.prev {
 	display: block;
 	position: relative;
 	width: 100%;
-	min-height: 120px;
 	margin-bottom: 10px;
 	overflow: hidden;
 

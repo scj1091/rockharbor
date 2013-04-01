@@ -150,8 +150,16 @@
 					preserveAspectRatio(this);
 				});
 			});
-			jQuery(window).resize();
 		}
+
+		jQuery(window).resize(function() {
+			jQuery('.story-box').each(function() {
+				var w = $(this).width();
+				var h = w*9/16;
+				$(this).css('height', h);
+			});
+		});
+		jQuery(window).resize();
 
 		// responsive breakpoints
 		mediaCheck({
