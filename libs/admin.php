@@ -244,6 +244,12 @@ class Admin {
 
 		if (isset($_POST['meta'])) {
 			foreach ($_POST['meta'] as $name => $value) {
+				// the 'custom fields' meta box duplicates this meta as
+				// $metaid => array($key => $value) so we need to ignore those
+				// on save
+				if (is_numeric($name) && is_array($value)) {
+					continue;
+				}
 				update_post_meta($post->ID, $name, $value);
 			}
 		}
