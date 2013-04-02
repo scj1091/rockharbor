@@ -637,7 +637,16 @@ class RockharborThemeBase {
  * After callback. Called after theme setup
  */
 	public function after() {
+		// set up thumbnails
 		add_theme_support('post-thumbnails');
+		update_option('thumbnail_size_w', 260);
+		update_option('thumbnail_size_h', 150);
+		// no medium or large sizes
+		update_option('medium_size_w', 0);
+		update_option('medium_size_h', 0);
+		update_option('large_size_w', 0);
+		update_option('large_size_h', 0);
+
 		add_theme_support('automatic-feed-links');
 		load_theme_textdomain('rockharbor', $this->basePath.'/languages');
 
