@@ -16,6 +16,10 @@ RH.tabletEnter = function() {
 	RH.inTablet = true;
 	// make nav the first element
 	jQuery('nav#access').insertAfter('.global-navigation');
+	// no double click :hover for iphone
+	jQuery('nav#access li').on('click touchend', function() {
+		window.location = $(this).children('a').attr('href');
+	});
 	// make footer touch-friendly
 	jQuery('footer .tabs a').on('click', function() {
 		jQuery('footer .tabs a').removeClass('selected');
