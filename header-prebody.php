@@ -155,12 +155,12 @@
 
 		// responsive breakpoints
 		mediaCheck({
-			media: '(max-width: 480px)',
+			media: '(max-width: 569px)',
 			entry: RH.mobileEnter,
 			exit: RH.mobileExit
 		});
 		mediaCheck({
-			media: '(max-width: 768px)',
+			media: '(max-width: 1025px)',
 			entry: RH.tabletEnter,
 			exit: RH.tabletExit
 		});
