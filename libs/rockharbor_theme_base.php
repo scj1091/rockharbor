@@ -196,12 +196,23 @@ class RockharborThemeBase {
  */
 	function filterContent($content = '') {
 		$count = preg_match_all('/<!--column-->/', $content, $matches);
+
 		if ($count) {
-			$colSize = floor(100 / ($count+1)) - 1;
+			$columns = explode('<p><!--column--></p>', $content);
+			// grab content before and after
+			$contentBefore = array_shift($columns);
+			$contentAfter = array_pop($columns);
+			// everything else in between are columns
+			$content = implode('<!--column-->', $columns);
+
+			// set up columns
+			$colCount = substr_count($content, '<!--column-->');
+			$colSize = floor(100 / ($count - 1)) - 1;
 			$columnDiv = "<div style=\"float:left;width:$colSize%;margin-right: 1%;\">";
 
+			// reassemble
 			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
-			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
+			$content = $contentBefore.'<div class="clearfix">'.$columnDiv.$content.'</div></div>'.$contentAfter;
 		}
 		return $content;
 	}
