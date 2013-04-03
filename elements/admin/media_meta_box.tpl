@@ -1,0 +1,29 @@
+<p>
+	<strong>Header Video Message URL</strong><br />
+	<a id="media_meta_video" title="Video Message" class="mceButton mceButtonEnabled" href="javascript:;" role="button" tabindex="-1" style="text-decoration: none;">
+		<img alt="Video Message" src="<?php echo $theme->info('base_url'); ?>/js/mceplugins/video.png" class="mceIcon" />
+	</a>
+	<?php
+	echo $theme->Html->input('video_url', array(
+		'label' => false,
+		'div' => false,
+		'size' => 120
+	));
+	?>
+</p>
+<script type="text/javascript">
+	jQuery('#media_meta_video').click(function() {
+		RH.showMediaLibrary(function(html) {
+			var url = jQuery(html).attr('href');
+			jQuery('#metavideourl').val(url);
+			return '';
+		});
+	});
+	jQuery('#media_meta_audio').click(function() {
+		RH.showMediaLibrary(function(html) {
+			var url = jQuery(html).attr('href');
+			jQuery('#metaaudiourl').val(url);
+			return '';
+		});
+	})
+</script>

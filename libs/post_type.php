@@ -128,14 +128,14 @@ class PostType {
 		// load mobile css if it exists
 		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-mobile.css')) {
 			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
-			wp_register_style($this->options['slug'].'-mobile', "$path-mobile.css", array(), false, 'screen and (max-width: 480px)');
+			wp_register_style($this->options['slug'].'-mobile', "$path-mobile.css");
 			wp_enqueue_style($this->options['slug'].'-mobile');
 		}
 
 		// load tablet css if it exists
 		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-tablet.css')) {
 			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
-			wp_register_style($this->options['slug'].'-tablet', "$path-tablet.css", array(), false, 'screen and (max-width: 768px)');
+			wp_register_style($this->options['slug'].'-tablet', "$path-tablet.css");
 			wp_enqueue_style($this->options['slug'].'-tablet');
 		}
 

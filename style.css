@@ -138,8 +138,8 @@ blockquote {
 
 .widget-body ul,
 .entry-content ul {
-	font-size: 1.2em; /*= 12px */
-	line-height: 1.3em; /*= 13px */
+	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
 
 	padding-left: 10px;
 	margin-left: 10px;
@@ -150,8 +150,8 @@ blockquote {
 
 .widget-body ol,
 .entry-content ol {
-	font-size: 1.2em; /*= 12px */
-	line-height: 1.3em; /*= 13px */
+	font-size: 1.3em; /*= 13px */
+	line-height: 1.4em; /*= 14px */
 
 	padding-left: 10px;
 	margin-left: 10px;

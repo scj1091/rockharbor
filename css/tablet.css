@@ -1,6 +1,4 @@
-/*
-This stylesheet is applied to tablets (max 768px) only.
-*/
+@media screen and (max-width: 1025px) {
 
 /*= Generic styles
 -----------------------------------------*/
@@ -265,4 +263,6 @@ footer .icon-campus:after {
 .core-events a {
 	float: right;
 	width: 68%;
+}
+
 }

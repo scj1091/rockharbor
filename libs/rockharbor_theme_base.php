@@ -145,7 +145,8 @@ class RockharborThemeBase {
 			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
 			$this->Roles = new Roles($this);
 		} else {
-			$this->setupAssets();
+			add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
+			add_action('wp_enqueue_scripts', array($this, 'compressAssets'));
 		}
 
 		// change rss feed to point to feedburner link
@@ -162,7 +163,6 @@ class RockharborThemeBase {
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
-		add_filter('wp_head', array($this, 'compressAssets'), 7);
 
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'), 1, 3);
@@ -196,12 +196,23 @@ class RockharborThemeBase {
  */
 	function filterContent($content = '') {
 		$count = preg_match_all('/<!--column-->/', $content, $matches);
+
 		if ($count) {
-			$colSize = floor(100 / ($count+1)) - 1;
+			$columns = explode('<p><!--column--></p>', $content);
+			// grab content before and after
+			$contentBefore = array_shift($columns);
+			$contentAfter = array_pop($columns);
+			// everything else in between are columns
+			$content = implode('<!--column-->', $columns);
+
+			// set up columns
+			$colCount = substr_count($content, '<!--column-->');
+			$colSize = floor(100 / ($count - 1)) - 1;
 			$columnDiv = "<div style=\"float:left;width:$colSize%;margin-right: 1%;\">";
 
+			// reassemble
 			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
-			$content = '<div class="clearfix">'.$columnDiv.$content.'</div></div>';
+			$content = $contentBefore.'<div class="clearfix">'.$columnDiv.$content.'</div></div>'.$contentAfter;
 		}
 		return $content;
 	}
@@ -328,10 +339,6 @@ class RockharborThemeBase {
 			}
 		}
 
-		if (!empty($object->args) && $object->args !== 'all') {
-			$contents = "@media $object->args { $contents }";
-		}
-
 		return "\n$contents";
 	}
 
@@ -378,8 +385,8 @@ class RockharborThemeBase {
 		wp_deregister_style('media');
 		wp_register_style('media', "$base/css/mediaelementplayer.css");
 		wp_register_style('base', "$base/style.css");
-		wp_register_style('mobile', "$base/css/mobile.css", array(), false, 'screen and (max-width: 480px)');
-		wp_register_style('tablet', "$base/css/tablet.css", array(), false, 'screen and (max-width: 768px)');
+		wp_register_style('mobile', "$base/css/mobile.css");
+		wp_register_style('tablet', "$base/css/tablet.css");
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
 
@@ -399,7 +406,8 @@ class RockharborThemeBase {
 		wp_enqueue_script('touch');
 
 		// dequeue stuff we don't need
-		wp_deregister_style('thickbox');
+		wp_dequeue_script('thickbox');
+		wp_dequeue_style('thickbox');
 
 		// conditional assets
 		if (is_singular() && get_option('thread_comments')) {
@@ -640,7 +648,16 @@ class RockharborThemeBase {
  * After callback. Called after theme setup
  */
 	public function after() {
+		// set up thumbnails
 		add_theme_support('post-thumbnails');
+		update_option('thumbnail_size_w', 260);
+		update_option('thumbnail_size_h', 150);
+		// no medium or large sizes
+		update_option('medium_size_w', 0);
+		update_option('medium_size_h', 0);
+		update_option('large_size_w', 0);
+		update_option('large_size_h', 0);
+
 		add_theme_support('automatic-feed-links');
 		load_theme_textdomain('rockharbor', $this->basePath.'/languages');
 
@@ -755,19 +772,11 @@ class RockharborThemeBase {
 		if (empty($postId)) {
 			$postId = $post->ID;
 		}
-		$enclosure = get_post_meta($postId, 'enclosure');
-		$file = null;
-		if (!empty($enclosure)) {
-			foreach ($enclosure as $enclosed) {
-				$enclosedSplit = explode("\n", $enclosed);
-				if (!empty($enclosedSplit[2]) && strpos($enclosedSplit[2], "$type/") !== false) {
-					$file = $enclosedSplit[0];
-					break;
-				}
-			}
+		$file = get_post_meta($postId, $type . '_url');
+		if (!empty($file)) {
+			return $file[0];
 		}
-		$file = str_replace(array("\r\n", "\r", "\n"), '', $file);
-		return $file;
+		return null;
 	}
 
 /**
@@ -1045,8 +1054,14 @@ class RockharborThemeBase {
  * @param string $url File url
  */
 	public function s3Url($url) {
+		global $current_blog;
+		$subsitePath = null;
+		if ($current_blog) {
+			// the s3 plugin that is currently used stores files under the domain
+			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.'));
+		}
 		$options = get_option('tantan_wordpress_s3');
-		$path = 'http://'.$options['bucket'].'.s3.amazonaws.com';
+		$path = 'http://'.$options['bucket'].'.s3.amazonaws.com'.$subsitePath;
 		return str_replace(site_url(), $path, $url);
 	}
 }

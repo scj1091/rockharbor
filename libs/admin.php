@@ -41,7 +41,9 @@ class Admin {
 		update_option('blogname', 'RH '.$this->theme->info('name'));
 		update_option('image_default_link_type', 'file');
 
-		// add meta boxes for cross-posting
+		// add meta boxes
+		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'page', 'normal');
+		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'post', 'normal');
 		add_meta_box('template-options', 'Template Options', array($this, 'templateOptionsMetaBox'), 'page', 'side');
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
 		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
@@ -55,15 +57,6 @@ class Admin {
 			$this->frontPage();
 		}
 
-		// load in s3 url modifying filter. Since the plugin doesn't load the url modifier,
-		// images in the media archive would not show from S3 but rather the local disk
-		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
-		$class = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'class-plugin-public.php';
-		$tantan = get_option('tantan_wordpress_s3', false);
-		if (file_exists($lib) && $tantan !== false && !empty($tantan['key'])) {
-			require_once ($class);
-			new TanTanWordPressS3PluginPublic();
-		}
 		wp_register_script('admin_scripts', $this->theme->info('base_url').'/js/admin.js');
 		wp_enqueue_script('admin_scripts');
 
@@ -171,19 +164,15 @@ class Admin {
  * @return string Absolute path to file
  */
 	public function deleteS3File($file) {
-		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
-		$tantanlib = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
-		$tantan = get_option('tantan_wordpress_s3', false);
-		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
-		if (!file_exists($tantanlib) || !$tantan || empty($tantan['key'])) {
+		$tantanlib = WP_PLUGIN_DIR.DS.'amazon-s3-and-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
+		if (!file_exists($tantanlib)) {
 			return $file;
 		}
 		$uploadpaths = wp_upload_dir();
-		$hasBase = strpos($uploadpaths['basedir'], $file) > 0;
-		if (!class_exists('TanTanS3')) {
+		$s3options = get_option('tantan_wordpress_s3');
+		if (!class_exists('TanTanS3') || empty($s3options['secret'])) {
 			require_once $tantanlib;
 		}
-		$s3options = get_option('tantan_wordpress_s3');
 		$s3 = new TanTanS3($s3options['key'], $s3options['secret']);
 		$s3->setOptions($s3options);
 
@@ -203,13 +192,17 @@ class Admin {
 	}
 
 /**
- * If we're using s3, delete the local files since they're in the cloud
+ * If we're using s3, delete the local files since they're in the cloud. This
+ * also deletes the (current) plugin's metadata, as it ends up confusing the
+ * url replacement.
  *
  * @param array $data Attachment data
  * @param integer $postID Post id
  * @return array
  */
 	public function deleteLocalFile($data, $postID) {
+		delete_post_meta($postID, 'amazonS3_info');
+
 		if (file_exists($data['file'])) {
 			unlink($data['file']);
 		}
@@ -242,6 +235,12 @@ class Admin {
 
 		if (isset($_POST['meta'])) {
 			foreach ($_POST['meta'] as $name => $value) {
+				// the 'custom fields' meta box duplicates this meta as
+				// $metaid => array($key => $value) so we need to ignore those
+				// on save
+				if (is_numeric($name) && is_array($value)) {
+					continue;
+				}
 				update_post_meta($post->ID, $name, $value);
 			}
 		}
@@ -272,6 +271,15 @@ class Admin {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
 		echo $this->theme->render('admin'.DS.'core_meta_box');
+	}
+
+/**
+ * Renders the meta box for core events on pages
+ */
+	public function mediaMetaBox() {
+		global $post;
+		$this->theme->set('data', $this->theme->metaToData($post->ID));
+		echo $this->theme->render('admin'.DS.'media_meta_box');
 	}
 
 /**

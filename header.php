@@ -6,11 +6,13 @@ if (!empty($locations['featured'])) {
 	$featuredItems = wp_get_nav_menu_items($locations['featured']);
 }
 $video = $theme->render('video');
+$meta = $theme->metaToData($post->ID);
 $hasHeader =
 	(is_front_page() && count($featuredItems))
 	|| (
 		is_singular(array('post', 'page', 'message'))
 		&& !empty($video) || has_post_thumbnail($post->ID) && is_page()
+		&& (empty($meta['hide_featured_content']) || !$meta['hide_featured_content'])
 	);
 ?>
 <?php get_template_part('header', 'prebody') ?>
@@ -27,7 +29,6 @@ $hasHeader =
 		<header id="branding" role="banner" class="clearfix">
 			<?php
 			if (is_front_page() && count($featuredItems)) {
-				$meta = $theme->metaToData($post->ID);
 				if (!empty($featuredItems)) {
 					$first = $featuredItems[0];
 					if (!empty($meta['first_featured_story_height'])) {
@@ -36,6 +37,7 @@ $hasHeader =
 					$theme->set('id', $first->object_id);
 					$theme->set('title', $first->title);
 					$theme->set('type', $first->object);
+					$theme->set('useThumbnail', false);
 					$banner = $theme->Html->tag('div', $theme->render('story_box'));
 
 					echo $theme->Html->tag('div', $banner, array(
@@ -47,6 +49,7 @@ $hasHeader =
 					$items = array_slice($featuredItems, 1, 3);
 					foreach ($items as $item) {
 						$theme->set('height', null);
+						$theme->set('useThumbnail', true);
 						$theme->set('id', $item->object_id);
 						$theme->set('title', $item->title);
 						$theme->set('type', $item->object);
@@ -58,7 +61,6 @@ $hasHeader =
 				if (empty($video) && has_post_thumbnail($post->ID)) {
 					echo get_the_post_thumbnail($post->ID, 'full');
 				} else {
-					$theme->Shortcodes->remove('videoplayer');
 					echo $video;
 				}
 			}

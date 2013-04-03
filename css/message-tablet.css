@@ -1,3 +1,5 @@
+@media screen and (max-width: 1025px) {
+
 /*= Latest message (in message series)
 -----------------------------------------*/
 #content article.first.message-series {
@@ -14,4 +16,6 @@
 #content article.first.message-series .series-details {
 	width: 100%;
 	float: none;
+}
+
 }

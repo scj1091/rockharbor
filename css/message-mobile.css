@@ -1,3 +1,5 @@
+@media screen and (max-width: 569px) {
+
 /*= Message series
 -----------------------------------------*/
 #content .series-collection article.message-series {
@@ -24,4 +26,6 @@ article.message .message-image {
 article.message .message-details.with-image {
 	float: none;
 	width: 100%;
+}
+
 }
