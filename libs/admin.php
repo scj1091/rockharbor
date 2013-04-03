@@ -205,13 +205,17 @@ class Admin {
 	}
 
 /**
- * If we're using s3, delete the local files since they're in the cloud
+ * If we're using s3, delete the local files since they're in the cloud. This
+ * also deletes the (current) plugin's metadata, as it ends up confusing the
+ * url replacement.
  *
  * @param array $data Attachment data
  * @param integer $postID Post id
  * @return array
  */
 	public function deleteLocalFile($data, $postID) {
+		delete_post_meta($postID, 'amazonS3_info');
+
 		if (file_exists($data['file'])) {
 			unlink($data['file']);
 		}
