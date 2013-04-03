@@ -146,7 +146,7 @@ class RockharborThemeBase {
 			$this->Roles = new Roles($this);
 		} else {
 			add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
-			add_action('wp_enqueue_scripts', array($this, 'compressAssets'));
+			add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 		}
 
 		// change rss feed to point to feedburner link

@@ -122,22 +122,7 @@ class PostType {
 		));
 
 		// load css
-		wp_register_style($this->options['slug'], $theme->info('base_url').'/css/'.$this->options['slug'].'.css');
-		wp_enqueue_style($this->options['slug']);
-
-		// load mobile css if it exists
-		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-mobile.css')) {
-			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
-			wp_register_style($this->options['slug'].'-mobile', "$path-mobile.css");
-			wp_enqueue_style($this->options['slug'].'-mobile');
-		}
-
-		// load tablet css if it exists
-		if (file_exists($theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-tablet.css')) {
-			$path = $theme->info('base_url').'/css/'.$this->options['slug'];
-			wp_register_style($this->options['slug'].'-tablet', "$path-tablet.css");
-			wp_enqueue_style($this->options['slug'].'-tablet');
-		}
+		add_action('wp_enqueue_scripts', array($this, 'addAssets'));
 
 		// filters and actions if we're adding or editing this post type
 		if ((isset($_GET['post']) && get_post_type($_GET['post']) == $this->name)
@@ -153,6 +138,25 @@ class PostType {
 		if ($this->options['archive']) {
 			// shortcode to show the archive
 			add_shortcode($this->options['slug'], array($this, 'shortcode'));
+		}
+	}
+
+	public function addAssets() {
+		wp_register_style($this->options['slug'], $this->theme->info('base_url').'/css/'.$this->options['slug'].'.css');
+		wp_enqueue_style($this->options['slug']);
+
+		// load mobile css if it exists
+		if (file_exists($this->theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-mobile.css')) {
+			$path = $this->theme->info('base_url').'/css/'.$this->options['slug'];
+			wp_register_style($this->options['slug'].'-mobile', "$path-mobile.css");
+			wp_enqueue_style($this->options['slug'].'-mobile');
+		}
+
+		// load tablet css if it exists
+		if (file_exists($this->theme->info('base_path'). DS . 'css' . DS . $this->options['slug'].'-tablet.css')) {
+			$path = $this->theme->info('base_url').'/css/'.$this->options['slug'];
+			wp_register_style($this->options['slug'].'-tablet', "$path-tablet.css");
+			wp_enqueue_style($this->options['slug'].'-tablet');
 		}
 	}
 
