@@ -31,6 +31,7 @@ class Twitter {
 		}
 
 		$oauth = new tmhOAuth(array(
+			'curl_ssl_verifypeer' => false,
 			'consumer_key' => TWITTER_CONSUMER_KEY,
 			'consumer_secret' => TWITTER_CONSUMER_SECRET
 		));
@@ -85,6 +86,7 @@ class Twitter {
 		}
 
 		$oauth = new tmhOAuth(array(
+			'curl_ssl_verifypeer' => false,
 			'consumer_key' => TWITTER_CONSUMER_KEY,
 			'consumer_secret' => TWITTER_CONSUMER_SECRET
 		));
@@ -111,6 +113,7 @@ class Twitter {
 	public function oauthAccessToken($verifier = null) {
 		$requestTokens = $_SESSION['oauth'];
 		$oauth = new tmhOAuth(array(
+			'curl_ssl_verifypeer' => false,
 			'consumer_key' => TWITTER_CONSUMER_KEY,
 			'consumer_secret' => TWITTER_CONSUMER_SECRET
 		));
