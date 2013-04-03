@@ -57,15 +57,6 @@ class Admin {
 			$this->frontPage();
 		}
 
-		// load in s3 url modifying filter. Since the plugin doesn't load the url modifier,
-		// images in the media archive would not show from S3 but rather the local disk
-		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
-		$class = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'class-plugin-public.php';
-		$tantan = get_option('tantan_wordpress_s3', false);
-		if (file_exists($lib) && $tantan !== false && !empty($tantan['key'])) {
-			require_once ($class);
-			new TanTanWordPressS3PluginPublic();
-		}
 		wp_register_script('admin_scripts', $this->theme->info('base_url').'/js/admin.js');
 		wp_enqueue_script('admin_scripts');
 
@@ -173,19 +164,15 @@ class Admin {
  * @return string Absolute path to file
  */
 	public function deleteS3File($file) {
-		$lib = 'tantan-s3-cloudfront'.DS.'wordpress-s3.php';
-		$tantanlib = WP_PLUGIN_DIR.DS.'tantan-s3-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
-		$tantan = get_option('tantan_wordpress_s3', false);
-		// the plugin doesn't add itself to the list of active ones, so is_plugin_active doesn't work
-		if (!file_exists($tantanlib) || !$tantan || empty($tantan['key'])) {
+		$tantanlib = WP_PLUGIN_DIR.DS.'amazon-s3-and-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
+		if (!file_exists($tantanlib)) {
 			return $file;
 		}
 		$uploadpaths = wp_upload_dir();
-		$hasBase = strpos($uploadpaths['basedir'], $file) > 0;
-		if (!class_exists('TanTanS3')) {
+		$s3options = get_option('tantan_wordpress_s3');
+		if (!class_exists('TanTanS3') || empty($s3options['secret'])) {
 			require_once $tantanlib;
 		}
-		$s3options = get_option('tantan_wordpress_s3');
 		$s3 = new TanTanS3($s3options['key'], $s3options['secret']);
 		$s3->setOptions($s3options);
 
