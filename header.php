@@ -37,6 +37,7 @@ $hasHeader =
 					$theme->set('id', $first->object_id);
 					$theme->set('title', $first->title);
 					$theme->set('type', $first->object);
+					$theme->set('useThumbnail', false);
 					$banner = $theme->Html->tag('div', $theme->render('story_box'));
 
 					echo $theme->Html->tag('div', $banner, array(
@@ -48,6 +49,7 @@ $hasHeader =
 					$items = array_slice($featuredItems, 1, 3);
 					foreach ($items as $item) {
 						$theme->set('height', null);
+						$theme->set('useThumbnail', true);
 						$theme->set('id', $item->object_id);
 						$theme->set('title', $item->title);
 						$theme->set('type', $item->object);
