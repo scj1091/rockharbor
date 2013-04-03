@@ -4,7 +4,7 @@
 
 /*= Archive Page
 -----------------------------------------*/
-.page-template #content article.staff {
+#content article.staff {
 	width: 15.541%;
 	margin: 0 0.5625%;
 	margin-bottom: 10px;
@@ -14,18 +14,18 @@
 	text-align: center;
 }
 
-.page-template #content article.staff:nth-child(6n+7) {
+#content article.staff:nth-child(6n+7) {
 	clear: both;
 }
 
-.page-template #content article.staff .staff-picture {
+#content article.staff .staff-picture {
 	-webkit-transition: opacity .3s ease-in-out;
 	-moz-transition: opacity .3s ease-in-out;
 	-o-transition: opacity .3s ease-in-out;
 	transition: opacity .3s ease-in-out;
 }
 
-.page-template #content article.staff .staff-picture:hover {
+#content article.staff .staff-picture:hover {
 	opacity: .7;
 }
 
