@@ -213,6 +213,31 @@ class Admin {
 	}
 
 /**
+ * Takes a fully qualified local path and creates a partial path for S3.
+ *
+ * This is necessary because, historically S3 objects were maintained by a plugin
+ * which modified the upload path
+ *
+ * @param type $fullPath Full local path to file
+ * @return string Partial path
+ */
+	public function getS3Path($fullPath = '') {
+		global $current_blog;
+
+		$uploadpaths = wp_upload_dir();
+		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
+		$path = substr($fullPath, stripos($fullPath, $partial));
+
+		$subsitePath = null;
+		if ($current_blog && $this->theme->info('id') > 1) {
+			// the s3 plugin that is currently used stores files under the domain
+			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.'));
+		}
+
+		return $subsitePath . $path;
+	}
+
+/**
  * Renders the theme options panel
  */
 	public function admin() {
