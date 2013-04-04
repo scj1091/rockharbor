@@ -1056,7 +1056,7 @@ class RockharborThemeBase {
 	public function s3Url($url) {
 		global $current_blog;
 		$subsitePath = null;
-		if ($current_blog) {
+		if ($current_blog && $this->id > 1) {
 			// the s3 plugin that is currently used stores files under the domain
 			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.'));
 		}
