@@ -59,6 +59,8 @@ class Admin {
 
 		wp_register_script('admin_scripts', $this->theme->info('base_url').'/js/admin.js');
 		wp_enqueue_script('admin_scripts');
+		wp_enqueue_script('thickbox');
+		wp_enqueue_style('thickbox.css', '/'.WPINC.'/js/thickbox/thickbox.css', null, '1.0');
 
 		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
 
