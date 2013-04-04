@@ -75,7 +75,7 @@ class Admin {
 
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
-		add_filter('wp_update_attachment_metadata', array($this, 'deleteLocalFile'), 10, 2);
+		add_filter('wp_update_attachment_metadata', array($this, 'transferToS3'), 10, 2);
 	}
 
 /**
@@ -188,25 +188,48 @@ class Admin {
 	}
 
 /**
- * If we're using s3, delete the local files since they're in the cloud. This
- * also deletes the (current) plugin's metadata, as it ends up confusing the
- * url replacement.
+ * Transfers a recently uploaded file to S3, and deletes the local copy
  *
  * @param array $data Attachment data
  * @param integer $postID Post id
  * @return array
  */
-	public function deleteLocalFile($data, $postID) {
-		delete_post_meta($postID, 'amazonS3_info');
+	public function transferToS3($data, $postID) {
+		$s3Key = $this->theme->options('s3_access_key');
+		$s3KeySecret = $this->theme->options('s3_access_secret');
+		$bucket = $this->theme->options('s3_bucket');
+
+		require_once VENDORS . DS . 'S3.php';
+		$S3 = new S3($s3Key, $s3KeySecret);
+
+		$type = get_post_mime_type($postID);
+		$file = array(
+			'type' => $type,
+			'file' => $data['file'],
+			'size' => filesize($data['file']),
+		);
+		$s3filePath = $this->getS3Path($data['file']);
 
 		if (file_exists($data['file'])) {
-			unlink($data['file']);
+			if ($S3->putObject($file, $bucket, $s3filePath, $S3::ACL_PUBLIC_READ)) {
+				unlink($data['file']);
+			}
 		}
-		$uploadpaths = wp_upload_dir();
+
 		foreach ($data['sizes'] as $thumbkey => $info) {
-			$thumbPath = $uploadpaths['basedir'].$uploadpaths['subdir'].DS.$info['file'];
-			if (file_exists($thumbPath)) {
-				unlink($thumbPath);
+			$fullThumbPath = str_replace(basename($data['file']), $info['file'], $data['file']);
+			$s3ThumbPath = $this->getS3Path($fullThumbPath);
+
+			$file = array(
+				'type' => $type,
+				'file' => $fullThumbPath,
+				'size' => filesize($fullThumbPath),
+			);
+
+			if (file_exists($fullThumbPath)) {
+				if ($S3->putObject($file, $bucket, $s3ThumbPath, $S3::ACL_PUBLIC_READ)) {
+					unlink($fullThumbPath);
+				}
 			}
 		}
 		return $data;
