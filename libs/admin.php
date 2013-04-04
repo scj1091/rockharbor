@@ -164,26 +164,21 @@ class Admin {
  * @return string Absolute path to file
  */
 	public function deleteS3File($file) {
-		$tantanlib = WP_PLUGIN_DIR.DS.'amazon-s3-and-cloudfront'.DS.'wordpress-s3'.DS.'lib.s3.php';
-		if (!file_exists($tantanlib)) {
-			return $file;
-		}
-		$uploadpaths = wp_upload_dir();
 		$s3Key = $this->theme->options('s3_access_key');
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 		$bucket = $this->theme->options('s3_bucket');
-		if (!class_exists('TanTanS3') || empty($s3KeySecret)) {
-			require_once $tantanlib;
-		}
-		$s3 = new TanTanS3($s3Key, $s3KeySecret);
 
+		require_once VENDORS . DS . 'S3.php';
+		$S3 = new S3($s3Key, $s3KeySecret);
+
+		$uploadpaths = wp_upload_dir();
 		// strip path and unslashed path, since WP doesn't store the path correctly,
 		// so try to normalize it so we can strip and fix it
 		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
 		$url = substr($file, stripos($file, $partial));
 
 		// delete from bucket
-		$s3->deleteObject($bucket, substr($url, 1));
+		$S3->deleteObject($bucket, substr($url, 1));
 
 		// basedir already contains $partial
 		$file = str_replace($partial, '', $url);
