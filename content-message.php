@@ -7,7 +7,7 @@ $meta = $theme->metaToData($post->ID);
 			<?php if (has_post_thumbnail($post->ID)): ?>
 			<div class="message-image clearfix">
 				<a href="<?php the_permalink(); ?>">
-					<?php echo get_the_post_thumbnail($post->ID, 'post-thumbnail'); ?>
+					<?php echo get_the_post_thumbnail($post->ID, 'thumbnail'); ?>
 				</a>
 			</div>
 			<?php endif; ?>

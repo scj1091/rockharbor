@@ -11,7 +11,7 @@ if (is_single()) {
 
 	if (has_post_thumbnail($post->ID)) {
 		$attach_id = get_post_thumbnail_id($post->ID);
-		$attach = wp_get_attachment_image_src($attach_id, 'post-thumbnail');
+		$attach = wp_get_attachment_image_src($attach_id, 'thumbnail');
 		$image = $attach[0];
 		$tags .= '<meta property="og:image" content="'.$image.'" />';
 	}

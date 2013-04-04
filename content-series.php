@@ -11,7 +11,7 @@ $termlink = get_term_link((int)$item->term_id, 'series');
 			<div class="series-image">
 				<?php
 				if (has_post_thumbnail($item->last->ID)) {
-					echo $theme->Html->tag('a', get_the_post_thumbnail($item->last->ID, 'post-thumbnail'), array(
+					echo $theme->Html->tag('a', get_the_post_thumbnail($item->last->ID, 'thumbnail'), array(
 						'href' => $termlink,
 						'title' => $item->name
 					));
