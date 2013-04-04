@@ -6,7 +6,7 @@
 
 /*= Archive Page
 -----------------------------------------*/
-#content article.staff {
+.page article.staff {
 	width: 31.33%;
 	margin: 1%;
 	padding: 0;
@@ -15,14 +15,14 @@
 	text-align: center;
 }
 
-#content article.staff:nth-child(3n+4) {
+.page article.staff:nth-child(3n+4) {
 	clear: both;
 }
 
 /*= Archive Page
 -----------------------------------------*/
-.single-staff #content article.staff .staff-details dd,
-.single-staff #content article.staff .staff-details dt {
+.single-staff article.staff .staff-details dd,
+.single-staff article.staff .staff-details dt {
 	overflow: hidden;
 }
 

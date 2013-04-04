@@ -6,7 +6,7 @@ the_post();
 		<header id="content-title">
 			<h1><?php echo wp_title(''); ?></h1>
 		</header>
-		<section id="content" role="main" class="full">
+		<section id="content" role="main" class="full clearfix">
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<?php
 				$meta = $theme->metaToData($post->ID);
