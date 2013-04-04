@@ -8,11 +8,15 @@ if (!empty($locations['featured'])) {
 $video = $theme->render('video');
 $meta = $theme->metaToData($post->ID);
 $hasHeader =
-	(is_front_page() && count($featuredItems))
+	(
+		is_front_page() && count($featuredItems)
+	)
 	|| (
 		is_singular(array('post', 'page', 'message'))
-		&& !empty($video) || has_post_thumbnail($post->ID) && is_page()
-		&& (empty($meta['hide_featured_content']) || !$meta['hide_featured_content'])
+		&& (!empty($video) || has_post_thumbnail($post->ID))
+	)
+	&& (
+		empty($meta['hide_featured_content']) || !$meta['hide_featured_content']
 	);
 ?>
 <?php get_template_part('header', 'prebody') ?>
