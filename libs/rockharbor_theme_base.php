@@ -1054,14 +1054,20 @@ class RockharborThemeBase {
  * @param string $url File url
  */
 	public function s3Url($url) {
-		global $current_blog;
-		$subsitePath = null;
-		if ($current_blog && $this->id > 1) {
+		global $blog_id;
+
+		$subsitePath = 'wp-content/uploads';
+		if ($blog_id > 1) {
+			$details = get_blog_details($blog_id);
 			// the s3 plugin that is currently used stores files under the domain
-			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.'));
+			$subsitePath = substr($details->domain, 0, strpos($details->domain, '.')).'/files';
 		}
-		$bucket = $this->options('s3_bucket');
-		$path = 'http://'.$bucket.'.s3.amazonaws.com'.$subsitePath;
-		return str_replace(site_url(), $path, $url);
+
+		$uploadpaths = wp_upload_dir();
+		$path = $subsitePath . str_replace($uploadpaths['baseurl'], '', $url);
+
+		$bucket = $this->options('s3_bucket', false, $blog_id);
+		$url = 'http://'.$bucket.'.s3.amazonaws.com/'.$path;
+		return $url;
 	}
 }
