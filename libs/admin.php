@@ -171,19 +171,11 @@ class Admin {
 		require_once VENDORS . DS . 'S3.php';
 		$S3 = new S3($s3Key, $s3KeySecret);
 
-		$uploadpaths = wp_upload_dir();
-		// strip path and unslashed path, since WP doesn't store the path correctly,
-		// so try to normalize it so we can strip and fix it
-		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
-		$url = substr($file, stripos($file, $partial));
+		$path = $this->getS3Path($file);
 
 		// delete from bucket
-		$S3->deleteObject($bucket, substr($url, 1));
-
-		// basedir already contains $partial
-		$file = str_replace($partial, '', $url);
-		$file = str_replace('/', DS, $file);
-		$file = rtrim($uploadpaths['basedir'], '/').$file;
+		$S3->deleteObject($bucket, $path);
+		
 		return $file;
 	}
 
