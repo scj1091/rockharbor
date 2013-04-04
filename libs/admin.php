@@ -171,15 +171,7 @@ class Admin {
 		require_once VENDORS . DS . 'S3.php';
 		$S3 = new S3($s3Key, $s3KeySecret);
 
-		$uploadpaths = wp_upload_dir();
-
-		// normalize path separators
-		$possiblyFull = str_replace(DS, '/', $file);
-		$base = str_replace(DS, '/', $uploadpaths['basedir']);
-		// now remove full path if it existed
-		$partial = trim(str_replace($base, '', $possiblyFull), '/');
-
-		$path = $this->getS3Path($partial);
+		$path = $this->getS3Path($file);
 
 		// delete from bucket
 		$S3->deleteObject($bucket, $path);
@@ -195,6 +187,13 @@ class Admin {
  * @return array
  */
 	public function transferToS3($data, $postID) {
+		// because sometimes it's not populated... #YAWPH
+		$data['file'] = str_replace(DS, '/', get_attached_file($postID, true));
+
+		if (!isset($data['sizes'])) {
+			$data['sizes'] = array();
+		}
+
 		$s3Key = $this->theme->options('s3_access_key');
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 		$bucket = $this->theme->options('s3_bucket');
@@ -203,26 +202,22 @@ class Admin {
 		$S3 = new S3($s3Key, $s3KeySecret);
 
 		$type = get_post_mime_type($postID);
-		$uploadpaths = wp_upload_dir();
-
-		$fullPath = $uploadpaths['basedir'] . DS . $data['file'];
-		$fullPath = str_replace('/', DS, $fullPath);
 
 		$file = array(
 			'type' => $type,
-			'file' => $fullPath,
-			'size' => filesize($fullPath),
+			'file' => $data['file'],
+			'size' => filesize($data['file']),
 		);
 		$s3filePath = $this->getS3Path($data['file']);
 
-		if (file_exists($fullPath)) {
+		if (file_exists($data['file'])) {
 			if ($S3->putObject($file, $bucket, $s3filePath, $S3::ACL_PUBLIC_READ)) {
-				unlink($fullPath);
+				unlink($data['file']);
 			}
 		}
 
 		foreach ($data['sizes'] as $thumbkey => $info) {
-			$fullThumbPath = str_replace(basename($fullPath), $info['file'], $fullPath);
+			$fullThumbPath = str_replace(basename($data['file']), $info['file'], $data['file']);
 			$fullThumbPath = str_replace('/', DS, $fullThumbPath);
 
 			$s3ThumbPath = str_replace(basename($s3filePath), $info['file'], $s3filePath);
@@ -255,16 +250,20 @@ class Admin {
 		global $current_blog;
 
 		$uploadpaths = wp_upload_dir();
-		$partial = str_replace(get_bloginfo('siteurl'), '', $uploadpaths['baseurl']);
-		$path = trim($partial, '/') . '/' . $fullPath;
 
-		$subsitePath = '/';
+		$possiblyFull = str_replace(DS, '/', $fullPath);
+		$base = str_replace(DS, '/', $uploadpaths['basedir']);
+		// now remove full path if it existed
+		$partial = trim(str_replace($base, '', $possiblyFull), '/');
+
 		if ($current_blog && $this->theme->info('id') > 1) {
 			// the s3 plugin that is currently used stores files under the domain
-			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.')) . '/';
+			$subsitePath = substr($current_blog->domain, 0, strpos($current_blog->domain, '.')) . '/files/';
+		} else {
+			$subsitePath = 'wp-content/uploads/';
 		}
 
-		return ltrim($subsitePath . $path, '/');
+		return ltrim($subsitePath . $partial, '/');
 	}
 
 /**
