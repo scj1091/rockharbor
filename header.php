@@ -35,14 +35,21 @@ $hasHeader =
 			if (is_front_page() && count($featuredItems)) {
 				if (!empty($featuredItems)) {
 					$first = $featuredItems[0];
-					if (!empty($meta['first_featured_story_height'])) {
-						$theme->set('height', $meta['first_featured_story_height']);
+					$firstMeta = get_post_meta($first->object_id);
+
+					if (!empty($firstMeta['video_url'][0])) {
+						$theme->set('src', $firstMeta['video_url'][0]);
+						$banner = $theme->render('video');
+					} else {
+						if (!empty($meta['first_featured_story_height'])) {
+							$theme->set('height', $meta['first_featured_story_height']);
+						}
+						$theme->set('id', $first->object_id);
+						$theme->set('title', $first->title);
+						$theme->set('type', $first->object);
+						$theme->set('useThumbnail', false);
+						$banner = $theme->Html->tag('div', $theme->render('story_box'));
 					}
-					$theme->set('id', $first->object_id);
-					$theme->set('title', $first->title);
-					$theme->set('type', $first->object);
-					$theme->set('useThumbnail', false);
-					$banner = $theme->Html->tag('div', $theme->render('story_box'));
 
 					echo $theme->Html->tag('div', $banner, array(
 						'id' => 'main-feature',
