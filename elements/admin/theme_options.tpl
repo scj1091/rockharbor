@@ -230,6 +230,25 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php
+					echo $theme->Html->input('s3_access_key', array(
+						'before' => '<th>',
+						'label' => 'Amazon S3 Access Key',
+						'between' => '</th><td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
+					echo $theme->Html->input('s3_access_secret', array(
+						'type' => 'password',
+						'before' => '<th>',
+						'label' => 'Amazon S3 Secret Access Key',
+						'between' => '</th><td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
 					echo $theme->Html->input('media_sync_key', array(
 						'before' => '<th>',
 						'label' => 'Media Syncing Key',

@@ -169,12 +169,13 @@ class Admin {
 			return $file;
 		}
 		$uploadpaths = wp_upload_dir();
-		$s3options = get_option('tantan_wordpress_s3');
-		if (!class_exists('TanTanS3') || empty($s3options['secret'])) {
+		$s3Key = $this->theme->options('s3_access_key');
+		$s3KeySecret = $this->theme->options('s3_access_secret');
+		$bucket = $this->theme->options('s3_bucket');
+		if (!class_exists('TanTanS3') || empty($s3KeySecret)) {
 			require_once $tantanlib;
 		}
-		$s3 = new TanTanS3($s3options['key'], $s3options['secret']);
-		$s3->setOptions($s3options);
+		$s3 = new TanTanS3($s3Key, $s3KeySecret);
 
 		// strip path and unslashed path, since WP doesn't store the path correctly,
 		// so try to normalize it so we can strip and fix it
@@ -182,7 +183,7 @@ class Admin {
 		$url = substr($file, stripos($file, $partial));
 
 		// delete from bucket
-		$s3->deleteObject($s3options['bucket'], substr($url, 1));
+		$s3->deleteObject($bucket, substr($url, 1));
 
 		// basedir already contains $partial
 		$file = str_replace($partial, '', $url);

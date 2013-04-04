@@ -1060,8 +1060,8 @@ class RockharborThemeBase {
 			// the s3 plugin that is currently used stores files under the domain
 			$subsitePath = '/'.substr($current_blog->domain, 0, strpos($current_blog->domain, '.'));
 		}
-		$options = get_option('tantan_wordpress_s3');
-		$path = 'http://'.$options['bucket'].'.s3.amazonaws.com'.$subsitePath;
+		$bucket = $this->options('s3_bucket');
+		$path = 'http://'.$bucket.'.s3.amazonaws.com'.$subsitePath;
 		return str_replace(site_url(), $path, $url);
 	}
 }
