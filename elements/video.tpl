@@ -19,11 +19,13 @@ if (!isset($campus) || empty($campus)) {
 $streamer = $theme->options('s3_streamer', false, $campus);
 $bucket = $theme->options('s3_bucket', false, $campus);
 
-$poster = null;
-$thumb = get_post_thumbnail_id($post->ID);
-if (!empty($thumb)) {
-	$attach = wp_get_attachment_image_src($thumb, 'large');
-	$poster = $attach[0];
+if (!isset($poster) || empty($poster)) {
+	$poster = null;
+	$thumb = get_post_thumbnail_id($post->ID);
+	if (!empty($thumb)) {
+		$attach = wp_get_attachment_image_src($thumb, 'large');
+		$poster = $attach[0];
+	}
 }
 
 $id = uniqid();

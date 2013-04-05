@@ -198,6 +198,7 @@ class Shortcodes {
 	public function video($attr) {
 		$this->theme->set(shortcode_atts(array(
 			'src' => null,
+			'poster' => null,
 			'campus' => null
 		), $attr));
 		return $this->theme->render('video');
