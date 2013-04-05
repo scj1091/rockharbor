@@ -62,11 +62,15 @@ RH.mobileEnter = function() {
 	});
 	jQuery('.global-navigation li.campuses').on('click', function() {
 		RH.hideMenuOptions('campuses');
-		jQuery(this).children('ul').toggle();
+		jQuery(this).children('ul').toggle(function() {
+			jQuery(this).css('display') === 'none' ? RH.showVideos() : RH.hideVideos();
+		});
 	});
 	jQuery('.global-navigation li.search').on('click', function() {
 		RH.hideMenuOptions('search');
-		jQuery(this).children('form').toggle();
+		jQuery(this).children('form').toggle(function() {
+			jQuery(this).css('display') === 'none' ? RH.showVideos() : RH.hideVideos();
+		});
 	});
 	jQuery('.global-navigation li.search form').on('click', function(event) {
 		// prevent clicking on input from closing the search form
@@ -85,6 +89,25 @@ RH.mobileExit = function() {
 	jQuery('.global-navigation li.menu').off('click');
 	jQuery('.global-navigation li.campuses').off('click');
 	jQuery('.global-navigation li.search').off('click');
+}
+
+/**
+ * iPhones don't let anything over videos, so we have to hide videos when menu
+ * dropdowns are clicked
+ */
+RH.hideVideos = function() {
+	jQuery('video').each(function() {
+		jQuery(this).data('hidden', true);
+		jQuery(this).hide();
+	});
+}
+
+RH.showVideos = function() {
+	jQuery('video').each(function() {
+		if (jQuery(this).data('hidden') === true) {
+			jQuery(this).show();
+		}
+	});
 }
 
 RH.hideMenuOptions = function(keep) {
