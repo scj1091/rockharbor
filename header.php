@@ -1,12 +1,15 @@
 <?php
 global $post, $theme;
+$meta = $theme->metaToData($post->ID);
 $locations = get_nav_menu_locations();
 $featuredItems = array();
 if (!empty($locations['featured'])) {
 	$featuredItems = wp_get_nav_menu_items($locations['featured']);
 }
+if (!empty($meta['video_campus_id'])) {
+	$theme->set('campus', $meta['video_campus_id']);
+}
 $video = $theme->render('video');
-$meta = $theme->metaToData($post->ID);
 $hasHeader =
 	(
 		is_front_page() && count($featuredItems)
@@ -38,6 +41,10 @@ $hasHeader =
 					$firstMeta = get_post_meta($first->object_id);
 
 					if (!empty($firstMeta['video_url'][0])) {
+						$theme->set('campus', null);
+						if (!empty($firstMeta['video_campus_id'][0])) {
+							$theme->set('campus', $firstMeta['video_campus_id'][0]);
+						}
 						$theme->set('src', $firstMeta['video_url'][0]);
 						$banner = $theme->render('video');
 					} else {

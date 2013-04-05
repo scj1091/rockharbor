@@ -11,6 +11,17 @@
 	));
 	?>
 </p>
+<p>
+	<strong>Campus</strong><br />
+	<?php
+	echo $theme->Html->input('video_campus_id', array(
+		'label' => false,
+		'div' => false,
+		'size' => 10
+	));
+	?>
+	<small>(leave blank for current campus)</small>
+</p>
 <script type="text/javascript">
 	jQuery('#media_meta_video').click(function() {
 		RH.showMediaLibrary(function(html) {
