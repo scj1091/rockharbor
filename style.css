@@ -974,6 +974,7 @@ a.prev {
 
 .story-box img {
 	display: block;
+	width: 100%;
 }
 
 .story-box .title {
