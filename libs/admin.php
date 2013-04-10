@@ -23,6 +23,7 @@ class Admin {
 
 		if (!$this->theme->isChildTheme()) {
 			add_action('admin_menu', array($this, 'adminMenus'));
+			add_action('network_admin_menu', array($this, 'networkAdminMenus'));
 		}
 		add_action('admin_init', array($this, 'init'));
 	}
@@ -35,6 +36,7 @@ class Admin {
 	public function init() {
 		// register options
 		register_setting('rockharbor_options', 'rockharbor_options');
+		register_setting('rockharbor_network_options', 'rockharbor_network_options');
 
 		// default options
 		update_option('blogdescription', 'We are a church of communities living out the gospel together.');
@@ -85,6 +87,13 @@ class Admin {
  */
 	public function adminMenus() {
 		add_theme_page(__('Theme Options', 'rockharbor'), __('Theme Options', 'rockharbor'), 'edit_theme_options', 'theme_options', array($this, 'admin'));
+	}
+
+/**
+ * Adds any additional network admin menus
+ */
+	public function networkAdminMenus() {
+		add_menu_page(__('Network Options', 'rockharbor'), __('Network Options', 'rockharbor'), 'manage_network_options', 'network_options', array($this, 'networkAdmin'));
 	}
 
 /**
@@ -273,6 +282,14 @@ class Admin {
  */
 	public function admin() {
 		$out = $this->theme->render('admin'.DS.'theme_options');
+		echo $out;
+	}
+
+/**
+ * Renders the network options panel
+ */
+	public function networkAdmin() {
+		$out = $this->theme->render('admin'.DS.'network_options');
 		echo $out;
 	}
 
