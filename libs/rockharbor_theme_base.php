@@ -996,6 +996,37 @@ class RockharborThemeBase {
 	}
 
 /**
+ * Gets/sets theme options. If `$var` is false, acts as a getter. If `$var` is
+ * null, it will delete the option
+ *
+ * @param string $option An option to get. If `null`, all options are returned
+ * @param mixed $var The value to set. If `false` the action acts as a getter
+ * @return mixed
+ */
+	public function networkOptions($option = null, $var = false) {
+		$options = get_option('rockharbor_network_options');
+
+		if ($options === false) {
+			$options = array();
+		}
+
+		if (!is_null($option) && $var !== false) {
+			$options[$option] = $var;
+			update_option('rockharbor_network_options', $options);
+		}
+
+		if (!is_null($option) && is_null($var)) {
+			unset($options[$option]);
+			update_option('rockharbor_network_options', $options);
+		}
+
+		if (!is_null($option)) {
+			return isset($options[$option]) ? $options[$option] : null;
+		}
+		return $options;
+	}
+
+/**
  * Converts garbagy output from get_post_custom to a useable data array
  *
  * @param integer $postId The post to get meta from
