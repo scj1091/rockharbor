@@ -276,7 +276,7 @@ class HtmlHelper {
  * @return array
  */
 	public function data($data = array()) {
-		$this->data = array_merge($this->data, $data);
+		$this->data = $data;
 		return $this->data;
 	}
 
