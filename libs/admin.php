@@ -321,15 +321,17 @@ class Admin {
 	public function crossPostMetaBox() {
 		global $post;
 		$blogs = $this->theme->getBlogs();
-		if ($this->theme->info('id') != BLOG_ID_CURRENT_SITE) {
-			// main blog only
-			$blogs = array($blogs[0]);
-		} else {
-			// any blog, excluding self
-			unset($blogs[0]);
+		$crossPostBlogs = array();
+		$whitelist = $this->theme->networkOptions('cross_post_whitelist_'.$this->theme->info('id'));
+		foreach ($blogs as $blog) {
+			// get whitelist
+			$id = $blog['blog_id'];
+			if (isset($whitelist[$id]) && $whitelist[$id]) {
+				$crossPostBlogs[] = $blog;
+			}
 		}
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		$this->theme->set('blogs', $blogs);
+		$this->theme->set('blogs', $crossPostBlogs);
 		echo $this->theme->render('admin'.DS.'cross_post');
 	}
 

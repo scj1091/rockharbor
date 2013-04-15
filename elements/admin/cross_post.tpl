@@ -14,3 +14,7 @@ foreach ($blogs as $blog) {
 		'value' => 1
 	));
 }
+
+if (empty($blogs)) {
+	echo $theme->Html->tag('p', 'This site is not allowed to cross post to other sites. Please have a network admin enable this feature.');
+}
