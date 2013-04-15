@@ -618,6 +618,12 @@ class RockharborThemeBase {
 			if ($blog['blog_id'] == $this->id) {
 				continue;
 			}
+
+			$whitelist = $this->networkOptions('cross_post_whitelist_'.$blog['blog_id']);
+			if (!isset($whitelist[$this->id]) || !$whitelist[$this->id]) {
+				continue;
+			}
+
 			// other blogs merged into the query
 			$query .= " UNION DISTINCT (SELECT $fields FROM";
 			$wpdb->set_blog_id($blog['blog_id']);
