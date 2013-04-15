@@ -1010,6 +1010,8 @@ class RockharborThemeBase {
  * @return mixed
  */
 	public function networkOptions($option = null, $var = false) {
+		switch_to_blog(1);
+
 		$options = get_option('rockharbor_network_options');
 
 		if ($options === false) {
@@ -1025,6 +1027,8 @@ class RockharborThemeBase {
 			unset($options[$option]);
 			update_option('rockharbor_network_options', $options);
 		}
+
+		restore_current_blog();
 
 		if (!is_null($option)) {
 			return isset($options[$option]) ? $options[$option] : null;
