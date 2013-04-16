@@ -51,6 +51,7 @@ include_once ABSPATH . 'wp-admin/includes/admin.php';
  * Load theme base
  */
 require_once rtrim(get_template_directory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'rockharbor_theme_base.php';
+require_once rtrim(get_template_directory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'admin.php';
 $class = 'RockharborThemeBase';
 $file = rtrim(get_stylesheet_directory(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'child_theme.php';
 if (file_exists($file)) {
@@ -60,6 +61,11 @@ if (file_exists($file)) {
 
 global $wpdb;
 $theme = new $class;
+$admin = new Admin($theme);
+
+// add s3 hooks
+add_filter('wp_delete_file', array($admin, 'deleteS3File'));
+add_filter('wp_update_attachment_metadata', array($admin, 'transferToS3'), 10, 2);
 
 $message = 'Error, could not upload.';
 
