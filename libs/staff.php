@@ -63,7 +63,9 @@ class Staff extends PostType {
 			foreach ($_POST['meta'] as $key => $value) {
 				$_POST['meta'][$key] = trim($value);
 			}
-			$data['post_name'] = strtolower($_POST['meta']['first_name'].'-'.strtolower($_POST['meta']['last_name']));
+			$fname = str_replace(' ', '-', $_POST['meta']['first_name']);
+			$lname = str_replace(' ', '-', $_POST['meta']['last_name']);
+			$data['post_name'] = strtolower($fname.'-'.$lname);
 			$data['post_title'] = $_POST['meta']['first_name'].' '.$_POST['meta']['last_name'];
 		}
 		return $data;
