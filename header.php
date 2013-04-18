@@ -40,7 +40,7 @@ $hasHeader =
 					$first = $featuredItems[0];
 					$firstMeta = get_post_meta($first->object_id);
 
-					if (!empty($firstMeta['video_url'][0])) {
+					if (!empty($firstMeta['video_url'][0]) && !$meta['first_featured_only_image']) {
 						$theme->set('campus', null);
 						if (!empty($firstMeta['video_campus_id'][0])) {
 							$theme->set('campus', $firstMeta['video_campus_id'][0]);
