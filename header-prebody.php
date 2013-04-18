@@ -185,7 +185,10 @@
 					right: 0
 				});
 			}
-		})
+		});
+
+		// implement super sonic hyper-responsive clicking for touchscreens
+		new FastClick(document.body);
 	});
 </script>
 <?php

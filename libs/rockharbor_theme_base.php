@@ -379,6 +379,7 @@ class RockharborThemeBase {
 		wp_register_script('media', "$base/js/mediaelement-and-player.min.js");
 		wp_register_script('mediaCheck', "$base/js/mediaCheck.min.js");
 		wp_register_script('initScripts', "$base/js/scripts.js");
+		wp_register_script('fastclick', "$base/js/fastclick.js");
 		wp_register_script('touch', "$base/js/touch.js");
 		wp_register_style('reset', "$base/css/reset.css");
 		wp_register_style('fonts', "$base/css/fonts.css");
@@ -405,6 +406,7 @@ class RockharborThemeBase {
 		wp_enqueue_script('media');
 		wp_enqueue_script('mediaCheck');
 		wp_enqueue_script('initScripts');
+		wp_enqueue_script('fastclick');
 		wp_enqueue_script('touch');
 
 		// dequeue stuff we don't need
