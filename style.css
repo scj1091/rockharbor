@@ -465,6 +465,7 @@ th {
 	border-bottom: 2px solid transparent;
 }
 
+#access li a.touch,
 #access li a:hover,
 #access li.current-menu-item > a {
 	background: #ff0000;

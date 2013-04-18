@@ -17,7 +17,14 @@ RH.tabletEnter = function() {
 	// make nav the first element
 	jQuery('nav#access').insertAfter('.global-navigation');
 	// no double click :hover for iphone
+	jQuery('nav#access li').on('touchstart', function() {
+		$(this).addClass('touch');
+	});
+	jQuery('nav#access li').on('touchmove', function() {
+		$(this).removeClass('touch');
+	});
 	jQuery('nav#access li').on('click touchend', function() {
+		$(this).removeClass('touch');
 		window.location = $(this).children('a').attr('href');
 	});
 	// make footer touch-friendly
