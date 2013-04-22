@@ -131,7 +131,8 @@ class HtmlHelper {
 			'before' => '',
 			'after' => '',
 			'between' => '',
-			'div' => true
+			'div' => true,
+			'required' => false
 		);
 		$options = array_merge($_default, $options);
 		if ($options['type'] == 'checkbox' && $options['value'] === null) {
@@ -274,6 +275,12 @@ class HtmlHelper {
 	public function parseAttributes($attr = array()) {
 		$out = array();
 		foreach ($attr as $name => $value) {
+			if (is_bool($value)) {
+				if ($value === true) {
+					$out[] = "$name";
+				}
+				continue;
+			}
 			$name = esc_attr($name);
 			$value = esc_attr($value);
 			$out[] = "$name=\"$value\"";
