@@ -7,20 +7,20 @@
 	$storyRadio = $theme->Html->input('type', array(
 		'type' => 'radio',
 		'label' => 'Story',
-		'id' => 'story',
+		'id' => uniqid('story'),
 		'value' => 'story',
 		'checked' => $type == 'all' || $type == 'story'
 	));
 	$prayerRequestRadio = $theme->Html->input('type', array(
 		'type' => 'radio',
-		'id' => 'prayer',
+		'id' => uniqid('prayer'),
 		'label' => 'Prayer Request',
 		'value' => 'prayer_request',
 		'checked' => $type == 'prayer_request'
 	));
 	$feedbackRadio = $theme->Html->input('type', array(
 		'type' => 'radio',
-		'id' => 'feedback',
+		'id' => uniqid('feedback'),
 		'label' => 'Website Feedback',
 		'value' => 'feedback',
 		'checked' => $type == 'feedback'
@@ -38,12 +38,13 @@
 		default:
 			echo $storyRadio.$prayerRequestRadio.$feedbackRadio;
 	}
-	echo $theme->Html->input('name', array('label' => 'Name'));
-	echo $theme->Html->input('email', array('type' => 'email', 'label' => 'Email'));
-	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false, 'required' => true));
-	echo $theme->Html->input('action', array('type' => 'hidden', 'value' => 'email'));
+	echo $theme->Html->input('name', array('label' => 'Name', 'id' => uniqid('name')));
+	echo $theme->Html->input('email', array('type' => 'email', 'label' => 'Email', 'id' => uniqid('email')));
+	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false, 'required' => true, 'id' => uniqid('request')));
+	echo $theme->Html->input('action', array('type' => 'hidden', 'value' => 'email', 'id' => uniqid('action')));
 	echo $theme->Html->captcha();
 	echo $theme->Html->input('Submit', array(
+		'id' => uniqid('submit'),
 		'type' => 'submit',
 		'label' => false,
 		'div' => false,
