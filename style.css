@@ -1266,6 +1266,11 @@ input[type=checkbox] ~ label
 	font-size: 1em; /*= 13px */
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+}
+
 /*= Social
 -----------------------------------------*/
 .twitter-item {
