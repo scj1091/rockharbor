@@ -14,6 +14,12 @@
 		'label' => 'Prayer Request',
 		'value' => 'prayer_request'
 	));
+	echo $theme->Html->input('type', array(
+		'type' => 'radio',
+		'id' => 'feedback',
+		'label' => 'Website Feedback',
+		'value' => 'feedback'
+	));
 	echo $theme->Html->input('name', array('label' => 'Name'));
 	echo $theme->Html->input('email', array('type' => 'email', 'label' => 'Email'));
 	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false, 'required' => true));

@@ -196,6 +196,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
+				<?php
+					echo $theme->Html->input('feedback_email', array(
+						'before' => '<th>',
+						'label' => 'Website Feedback Email',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(a comma-delimited list of email addresses to website feedback to)</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
 				<td colspan="2"><h2>Admin</h2><p>Don't touch this stuff unless you know what you're doing.</p></td>
 			</tr>
 			<tr valign="top">
