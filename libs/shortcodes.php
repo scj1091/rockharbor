@@ -29,6 +29,21 @@ class Shortcodes {
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
 		add_shortcode('service-times', array($this, 'serviceTimes'));
 		add_shortcode('address', array($this, 'address'));
+		add_shortcode('quick-contact', array($this, 'quickContact'));
+	}
+
+/**
+ * Renders quick contact form
+ *
+ * @param array $attr Attributes sent by WordPress defined in the editor
+ * @return string
+ */
+	public function quickContact($attr) {
+		$attrs = shortcode_atts(array(
+			'type' => 'feedback'
+		), $attr);
+		$this->theme->set('type', $attrs['type']);
+		return $this->theme->render('quick_contact');
 	}
 
 /**
