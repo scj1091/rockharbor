@@ -43,6 +43,7 @@ if (empty($imageUrl)) {
 
 if ($height) {
 	$options['style'] .= "height: {$height}px";
+	$options['class'] .= " fixed-size";
 }
 
 if (!empty($title)) {

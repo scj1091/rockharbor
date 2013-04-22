@@ -127,7 +127,7 @@ jQuery(document).ready(function() {
 	}
 
 	jQuery(window).resize(function() {
-		jQuery('.story-box').each(function() {
+		jQuery('.story-box:not(.fixed-size)').each(function() {
 			var w = $(this).width();
 			var h = w*9/16;
 			$(this).css('height', h);
