@@ -16,7 +16,7 @@
 	));
 	echo $theme->Html->input('name', array('label' => 'Name'));
 	echo $theme->Html->input('email', array('type' => 'email', 'label' => 'Email'));
-	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false));
+	echo $theme->Html->input('request', array('type' => 'textarea', 'label' => false, 'required' => true));
 	echo $theme->Html->input('action', array('type' => 'hidden', 'value' => 'email'));
 	echo $theme->Html->captcha();
 	echo $theme->Html->input('Submit', array(
