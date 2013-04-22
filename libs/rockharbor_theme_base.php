@@ -762,9 +762,10 @@ class RockharborThemeBase {
  * for the parent version.
  *
  * @param string $view The view name
+ * @param boolean $clearVars Whether or not to remove view vars after rendering
  * @return string Rendered view
  */
-	public function render($view) {
+	public function render($view, $clearVars = true) {
 		global $theme;
 		extract($this->_vars);
 		$file = $this->themePath.DS.'elements'.DS.$view.'.tpl';
@@ -774,6 +775,9 @@ class RockharborThemeBase {
 		ob_start();
 		include $file;
 		$out = ob_get_clean();
+		if ($clearVars === true) {
+			$this->_vars = array();
+		}
 		return $out;
 	}
 

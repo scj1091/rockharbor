@@ -66,7 +66,6 @@ $hasHeader =
 					// only items 2,3,4 allowed
 					$items = array_slice($featuredItems, 1, 3);
 					foreach ($items as $item) {
-						$theme->set('height', null);
 						$theme->set('useThumbnail', true);
 						$theme->set('id', $item->object_id);
 						$theme->set('title', $item->title);
