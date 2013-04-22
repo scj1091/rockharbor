@@ -27,13 +27,13 @@
 	));
 	switch ($type) {
 		case 'story':
-			echo $storyRadio;
+			echo $this->Html->tag('div', $storyRadio, array('style' => 'display:none'));
 			break;
 		case 'prayer_request':
-			echo $prayerRequestRadio;
+			echo $this->Html->tag('div', $prayerRequestRadio, array('style' => 'display:none'));
 			break;
 		case 'feedback':
-			echo $feedbackRadio;
+			echo $this->Html->tag('div', $feedbackRadio, array('style' => 'display:none'));
 			break;
 		default:
 			echo $storyRadio.$prayerRequestRadio.$feedbackRadio;
