@@ -75,7 +75,12 @@ RH.mobileEnter = function() {
 	jQuery('.global-navigation li.search').on('click', function() {
 		RH.hideMenuOptions('search');
 		jQuery(this).children('form').toggleClass('touch');
-		jQuery(this).children('form').hasClass('touch') ? RH.hideVideos() : RH.showVideos();
+		if (jQuery(this).children('form').hasClass('touch')) {
+			RH.hideVideos();
+			jQuery(this).find('input[type=search]').focus();
+		} else {
+			RH.showVideos();
+		}
 	});
 	jQuery('.global-navigation li.search form').on('click', function(event) {
 		// prevent clicking on input from closing the search form
