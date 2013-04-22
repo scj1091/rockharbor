@@ -69,15 +69,13 @@ RH.mobileEnter = function() {
 	});
 	jQuery('.global-navigation li.campuses').on('click', function() {
 		RH.hideMenuOptions('campuses');
-		jQuery(this).children('ul').toggle(function() {
-			jQuery(this).css('display') === 'none' ? RH.showVideos() : RH.hideVideos();
-		});
+		jQuery(this).children('ul').toggleClass('touch');
+		jQuery(this).children('ul').hasClass('touch') ? RH.hideVideos() : RH.showVideos();
 	});
 	jQuery('.global-navigation li.search').on('click', function() {
 		RH.hideMenuOptions('search');
-		jQuery(this).children('form').toggle(function() {
-			jQuery(this).css('display') === 'none' ? RH.showVideos() : RH.hideVideos();
-		});
+		jQuery(this).children('form').toggleClass('touch');
+		jQuery(this).children('form').hasClass('touch') ? RH.hideVideos() : RH.showVideos();
 	});
 	jQuery('.global-navigation li.search form').on('click', function(event) {
 		// prevent clicking on input from closing the search form
@@ -105,13 +103,9 @@ RH.hideMenuOptions = function(keep) {
 		});
 	}
 	if (keep !== 'campuses') {
-		jQuery('.global-navigation li.campuses ul').hide(function() {
-			jQuery(this).css('display', '');
-		});
+		jQuery('.global-navigation li.campuses ul').removeClass('touch');
 	}
 	if (keep !== 'search') {
-		jQuery('.global-navigation li.search form').hide(function() {
-			jQuery(this).css('display', '');
-		});
+		jQuery('.global-navigation li.search form').removeClass('touch');
 	}
 }

@@ -28,6 +28,10 @@
 	display: none;
 }
 
+.global-navigation nav ul li ul.touch {
+	display: block;
+}
+
 .global-navigation li.menu,
 .global-navigation li.campuses,
 .global-navigation li.search {
@@ -77,6 +81,10 @@
 	z-index: 102;
 
 	background: #ffffff;
+}
+
+.global-navigation #searchform.touch {
+	display: block;
 }
 
 .global-navigation #searchform {
