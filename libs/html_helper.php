@@ -43,11 +43,7 @@ class HtmlHelper {
  * @return string
  */
 	public function captcha() {
-		if (function_exists('cptch_display_captcha')) {
-			ob_start();
-			cptch_display_captcha();
-			return ob_get_clean();
-		}
+		return do_action('comment_form');
 	}
 
 /**
@@ -56,22 +52,11 @@ class HtmlHelper {
  * @return boolean
  */
 	public function validateCaptcha() {
-		global $str_key;
-
-		if (!function_exists('cptch_display_captcha')) {
-			return true;
-		}
-
-		if (empty($_POST['cptch_number'])) {
-			return false;
-		}
-
-		$str_key = "123";
-		if (strcasecmp(trim(decode( $_POST['cptch_result'], $str_key)), $_POST['cptch_number']) == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		$comment = array(
+			'comment_type' => 'comment'
+		);
+		do_action('preprocess_comment', $comment);
+		return true;
 	}
 
 /**
