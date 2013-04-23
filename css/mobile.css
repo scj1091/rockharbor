@@ -123,6 +123,12 @@ aside {
 	float: none;
 }
 
+.page-title,
+#content-title,
+section header {
+	padding: 0 0 10px 0;
+}
+
 #footer > div {
 	width: 100%;
 	display: none;
