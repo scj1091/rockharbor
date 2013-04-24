@@ -133,11 +133,9 @@ class RockharborThemeBase {
 		$this->name = get_bloginfo('name');
 		$this->id = $wpdb->blogid;
 
-		$this->Html = new HtmlHelper($this);
-		$this->Shortcodes = new Shortcodes($this);
-		$this->Twitter = new Twitter($this);
-
 		add_action('init', array($this, 'addFeatures'));
+
+		$this->loadHelpers();
 
 		if (is_admin()) {
 			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
@@ -186,6 +184,15 @@ class RockharborThemeBase {
 		if (!session_id()) {
 			session_start();
 		}
+	}
+
+/**
+ * Loads helpers
+ */
+	function loadHelpers() {
+		$this->Html = new HtmlHelper($this);
+		$this->Shortcodes = new Shortcodes($this);
+		$this->Twitter = new Twitter($this);
 	}
 
 /**
