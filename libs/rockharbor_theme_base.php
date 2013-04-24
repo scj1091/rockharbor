@@ -133,18 +133,12 @@ class RockharborThemeBase {
 		$this->name = get_bloginfo('name');
 		$this->id = $wpdb->blogid;
 
-		add_action('init', array($this, 'addFeatures'));
-
-		$this->loadHelpers();
-
 		if (is_admin()) {
 			require_once $this->basePath . DS . 'libs' . DS . 'admin.php';
 			$this->Admin = new Admin($this);
 			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
 			$this->Roles = new Roles($this);
 		}
-
-		$this->addHooks();
 
 		// social comment plugin css
 		if (!defined('SOCIAL_COMMENTS_CSS')) {
@@ -155,6 +149,15 @@ class RockharborThemeBase {
 		if (!session_id()) {
 			session_start();
 		}
+	}
+
+/**
+ * Initializes the site
+ */
+	function init() {
+		$this->addHooks();
+		$this->addFeatures();
+		$this->loadHelpers();
 	}
 
 /**
@@ -169,14 +172,6 @@ class RockharborThemeBase {
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
 		add_action('after_setup_theme', array($this, 'after'));
-
-		if ($this->isChildTheme()) {
-			// #YAWPH
-			// we're in a child theme, so we don't want add filters/actions for
-			// the base class, otherwise we'll end up with duplicate filters/actions
-			$this->after();
-			return;
-		}
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));

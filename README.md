@@ -44,6 +44,7 @@ Next, create a `functions.php` file
         require_once 'libs/child_theme.php';
         global $theme;
         $theme = new ChildTheme();
+        $theme->init();
     }
     add_action('after_setup_theme', '_include_theme');
 
