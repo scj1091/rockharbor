@@ -142,15 +142,34 @@ class RockharborThemeBase {
 			$this->Admin = new Admin($this);
 			require_once $this->basePath . DS . 'libs' . DS . 'roles.php';
 			$this->Roles = new Roles($this);
-		} else {
+		}
+
+		$this->addHooks();
+
+		// social comment plugin css
+		if (!defined('SOCIAL_COMMENTS_CSS')) {
+			define('SOCIAL_COMMENTS_CSS', $this->baseUrl.'/css/comments.css');
+		}
+
+		// start session
+		if (!session_id()) {
+			session_start();
+		}
+	}
+
+/**
+ * Adds all hooks for the theme
+ */
+	function addHooks() {
+		if (!is_admin()) {
 			add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
 			add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 		}
 
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
-
 		add_action('after_setup_theme', array($this, 'after'));
+
 		if ($this->isChildTheme()) {
 			// #YAWPH
 			// we're in a child theme, so we don't want add filters/actions for
@@ -174,16 +193,6 @@ class RockharborThemeBase {
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
-
-		// social comment plugin css
-		if (!defined('SOCIAL_COMMENTS_CSS')) {
-			define('SOCIAL_COMMENTS_CSS', $this->baseUrl.'/css/comments.css');
-		}
-
-		// start session
-		if (!session_id()) {
-			session_start();
-		}
 	}
 
 /**
