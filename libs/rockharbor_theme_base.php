@@ -691,8 +691,8 @@ class RockharborThemeBase {
 
 		register_nav_menus(array(
 			'main' => __('Main Navigation', 'rockharbor'),
-			'footer' => __('Footer Navigation', 'rockharbor'),
 			'featured' => __('Featured Stories', 'rockharbor'),
+			'footer' => __('Footer Navigation', 'rockharbor'),
 		));
 	}
 
