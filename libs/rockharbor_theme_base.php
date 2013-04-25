@@ -158,6 +158,7 @@ class RockharborThemeBase {
 		$this->addHooks();
 		$this->addFeatures();
 		$this->loadHelpers();
+		$this->after();
 	}
 
 /**
@@ -171,7 +172,6 @@ class RockharborThemeBase {
 
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
-		add_action('after_setup_theme', array($this, 'after'));
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
@@ -691,8 +691,8 @@ class RockharborThemeBase {
 
 		register_nav_menus(array(
 			'main' => __('Main Navigation', 'rockharbor'),
-			'footer' => __('Footer Navigation', 'rockharbor'),
 			'featured' => __('Featured Stories', 'rockharbor'),
+			'footer' => __('Footer Navigation', 'rockharbor'),
 		));
 	}
 
