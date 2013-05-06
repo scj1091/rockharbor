@@ -6,9 +6,7 @@ $fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 		<header id="content-title">
 			<h1><?php wp_title(false); ?></h1>
 		</header>
-		<?php
-		get_sidebar();
-		?>
+
 		<section id="content" role="main" <?php if ($fullpage) { echo 'class="full"'; }?>>
 			<?php if (have_posts()):
 

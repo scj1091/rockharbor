@@ -152,6 +152,7 @@ footer .icon-campus:after {
 }
 
 #submenu {
+	display: block;
 	float: none;
 	width: 98%;
 	padding: 1%;

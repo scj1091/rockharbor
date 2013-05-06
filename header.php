@@ -25,65 +25,11 @@ $hasHeader =
 <?php get_template_part('header', 'prebody') ?>
 <body <?php body_class(); ?>>
 
-
 	<div id="page" class="hfeed clearfix">
 
 		<?php
 		echo $theme->render('global_navigation');
 		?>
-
-		<?php if ($hasHeader): ?>
-		<header id="branding" role="banner" class="clearfix">
-			<?php
-			if (is_front_page() && count($featuredItems)) {
-				if (!empty($featuredItems)) {
-					$first = $featuredItems[0];
-					$firstMeta = get_post_meta($first->object_id);
-
-					if (!empty($firstMeta['video_url'][0]) && !$meta['first_featured_only_image']) {
-						$theme->set('campus', null);
-						if (!empty($firstMeta['video_campus_id'][0])) {
-							$theme->set('campus', $firstMeta['video_campus_id'][0]);
-						}
-						$theme->set('src', $firstMeta['video_url'][0]);
-						$banner = $theme->render('video');
-					} else {
-						if (!empty($meta['first_featured_story_height'])) {
-							$theme->set('height', $meta['first_featured_story_height']);
-						}
-						$theme->set('id', $first->object_id);
-						$theme->set('title', $first->title);
-						$theme->set('type', $first->object);
-						$theme->set('useThumbnail', false);
-						$banner = $theme->Html->tag('div', $theme->render('story_box'));
-					}
-
-					echo $theme->Html->tag('div', $banner, array(
-						'id' => 'main-feature',
-						'class' => 'clearfix'
-					));
-					echo '<div class="stories-3 clearfix">';
-					// only items 2,3,4 allowed
-					$items = array_slice($featuredItems, 1, 3);
-					foreach ($items as $item) {
-						$theme->set('useThumbnail', true);
-						$theme->set('id', $item->object_id);
-						$theme->set('title', $item->title);
-						$theme->set('type', $item->object);
-						echo $theme->render('story_box');
-					}
-					echo '</div>';
-				}
-			} elseif (is_singular(array('post', 'page', 'message'))) {
-				if (empty($video) && has_post_thumbnail($post->ID)) {
-					echo get_the_post_thumbnail($post->ID, 'full');
-				} else {
-					echo $video;
-				}
-			}
-			?>
-		</header>
-		<?php endif; ?>
 
 		<nav id="access" role="navigation" class="clearfix">
 			<?php
@@ -131,6 +77,65 @@ $hasHeader =
 			echo $theme->Html->tag('ul', $output, array('class' => 'menu clearfix'));
 			?>
 		</nav>
+
+		<?php
+		if (empty($meta['hide_submenu'])) {
+			get_sidebar();
+		}
+		?>
+
+		<?php if ($hasHeader): ?>
+		<header id="branding" role="banner" class="clearfix">
+			<?php
+			if (is_front_page() && count($featuredItems)) {
+				if (!empty($featuredItems)) {
+					$first = $featuredItems[0];
+					$firstMeta = get_post_meta($first->object_id);
+
+					if (!empty($firstMeta['video_url'][0]) && !isset($meta['first_featured_only_image']) || !$meta['first_featured_only_image']) {
+						$theme->set('campus', null);
+						if (!empty($firstMeta['video_campus_id'][0])) {
+							$theme->set('campus', $firstMeta['video_campus_id'][0]);
+						}
+						$theme->set('src', $firstMeta['video_url'][0]);
+						$banner = $theme->render('video');
+					} else {
+						if (!empty($meta['first_featured_story_height'])) {
+							$theme->set('height', $meta['first_featured_story_height']);
+						}
+						$theme->set('id', $first->object_id);
+						$theme->set('title', $first->title);
+						$theme->set('type', $first->object);
+						$theme->set('useThumbnail', false);
+						$banner = $theme->Html->tag('div', $theme->render('story_box'));
+					}
+
+					echo $theme->Html->tag('div', $banner, array(
+						'id' => 'main-feature',
+						'class' => 'clearfix'
+					));
+					echo '<div class="stories-3 clearfix">';
+					// only items 2,3,4 allowed
+					$items = array_slice($featuredItems, 1, 3);
+					foreach ($items as $item) {
+						$theme->set('useThumbnail', true);
+						$theme->set('id', $item->object_id);
+						$theme->set('title', $item->title);
+						$theme->set('type', $item->object);
+						echo $theme->render('story_box');
+					}
+					echo '</div>';
+				}
+			} elseif (is_singular(array('post', 'page', 'message'))) {
+				if (empty($video) && has_post_thumbnail($post->ID)) {
+					echo get_the_post_thumbnail($post->ID, 'full');
+				} else {
+					echo $video;
+				}
+			}
+			?>
+		</header>
+		<?php endif; ?>
 
 		<?php
 		if (isset($_SESSION['message'])) {

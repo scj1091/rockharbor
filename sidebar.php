@@ -10,7 +10,7 @@ if (!is_search() && !is_404()):
 		'post_type' => $post->post_type
 	));
 	$meta = $theme->metaToData($post->ID);
-	if (!empty($children) && empty($meta['hide_submenu'])):
+	if (!empty($children)):
 ?>
 <nav id="submenu" class="widget-area clearfix">
 	<?php

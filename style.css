@@ -435,10 +435,13 @@ th {
 -----------------------------------------*/
 #access {
 	z-index: 100;
-	margin-top: 10px;
+	margin: 20px 0;
 
 	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
 	text-transform: uppercase;
+
+	box-shadow: 0 0 5px 2px #999999;
+	background: #383838;
 }
 
 #access ul {
@@ -455,7 +458,7 @@ th {
 
 #access ul li a {
 	display: block;
-	padding: 5px 20px 4px 20px;
+	padding: 9px 20px 9px 20px;
 
 	color: #fff;
 	font-size: 2.6em; /*= 26px */
@@ -563,14 +566,13 @@ th {
 /*= Main layout
 -----------------------------------------*/
 #main {
-	margin-top: 10px;
-
 	background: #ffffff;
 
 	box-shadow: 0px 0px 3px 0px #888888;
 }
 
 #branding {
+	margin-bottom: 10px;
 	padding: 10px;
 	background: #fff;
 
@@ -606,7 +608,10 @@ th {
 	width: 100%;
 }
 
-#submenu,
+#submenu {
+	display: none;
+}
+
 #sidebar {
 	float: left;
 	width: 25%;
