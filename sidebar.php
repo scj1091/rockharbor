@@ -21,9 +21,9 @@ if (!is_search() && !is_404()):
 	$colSize = floor(100 / ($columns)) - 1;
 	$class = 'menu clearfix';
 	$style = "float:left;width:$colSize%;margin-right: 1%;";
-	foreach ($children as $post) {
-		$link = $theme->Html->tag('a', $post->post_title, array(
-			'href' => get_permalink($post->ID)
+	foreach ($children as $childPost) {
+		$link = $theme->Html->tag('a', $childPost->post_title, array(
+			'href' => get_permalink($childPost->ID)
 		));
 		$output .= $theme->Html->tag('li', $link);
 		$i++;
