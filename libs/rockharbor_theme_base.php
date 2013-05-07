@@ -871,7 +871,7 @@ class RockharborThemeBase {
 			'id' => 'sidebar-subnav',
 			'description' => __('Widgets for sub pages.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</div></aside>",
+			'after_widget' => "</aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
@@ -881,7 +881,7 @@ class RockharborThemeBase {
 			'id' => 'sidebar-frontpage',
 			'description' => __('Widgets that appear on the homepage.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</div></aside>",
+			'after_widget' => "</aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
