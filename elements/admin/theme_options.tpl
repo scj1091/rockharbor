@@ -71,18 +71,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 				</td>
 			</tr>
 			<tr valign="top">
-				<?php
-					echo $theme->Html->input('address', array(
-						'type' => 'textarea',
-						'rows' => '4',
-						'before' => '<th>',
-						'label' => 'Address',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(the campus\' meeting place)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
 				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
 			</tr>
 			<tr valign="top">
@@ -257,16 +245,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 					));
 				?>
 			</tr>
-			<tr valign="top">
-				<?php
-					echo $theme->Html->input('media_sync_key', array(
-						'before' => '<th>',
-						'label' => 'Media Syncing Key',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(used to authorize running sync.php)</small></td>'
-					));
-				?>
-			</tr>
 			<tr>
 				<th>
 					<label for="ebulletin_archive_page_id" class="description">Ebulletin Archive Page</label>
@@ -279,22 +257,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'option_none_value' => '0',
 						'selected' => $theme->options('ebulletin_archive_page_id'),
 						'id' => 'ebulletin_archive_page_id'
-					));
-				?>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label for="calendar_page_id" class="description">Calendar Page</label>
-				</th>
-				<td>
-				<?php
-					wp_dropdown_pages(array(
-						'name' => $theme->Html->inputPrefix.'[calendar_page_id]',
-						'show_option_none' => __('&mdash; Select &mdash;'),
-						'option_none_value' => '0',
-						'selected' => $theme->options('calendar_page_id'),
-						'id' => 'calendar_page_id'
 					));
 				?>
 				</td>
