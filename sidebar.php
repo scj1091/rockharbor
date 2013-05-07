@@ -12,7 +12,7 @@ if (!is_search() && !is_404()):
 	$meta = $theme->metaToData($post->ID);
 	if (!empty($children)):
 ?>
-<nav id="submenu" class="widget-area clearfix">
+<nav class="submenu widget-area clearfix">
 	<?php
 	$output = '';
 	$maxRow = 5;

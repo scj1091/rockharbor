@@ -111,11 +111,12 @@
 	padding: 0;
 }
 
-#submenu {
+#access ~ nav.submenu {
+	display: block;
 	padding-top: 15px;
 }
 
-#submenu ul {
+nav.submenu ul {
 	float: none;
 }
 

@@ -892,6 +892,8 @@ class RockharborThemeBase {
 		register_widget('SocialWidget');
 		include_once 'widgets' . DS . 'image_grid_widget.php';
 		register_widget('ImageGridWidget');
+		include_once 'widgets' . DS . 'sub_menu_widget.php';
+		register_widget('SubMenuWidget');
 
 		add_action('in_widget_form', array($this, 'addWidgetOptions'), 10, 3);
 		add_filter('dynamic_sidebar_params', array($this, 'addWidgetClasses'));

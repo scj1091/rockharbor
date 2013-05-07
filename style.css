@@ -608,7 +608,7 @@ th {
 	width: 100%;
 }
 
-#submenu {
+#access ~ nav.submenu {
 	display: none;
 }
 
@@ -694,16 +694,16 @@ article {
 	border-bottom: 1px dotted #747474;
 }
 
-#submenu {
+nav.submenu {
 	margin-bottom: 10px;
 }
 
-#submenu ul {
+nav.submenu ul {
 	/* forces columns to 100% */
 	width: 100% !important;
 }
 
-#submenu a {
+nav.submenu a {
 	border-left: 2px solid transparent;
 	padding-left: 5px;
 	margin-left: 5px;
@@ -716,14 +716,14 @@ article {
 	font-size: 1.3em; /*= 13px */
 }
 
-#submenu li.current-menu-item a,
-#submenu a:hover {
+nav.submenu li.current-menu-item a,
+nav.submenu a:hover {
 	border-color: #ff0000;
 
 	color: #ff0000;
 }
 
-#submenu li.current_page_item > a {
+nav.submenu li.current_page_item > a {
 	font-weight: bold;
 }
 
