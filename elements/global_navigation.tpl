@@ -7,7 +7,7 @@
 				'alt' => 'RH',
 				'parent' => false
 			));
-			echo $this->Html->tag('span', $theme->info('short_name'), array(
+			echo $theme->Html->tag('span', $theme->info('short_name'), array(
 				'class' => 'secondary desktop-hide tablet-hide'
 			));
 			echo $theme->Html->image('textlogo-white.png', array(
@@ -18,7 +18,7 @@
 			echo '</div>';
 			echo '<div class="title">';
 			if (!$theme->info('hide_name_in_global_nav')) {
-				echo $this->Html->tag('span', $theme->info('name'), array(
+				echo $theme->Html->tag('span', $theme->info('name'), array(
 					'class' => 'mobile-hide'
 				));
 			}

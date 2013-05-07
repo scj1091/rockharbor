@@ -14,8 +14,6 @@ RH.tabletEnter = function() {
 		return;
 	}
 	RH.inTablet = true;
-	// make nav the first element
-	jQuery('nav#access').insertAfter('.global-navigation');
 	// no double click :hover for iphone
 	jQuery('nav#access li').on('touchstart', function() {
 		$(this).addClass('touch');
@@ -48,8 +46,6 @@ RH.tabletExit = function() {
 		return;
 	}
 	RH.inTablet = false;
-	// make nav the last element
-	jQuery('nav#access').insertBefore('#main');
 	// reset footer
 	jQuery('#footer > div').show();
 	jQuery('footer .tabs a').off('click');
@@ -96,6 +92,7 @@ RH.mobileExit = function() {
 		return;
 	}
 	RH.inMobile = false;
+	jQuery('#access').show();
 	jQuery('.global-navigation li.menu').off('click');
 	jQuery('.global-navigation li.campuses').off('click');
 	jQuery('.global-navigation li.search').off('click');

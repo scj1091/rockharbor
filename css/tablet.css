@@ -151,19 +151,24 @@ footer .icon-campus:after {
 	margin-top: 10px;
 }
 
-#submenu {
+nav.submenu {
+	display: none;
 	float: none;
 	width: 98%;
 	padding: 1%;
 	background: #383838;
 }
 
-#submenu ul {
+#access ~ nav.submenu {
+	display: block;
+}
+
+nav.submenu ul {
 	/* reverts columns to use element definition */
 	width: auto !important;
 }
 
-#submenu a {
+nav.submenu a {
 	color: #ffffff;
 }
 
