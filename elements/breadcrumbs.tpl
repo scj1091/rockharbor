@@ -25,14 +25,16 @@ if (is_singular() || is_page()) {
 	$crumbs = array_merge($crumbs, array_reverse($childCrumbs));
 }
 
-if (is_category()) {
-	$postCategory = single_cat_title('', false);
-	$crumbs[] = "Archived by Category $postCategory";
-}
-
-if (is_tag()) {
-	$postTag = single_tag_title('', false);
-	$crumbs[] = "Posts Tagged $postTag";
+if (is_archive()) {
+	$term = get_queried_object();
+	if (is_category()) {
+		$crumbs[] = 'Category: '.$term->name;;
+	} elseif (is_tag()) {
+		$crumbs[] = 'Tag: '.$term->name;
+	} else {
+		// custom tax
+		$crumbs[] = ucfirst($term->taxonomy).': '.$term->name;
+	}
 }
 
 if (!is_archive()) {
