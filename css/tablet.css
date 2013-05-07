@@ -159,6 +159,10 @@ nav.submenu {
 	background: #383838;
 }
 
+#access {
+	margin-bottom: 0;
+}
+
 #access ~ nav.submenu {
 	display: block;
 }
