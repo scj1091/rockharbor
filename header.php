@@ -79,7 +79,7 @@ $hasHeader =
 		</nav>
 
 		<?php
-		if (empty($meta['hide_submenu'])) {
+		if (!empty($meta['hide_submenu']) || !empty($meta['hide_widgets'])) {
 			get_sidebar();
 		}
 		?>
