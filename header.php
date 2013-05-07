@@ -144,4 +144,6 @@ $hasHeader =
 		}
 		?>
 
+		<?php echo $theme->render('breadcrumbs'); ?>
+
 		<div id="main" class="clearfix">

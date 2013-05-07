@@ -884,6 +884,10 @@ footer h3 {
 
 /*= Main content
 -----------------------------------------*/
+.breadcrumbs {
+	margin-bottom: 10px;
+}
+
 .flash-message {
 	padding: 5px;
 
