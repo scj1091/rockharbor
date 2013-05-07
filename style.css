@@ -886,6 +886,9 @@ footer h3 {
 -----------------------------------------*/
 .breadcrumbs {
 	margin-bottom: 10px;
+
+	font-size: 1.2em;
+	line-height: 1.3em;
 }
 
 .flash-message {

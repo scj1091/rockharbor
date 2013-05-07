@@ -103,6 +103,10 @@
 
 /*= Main layout
 -----------------------------------------*/
+.breadcrumbs {
+	margin-left: 10px;
+}
+
 #page {
 	width: 100%;
 }
