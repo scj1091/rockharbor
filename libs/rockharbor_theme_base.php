@@ -869,7 +869,7 @@ class RockharborThemeBase {
 		register_sidebar(array(
 			'name' => __('Left Widgets', 'rockharbor'),
 			'id' => 'sidebar-subnav',
-			'description' => __('Additional items for after the sub-nav.', 'rockharbor'),
+			'description' => __('Widgets for sub pages.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget' => "</div></aside>",
 			'before_title' => '<header><h1>',
@@ -879,7 +879,7 @@ class RockharborThemeBase {
 		register_sidebar(array(
 			'name' => __('Front Page Widgets', 'rockharbor'),
 			'id' => 'sidebar-frontpage',
-			'description' => __('Widgets that appear in the right sidebar on the homepage.', 'rockharbor'),
+			'description' => __('Widgets that appear on the homepage.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget' => "</div></aside>",
 			'before_title' => '<header><h1>',
