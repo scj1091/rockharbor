@@ -245,6 +245,9 @@ if (!isset($_REQUEST['settings-updated'])) {
 					));
 				?>
 			</tr>
+			<tr valign="top">
+				<td colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></td>
+			</tr>
 			<tr>
 				<th>
 					<label for="ebulletin_archive_page_id" class="description">Ebulletin Archive Page</label>
@@ -261,6 +264,28 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 				</td>
 			</tr>
+			<?php
+			foreach ($theme->features as $postType => $friendlyName):
+				if ($theme->supports($postType)):
+			?>
+			<tr>
+				<th>
+					<label for="<?php echo $postType; ?>_archive_page_id" class="description"><?php echo $friendlyName; ?> Archive Page</label>
+				</th>
+				<td>
+				<?php
+					wp_dropdown_pages(array(
+						'name' => $theme->Html->inputPrefix."[${postType}_archive_page_id]",
+						'show_option_none' => __('&mdash; Select &mdash;'),
+						'option_none_value' => '0',
+						'selected' => $theme->options("${postType}_archive_page_id"),
+						'id' => "${postType}_archive_page_id"
+					));
+				?>
+				</td>
+			</tr>
+				<?php endif; ?>
+			<?php endforeach; ?>
 			<tr valign="top">
 				<?php
 					echo $theme->Html->input('core_calendar_id', array(
