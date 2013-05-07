@@ -71,18 +71,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 				</td>
 			</tr>
 			<tr valign="top">
-				<?php
-					echo $theme->Html->input('address', array(
-						'type' => 'textarea',
-						'rows' => '4',
-						'before' => '<th>',
-						'label' => 'Address',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(the campus\' meeting place)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
 				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
 			</tr>
 			<tr valign="top">
@@ -258,14 +246,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
-				<?php
-					echo $theme->Html->input('media_sync_key', array(
-						'before' => '<th>',
-						'label' => 'Media Syncing Key',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(used to authorize running sync.php)</small></td>'
-					));
-				?>
+				<td colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></td>
 			</tr>
 			<tr>
 				<th>
@@ -283,22 +264,28 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 				</td>
 			</tr>
+			<?php
+			foreach ($theme->features as $postType => $friendlyName):
+				if ($theme->supports($postType)):
+			?>
 			<tr>
 				<th>
-					<label for="calendar_page_id" class="description">Calendar Page</label>
+					<label for="<?php echo $postType; ?>_archive_page_id" class="description"><?php echo $friendlyName; ?> Archive Page</label>
 				</th>
 				<td>
 				<?php
 					wp_dropdown_pages(array(
-						'name' => $theme->Html->inputPrefix.'[calendar_page_id]',
+						'name' => $theme->Html->inputPrefix."[${postType}_archive_page_id]",
 						'show_option_none' => __('&mdash; Select &mdash;'),
 						'option_none_value' => '0',
-						'selected' => $theme->options('calendar_page_id'),
-						'id' => 'calendar_page_id'
+						'selected' => $theme->options("${postType}_archive_page_id"),
+						'id' => "${postType}_archive_page_id"
 					));
 				?>
 				</td>
 			</tr>
+				<?php endif; ?>
+			<?php endforeach; ?>
 			<tr valign="top">
 				<?php
 					echo $theme->Html->input('core_calendar_id', array(
