@@ -9,7 +9,7 @@ if (!is_search() && !is_404()):
 		'order' => 'ASC',
 		'post_type' => $post->post_type
 	));
-	$meta = $theme->metaToData($post->ID);
+
 	if (!empty($children)):
 ?>
 <nav class="submenu widget-area clearfix">

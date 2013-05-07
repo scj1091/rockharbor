@@ -35,10 +35,15 @@ $fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 
 		</section>
 
-		<?php if (empty($meta['hide_widgets'])): ?>
+		<?php if (empty($meta['hide_widgets']) || empty($meta['hide_submenu'])): ?>
 		<section id="sidebar" role="complementary" class="clearfix">
 			<?php
-			dynamic_sidebar('sidebar-subnav');
+			if (empty($meta['hide_submenu'])) {
+				locate_template('sidebar.php', true, false);
+			}
+			if (empty($meta['hide_widgets'])) {
+				dynamic_sidebar('sidebar-subnav');
+			}
 			?>
 		</section>
 		<?php endif; ?>

@@ -869,9 +869,9 @@ class RockharborThemeBase {
 		register_sidebar(array(
 			'name' => __('Left Widgets', 'rockharbor'),
 			'id' => 'sidebar-subnav',
-			'description' => __('Additional items for after the sub-nav.', 'rockharbor'),
+			'description' => __('Widgets for sub pages.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</div></aside>",
+			'after_widget' => "</aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
@@ -879,9 +879,9 @@ class RockharborThemeBase {
 		register_sidebar(array(
 			'name' => __('Front Page Widgets', 'rockharbor'),
 			'id' => 'sidebar-frontpage',
-			'description' => __('Widgets that appear in the right sidebar on the homepage.', 'rockharbor'),
+			'description' => __('Widgets that appear on the homepage.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</div></aside>",
+			'after_widget' => "</aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
@@ -892,8 +892,6 @@ class RockharborThemeBase {
 		register_widget('SocialWidget');
 		include_once 'widgets' . DS . 'image_grid_widget.php';
 		register_widget('ImageGridWidget');
-		include_once 'widgets' . DS . 'sub_menu_widget.php';
-		register_widget('SubMenuWidget');
 
 		add_action('in_widget_form', array($this, 'addWidgetOptions'), 10, 3);
 		add_filter('dynamic_sidebar_params', array($this, 'addWidgetClasses'));
