@@ -11,8 +11,11 @@ $link = '<span class="crumb"><a href="%s">%s</a></span>';
 
 $crumbs[] = array('/', 'Home');
 
-if (is_singular() || is_page() && !empty($post->post_parent)) {
+if (is_singular() || is_page()) {
 	$postParent = $post->post_parent;
+	if (is_singular(array_keys($theme->features))) {
+		$postParent = $theme->options($post->post_type.'_archive_page_id');
+	}
 	$childCrumbs = array();
 	while ($postParent) {
 		$page = get_page($postParent);
