@@ -14,6 +14,13 @@ class Admin {
 	public $theme = null;
 
 /**
+ * List of paths to invalidate in Cloudfront
+ *
+ * @var array
+ */
+	protected $pathsToInvalidate = array();
+
+/**
  * Registers all shortcodes
  *
  * @param RockharborThemeBase $theme
@@ -79,6 +86,7 @@ class Admin {
 
 		add_filter('save_post', array($this, 'onSave'), 1, 2);
 		add_filter('wp_delete_file', array($this, 'deleteS3File'));
+		add_action('wp_redirect', array($this, 'invalidateCloudfrontPosts'));
 		add_filter('wp_update_attachment_metadata', array($this, 'transferToS3'), 10, 2);
 	}
 
@@ -187,7 +195,48 @@ class Admin {
 		// delete from bucket
 		$S3->deleteObject($bucket, $path);
 
+		// save this image path for later cloudfront invalidation
+		$this->pathsToInvalidate[] = "/$path";
+
 		return $file;
+	}
+
+/**
+ * Invalidates all cloudfront paths stored in `$pathsToInvalidate`. Needs to
+ * invalidate everything in a single batch request otherwise cloudfront limits
+ * are hit (3 active invalidation requests per distribution)
+ *
+ * Called on each wp_redirect since that's the only way to capture multiple
+ * delete calls in a single request (i.e., through the bulk actions)
+ *
+ * @param integer $postId The original post ID
+ */
+	public function invalidateCloudfrontPosts($url) {
+		if (empty($this->pathsToInvalidate)) {
+			return $url;
+		}
+
+		$s3Key = $this->theme->options('s3_access_key');
+		$s3KeySecret = $this->theme->options('s3_access_secret');
+
+		require_once VENDORS . DS . 'S3.php';
+		$S3 = new S3($s3Key, $s3KeySecret);
+		$S3->setSSLAuth(null, null, 'C:\\xampp_shared\\apache_conf\\cacert.pem');
+
+		// invalidate cloudfront cache (if applicable)
+		$downloadDomain = $this->theme->options('s3_download');
+		if (!empty($downloadDomain)) {
+			$distributions = $S3->listDistributions();
+			// get matching distribution id
+			foreach ($distributions as $distributionId => $distributionDetails) {
+				if ($distributionDetails['domain'] === $downloadDomain) {
+					$S3->invalidateDistribution($distributionId, $this->pathsToInvalidate);
+					break;
+				}
+			}
+		}
+
+		return $url;
 	}
 
 /**

@@ -210,9 +210,19 @@ if (!isset($_REQUEST['settings-updated'])) {
 				<?php
 					echo $theme->Html->input('s3_streamer', array(
 						'before' => '<th>',
-						'label' => 'Amazon S3 Streaming Distribution',
+						'label' => 'Amazon Cloudfront Streaming Distribution',
 						'between' => '</th><td>',
 						'after' => '<br /><small>(<strong>&lt;ID&gt;.cloudfront.net/cfx/st</strong>)</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
+					echo $theme->Html->input('s3_download', array(
+						'before' => '<th>',
+						'label' => 'Amazon Cloudfront Download Distribution',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(<strong>&lt;ID&gt;.cloudfront.net</strong>)</small></td>'
 					));
 				?>
 			</tr>

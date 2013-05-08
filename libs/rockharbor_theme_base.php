@@ -871,7 +871,7 @@ class RockharborThemeBase {
 			'id' => 'sidebar-subnav',
 			'description' => __('Widgets for sub pages.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</aside>",
+			'after_widget' => "</div></aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
@@ -881,7 +881,7 @@ class RockharborThemeBase {
 			'id' => 'sidebar-frontpage',
 			'description' => __('Widgets that appear on the homepage.', 'rockharbor'),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</aside>",
+			'after_widget' => "</div></aside>",
 			'before_title' => '<header><h1>',
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
@@ -1134,8 +1134,14 @@ class RockharborThemeBase {
 		$uploadpaths = wp_upload_dir();
 		$path = $subsitePath . str_replace($uploadpaths['baseurl'], '', $url);
 
+		$downloadDistribution = $this->options('s3_download', false, $blog_id);
 		$bucket = $this->options('s3_bucket', false, $blog_id);
+
 		$url = 'http://'.$bucket.'.s3.amazonaws.com/'.$path;
+		if (!empty($downloadDistribution)) {
+			$url = "http://$downloadDistribution/$path";
+		}
+
 		return $url;
 	}
 }

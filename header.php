@@ -79,9 +79,8 @@ $hasHeader =
 		</nav>
 
 		<?php
-		if (!empty($meta['hide_submenu']) || !empty($meta['hide_widgets'])) {
-			get_sidebar();
-		}
+		// touch-accessible submenu
+		get_sidebar();
 		?>
 
 		<?php if ($hasHeader): ?>

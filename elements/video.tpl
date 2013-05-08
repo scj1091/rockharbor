@@ -17,6 +17,7 @@ if (!isset($campus) || empty($campus)) {
 }
 
 $streamer = $theme->options('s3_streamer', false, $campus);
+$downloader = $theme->options('s3_download', false, $campus);
 $bucket = $theme->options('s3_bucket', false, $campus);
 
 if (!isset($poster) || empty($poster)) {
@@ -50,7 +51,13 @@ $id = uniqid();
 	</div>
 	<video
 		id="embedded-player-<?php echo $id;?>"
-		src="<?php echo $src; ?>"
+		src="<?php
+		$srcFile = $src;
+		if (!empty($downloader)) {
+			$srcFile = str_replace("http://$bucket.s3.amazonaws.com/", "http://$downloader/", $src);
+		}
+		echo $srcFile;
+		?>"
 		controls
 		preload="none"
 		style="width: 100%"
