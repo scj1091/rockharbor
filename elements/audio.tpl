@@ -14,13 +14,20 @@ if (!isset($campus) || empty($campus)) {
 }
 
 $streamer = $theme->options('s3_streamer', false, $campus);
+$downloader = $theme->options('s3_download', false, $campus);
 $bucket = $theme->options('s3_bucket', false, $campus);
 
 $id = uniqid();
 ?>
 <div class="embedded-audio" id="player-<?php echo $id;?>">
 	<audio
-		src="<?php echo $src; ?>"
+		src="<?php
+		$srcFile = $src;
+		if (!empty($downloader)) {
+			$srcFile = str_replace("http://$bucket.s3.amazonaws.com/", "http://$downloader/", $src);
+		}
+		echo $srcFile;
+		?>"
 		preload="none"
 		<?php
 		if (!empty($streamer)) {
