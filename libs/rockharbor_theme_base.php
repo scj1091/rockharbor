@@ -1138,7 +1138,7 @@ class RockharborThemeBase {
 		$bucket = $this->options('s3_bucket', false, $blog_id);
 
 		$url = 'http://'.$bucket.'.s3.amazonaws.com/'.$path;
-		if (!empty($downloadDistribution)) {
+		if (!empty($downloadDistribution) && !is_admin()) {
 			$url = "http://$downloadDistribution/$path";
 		}
 
