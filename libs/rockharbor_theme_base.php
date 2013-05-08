@@ -1134,8 +1134,14 @@ class RockharborThemeBase {
 		$uploadpaths = wp_upload_dir();
 		$path = $subsitePath . str_replace($uploadpaths['baseurl'], '', $url);
 
+		$downloadDistribution = $this->options('s3_download', false, $blog_id);
 		$bucket = $this->options('s3_bucket', false, $blog_id);
+
 		$url = 'http://'.$bucket.'.s3.amazonaws.com/'.$path;
+		if (!empty($downloadDistribution)) {
+			$url = "http://$downloadDistribution/$path";
+		}
+
 		return $url;
 	}
 }
