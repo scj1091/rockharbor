@@ -76,8 +76,13 @@ class SocialWidget extends Widget {
  * @return array
  */
 	protected function getFacebook($user) {
-		$response = wp_remote_get('http://graph.facebook.com/'.$user);
-		return json_decode($response['body'], true);
+		$results = get_transient('SocialWidget::getFacebook');
+		if ($results === false) {
+			$response = wp_remote_get('http://graph.facebook.com/'.$user);
+			$results = json_decode($response['body'], true);
+			set_transient('SocialWidget::getFacebook', $results, MINUTE_IN_SECONDS);
+		}
+		return $results;
 	}
 
 /**
@@ -94,7 +99,12 @@ class SocialWidget extends Widget {
 		}
 		date_default_timezone_set($tz);
 
-		return $this->theme->Twitter->fetchFeed($term, $limit);
+		$results = get_transient('SocialWidget::getTweets');
+		if ($results === false) {
+			$results = $this->theme->Twitter->fetchFeed($term, $limit);
+			set_transient('SocialWidget::getTweets', $results, MINUTE_IN_SECONDS);
+		}
+		return $results;
 	}
 
 }
