@@ -147,6 +147,7 @@ class RockharborThemeBase {
 
 		// start session
 		if (!session_id()) {
+			session_cache_limiter('public');
 			session_start();
 		}
 	}
