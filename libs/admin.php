@@ -50,6 +50,15 @@ class Admin {
 		update_option('blogname', 'RH '.$this->theme->info('name'));
 		update_option('image_default_link_type', 'file');
 
+		// thumbnail sizes
+		update_option('thumbnail_size_w', 260);
+		update_option('thumbnail_size_h', 150);
+		// no medium or large sizes
+		update_option('medium_size_w', 0);
+		update_option('medium_size_h', 0);
+		update_option('large_size_w', 0);
+		update_option('large_size_h', 0);
+
 		// add meta boxes
 		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'page', 'normal');
 		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'post', 'normal');
