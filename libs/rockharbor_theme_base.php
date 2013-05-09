@@ -175,6 +175,7 @@ class RockharborThemeBase {
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
+		remove_action('wp_head', 'wp_generator');
 
 		// theme settings
 		add_filter('wp_get_nav_menu_items', array($this, 'getNavMenu'), 1, 3);
