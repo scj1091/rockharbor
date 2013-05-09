@@ -114,12 +114,14 @@ class Admin {
 	}
 
 /**
- * Called when a post is saved. Forces auto-generation of enclosure meta keys
+ * Called when a post is saved. Forces auto-generation of enclosure meta keys,
+ * saves extra namespaced meta, and clears appropriate caches
  *
  * @param integer $post_id Post id
  * @param StdClass $post The post
  */
 	public function onSave($post_id, $post) {
+		delete_transient('header.php#access');
 		do_enclose($post->post_content, $post_id);
 		$this->saveMeta();
 	}

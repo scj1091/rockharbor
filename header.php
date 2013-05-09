@@ -33,46 +33,50 @@ $hasHeader =
 
 		<nav id="access" role="navigation" class="clearfix">
 			<?php
-			$menu_items = wp_get_nav_menu_items($locations['main'], array('auto_show_children' => true));
-			_wp_menu_item_classes_by_context($menu_items);
-			$menu = array();
-			$ids = array();
-			foreach ($menu_items as $key => $menu_item) {
-				$a = $theme->Html->tag('a', $menu_item->title, array('href' => $menu_item->url));
-				$opts = array(
-					'class' => implode(' ', $menu_item->classes)
-				);
-				if ($menu_item->menu_item_parent == 0) {
-					// top level
-					$menu[] = array(
-						'a' => $a,
-						'opts' => $opts,
-						'children' => array()
+			$output = get_transient('header.php#access');
+			if ($output === false) {
+				$menu_items = wp_get_nav_menu_items($locations['main'], array('auto_show_children' => true));
+				_wp_menu_item_classes_by_context($menu_items);
+				$menu = array();
+				$ids = array();
+				foreach ($menu_items as $key => $menu_item) {
+					$a = $theme->Html->tag('a', $menu_item->title, array('href' => $menu_item->url));
+					$opts = array(
+						'class' => implode(' ', $menu_item->classes)
 					);
-					$ids[$menu_item->ID] = count($menu)-1;
-				} else {
-					// child
-					$menu[$ids[$menu_item->menu_item_parent]]['children'][] = $theme->Html->tag('li', $a, $opts);
-				}
-			}
-			$output = '';
-			$max_row = 5;
-			foreach ($menu as $key => $top_level_menu_item) {
-				$children = null;
-				if (!empty($top_level_menu_item['children'])) {
-					$class = null;
-					if (count($top_level_menu_item['children']) > $max_row) {
-						$top_level_menu_item['children'] = array_chunk($top_level_menu_item['children'], $max_row);
-						foreach ($top_level_menu_item['children'] as $col) {
-							$children .= $theme->Html->tag('ul', implode('', $col));
-						}
-						$class = 'cols'.count($top_level_menu_item['children']);
+					if ($menu_item->menu_item_parent == 0) {
+						// top level
+						$menu[] = array(
+							'a' => $a,
+							'opts' => $opts,
+							'children' => array()
+						);
+						$ids[$menu_item->ID] = count($menu)-1;
 					} else {
-						$children = $theme->Html->tag('ul', implode('', $top_level_menu_item['children']));
+						// child
+						$menu[$ids[$menu_item->menu_item_parent]]['children'][] = $theme->Html->tag('li', $a, $opts);
 					}
-					$children = $theme->Html->tag('div', $children, array('class' => 'submenu '.$class));
 				}
-				$output .= $theme->Html->tag('li', $top_level_menu_item['a'].$children, $top_level_menu_item['opts']);
+				$output = '';
+				$max_row = 5;
+				foreach ($menu as $key => $top_level_menu_item) {
+					$children = null;
+					if (!empty($top_level_menu_item['children'])) {
+						$class = null;
+						if (count($top_level_menu_item['children']) > $max_row) {
+							$top_level_menu_item['children'] = array_chunk($top_level_menu_item['children'], $max_row);
+							foreach ($top_level_menu_item['children'] as $col) {
+								$children .= $theme->Html->tag('ul', implode('', $col));
+							}
+							$class = 'cols'.count($top_level_menu_item['children']);
+						} else {
+							$children = $theme->Html->tag('ul', implode('', $top_level_menu_item['children']));
+						}
+						$children = $theme->Html->tag('div', $children, array('class' => 'submenu '.$class));
+					}
+					$output .= $theme->Html->tag('li', $top_level_menu_item['a'].$children, $top_level_menu_item['opts']);
+				}
+				set_transient('header.php#access', $output, DAY_IN_SECONDS);
 			}
 			echo $theme->Html->tag('ul', $output, array('class' => 'menu clearfix'));
 			?>
