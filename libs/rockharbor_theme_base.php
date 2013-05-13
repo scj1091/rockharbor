@@ -308,7 +308,7 @@ class RockharborThemeBase {
 		$out = '';
 		foreach ($object->queue as $queue) {
 			foreach ($object->registered[$queue]->deps as $dep) {
-				if (!in_array($dep, $included)) {
+				if (!in_array($dep, $included) && isset($object->registered[$dep])) {
 					// make sure to include dependencies first
 					$out .= $this->_process($object->registered[$dep]);
 				}
@@ -366,7 +366,7 @@ class RockharborThemeBase {
 		$included = array();
 		foreach ($object->queue as $queue) {
 			foreach ($object->registered[$queue]->deps as $dep) {
-				if (!in_array($dep, $included)) {
+				if (!in_array($dep, $included) && isset($object->registered[$dep])) {
 					// make sure to include dependencies first
 					$key .= $object->registered[$dep]->src;
 				}
