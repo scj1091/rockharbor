@@ -19,11 +19,30 @@
 	clear: both;
 }
 
-/*= Archive Page
+/*= Single Page
 -----------------------------------------*/
+.single-staff article.staff .staff-details {
+	width: 100%;
+	display: block;
+	padding-bottom: 10px;
+}
+
+.single-staff article.staff .staff-details .staff-picture {
+	text-align: center;
+}
+
+.single-staff article.staff .staff-details dt {
+	clear: both;
+}
+
 .single-staff article.staff .staff-details dd,
 .single-staff article.staff .staff-details dt {
-	overflow: hidden;
+	float: left;
+}
+
+.single-staff article.staff .staff-bio {
+	float: none;
+	width: 100%;
 }
 
 }
