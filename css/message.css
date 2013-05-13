@@ -30,7 +30,7 @@
 /*= Latest message (in message series)
 -----------------------------------------*/
 #content article.first.message-series {
-	padding-bottom: 20px;
+	padding: 0 0 20px 0;
 
 	border-bottom: 1px dotted #747474;
 }
