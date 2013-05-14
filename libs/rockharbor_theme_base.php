@@ -1202,6 +1202,7 @@ class RockharborThemeBase {
 		}
 
 		if ($status === '304') {
+			do_action('wp_enqueue_scripts');
 			// don't send content on not-modified statuses
 			exit();
 		}
