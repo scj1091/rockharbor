@@ -1155,8 +1155,10 @@ class RockharborThemeBase {
 
 		// the following situations prevent us from caching
 		if (
+			// don't cache when debugging
+			WP_DEBUG
 			// no need to cache for editors
-			is_user_logged_in()
+			|| is_user_logged_in()
 			// unfortunately, comment modified dates aren't kept so we can't
 			// adjust a post's Last-Modified header based on them
 			|| comments_open($post->ID)
