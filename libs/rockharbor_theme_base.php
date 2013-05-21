@@ -31,7 +31,8 @@ class RockharborThemeBase {
  */
 	protected $themeOptions = array(
 		'short_name' => 'Central',
-		'hide_name_in_global_nav' => false
+		'hide_name_in_global_nav' => false,
+		'supports' => array()
 	);
 
 /**
@@ -1098,15 +1099,35 @@ class RockharborThemeBase {
 	}
 
 /**
- * Checks if this theme or childtheme supports a feature
+ * Checks or sets if this theme or childtheme supports a feature
  *
+ * To enable or disable a feature on a site, use the `$set` parameter. This must
+ * be done before the theme is initialized.
+ *
+ *     $theme->supports('staff', true); // turn on staff post type
+ *     $theme->supports('staff'); // returns `true`
+ *     $theme->supports('staff', false); // turn off staff post type
+ *     $theme->supports('staff'); // returns `false`
+ *
+ * @see RockharborThemeBase::init()
  * @param string $feature
  * @return boolean
  */
-	public function supports($feature = null) {
-		if (!isset($this->themeOptions['supports'])) {
+	public function supports($feature = null, $set = null) {
+		if (!array_key_exists($feature, $this->features)) {
 			return false;
 		}
+		if (is_bool($set)) {
+			if ($set) {
+				$this->themeOptions['supports'][] = $feature;
+			} else {
+				$this->themeOptions['supports'] = array_diff($this->themeOptions['supports'], array($feature));
+			}
+		}
+		if (!array_key_exists('supports', $this->themeOptions)) {
+			return false;
+		}
+		$this->themeOptions['supports'] = array_unique($this->themeOptions['supports']);
 		return in_array($feature, $this->themeOptions['supports']);
 	}
 
