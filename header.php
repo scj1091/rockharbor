@@ -79,8 +79,10 @@ $hasHeader =
 		</nav>
 
 		<?php
-		// touch-accessible submenu
-		get_sidebar();
+		if (!$theme->Shortcodes->hasShortcode('children-grid')) {
+			// touch-accessible submenu
+			get_sidebar();
+		}
 		?>
 
 		<?php if ($hasHeader): ?>
