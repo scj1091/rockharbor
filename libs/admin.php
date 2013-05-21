@@ -346,9 +346,15 @@ class Admin {
 	}
 
 /**
- * Renders the network options panel
+ * Renders the network options panel.
+ *
+ * Clears the aggregated SQL query cache
  */
 	public function networkAdmin() {
+		foreach ($this->theme->getBlogs() as $blog) {
+			switch_to_blog($blog['blog_id']);
+			delete_transient('RockharborThemeBase::aggregatePosts');
+		}
 		$out = $this->theme->render('admin'.DS.'network_options');
 		echo $out;
 	}

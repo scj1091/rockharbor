@@ -191,6 +191,7 @@ class RockharborThemeBase {
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
+		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 	}
 
 /**
@@ -1161,5 +1162,91 @@ class RockharborThemeBase {
 		}
 
 		return $url;
+	}
+
+/**
+ * Sends headers
+ *
+ * Called during the `get_header` action because WordPress doesn't set up the
+ * query and post globals before the `send_headers` action, which are needed to
+ * grab modified dates to determine if the page should be cached. #YAWPH
+ *
+ * @return void
+ */
+	public function sendHeaders() {
+		global $wp, $post;
+
+		// the following situations prevent us from caching
+		if (
+			// don't cache when debugging
+			WP_DEBUG
+			// no need to cache for editors
+			|| is_user_logged_in()
+			// unfortunately, comment modified dates aren't kept so we can't
+			// adjust a post's Last-Modified header based on them
+			|| comments_open($post->ID)
+		) {
+			nocache_headers();
+			return;
+		}
+
+		$status = '200';
+		$cacheLength = 30 * DAY_IN_SECONDS;
+
+		// get last modified
+		$lastModified = mysql2date('D, d M Y H:i:s', get_lastpostmodified('GMT'), 0).' GMT';
+
+		// remove default headers
+		header_remove();
+
+		// is the client requesting a newer version?
+		if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) !== false) {
+			if (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= strtotime($lastModified)) {
+				$status = '304';
+			}
+		}
+
+		// is this a bad request?
+		if (!empty($wp->query_vars['error'])) {
+			$status = (int)$wp->query_vars['error'];
+		}
+
+		// set headers
+		$this->_status($status);
+		$this->_header("Cache-Control: public; max-age: $cacheLength");
+		$this->_header("Last-Modified: $lastModified");
+		$this->_header('X-Pingback: '.get_bloginfo('pingback_url'));
+
+		// set content type
+		if (!empty($wp->query_vars['feed'])) {
+			$this->_header('Content-type: application/rss+xml');
+		} else {
+			$this->_header('Content-type: '.get_option('html_type').'; charset='.get_option('blog_charset'));
+		}
+
+		if ($status === '304') {
+			do_action('wp_enqueue_scripts');
+			// don't send content on not-modified statuses
+			exit();
+		}
+	}
+
+/**
+ * Sets a header
+ *
+ * @param string $header Header
+ */
+	protected function _header($header) {
+		return header($header);
+	}
+
+/**
+ * Sets the HTTP protocol and status header
+ *
+ * @param mixed $status String or integer HTTP status code
+ * @return void
+ */
+	protected function _status($status = '404') {
+		return status_header((int)$status);
 	}
 }
