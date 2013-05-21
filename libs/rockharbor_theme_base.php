@@ -227,7 +227,7 @@ class RockharborThemeBase {
 
 			// reassemble
 			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
-			$content = $contentBefore.'<div class="clearfix">'.$columnDiv.$content.'</div></div>'.$contentAfter;
+			$content = $contentBefore.'<div class="columns clearfix">'.$columnDiv.$content.'</div></div>'.$contentAfter;
 		}
 		return $content;
 	}
