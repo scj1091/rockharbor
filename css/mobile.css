@@ -242,6 +242,18 @@ time {
 	margin-top: 5px;
 }
 
+/*= Grid layout
+-----------------------------------------*/
+.grid-layout div {
+	min-width: 100%;
+}
+
+.grid-layout .grid-title {
+	margin: 10px 0;
+
+	text-align: center;
+}
+
 /*= Story box
 -----------------------------------------*/
 .stories-2 .story-box,
