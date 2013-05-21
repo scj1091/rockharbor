@@ -157,6 +157,10 @@ section header {
 	text-align: left;
 }
 
+nav.submenu ul {
+	min-width: 100%;
+}
+
 /*= Footer
 -----------------------------------------*/
 #footer .third form input[type=email] {
