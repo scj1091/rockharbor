@@ -33,6 +33,35 @@ class Shortcodes {
 	}
 
 /**
+ * Checks if content has a particular shortcode. If `$content` is not defined,
+ * the current post's content will be checked.
+ *
+ * Temporarily overwrites all shortcode tags in order to generate the regexp
+ * and search for just the `$shortcode` passed. #YAWPH
+ *
+ * @param string $shortcode Shortcode name, as it was registered
+ * @param string $content The content to search
+ * @return boolean
+ */
+	public function hasShortcode($shortcode = '', $content = null) {
+		global $shortcode_tags, $post;
+		$_backup_tags = $shortcode_tags;
+
+		// create regexp using only this shortcode
+		$shortcode_tags = array($shortcode => array());
+		$shortcodeRegexp = get_shortcode_regex();
+
+		// restore all shortcodes
+		$shortcode_tags = $_backup_tags;
+
+		if (is_null($content)) {
+			$content = $post->post_content;
+		}
+
+		return preg_match("/$shortcodeRegexp/s", $content) > 0;
+	}
+
+/**
  * Renders quick contact form
  *
  * @param array $attr Attributes sent by WordPress defined in the editor
