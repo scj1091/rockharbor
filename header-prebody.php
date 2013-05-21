@@ -15,6 +15,7 @@
 <head>
 <meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <?php echo $theme->render('meta'); ?>
 <title><?php
 	wp_title('|', true, 'right');
