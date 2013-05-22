@@ -136,6 +136,14 @@ blockquote {
 	font-size: 1.2em; /*= 12px */
 }
 
+.widget-body > a {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	font-size: 1.3em;
+}
+
 .widget-body ul,
 .entry-content ul {
 	font-size: 1.3em; /*= 13px */

@@ -12,6 +12,10 @@
 	display: none !important;
 }
 
+.widget-body > a {
+	color: #fff;
+}
+
 /*= Global navigation
 -----------------------------------------*/
 .global-navigation {
