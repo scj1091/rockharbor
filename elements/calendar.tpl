@@ -1,6 +1,4 @@
 <div id="calendar"></div>
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/calendar.css" />
-<script src="<?php echo $theme->info('base_url'); ?>/js/fullcalendar.js"></script>
 <script>jQuery('#calendar').fullCalendar({
 	header: {
 		left: '',
