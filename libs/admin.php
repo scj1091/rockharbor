@@ -28,10 +28,8 @@ class Admin {
 	public function __construct($theme = null) {
 		$this->theme = $theme;
 
-		if (!$this->theme->isChildTheme()) {
-			add_action('admin_menu', array($this, 'adminMenus'));
-			add_action('network_admin_menu', array($this, 'networkAdminMenus'));
-		}
+		add_action('admin_menu', array($this, 'adminMenus'));
+		add_action('network_admin_menu', array($this, 'networkAdminMenus'));
 		add_action('admin_init', array($this, 'init'));
 	}
 
