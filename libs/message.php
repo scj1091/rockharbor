@@ -218,6 +218,7 @@ class Message extends PostType {
  * Inits extra admin goodies
  */
 	public function adminInit() {
+		add_meta_box('tagsdiv-post_tag', __('Message Tags'), 'post_tags_meta_box', 'message', 'side');
 		add_meta_box('message_details', 'Message Details', array($this, 'detailsMetaBox'), $this->name, 'side');
 		add_meta_box('media_details', 'Media', array($this, 'mediaMetaBox'), $this->name, 'normal');
 		remove_meta_box('tagsdiv-series', $this->name, 'side');
