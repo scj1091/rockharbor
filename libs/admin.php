@@ -80,12 +80,6 @@ class Admin {
 
 		add_filter('default_content', array($this, 'setDefaultComments'), 1, 2);
 
-		// exit if we're in a child theme, otherwise the following code is executed
-		// twice which causes problems #YAWPH
-		if ($this->theme->isChildTheme()) {
-			return;
-		}
-
 		add_action('edit_user_profile', array($this, 'userPage'));
 		add_action('show_user_profile', array($this, 'userPage'));
 		add_action('personal_options_update', array($this, 'onUserSave'));
