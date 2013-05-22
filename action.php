@@ -24,6 +24,7 @@ if (file_exists($file)) {
 }
 
 $theme = new $class;
+$theme->init();
 
 // verify nonce
 if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'action-nonce')) {
