@@ -167,10 +167,8 @@ class RockharborThemeBase {
  * Adds all hooks for the theme
  */
 	function addHooks() {
-		if (!is_admin()) {
-			add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
-			add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
-		}
+		add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
+		add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 
 		// change rss feed to point to feedburner link
 		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
@@ -259,7 +257,7 @@ class RockharborThemeBase {
 		global $wp_scripts, $wp_styles;
 		$cachePath = WP_CONTENT_DIR . DS . 'cache';
 		$cacheUrl = WP_CONTENT_URL.'/cache';
-		if (!is_writable($cachePath) || is_admin()) {
+		if (!is_writable($cachePath)) {
 			return;
 		}
 
