@@ -156,7 +156,7 @@ class RockharborThemeBase {
 /**
  * Initializes the site
  */
-	function init() {
+	public function init() {
 		$this->addHooks();
 		$this->addFeatures();
 		$this->loadHelpers();
@@ -166,7 +166,7 @@ class RockharborThemeBase {
 /**
  * Adds all hooks for the theme
  */
-	function addHooks() {
+	protected function addHooks() {
 		add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
 		add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 
@@ -195,7 +195,7 @@ class RockharborThemeBase {
 /**
  * Loads helpers
  */
-	function loadHelpers() {
+	protected function loadHelpers() {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		$this->Twitter = new Twitter($this);
@@ -207,7 +207,7 @@ class RockharborThemeBase {
  * @param string $content
  * @return string
  */
-	function filterContent($content = '') {
+	public function filterContent($content = '') {
 		$count = preg_match_all('/<!--column-->/', $content, $matches);
 
 		if ($count) {
@@ -236,7 +236,7 @@ class RockharborThemeBase {
  * @param string $title
  * @return string
  */
-	function archiveTitle($title = '') {
+	public function archiveTitle($title = '') {
 		global $wp_query;
 		if (is_tax()) {
 			$term = $wp_query->get_queried_object();
@@ -383,7 +383,7 @@ class RockharborThemeBase {
 /**
  * Registers and queues assets
  */
-	function setupAssets() {
+	public function setupAssets() {
 		// register assets
 		$base = $this->info('base_url');
 		wp_deregister_script('jquery'); // deregister WP's version
@@ -444,7 +444,7 @@ class RockharborThemeBase {
  *
  * @return void
  */
-	function addFeatures() {
+	protected function addFeatures() {
 		foreach ($this->features as $postType => $className) {
 			if ($this->supports($postType)) {
 				require_once LIBS . DS . str_replace('-', '_', $postType).'.php';
@@ -477,7 +477,7 @@ class RockharborThemeBase {
  * @return mixed Auto-echoes template or returns original query
  * @see README
  */
-	function rss($query) {
+	public function rss($query) {
 		if (!$query->is_feed) {
 			return $query;
 		}
@@ -677,7 +677,7 @@ class RockharborThemeBase {
 /**
  * After callback. Called after theme setup
  */
-	public function after() {
+	protected function after() {
 		// set up thumbnails
 		add_theme_support('post-thumbnails');
 
