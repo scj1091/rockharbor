@@ -6,7 +6,7 @@
 		</header>
 		<?php endif; ?>
 
-		<div class="entry-content">
+		<div class="entry-content clearfix">
 			<?php the_content(__('Continue reading <span class="meta-nav">&rarr;</span>', 'rockharbor')); ?>
 			<?php echo $theme->render('pagination_posts'); ?>
 		</div>

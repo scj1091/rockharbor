@@ -128,8 +128,43 @@ blockquote {
 
 	background: #f1f1f1;
 
-	text-indent: 1.666666667%;
+	text-indent: 0;
 	color: #747474;
+	font-style: italic;
+	font-size: 1.3em;
+}
+
+blockquote.pull-right,
+blockquote.pull-left
+{
+	width: 30%;
+
+	font-family: 'TradeGothicLTStdBdCnNo.20', Lucida, Helvetica, Arial, sans-serif;
+	font-style: normal;
+	font-size: 1.4em;
+	color: inherit;
+
+	background: transparent;
+}
+
+blockquote.pull-left {
+	float: left;
+	padding-left: 0;
+	margin-right: 20px;
+
+	border-right: 4px solid #f1f1f1;
+}
+
+blockquote.pull-right {
+	float: right;
+	padding-right: 0;
+	margin-left: 20px;
+
+	border-left: 4px solid #f1f1f1;
+}
+
+blockquote p:last-of-type {
+	margin-bottom: 0;
 }
 
 .widget-body p {
