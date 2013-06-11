@@ -1,5 +1,10 @@
 <?php
 /**
+ * Includes
+ */
+require_once VENDORS . DS . 'S3' . DS . 'S3.php';
+
+/**
  * ROCKHARBOR Admin class. All admin (backend) related tasks should go here.
  *
  * @package rockharbor
@@ -190,7 +195,6 @@ class Admin {
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 		$bucket = $this->theme->options('s3_bucket');
 
-		require_once VENDORS . DS . 'S3.php';
 		$S3 = new S3($s3Key, $s3KeySecret);
 
 		$path = $this->getS3Path($file);
@@ -222,7 +226,6 @@ class Admin {
 		$s3Key = $this->theme->options('s3_access_key');
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 
-		require_once VENDORS . DS . 'S3.php';
 		$S3 = new S3($s3Key, $s3KeySecret);
 		$S3->setSSLAuth(null, null, 'C:\\xampp_shared\\apache_conf\\cacert.pem');
 
@@ -261,7 +264,6 @@ class Admin {
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 		$bucket = $this->theme->options('s3_bucket');
 
-		require_once VENDORS . DS . 'S3.php';
 		$S3 = new S3($s3Key, $s3KeySecret);
 
 		$type = get_post_mime_type($postID);
