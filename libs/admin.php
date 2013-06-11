@@ -227,7 +227,6 @@ class Admin {
 		$s3KeySecret = $this->theme->options('s3_access_secret');
 
 		$S3 = new S3($s3Key, $s3KeySecret);
-		$S3->setSSLAuth(null, null, 'C:\\xampp_shared\\apache_conf\\cacert.pem');
 
 		// invalidate cloudfront cache (if applicable)
 		$downloadDomain = $this->theme->options('s3_download');
