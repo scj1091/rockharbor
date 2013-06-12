@@ -30,6 +30,10 @@
 	}
 	?></title>
 <link rel="icon" href="<?php echo $theme->info('url'); ?>/img/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $theme->info('url'); ?>/img/appicon-144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $theme->info('url'); ?>/img/appicon-114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $theme->info('url'); ?>/img/appicon-144.png" />
+<link rel="apple-touch-icon-precomposed" href="<?php echo $theme->info('url'); ?>/img/appicon-114.png" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
