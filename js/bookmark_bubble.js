@@ -701,14 +701,14 @@ google.bookmarkbubble.Bubble.prototype.build_ = function() {
   icon.style.height = '55px';
   icon.style.margin = '-2px 7px 3px 5px';
   icon.style.background =
-      '#fff url(' + this.getIconUrl_() + ') no-repeat 0 0';
+      '#fff url' + '(' + this.getIconUrl_() + ') no-repeat 0 0';
   icon.style.WebkitBackgroundSize = 'contain';
   icon.style.WebkitBorderRadius = '10px';
   icon.style.WebkitBoxShadow = '0 2px 5px rgba(0, 0, 0, 0.4)';
   bubbleInner.insertBefore(icon, bubbleInner.firstChild);
 
   var arrow = document.createElement('div');
-  arrow.style.backgroundImage = 'url(' + this.IMAGE_ARROW_DATA_URL_ + ')';
+  arrow.style.backgroundImage = 'url' + '(' + this.IMAGE_ARROW_DATA_URL_ + ')';
   arrow.style.width = '25px';
   arrow.style.height = '19px';
   arrow.style.position = 'absolute';
@@ -737,7 +737,7 @@ google.bookmarkbubble.Bubble.prototype.build_ = function() {
   close.style.height = '16px';
   close.style.border = '10px solid transparent';
   close.style.background =
-      'url(' + this.IMAGE_CLOSE_DATA_URL_ + ') no-repeat';
+      'url' + '(' + this.IMAGE_CLOSE_DATA_URL_ + ') no-repeat';
   close.style.WebkitBackgroundSize = "contain";
   bubbleInner.appendChild(close);
 
