@@ -175,6 +175,7 @@ jQuery(document).ready(function() {
 		};
 		window.setTimeout(function() {
 			var bubble = new google.bookmarkbubble.Bubble();
+			jQuery(bubble.element_).children('div').addClass('clearfix');
 			bubble.showIfAllowed();
 		}, 1000);
 	}
