@@ -395,6 +395,7 @@ class RockharborThemeBase {
 		wp_register_script('fastclick', "$base/js/fastclick.js");
 		wp_register_script('touch', "$base/js/touch.js");
 		wp_register_script('calendar', "$base/js/fullcalendar.js");
+		wp_register_script('bookmarkBubble', "$base/js/bookmark_bubble.js");
 		wp_register_style('reset', "$base/css/reset.css");
 		wp_register_style('fonts', "$base/css/fonts.css");
 		wp_register_style('lightbox', "$base/css/lightbox.css");
@@ -425,6 +426,7 @@ class RockharborThemeBase {
 		wp_enqueue_script('fastclick');
 		wp_enqueue_script('touch');
 		wp_enqueue_script('calendar');
+		wp_enqueue_script('bookmarkBubble');
 
 		// dequeue stuff we don't need
 		wp_dequeue_script('thickbox');

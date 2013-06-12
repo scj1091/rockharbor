@@ -163,4 +163,19 @@ jQuery(document).ready(function() {
 
 	// implement super sonic hyper-responsive clicking for touchscreens
 	new FastClick(document.body);
+
+	// show "add to homescreen" hint
+	if (RH.inMobile || RH.inTablet) {
+		google.bookmarkbubble.Bubble.prototype.NUMBER_OF_TIMES_TO_DISMISS = 3;
+		google.bookmarkbubble.Bubble.prototype.hasHashParameter = function() {
+			return false;
+		};
+		google.bookmarkbubble.Bubble.prototype.setHashParameter = function() {
+			return;
+		};
+		window.setTimeout(function() {
+			var bubble = new google.bookmarkbubble.Bubble();
+			bubble.showIfAllowed();
+		}, 1000);
+	}
 });
