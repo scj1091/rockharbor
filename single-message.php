@@ -39,15 +39,15 @@ the_post();
 						<div class="message-download">
 							<h3>Download</h3>
 							<?php
+							$downloader = $theme->info('base_url').'/download.php?';
 							if (!empty($meta['video_url'])) {
 								$icon = $theme->Html->image('video.png', array(
 									'alt' => 'Video',
 									'parent' => true
 								));
 								echo $theme->Html->tag('a', $icon, array(
-									'href' => $meta['video_url'],
-									'title' => 'Download Video',
-									'target' => '_blank'
+									'href' => $downloader.'file='.urlencode($meta['video_url']).'&filename='.urlencode(get_the_title()),
+									'title' => 'Download Video'
 								));
 							}
 							if (!empty($meta['audio_url'])) {
@@ -56,9 +56,8 @@ the_post();
 									'parent' => true
 								));
 								echo $theme->Html->tag('a', $icon, array(
-									'href' => $meta['audio_url'],
-									'title' => 'Download Audio',
-									'target' => '_blank'
+									'href' => $downloader.'file='.urlencode($meta['audio_url']).'&filename='.urlencode(get_the_title()),
+									'title' => 'Download Audio'
 								));
 							}
 							?>
