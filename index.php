@@ -1,6 +1,6 @@
 <?php
 get_header();
-$meta = $theme->metaToData($post->ID);
+$meta = $theme->metaToData(get_queried_object_id());
 $fullpage = !empty($meta['hide_widgets']) && !empty($meta['hide_submenu']);
 ?>
 		<header id="content-title">
