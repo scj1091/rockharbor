@@ -577,6 +577,19 @@ th {
 	margin-right: 0;
 }
 
+#access ul li div.submenu.cols4 {
+	width: 800px;
+}
+
+#access ul li div.submenu.cols4 ul {
+	width: 24.25%;
+	margin-right: 1%;
+}
+
+#access ul li div.submenu.cols4 ul:nth-child(4n+4) {
+	margin-right: 0;
+}
+
 #access ul li ul li a {
 	clear: both;
 	display: block;
