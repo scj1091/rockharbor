@@ -56,7 +56,15 @@ class CoreWidget extends Widget {
 		if (!empty($data['core_involvement_id'])) {
 			$endpoint .= '/Involvement:'.$data['core_involvement_id'];
 		}
-		$endpoint .= '/full.json?start='.strtotime('now').'&end='.strtotime('+60 days');
+		$start = strtotime('now');
+		if (!empty($data['start_date'])) {
+			$start = strtotime($data['start_date']);
+		}
+		$end = strtotime('+60 days', $start);
+		if (!empty($data['end_date'])) {
+			$end = strtotime($data['end_date']);
+		}
+		$endpoint .= '/full.json?start='.$start.'&end='.$end;
 
 		$this->theme->set('url', $endpoint);
 		$this->theme->set('limit', $data['limit']);
