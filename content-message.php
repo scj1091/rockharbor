@@ -22,7 +22,13 @@ $meta = $theme->metaToData($post->ID);
 					echo $theme->render('posted_date');
 					?>
 				</h2>
-				<p><?php the_excerpt(); ?></p>
+				<p><?php
+				$content = $post->post_excerpt;
+				if (empty($content)) {
+					$content = $post->post_content;
+				}
+				echo $content;
+				?></p>
 				<div class="message-meta">
 					<p><span class="meta-title">Tags:</span><span class="meta-value"><?php echo the_tags('', ', '); ?></span></p>
 					<p><span class="meta-title">Series:</span><span class="meta-value"><?php echo get_the_term_list($post->ID, 'series', '', ', '); ?></span></p>
