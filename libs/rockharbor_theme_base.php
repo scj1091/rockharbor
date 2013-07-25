@@ -578,6 +578,9 @@ class RockharborThemeBase {
 			'X-Mailer' => 'PHP/' . phpversion(),
 			'Content-type' => 'text/html; charset=utf-8'
 		);
+		if (!empty($_POST['email'])) {
+			$headers['Reply-To'] = $_POST['email'];
+		}
 		foreach ($headers as $name => &$value) {
 			$value = $name.': '.$value;
 		}
