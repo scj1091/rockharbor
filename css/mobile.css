@@ -240,6 +240,13 @@ nav.submenu ul {
 
 /*= Articles
 -----------------------------------------*/
+article:nth-of-type(odd) img.every-other-float,
+article:nth-of-type(even) img.every-other-float
+{
+	float: none;
+	margin: 0 0 10px 0;
+}
+
 time {
 	float: none;
 	display: block;

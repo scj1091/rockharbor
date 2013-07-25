@@ -737,6 +737,16 @@ article {
 	border-bottom: 1px dotted #747474;
 }
 
+article:nth-of-type(odd) img.every-other-float {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+article:nth-of-type(even) img.every-other-float {
+	float: right;
+	margin: 0 0 10px 10px;
+}
+
 nav.submenu {
 	margin-bottom: 10px;
 }

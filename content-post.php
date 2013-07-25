@@ -1,4 +1,6 @@
-<?php global $theme; ?>
+<?php
+global $theme, $more;
+?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<?php if (!is_single() || is_search()): ?>
 		<h2>
@@ -12,6 +14,16 @@
 		<?php endif; ?>
 
 		<div class="entry-content clearfix">
+			<?php
+			if (!$more) {
+				$attachId = get_post_thumbnail_id($id);
+				if (!empty($attachId)) {
+					$title = get_the_title();
+					$imageUrl = call_user_func("wp_get_attachment_thumb_url", $attachId);
+					echo "<img src=\"$imageUrl\" alt=\"$title\" class=\"every-other-float\" />";
+				}
+			}
+			?>
 			<?php the_content(__('Read More', 'rockharbor')); ?>
 			<?php echo $theme->render('pagination_posts'); ?>
 		</div>
@@ -40,7 +52,6 @@
 		</div>
 
 		<?php
-		global $more;
 		if ($more) {
 			$theme->set('types', array('post', 'page'));
 			$related = $theme->render('related_content');
