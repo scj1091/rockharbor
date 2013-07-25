@@ -44,8 +44,21 @@ class CoreWidget extends Widget {
 		if (empty($data['core_campus_id']) && empty($data['core_id']) && empty($data['core_involvement_id'])) {
 			return;
 		}
-		$url = $this->theme->getCoreFeedUrl($data['core_campus_id'], $data['core_id'], $data['core_involvement_id']);
-		$this->theme->set('url', $url);
+
+		// build url
+		$endpoint = $this->getCoreCalendarEndpoint();
+		if (!empty($data['core_campus_id'])) {
+			$endpoint .= '/Campus:'.$data['core_campus_id'];
+		}
+		if (!empty($data['core_id'])) {
+			$endpoint .= '/Ministry:'.$data['core_id'];
+		}
+		if (!empty($data['core_involvement_id'])) {
+			$endpoint .= '/Involvement:'.$data['core_involvement_id'];
+		}
+		$endpoint .= '/full.json?start='.strtotime('now').'&end='.strtotime('+60 days');
+
+		$this->theme->set('url', $endpoint);
 		$this->theme->set('limit', $data['limit']);
 		parent::widget($args, $data);
 	}
@@ -60,10 +73,21 @@ class CoreWidget extends Widget {
 			'core_campus_id' => null,
 			'core_id' => null,
 			'core_involvement_id' => null,
-			'limit' => null
+			'limit' => null,
+			'start_date' => null,
+			'end_date' => null
 		);
 		$data = array_merge($defaults, $data);
 		parent::form($data);
+	}
+
+/**
+ * Gets core calendar endpoint
+ *
+ * @return string CORE calendar endpoint
+ */
+	public function getCoreCalendarEndpoint() {
+		return 'https://core.rockharbor.org/dates/calendar';
 	}
 
 }
