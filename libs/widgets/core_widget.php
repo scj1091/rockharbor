@@ -38,7 +38,8 @@ class CoreWidget extends Widget {
 
 		if (empty($data['core_id']) && empty($data['core_involvement_id'])) {
 			$metadata = $this->theme->metaToData($post->ID);
-			if (empty($metadata['limit']) && !empty($data['limit']))
+			// If $metadata['limit'] not 0 or a positive integer ignore it
+			if (!($metadata['limit'] === 0 || $metadata['limit'] > 0))
 				$metadata['limit'] = $data['limit'];
 			$data = array_merge($data, $metadata);
 		}
