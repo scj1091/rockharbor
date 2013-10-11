@@ -2,6 +2,7 @@
 global $post, $theme;
 $meta = $theme->metaToData($post->ID);
 $locations = get_nav_menu_locations();
+$pageForPosts = get_option('page_for_posts');
 $featuredItems = array();
 if (!empty($locations['featured'])) {
 	$featuredItems = wp_get_nav_menu_items($locations['featured']);
@@ -13,6 +14,9 @@ $video = $theme->render('video');
 $hasHeader =
 	(
 		is_front_page() && count($featuredItems)
+	)
+	|| (
+		is_home() && has_post_thumbnail($pageForPosts)
 	)
 	|| (
 		is_singular(array('post', 'page', 'message'))
@@ -127,6 +131,8 @@ $hasHeader =
 					}
 					echo '</div>';
 				}
+			} elseif (is_home() && has_post_thumbnail($pageForPosts)) {
+				echo get_the_post_thumbnail($pageForPosts);
 			} elseif (is_singular(array('post', 'page', 'message'))) {
 				if (empty($video) && has_post_thumbnail($post->ID)) {
 					echo get_the_post_thumbnail($post->ID, 'full');
