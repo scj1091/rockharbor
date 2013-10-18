@@ -1396,6 +1396,21 @@ input[type="search"]::-webkit-search-cancel-button {
 	text-overflow: ellipsis;
 }
 
+.core-events a:last-of-type {
+	margin-bottom: 0px;
+}
+
+.core-day {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.core-shaded {
+	background-color: #EEE;
+}
+
 /*= Share buttons
 -----------------------------------------*/
 .fb_iframe_widget {
