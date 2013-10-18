@@ -17,6 +17,7 @@ get_header();
 		</section>
 
 		<section id="frontpage-content" role="main">
+			<a id="stories"></a>
 			<header id="frontpage-title">
 				<h1><?php echo $post->post_title; ?></h1>
 			</header>

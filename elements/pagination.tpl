@@ -1,9 +1,9 @@
 <nav class="archive-page-link">
 <?php
 if ($wp_rewrite->using_permalinks()) {
-	$base = user_trailingslashit(trailingslashit(remove_query_arg('s', get_pagenum_link(1))).'page/%#%/', 'paged');
+	$base = user_trailingslashit(trailingslashit(remove_query_arg('s', get_pagenum_link(1))).'page/%#%/', 'paged') . "#stories";
 } else {
-	$base = @add_query_arg('page','%#%');
+	$base = @add_query_arg('page','%#%') . "#stories";
 }
 $add_args = false;
 if(!empty($wp_query->query_vars['s'])) {
