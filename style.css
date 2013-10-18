@@ -912,6 +912,21 @@ footer h3 {
 	width: 60%;
 }
 
+.home #frontpage-sidebar .core-events a:last-of-type {
+        margin-bottom: 0px;
+}
+
+.home #frontpage-sidebar .core-day {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+}
+
+.home #frontpage-sidebar .core-shaded {
+        background-color: #EEE;
+}
+
 .home #frontpage-content article {
 	width: 96%;
 	margin: 2%;
@@ -1394,21 +1409,6 @@ input[type="search"]::-webkit-search-cancel-button {
 	line-height: 1.3em; /*= 14px */
 	white-space: nowrap;
 	text-overflow: ellipsis;
-}
-
-.core-events a:last-of-type {
-	margin-bottom: 0px;
-}
-
-.core-day {
-	padding-top: 4px;
-	padding-bottom: 4px;
-	margin-top: 4px;
-	margin-bottom: 4px;
-}
-
-.core-shaded {
-	background-color: #EEE;
 }
 
 /*= Share buttons
