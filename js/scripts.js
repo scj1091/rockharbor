@@ -38,6 +38,7 @@ jQuery(document).ready(function() {
 			var months = ['January', 'February', 'March', 'April', 'May',
 			'June', 'July', 'August', 'September', 'October', 'November',
 			'December'];
+			var nextShaded = false;
 
 			if (self.data('core-limit') > 0) {
 				response.length = parseInt(self.data('core-limit'));
@@ -51,7 +52,7 @@ jQuery(document).ready(function() {
 					var span = document.createElement('span');
 					var month = span.cloneNode();
 					var div = document.createElement('div');
-					div.className = 'core-day clearfix';
+					div.className = nextShaded ? 'core-day core-shaded clearfix' : 'core-day clearfix';
 					month.className = 'month';
 					month.innerHTML = months[parseInt(date[1]) - 1];
 					var day = span.cloneNode();
@@ -67,6 +68,7 @@ jQuery(document).ready(function() {
 
 					div.appendChild(time);
 					self.append(div);
+					nextShaded = !nextShaded;
 				}
 
 				lastStart = date;
