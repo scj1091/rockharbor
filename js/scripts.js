@@ -50,6 +50,8 @@ jQuery(document).ready(function() {
 					var datetime = date[0]+"-"+date[1]+"-"+date[2];
 					var span = document.createElement('span');
 					var month = span.cloneNode();
+					var div = document.createElement('div');
+					div.className = 'core-day clearfix';
 					month.className = 'month';
 					month.innerHTML = months[parseInt(date[1]) - 1];
 					var day = span.cloneNode();
@@ -63,7 +65,8 @@ jQuery(document).ready(function() {
 					time.appendChild(year);
 					time.setAttribute("datetime", datetime);
 
-					self.append(time);
+					div.appendChild(time);
+					self.append(div);
 				}
 
 				lastStart = date;
@@ -73,7 +76,7 @@ jQuery(document).ready(function() {
 				a.href = response[event].url;
 				a.innerHTML = response[event].title;
 
-				self.append(a);
+				div.appendChild(a);
 			}
 		}).fail(function() {
 			self.children('p').html('There are no upcoming events.');
