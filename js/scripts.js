@@ -47,6 +47,7 @@ jQuery(document).ready(function() {
 
 				if (date.toString() != lastStart.toString()) {
 					var time = document.createElement('time');
+					var datetime = date[0]+"-"+date[1]+"-"+date[2];
 					var span = document.createElement('span');
 					var month = span.cloneNode();
 					month.className = 'month';
@@ -60,6 +61,7 @@ jQuery(document).ready(function() {
 					time.appendChild(month);
 					time.appendChild(day);
 					time.appendChild(year);
+					time.setAttribute("datetime", datetime);
 
 					self.append(time);
 				}
