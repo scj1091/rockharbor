@@ -1163,6 +1163,8 @@ class RockharborThemeBase {
 			// unfortunately, comment modified dates aren't kept so we can't
 			// adjust a post's Last-Modified header based on them
 			|| comments_open($post->ID)
+			// don't cache the password form
+			|| post_password_required($post->ID)
 		) {
 			nocache_headers();
 			return;
