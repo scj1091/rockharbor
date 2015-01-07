@@ -1245,7 +1245,7 @@ footer #mc-embedded-subscribe:hover {
 	line-height: 1.4em;
 	text-transform: none;
 	position: absolute;
-	top: 0; left: 0;
+	top: 0;
 }
 
 .home #message a, .home #story a {

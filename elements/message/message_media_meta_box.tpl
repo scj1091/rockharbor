@@ -40,3 +40,8 @@
 		});
 	})
 </script>
+<style>
+	#metavideourl, #metaaudiourl {
+		width: 98%;
+	}
+</style>
