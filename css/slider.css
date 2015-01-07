@@ -53,6 +53,7 @@
     font-weight: normal !important;
     font-variant: normal !important;
     text-transform: none !important;
+    font-size: 0;
     speak: none;
     line-height: 1;
     color: white;
@@ -63,18 +64,25 @@
 .slick-prev { left: 25px; }
 .slick-next { right: 25px; }
 
+.slick-prev:before, .slick-next:before {
+    font-size: 30px;
+    line-height: 1;
+}
 .slick-prev:before { content: "o"; }
 .slick-next:before { content: "a"; }
 
 .faq-slides .slick-prev, .faq-slides .slick-next {
     color: #AEAEAE;
-    font-size: 4em;
+    /*font-size: 4em;*/
+    font-size: 0;
     height: 40px;
     width: 30px;
     margin-top: 0;
 }
 .faq-slides .slick-prev { left: -37px; }
 .faq-slides .slick-next { right: -30px; }
+
+#map .slick-prev, #map .slick-next { font-size: 0; }
 
 #map .slick-prev:before, .faq-slides .slick-prev:before { content: "p"; }
 #map .slick-next:before, .faq-slides .slick-next:before { content: "g"; }
