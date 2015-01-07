@@ -163,6 +163,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php
+					echo $theme->Html->input('twitter_user', array(
+						'before' => '<th>',
+						'label' => 'Twitter Username',
+						'between' => '</th><td>',
+						'after' => '<br /><small>(the username in www.twitter.com/<strong>&lt;username&gt;</strong>)</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
 					echo $theme->Html->input('facebook_user', array(
 						'before' => '<th>',
 						'label' => 'Facebook Page User',
@@ -177,6 +187,7 @@ if (!isset($_REQUEST['settings-updated'])) {
                         'before' => '<th>',
                         'label' => 'Instagram Username',
                         'between' => '</th><td>',
+						'after' => '<br /><small>(the username in www.instagram.com/</strong>&lt;username&gt;</strong>)</small></td>'
                     ));
                 ?>
             </tr>
@@ -207,39 +218,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'label' => 'MailChimp Folder ID',
 						'between' => '</th><td>',
 						'after' => '<br /><small>(the campaigns folder id in MailChimp)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
-				<td colspan="2"><h2>Notifications</h2><p>Forms and notifications that require an email address.</p></td>
-			</tr>
-			<tr valign="top">
-				<?php
-					echo $theme->Html->input('story_email', array(
-						'before' => '<th>',
-						'label' => 'Share Your Story Email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(a comma-delimited list of email addresses to send stories to)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
-				<?php
-					echo $theme->Html->input('prayer_request_email', array(
-						'before' => '<th>',
-						'label' => 'Prayer Request Email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(a comma-delimited list of email addresses to send prayer requests to)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
-				<?php
-					echo $theme->Html->input('feedback_email', array(
-						'before' => '<th>',
-						'label' => 'Website Feedback Email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>(a comma-delimited list of email addresses to website feedback to)</small></td>'
 					));
 				?>
 			</tr>
