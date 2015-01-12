@@ -33,7 +33,9 @@ $hasHeader =
 	<div id="navigation" class="wrapper clearfix">
 
 		<div class="rockharbor-logo">
-            <?php echo $theme->Html->image('logo_1.png', array('alt' => 'RockHarbor', 'parent' => false )); ?>
+			<a href="<?php echo get_site_url(); ?>">
+				<?php echo $theme->Html->image('logo_1.png', array('alt' => 'RockHarbor', 'parent' => false )); ?>
+			</a>
         </div>
 
 		<nav id="access" role="navigation" class="clearfix">
