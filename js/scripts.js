@@ -19,6 +19,12 @@ RH.showVideos = function() {
 	});
 }
 
+RH.swapSvg = function() {
+	jQuery('img[src*="svg"]').attr('src', function() {
+		return jQuery(this).attr('src').replace('.svg', '.png');
+	});
+}
+
 // initialized on every page
 jQuery(document).ready(function() {
 
@@ -199,4 +205,8 @@ jQuery(document).ready(function() {
 
 	// implement super sonic hyper-responsive clicking for touchscreens
 	new FastClick(document.body);
+
+	if (!document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1')) {
+		RH.swapSvg();
+	}
 });
