@@ -74,5 +74,19 @@ the_post();
 				</div>
 			</article>
 		</section>
+		<script type="text/javascript">
+			jQuery('.icon-download-video').on('click', function() {
+				ga('send', 'event', 'message-media', 'download', 'video', {
+						'page': '<?php echo get_permalink(); ?>'
+					}
+				);
+			});
+			jQuery('.icon-download-1').on('click', function() {
+				ga('send', 'event', 'message-media', 'download', 'audio', {
+						'page': '<?php echo get_permalink(); ?>'
+					}
+				);
+			});
+		</script>
 <?php
 get_footer();

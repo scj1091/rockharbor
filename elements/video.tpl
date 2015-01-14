@@ -151,5 +151,11 @@ if ($vimeo == '1') : ?>
     		embed = embed.replace(/height="([0-9]+)"/, 'height="'+h+'"');
     		jQuery('#code-<?php echo $id;?>').val(embed);
     	});
+		jQuery('video').on('play', function() {
+			ga('send', 'event', 'media', 'play', 'video', {
+					'page': '<?php echo get_permalink(); ?>'
+				}
+			);
+		});
     </script>
 <?php endif; ?>

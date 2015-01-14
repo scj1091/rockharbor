@@ -38,4 +38,11 @@ $id = uniqid();
 		}
 		?>
 	></audio>
+	<script type="text/javascript">
+		jQuery('audio').on('play', function() {
+			ga('send', 'event', 'media', 'play', 'audio', {
+				'page': '<?php echo get_permalink(); ?>'
+			});
+		});
+	</script>
 </div>
