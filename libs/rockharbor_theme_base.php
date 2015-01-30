@@ -190,6 +190,7 @@ class RockharborThemeBase {
 		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
+		add_action('save_post', array($this, 'filterVimeoLink'));
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 		add_filter( 'excerpt_more', array($this, 'new_excerpt_more'), 999 );
@@ -1173,6 +1174,20 @@ class RockharborThemeBase {
 		}
 
 		return $url;
+	}
+
+/**
+ * Filters the Vimeo link to remove SSL from link,
+ * which is the default if you're logged in to Vimeo
+ * when you copy the link, but which can't be embedded.
+ *
+ * @return void
+ */
+	public function filterVimeoLink($post_id) {
+		if ($_REQUEST['meta']['vimeo_url']) {
+			$_REQUEST['meta']['video_url'] = str_replace('https', 'http', $_REQUEST['meta']['video_url']);
+			update_post_meta($post_id, 'video_url', $_REQUEST['meta']['video_url']);
+		}
 	}
 
 /**

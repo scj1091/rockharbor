@@ -1,3 +1,4 @@
+<div class="meta-section">
 <p>
 	<strong>Video Message URL</strong><br />
 	<a id="media_meta_video" title="Video Message" class="mceButton mceButtonEnabled" href="javascript:;" role="button" tabindex="-1" style="text-decoration: none;">
@@ -11,6 +12,22 @@
 	));
 	?>
 </p>
+<p>
+	<?php
+	echo $theme->Html->input('vimeo_url', array(
+		'type' => 'checkbox',
+		'label' => 'Check if Vimeo URL (Amazon S3 if unchecked)',
+		'value' => 1
+	));
+	echo '<br/>';
+	echo $theme->Html->input('vimeo_wide', array(
+		'type' => 'checkbox',
+		'label' => 'Wide Format Vimeo (wider than 16:9)',
+		'value' => 1
+	));
+	?>
+</p>
+</div>
 <p>
 	<strong>Audio Message URL</strong><br />
 	<a id="media_meta_audio" title="Audio Message" class="mceButton mceButtonEnabled" href="javascript:;" role="button" tabindex="-1" style="text-decoration: none;">
@@ -43,5 +60,8 @@
 <style>
 	#metavideourl, #metaaudiourl {
 		width: 98%;
+	}
+	.meta-section {
+		border-bottom: 1px solid #eee;
 	}
 </style>
