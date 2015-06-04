@@ -34,7 +34,7 @@ $hasHeader =
 
 		<div class="rockharbor-logo">
 			<a href="<?php echo get_site_url(); ?>">
-				<?php echo $theme->Html->image('logo_1.png', array('alt' => 'RockHarbor', 'parent' => false )); ?>
+				<?php echo $theme->Html->image('logo_1.png', array('alt' => 'ROCKHARBOR', 'parent' => false )); ?>
 			</a>
         </div>
 

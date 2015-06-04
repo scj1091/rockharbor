@@ -61,7 +61,7 @@ $themeInfo = $theme->info();
         <div class="bottom">
             <div class="one-fourth">
                  <?php echo $theme->Html->image('footer-logo.png', array('alt' => 'rockharbor', 'parent' => true )); ?>
-                 <p class="copy">&copy; <?php echo date('Y'); ?> ROCK HARBOR</p>
+                 <p class="copy">&copy; <?php echo date('Y'); ?> ROCKHARBOR</p>
             </div>
             <div class="one-half mobile-hide">
                 <?php echo $theme->render('newsletter'); ?>
