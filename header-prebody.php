@@ -52,4 +52,5 @@
 <script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
 <![endif]-->
 <?php
+echo $theme->options('zopim_script');
 echo $theme->render('analytics');

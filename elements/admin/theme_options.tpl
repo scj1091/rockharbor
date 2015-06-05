@@ -284,6 +284,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
+				<?php
+					echo $theme->Html->input('zopim_script', array(
+						'type' => 'textarea',
+						'before' => '<th>',
+						'label' => 'Zopim Chat initialization script',
+						'between' => '</th><td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
 				<td colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></td>
 			</tr>
 			<tr>
