@@ -171,9 +171,6 @@ class RockharborThemeBase {
 		add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
 		//add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 
-		// change rss feed to point to feedburner link
-		add_filter('feed_link', array($this, 'updateRssLink'), 10, 2);
-
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
 		remove_action('wp_head', 'wp_generator');
@@ -187,10 +184,8 @@ class RockharborThemeBase {
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
 
 		// other
-		add_filter('pre_get_posts', array($this, 'rss'));
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
-		add_action('save_post', array($this, 'filterVimeoLink'));
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 		add_filter( 'excerpt_more', array($this, 'new_excerpt_more'), 999 );
@@ -487,40 +482,6 @@ class RockharborThemeBase {
 			}
 		}
 	}
-
-/**
- * Changes the rss link in the header to something actually useful
- *
- * @param string $output Current output
- * @param string $type The feed type
- * @return string Modified feed link
- */
-	public function updateRssLink($output, $type) {
-		$feedburner = $this->options('feedburner_main');
-		if (!empty($feedburner) && stripos($output, 'comments') === false) {
-			$output = 'http://feeds.feedburner.com/'.$feedburner;
-		}
-		return $output;
-	}
-
-/**
- * YAWPH that allows us to pull the aggregated posts and use our own template
- * to customize the rss feed (which basically just switches the blogs so posts
- * from other sites are linked correctly)
- *
- * @param WP_Query $query Query passed by WP
- * @return mixed Auto-echoes template or returns original query
- * @see README
- */
-	public function rss($query) {
-		if (!$query->is_feed) {
-			return $query;
-		}
-		$this->aggregatePosts(get_option('posts_per_rss'));
-		load_template(TEMPLATEPATH . DS . 'rss.php');
-		die(/*in a fire*/);
-	}
-
 
 /**
  * Handles oauth flow
@@ -1174,20 +1135,6 @@ class RockharborThemeBase {
 		}
 
 		return $url;
-	}
-
-/**
- * Filters the Vimeo link to remove SSL from link,
- * which is the default if you're logged in to Vimeo
- * when you copy the link, but which can't be embedded.
- *
- * @return void
- */
-	public function filterVimeoLink($post_id) {
-		if ($_REQUEST['meta']['vimeo_url']) {
-			$_REQUEST['meta']['video_url'] = str_replace('https', 'http', $_REQUEST['meta']['video_url']);
-			update_post_meta($post_id, 'video_url', $_REQUEST['meta']['video_url']);
-		}
 	}
 
 /**

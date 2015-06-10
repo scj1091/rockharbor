@@ -139,6 +139,12 @@ class PostType {
 			// shortcode to show the archive
 			add_shortcode($this->options['slug'], array($this, 'shortcode'));
 		}
+
+		// add urls for podcasting (can't use default archive page for backwards compatibility reasons)
+		add_rewrite_rule($this->options['slug'] . DS . 'feed/podcast/([^/]+)/?$',
+				'index.php?post_type=' . $this->options['slug'] . '&feed=$matches[1]',
+				'top'
+				);
 	}
 
 	public function addAssets() {

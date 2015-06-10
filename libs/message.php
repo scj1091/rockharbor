@@ -205,16 +205,6 @@ class Message extends PostType {
 	}
 
 /**
- * Called after a post is saved. Adds enclosures
- *
- * @param type $data Post data
- * @param type $postId Post id
- */
-	function afterSave($data, $postId) {
-		do_enclose($_POST['meta']['video_url'], $postId);
-	}
-
-/**
  * Inits extra admin goodies
  */
 	public function adminInit() {
@@ -239,7 +229,7 @@ class Message extends PostType {
 		$this->theme->set('series', $series);
 		$data = $this->theme->metaToData($post->ID);
 		$selectedSeries = wp_get_post_terms($post->ID, 'series');
-		$data['tax_input']['series'] = $selectedSeries[0]->slug;
+		$data['tax_input']['series'] = isset($selectedSeries[0]) ? $selectedSeries[0]->slug: null;
 		$this->theme->set('data', $data);
 		echo $this->theme->render('message'.DS.'message_details_meta_box');
 	}

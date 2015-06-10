@@ -119,7 +119,6 @@ class Admin {
  */
 	public function onSave($post_id, $post) {
 		delete_transient('header.php#access');
-		do_enclose($post->post_content, $post_id);
 		$this->saveMeta();
 	}
 
@@ -367,6 +366,11 @@ class Admin {
 				// $metaid => array($key => $value) so we need to ignore those
 				// on save
 				if (is_numeric($name) && is_array($value)) {
+					continue;
+				}
+				if ($name == 'vimeo_url' && $value == 1) {
+					$_POST['meta']['video_url'] = str_replace('https', 'http', $_POST['meta']['video_url']);
+					update_post_meta($post->ID, 'video_url', $_POST['meta']['video_url']);
 					continue;
 				}
 				update_post_meta($post->ID, $name, $value);
