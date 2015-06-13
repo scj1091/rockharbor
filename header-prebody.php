@@ -51,6 +51,7 @@
 <!--[if lte IE 8]>
 <script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
 <![endif]-->
+<link type="application/opensearchdescription+xml" rel="search" href="<?php echo $theme->info('base_url') . '/opensearch.php'; ?>" />
 <?php
 echo $theme->options('zopim_script');
 echo $theme->render('analytics');
