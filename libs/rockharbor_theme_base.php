@@ -412,9 +412,9 @@ class RockharborThemeBase {
 		wp_register_script('initScripts', "$base/js/scripts.js");
 		wp_register_script('fastclick', "$base/js/fastclick.js");
 		wp_register_script('touch', "$base/js/touch.js");
-        wp_register_script('calendar', "$base/js/fullcalendar.js");
-        wp_register_script('slick', "$base/js/slick.min.js");
-        wp_register_script('sidebarMenu', "$base/js/sidebar-menu.js");
+		wp_register_script('calendar', "$base/js/fullcalendar.js");
+		wp_register_script('slick', "//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js");
+		wp_register_script('sidebarMenu', "$base/js/sidebar-menu.js");
 		wp_register_style('reset', "$base/css/reset.css");
 		wp_register_style('fonts', "$base/css/fonts.css");
 		wp_register_style('lightbox', "$base/css/lightbox.css");
@@ -423,8 +423,8 @@ class RockharborThemeBase {
 		wp_register_style('base', "$base/style.css");
 		wp_register_style('mobile', "$base/css/mobile.css");
 		wp_register_style('tablet', "$base/css/tablet.css");
-        wp_register_style('calendar', "$base/css/calendar.css");
-        wp_register_style('slider', "$base/css/slider.css");
+		wp_register_style('calendar', "$base/css/calendar.css");
+		wp_register_style('slick', "//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css");
 		wp_register_style('sidebarStyles', "$base/css/sidebar-menu.css");
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
@@ -437,12 +437,12 @@ class RockharborThemeBase {
 		wp_enqueue_style('base');
 		wp_enqueue_style('tablet');
 		wp_enqueue_style('mobile');
-        wp_enqueue_style('calendar');
-		wp_enqueue_style('slider');
-        wp_enqueue_style('sidebarStyles');
+		wp_enqueue_style('calendar');
+		wp_enqueue_style('slick');
+		wp_enqueue_style('sidebarStyles');
 
 		wp_enqueue_script('jquery');
-        wp_enqueue_script('slick');
+		wp_enqueue_script('slick');
 		wp_enqueue_script('lightbox');
 		wp_enqueue_script('media');
 		wp_enqueue_script('mediaCheck');
@@ -450,7 +450,7 @@ class RockharborThemeBase {
 		wp_enqueue_script('fastclick');
 		wp_enqueue_script('touch');
 		wp_enqueue_script('calendar');
-        wp_enqueue_script('sidebarMenu');
+		wp_enqueue_script('sidebarMenu');
 
 		// dequeue stuff we don't need
 		wp_dequeue_script('thickbox');

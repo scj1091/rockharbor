@@ -141,9 +141,6 @@ section header {
 .home .home-title .subtitle {
 	margin-bottom: 0;
 }
-.home .faq-slides .slick-next {
-	right: -18px;
-}
 
 #main-feature .story-box .title {
 	max-width: 96%;
