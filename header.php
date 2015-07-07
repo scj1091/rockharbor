@@ -13,7 +13,7 @@ if (!empty($meta['video_campus_id'])) {
 $video = $theme->render('video');
 $hasHeader =
 	(
-		is_front_page() && count($featuredItems)
+		is_front_page() && have_rows('slide_banners')
 	)
 	|| (
 		is_home() && has_post_thumbnail($pageForPosts)
@@ -90,19 +90,15 @@ $hasHeader =
 		<?php if ($hasHeader): ?>
 		<header id="branding" role="banner" class="clearfix">
 			<?php
-			if (is_front_page() && count($featuredItems)) {
-				if (!empty($featuredItems)) {
-					echo '<div class="frontpage-banner">';
-                    if ( have_rows( 'slide_banners') ) :
-                        while ( have_rows('slide_banners') ) : the_row();
-                            $image_link = get_sub_field('link_url');
-                            $image = get_sub_field('slide_image');
-                            $output = $theme->Html->tag('a', wp_get_attachment_image( $image, 'full'), array('href' => $image_link));
-                            echo '<div>' . $output . '</div>';
-                        endwhile;
-                    endif;
-                    echo '</div>';
-				}
+			if (is_front_page() && have_rows( 'slide_banners' )) {
+				echo '<div class="frontpage-banner">';
+				while ( have_rows('slide_banners') ) : the_row();
+					$image_link = get_sub_field('link_url');
+					$image = get_sub_field('slide_image');
+					$output = $theme->Html->tag('a', wp_get_attachment_image( $image, 'full'), array('href' => $image_link));
+					echo '<div>' . $output . '</div>';
+				endwhile;
+				echo '</div>';
 			} elseif (is_home() && has_post_thumbnail($pageForPosts)) {
 				echo get_the_post_thumbnail($pageForPosts);
 			} elseif (is_singular(array('post', 'page', 'message'))) {
