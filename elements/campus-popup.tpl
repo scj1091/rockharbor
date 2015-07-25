@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url('/wp-content/themes/fullerton2/img/map-sm.jpg');">
+            <li style="background-image: url('/wp-content/themes/fullerton/img/map-sm.jpg');">
                 <div class="campus-info">
                     <div class="title">
                         <a href="http://fullerton.rockharbor.org" class="campus-link">Fullerton</a>
