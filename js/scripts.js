@@ -21,7 +21,8 @@ RH.showVideos = function() {
 
 RH.swapSvg = function() {
 	jQuery('img[src*="svg"]').attr('src', function() {
-		return jQuery(this).attr('src').replace('.svg', '.png');
+		jQuery('.rockharbor-logo-svg').addClass('rockharbor-logo').removeClass('rockharbor-logo-svg');
+		return jQuery(this).removeClass('svg-logo').attr('src').replace('.svg', '.png');
 	});
 }
 

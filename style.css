@@ -598,10 +598,14 @@ th {
 
 /*= Main navigation
 -----------------------------------------*/
-.rockharbor-logo {
+.rockharbor-logo, .rockharbor-logo-svg {
     float: left;
     margin: 20px 0;
 	max-width: 33%;
+}
+
+img.svg-logo {
+	width: 100%;
 }
 
 #access {

@@ -32,9 +32,9 @@ $hasHeader =
     <?php echo $theme->render('global_navigation'); ?>
 	<div id="navigation" class="wrapper clearfix">
 
-		<div class="rockharbor-logo">
+		<div class="rockharbor-logo-svg">
 			<a href="<?php echo get_site_url(); ?>">
-				<?php echo $theme->Html->image('logo_1.png', array('alt' => 'ROCKHARBOR', 'parent' => false )); ?>
+				<?php echo $theme->Html->image('logo_1.svg', array('alt' => 'ROCKHARBOR', 'parent' => false, 'class' => 'svg-logo')); ?>
 			</a>
         </div>
 

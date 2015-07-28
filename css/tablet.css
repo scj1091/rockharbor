@@ -331,6 +331,12 @@ nav.submenu a {
 	max-width: 100%;
 }
 
+.rockharbor-logo-svg {
+	float: none;
+	margin: 20px 0;
+	max-width: 418px;
+}
+
 #access {
 	display: none;
 	float: none;

@@ -16,7 +16,7 @@ if( $theme->info('name') !== "" ) {
             <div class="global-location" style="background-image: url(<?php echo bloginfo('stylesheet_directory') . '/img/map.jpg' ?>)">
                 <div class="wrapper">
                     <div class="one-third">
-                        <img src="<?php echo bloginfo('stylesheet_directory') . '/img/map_logo.png' ?>">
+                        <img src="<?php echo bloginfo('stylesheet_directory') . '/img/map_logo.svg' ?>">
                     </div>
                     <div class="one-third">
                         <?php
