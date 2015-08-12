@@ -368,10 +368,8 @@ class Admin {
 				if (is_numeric($name) && is_array($value)) {
 					continue;
 				}
-				if ($name == 'vimeo_url' && $value == 1) {
-					$_POST['meta']['video_url'] = str_replace('https', 'http', $_POST['meta']['video_url']);
-					update_post_meta($post->ID, 'video_url', $_POST['meta']['video_url']);
-					continue;
+				if ( $name == 'video_url' && $_POST['meta']['vimeo_url'] = 1 ) {
+					$value = str_replace( 'https', 'http', $value );
 				}
 				update_post_meta($post->ID, $name, $value);
 			}
