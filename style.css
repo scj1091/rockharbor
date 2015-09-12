@@ -605,7 +605,7 @@ th {
 }
 
 img.svg-logo {
-	width: 100%;
+	max-width: 100%;
 }
 
 #access {
@@ -975,7 +975,7 @@ nav.submenu li.current_page_item > a {
 
 footer {
 	display: inline-block;
-	margin-top: 30px;
+	margin-top: 0px;
 	width: 100%;
 	padding-top: 16px;
 	padding-bottom: 30px;
@@ -1269,6 +1269,7 @@ footer #mc-embedded-subscribe:hover {
 #map {
     clear: left;
     margin-top: 60px;
+	margin-bottom: 0px;
     width: 100%;
 
 }
@@ -1307,8 +1308,9 @@ a.google-directions, .campus-list a.google-directions {
 .campus-list a.google-directions { font-size: 1.3em !important; }
 
 #mission {
-    text-align: center;
-    padding: 50px 0;
+    /*text-align: center; //old mission statement was text
+    padding: 50px 0;*/
+	background-color: #ed304e;
 }
 #mission h2 {
     font-family: 'TradeGothicLTStdBdCnNo.20';

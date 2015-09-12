@@ -60,7 +60,7 @@ $themeInfo = $theme->info();
         </div>
         <div class="bottom">
             <div class="one-fourth">
-                 <?php echo $theme->Html->image('footer-logo.png', array('alt' => 'rockharbor', 'parent' => true )); ?>
+                 <?php echo $theme->Html->image('footer-logo.svg', array('alt' => 'rockharbor', 'class' => 'svg-logo', 'parent' => true )); ?>
                  <p class="copy">&copy; <?php echo date('Y'); ?> ROCKHARBOR</p>
             </div>
             <div class="one-half mobile-hide">
@@ -73,7 +73,7 @@ $themeInfo = $theme->info();
 <div id="campus-menu">
     <div class="icon-close"></div>
     <nav>
-        <?php echo $theme->Html->image('campus-logo.png', array('alt' => 'RockHarbor', 'class' => 'campus-logo', 'parent' => true )); ?>
+        <?php echo $theme->Html->image('campus-logo.svg', array('alt' => 'RockHarbor', 'class' => 'campus-logo svg-logo', 'parent' => true )); ?>
         <h2>Select Campus</h2>
         <ul>
             <li class="<?php if ($themeInfo['slug'] === 'costamesa') echo 'active'; ?>"><a href="//costamesa.rockharbor.org">Costa Mesa</a></li>

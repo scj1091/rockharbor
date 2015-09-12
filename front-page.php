@@ -26,7 +26,7 @@ get_header();
 
 
     <section id="mission">
-        <h2><?php bloginfo('description'); ?></h2>
+        <?php echo $theme->render('mission-statement'); ?>
     </section>
 
 <?php
