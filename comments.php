@@ -5,19 +5,29 @@
 	<?php
 			return;
 		endif;
+		$comments = get_comments(array(
+			'post_id' => get_the_ID(),
+			'type__in' => array(
+				'comment',
+				'social-twitter-rt',
+				'social-twitter',
+				'social-facebook-like',
+				'social-facebook'
+			)
+		));
 	?>
 
-	<?php if (have_comments()) : ?>
+	<?php if (count($comments) > 0) : ?>
 		<h2 id="comments-title">
 			<?php
-				printf(_n('One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'rockharbor'),
-					number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>' );
+				printf(_n('One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', count($comments), 'rockharbor'),
+					number_format_i18n(count($comments)), '<span>' . get_the_title() . '</span>' );
 			?>
 		</h2>
 
-		<ol class="commentlist">
-			<?php wp_list_comments(); ?>
-		</ol>
+		<div class="commentlist">
+			<?php wp_list_comments(array('style' => 'div'), $comments); ?>
+		</div>
 
 		<?php if (get_comment_pages_count() > 1 && get_option( 'page_comments')):  ?>
 		<nav id="comment-nav-above">

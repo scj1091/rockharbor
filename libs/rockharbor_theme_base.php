@@ -426,6 +426,7 @@ class RockharborThemeBase {
 		wp_register_style('calendar', "$base/css/calendar.css");
 		wp_register_style('slick', "//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css");
 		wp_register_style('sidebarStyles', "$base/css/sidebar-menu.css");
+		wp_register_style('comments', "$base/css/comments.css");
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css");
 
@@ -459,6 +460,7 @@ class RockharborThemeBase {
 		// conditional assets
 		if (is_singular() && get_option('thread_comments')) {
 			wp_enqueue_script('comment-reply');
+			wp_enqueue_style('comments');
 		}
 		if ($this->isChildTheme()) {
 			wp_enqueue_style('child_base');
