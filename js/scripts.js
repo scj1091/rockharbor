@@ -47,7 +47,7 @@ jQuery(document).ready(function() {
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
-                    infinite: true,
+                    infinite: true
                 }
             },
             {
@@ -131,7 +131,8 @@ jQuery(document).ready(function() {
 	jQuery('.gallery').each(function() {
 		var id = jQuery(this).attr('id');
 		jQuery(this).find('.gallery-icon a').attr('rel', 'lightbox['+id+']');
-	}).lightbox();
+	});
+	doLightBox();
 
 	jQuery('.flash-message').delay(5000).slideUp();
 	jQuery('img')
@@ -139,12 +140,12 @@ jQuery(document).ready(function() {
 		.removeAttr('height');
 
 	var preserveAspectRatio = function(container) {
-		var element = $(container).find('video');
-		if (element.length === 0 || typeof $(element)[0].player === 'undefined') {
+		var element = jQuery(container).find('video');
+		if (element.length === 0 || typeof jQuery(element)[0].player === 'undefined') {
 			return;
 		}
-		var player = $(element)[0].player;
-		var w = $(container).width();
+		var player = jQuery(element)[0].player;
+		var w = jQuery(container).width();
 		var h = w*9/16;
 		player.setPlayerSize(w, h);
 	}
@@ -153,6 +154,8 @@ jQuery(document).ready(function() {
 	jQuery('video')
 		.mediaelementplayer({
 			pluginPath: RH.base_url+'/swf/',
+			flashName: 'flashmediaelement.2.18.2.swf',
+			silverlightName: 'silverlightmediaelement.2.18.2.xap',
 			success: function(media, node) {
 				if (media.pluginType !== 'native' && jQuery(node).attr('data-streamfile')) {
 					media.setSrc(jQuery(node).attr('data-streamfile'));
@@ -162,6 +165,8 @@ jQuery(document).ready(function() {
 		});
 	jQuery('audio').mediaelementplayer({
 		pluginPath: RH.base_url+'/swf/',
+		flashName: 'flashmediaelement.2.18.2.swf',
+		silverlightName: 'silverlightmediaelement2.18.2.xap',
 		audioWidth: 200,
 		audioHeight: 20,
 		features: ['playpause', 'progress', 'current']

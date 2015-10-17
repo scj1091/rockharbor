@@ -30,7 +30,11 @@ RH.showMediaLibrary = function(callback) {
  */
 RH.insertIntoEditor = function(text) {
 	if (window.tinyMCE) {
-		window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, text);
+		if (window.tinyMCE.majorVersion >= "4") { //api 4 changed the function name and signature
+			window.tinyMCE.execCommand('mceInsertContent', false, text);
+		} else {
+			window.tinyMCE.execInstanceCommand('content', 'mceInsertContent', false, text);
+		}
 	}
 }
 
@@ -53,7 +57,7 @@ RH.removeServiceTime = function(el) {
 
 /**
  * Adds an image input to the list
- * 
+ *
  * @param string id The list id
  */
 RH.addImageGridImage = function(id) {
@@ -65,7 +69,7 @@ RH.addImageGridImage = function(id) {
 
 /**
  * Removes an image input
- * 
+ *
  * @param string el The `<a>` element
  */
 RH.removeImageGridImage = function(el) {

@@ -27,6 +27,10 @@ embed {
 	display: block;
 }
 
+*:focus {
+	outline: none;
+}
+
 /* see: http://clagnut.com/blog/348/ */
 body {
 	font-size: 62.5%; /*= reset browser to 10px */
@@ -1861,21 +1865,21 @@ input[type="search"]::-webkit-search-cancel-button {
 /*= Slider styling (slick)
 /* Arrows */
 .slick-prev, .slick-next {
-  opacity: 0.8;
-  position: absolute;
-  display: block;
-  height: 30px;
-  width: 30px;
-  line-height: 1;
-  font-size: 0;
-  cursor: pointer;
-  background: transparent;
-  color: white;
-  top: 50%;
-  margin-top: -10px;
-  padding: 0;
-  border: none;
-  outline: none;
+	opacity: 0.8;
+	position: absolute;
+	display: block;
+	height: 30px;
+	width: 30px;
+	line-height: 1;
+	font-size: 0;
+	cursor: pointer;
+	background: transparent;
+	color: white;
+	top: 50%;
+	margin-top: -10px;
+	padding: 0;
+	border: none;
+	outline: none;
 	font-family: "rock-harbor" !important;
 	content: attr(data-icon);
 	font-style: normal !important;
@@ -1885,6 +1889,7 @@ input[type="search"]::-webkit-search-cancel-button {
 	speak: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	z-index: 10;
 }
 
 .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {

@@ -284,10 +284,11 @@ class Shortcodes {
  * @return array
  */
 	public function addEditorPlugins($plugin_array) {
-	   $plugin_array['audioShortcode'] = $this->theme->info('base_url').'/js/mceplugins/audio_plugin.js';
-	   $plugin_array['videoShortcode'] = $this->theme->info('base_url').'/js/mceplugins/video_plugin.js';
-	   $plugin_array['columns'] = $this->theme->info('base_url').'/js/mceplugins/columns_plugin.js';
-	   return $plugin_array;
+		$min = WP_DEBUG ? '' : '.min';
+		$plugin_array['audioShortcode'] = $this->theme->info('base_url')."/js/mceplugins/audio_plugin{$min}.js";
+		$plugin_array['videoShortcode'] = $this->theme->info('base_url')."/js/mceplugins/video_plugin{$min}.js";
+		$plugin_array['columns'] = $this->theme->info('base_url')."/js/mceplugins/columns_plugin{$min}.js";
+		return $plugin_array;
 	}
 
 

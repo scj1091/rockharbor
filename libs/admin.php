@@ -77,7 +77,8 @@ class Admin {
 			$this->frontPage();
 		}
 
-		wp_register_script('admin_scripts', $this->theme->info('base_url').'/js/admin.js');
+		$min = WP_DEBUG ? '' : '.min';
+		wp_register_script('admin_scripts', $this->theme->info('base_url')."/js/admin{$min}.js");
 		wp_enqueue_script('admin_scripts');
 		wp_enqueue_script('thickbox');
 		wp_enqueue_style('thickbox.css', '/'.WPINC.'/js/thickbox/thickbox.css', null, '1.0');

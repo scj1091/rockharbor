@@ -269,59 +269,70 @@ class RockharborThemeBase {
 /**
  * Compresses assets
  *
- * Iterates through all registered scripts and styles, concatenates them, then
- * empties the script/style queue and registers the new concatenated cache file.
+ * Tricks WordPress into computing the dependency order for us, then grabs that ordered list,
+ * concatenates the files, and resets the WP queue
+ *
+ * @TODO Find hooks for both script and style so we don't have to monkey around with WP internals
  *
  * @return void
  */
 	public function compressAssets() {
-		if (!$this->options('compress_assets')) {
+		$cachePath = WP_CONTENT_DIR . DS . 'cache';
+		$cacheUrl = WP_CONTENT_URL . '/cache';
+		if (!$this->options('compress_assets') || !is_writable($cachePath)) {
+			// if compression is disabled or we can't save the files bail
 			return;
 		}
 		global $wp_scripts, $wp_styles;
-		$cachePath = WP_CONTENT_DIR . DS . 'cache';
-		$cacheUrl = WP_CONTENT_URL.'/cache';
-		if (!is_writable($cachePath)) {
-			return;
+		ob_start(); // we're gonna pretend run the wp_print_scripts code and dump the output
+		$wp_scripts->do_items(); // generates a list of scripts in dependency order
+		$wp_styles->do_items();
+		$orderedScripts = $wp_scripts->done; // grab the ordered list
+		$orderedStyles = $wp_styles->done;
+		foreach (array('wp_scripts', 'wp_styles') as $depObj) { // reset the objects
+			${$depObj}->to_do = array();
+			${$depObj}->done = array();
+			${$depObj}->groups = array();
+			${$depObj}->group = 0;
 		}
+		ob_end_clean(); // dump our unneeded <head></head> output
 
 		// names of files
-		$scriptFile = 'scripts' . $this->_key($wp_scripts).'.js';
-		$stylesFile = 'styles' . $this->_key($wp_styles).'.css';
+		$scriptFile = 'scripts' . $this->_key($orderedScripts, $wp_scripts).'.js';
+		$stylesFile = 'styles' . $this->_key($orderedStyles, $wp_styles).'.css';
 
 		if (WP_DEBUG) {
-			// in debug  mode, create the cache file each request
-			unlink($cachePath . DS . $scriptFile);
-			unlink($cachePath . DS . $stylesFile);
+			// in debug  mode, create the cache file each request but be quiet about it
+			@unlink($cachePath . DS . $scriptFile);
+			@unlink($cachePath . DS . $stylesFile);
 		}
 
 		if (!file_exists($cachePath . DS . $scriptFile)) {
-			$out = $this->_concat($wp_scripts);
+			$out = $this->_concat($orderedScripts, $wp_scripts);
 			if (!file_put_contents($cachePath . DS . $scriptFile, $out)) {
 				return;
 			}
 		}
 
+		// now that we've got a file, clear out the queue
+		$wp_scripts->queue = array();
+
 		if (!file_exists($cachePath . DS . $stylesFile)) {
-			$out = $this->_concat($wp_styles);
+			$out = $this->_concat($orderedStyles, $wp_styles);
 			if (!file_put_contents($cachePath . DS . $stylesFile, $out)) {
 				return;
 			}
 		}
 
+		// now that we've got a file, clear out the queue
+		$wp_styles->queue = array();
+
 		// queue it up as the only script
-		$wp_scripts->queue = array();
 		wp_deregister_script('scripts');
 		wp_register_script('scripts', "$cacheUrl/$scriptFile");
 		wp_enqueue_script('scripts');
-		/* @TODO figure out why $(document).ready() cares what file it's called from
-		 * For some reason the init scripts (like $(element).sidr() in $(document).ready()
-		 * won't run in the compressed script file. So we need to exclude initScripts from compression, then
-		 * re-enqueue it after clearing the queue.
-		 */
-		wp_enqueue_script('initScripts');
-		// queue it up as the only script
-		$wp_styles->queue = array();
+
+		// queue it up as the only style
 		wp_deregister_style('styles');
 		wp_register_style('styles', "$cacheUrl/$stylesFile");
 		wp_enqueue_style('styles');
@@ -333,24 +344,10 @@ class RockharborThemeBase {
  * @param WP_Scripts|WP_Styles $object Queue to iterate
  * @return string Concatenated file
  */
-	private function _concat($object) {
-		$included = array();
+	private function _concat($queue, $object) {
 		$out = '';
-		foreach ($object->queue as $queue) {
-			if ($queue == 'initScripts') {
-				continue;
-			}
-			foreach ($object->registered[$queue]->deps as $dep) {
-				if (!in_array($dep, $included) && isset($object->registered[$dep])) {
-					// make sure to include dependencies first
-					$out .= $this->_process($object->registered[$dep]);
-				}
-				$included[] = $dep;
-			}
-			if (!in_array($queue, $included)) {
-				$out .= $this->_process($object->registered[$queue]);
-			}
-			$included[] = $queue;
+		foreach ($queue as $q) {
+			$out .= $this->_process($object->registered[$q]);
 		}
 		return $out;
 	}
@@ -365,7 +362,11 @@ class RockharborThemeBase {
  */
 	private function _process($object) {
 		// Handles protocol-agnostic URLs (e.g. JS CDN links) like //cdn.example.com/file.js
+		// remember to check for those virtual items with no source
 		$filename = $object->src;
+		if (empty($filename)) {
+			return '';
+		}
 		if (preg_match("/^\/\//", $filename)) {
 			$filename = is_ssl() ? 'https:' : 'http:' . $filename;
 		} else {
@@ -402,21 +403,11 @@ class RockharborThemeBase {
  * @param _WP_Dependency $object Object to key
  * @return string
  */
-	private function _key($object) {
+	private function _key($queue, $object) {
 		$key = '';
-		$included = array();
-		foreach ($object->queue as $queue) {
-			foreach ($object->registered[$queue]->deps as $dep) {
-				if (!in_array($dep, $included) && isset($object->registered[$dep])) {
-					// make sure to include dependencies first
-					$key .= $object->registered[$dep]->src;
-				}
-				$included[] = $dep;
-			}
-			if (!in_array($queue, $included)) {
-				$key .= $object->registered[$queue]->src;
-			}
-			$included[] = $queue;
+		foreach ($queue as $q) {
+			// some queued items are virtual (i.e. they have dependencies but no source, like jquery => (jquery-core, jquery-migrate))
+			$key .= isset($object->registered[$q]->src) ? $object->registered[$q]->src : '';
 		}
 		return md5($key);
 	}
@@ -427,47 +418,65 @@ class RockharborThemeBase {
 	public function setupAssets() {
 		// register assets
 		$base = $this->info('base_url');
-		wp_deregister_script('jquery'); // deregister WP's version
-		wp_register_script('jquery', "$base/js/jquery-1.7.2.min.js");
-		wp_register_script('lightbox', "$base/js/jquery.lightbox.min.js");
-		wp_register_script('media', "$base/js/mediaelement-and-player.min.js");
-		wp_register_script('mediaCheck', "$base/js/mediaCheck.min.js");
-		wp_register_script('initScripts', "$base/js/scripts.js");
-		wp_register_script('fastclick', "$base/js/fastclick.js");
-		wp_register_script('touch', "$base/js/touch.js");
-		wp_register_script('calendar', "$base/js/fullcalendar.js");
-		wp_register_script('slick', "$base/js/slick.min.js");
-		wp_register_script('sidebarMenu', "$base/js/sidebar-menu.js");
-		wp_register_style('reset', "$base/css/reset.css");
-		wp_register_style('fonts', "$base/css/fonts.css");
-		wp_register_style('lightbox', "$base/css/lightbox.css");
+
+		// if debug, load un-minified versions of files
+		$min = '.min';
+		if (WP_DEBUG) {
+			$min = '';
+		}
+
+		wp_register_script('lightbox', "{$base}/js/jquery.lightbox-1.4.7{$min}.js", array('jquery-core'));
+		wp_register_script('media', "$base/js/mediaelement-and-player-2.18.2{$min}.js");
+		wp_register_script('mediaCheck', "$base/js/mediaCheck-0.4.6{$min}.js");
+		wp_register_script('initScripts', "$base/js/scripts{$min}.js", array(
+			'jquery-core',
+			'sidr',
+			'slick',
+			'lightbox',
+			'media',
+			'mediaCheck',
+			'touch',
+			'fastclick'
+		));
+		wp_register_script('fastclick', "$base/js/fastclick-1.0.6{$min}.js");
+		wp_register_script('touch', "$base/js/touch{$min}.js", array('jquery-core'));
+		wp_register_script('slick', "$base/js/slick-1.5.8{$min}.js", array('jquery-core'));
+		wp_register_script('sidr', "$base/js/sidr-1.2.1{$min}.js", array('jquery-core'));
+
+		wp_register_style('reset', "$base/css/reset{$min}.css");
+		wp_register_style('fonts', "$base/css/fonts{$min}.css", array('reset'));
+		wp_register_style('lightbox', "$base/css/lightbox-1.4.7{$min}.css", array('reset'));
 		wp_deregister_style('media');
-		wp_register_style('media', "$base/css/mediaelementplayer.css");
-		wp_register_style('base', "$base/style.css");
-		wp_register_style('mobile', "$base/css/mobile.css");
-		wp_register_style('tablet', "$base/css/tablet.css");
-		wp_register_style('calendar', "$base/css/calendar.css");
-		wp_register_style('slick', "$base/css/slick.css");
-		wp_register_style('sidebarStyles', "$base/css/sidebar-menu.css");
-		wp_register_style('comments', "$base/css/comments.css");
+		wp_register_style('media', "$base/css/mediaelementplayer-2.18.2{$min}.css", array('reset'));
+		wp_register_style('media-customizations', "$base/css/media-customizations{$min}.css", array('media'));
+		wp_register_style('base', "$base/style{$min}.css", array('reset'));
+		wp_register_style('mobile', "$base/css/mobile{$min}.css", array('base'));
+		wp_register_style('tablet', "$base/css/tablet{$min}.css", array('base'));
+		wp_register_style('calendar', "$base/css/calendar{$min}.css", array('base'));
+		wp_register_style('slick', "$base/css/slick-1.5.8{$min}.css", array('base'));
+		wp_register_style('sidebarStyles', "$base/css/sidebar-menu{$min}.css", array('base'));
+		wp_register_style('comments', "$base/css/comments{$min}.css", array('base'));
 		$base = $this->info('url');
-		wp_register_style('child_base', "$base/style.css");
+		wp_register_style('child_base', "$base/style.css", array('base'));
 
 		// queue them
 		wp_enqueue_style('reset');
 		wp_enqueue_style('fonts');
 		wp_enqueue_style('lightbox');
 		wp_enqueue_style('media');
+		wp_enqueue_style('media-customizations');
 		wp_enqueue_style('base');
 		wp_enqueue_style('tablet');
 		wp_enqueue_style('mobile');
-		wp_enqueue_style('calendar');
 		wp_enqueue_style('slick');
 		wp_enqueue_style('sidebarStyles');
 
-		wp_enqueue_script('jquery');
+		wp_enqueue_script('jquery-core');
+		if (WP_DEBUG) {
+			wp_enqueue_script('jquery-migrate');
+		}
 		wp_enqueue_script('slick');
-		wp_enqueue_script('sidebarMenu');
+		wp_enqueue_script('sidr');
 		wp_enqueue_script('lightbox');
 		wp_enqueue_script('media');
 		wp_enqueue_script('mediaCheck');

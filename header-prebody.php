@@ -50,18 +50,18 @@ $pageImage = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 <!--[if lt IE 9]>
-<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/html5.min.js" type="text/javascript"></script>
 <![endif]-->
 <!--[if lte IE 8]>
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie8.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie8<?php echo WP_DEBUG ? '' : '.min'; ?>.css" />
 <![endif]-->
 <!--[if lte IE 7]>
-<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie7.css" />
+<link rel="stylesheet" media="all" href="<?php echo $theme->info('base_url'); ?>/css/ie7<?php echo WP_DEBUG ? '' : '.min'; ?>.css" />
 <![endif]-->
 <script>var RH = RH || {}; RH.base_url = "<?php echo $theme->info('base_url'); ?>";</script>
 <?php wp_head(); ?>
 <!--[if lte IE 8]>
-<script src="<?php echo $theme->info('base_url'); ?>/js/iefixes.js"></script>
+<script src="<?php echo $theme->info('base_url'); ?>/js/iefixes<?php echo WP_DEBUG ? '' : '.min'; ?>.js"></script>
 <![endif]-->
 <link type="application/opensearchdescription+xml" rel="search" href="<?php echo $theme->info('base_url') . '/opensearch.php'; ?>" />
 <?php

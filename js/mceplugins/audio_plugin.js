@@ -1,23 +1,17 @@
-(function() {
-	tinymce.create('tinymce.plugins.audioShortcode', {
-		init : function(ed, url) {
-			ed.addCommand('audioShortcode', function() {
-				RH.showMediaLibrary(function(html) {
-					var url = jQuery(html).attr('href');
-					var tagtext = '[audioplayer src="'+url+'"]';
-					return tagtext;
-				});
-			});
-
-			// Register example button
-			ed.addButton('audioShortcode', {
-				title : 'Audio Shortcode',
-				cmd : 'audioShortcode',
-				image : url + '/audio.png'
-			});
-		}
+tinymce.PluginManager.add('audioShortcode', function(editor, url) {
+	//add shortcode command
+	editor.addCommand('audioShortcode', function() {
+		RH.showMediaLibrary(function(html) {
+			var url = jQuery(html).attr('href');
+			var tagtext = '[audioplayer src="'+url+'"]';
+			return tagtext;
+		});
 	});
 
-	// Register plugin
-	tinymce.PluginManager.add('audioShortcode', tinymce.plugins.audioShortcode);
-})();
+	// add toolbar button
+	editor.addButton('audioShortcode', {
+		title: 'Audio Shortcode',
+		cmd: 'audioShortcode',
+		image: url + '/audio.png'
+	});
+});

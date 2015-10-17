@@ -1,42 +1,37 @@
-(function() {
-	tinymce.create('tinymce.plugins.columns', {
-		init : function(ed, url) {
-			var columnHtml = '<img src="' + url + '/trans.gif" class="rh-mce-column mceItemNoResize" title="Columns" />';
-			
-			// load css
-			ed.onInit.add(function() {
-				ed.dom.loadCSS(url + '/plugin.css');
-			});
-			
-			ed.addCommand('columns', function() {
-				RH.insertIntoEditor(columnHtml);
-			});
+tinymce.PluginManager.add('columns', function(editor, url) {
+	var columnHtml = '<img src="' + url + '/trans.gif" class="rh-mce-column mceItemNoResize" title="Columns" />';
 
-			// Register example button
-			ed.addButton('columns', {
-				title : 'Split into Columns',
-				cmd : 'columns',
-				image : url + '/columns.gif'
-			});
-			
-			// Replace html with visual
-			ed.onBeforeSetContent.add(function(ed, o) {
-				o.content = o.content.replace(/<!--column(.*?)-->/g, columnHtml);
-			});
+	// load css
+	editor.on('init', function(e) {
+		editor.dom.loadCSS(url + '/plugin.css');
+	});
 
-			// Replace visual with html
-			ed.onPostProcess.add(function(ed, o) {
-				if (o.get)
-					o.content = o.content.replace(/<img[^>]+>/g, function(im) {
-						if (im.indexOf('class="rh-mce-column') !== -1) {
-							im = '<!--column-->';
-						}
-						return im;
-					});
+	// add command
+	editor.addCommand('columns', function() {
+		RH.insertIntoEditor(columnHtml);
+	});
+
+	// add button
+	editor.addButton('columns', {
+		title: 'Split into Columns',
+		cmd: 'columns',
+		image: url + '/columns.gif'
+	});
+
+	// replace html with visual
+	editor.on('BeforeSetContent', function(e) {
+		e.content = e.content.replace(/<!--column(.*?)-->/g, columnHtml);
+	});
+
+	// replace visual with html
+	editor.on('PostProcess', function(e) {
+		if (e.get) {
+			e.content = e.content.replace(/<img[^>]+>/g, function(im) {
+				if (im.indexOf('class="rh-mce-column') !== -1) {
+					im = '<!--column-->';
+				}
+				return im;
 			});
 		}
 	});
-
-	// Register plugin
-	tinymce.PluginManager.add('columns', tinymce.plugins.columns);
-})();
+});
