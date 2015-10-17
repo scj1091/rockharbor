@@ -225,6 +225,18 @@ if (!isset($_REQUEST['settings-updated'])) {
 				<td colspan="2"><h2>Admin</h2><p>Don't touch this stuff unless you know what you're doing.</p></td>
 			</tr>
 			<tr valign="top">
+				<th>Compress JS and CSS?</th>
+				<td>
+				<?php
+					echo $theme->Html->input('compress_assets', array(
+						'type' => 'checkbox',
+						'value' => 1,
+						'label' => 'Compress'
+					));
+				?>
+				</td>
+			</tr>
+			<tr valign="top">
 				<?php
 					echo $theme->Html->input('feedburner_main', array(
 						'before' => '<th>',

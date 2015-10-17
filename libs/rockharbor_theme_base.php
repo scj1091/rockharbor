@@ -169,7 +169,7 @@ class RockharborThemeBase {
  */
 	protected function addHooks() {
 		add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
-		//add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
+		add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_filter('wp_title', array($this, 'archiveTitle'));
@@ -272,6 +272,9 @@ class RockharborThemeBase {
  * @return void
  */
 	public function compressAssets() {
+		if (!$this->options('compress_assets')) {
+			return;
+		}
 		global $wp_scripts, $wp_styles;
 		$cachePath = WP_CONTENT_DIR . DS . 'cache';
 		$cacheUrl = WP_CONTENT_URL.'/cache';
@@ -308,6 +311,12 @@ class RockharborThemeBase {
 		wp_deregister_script('scripts');
 		wp_register_script('scripts', "$cacheUrl/$scriptFile");
 		wp_enqueue_script('scripts');
+		/* @TODO figure out why $(document).ready() cares what file it's called from
+		 * For some reason the init scripts (like $(element).sidr() in $(document).ready()
+		 * won't run in the compressed script file. So we need to exclude initScripts from compression, then
+		 * re-enqueue it after clearing the queue.
+		 */
+		wp_enqueue_script('initScripts');
 		// queue it up as the only script
 		$wp_styles->queue = array();
 		wp_deregister_style('styles');
@@ -325,6 +334,9 @@ class RockharborThemeBase {
 		$included = array();
 		$out = '';
 		foreach ($object->queue as $queue) {
+			if ($queue == 'initScripts') {
+				continue;
+			}
 			foreach ($object->registered[$queue]->deps as $dep) {
 				if (!in_array($dep, $included) && isset($object->registered[$dep])) {
 					// make sure to include dependencies first
@@ -349,12 +361,20 @@ class RockharborThemeBase {
  * @return string New file contents
  */
 	private function _process($object) {
+		// Handles protocol-agnostic URLs (e.g. JS CDN links) like //cdn.example.com/file.js
+		$filename = $object->src;
+		if (preg_match("/^\/\//", $filename)) {
+			$filename = is_ssl() ? 'https:' : 'http:' . $filename;
+		} else {
+			$filename = ltrim($filename, '/');
+		}
 		$filename = ltrim($object->src, '/');
 
 		$contents =  file_get_contents($filename);
 
 		// check for relative css urls
-		if (preg_match_all("/url\((')?(.*?)(?(1)\1|)\)/", $contents, $matches)) {
+		//matches url('/some/url/here') where the quotes are optional and the url can't start with http or data
+		if (preg_match_all("/url\((')?(?!http|data)(.*?)(?(1)\1|)\)/", $contents, $matches)) {
 			$matches[2] = array_unique($matches[2]);
 			$url = parse_url($filename);
 			$localPath = explode('/', $url['path']);
@@ -370,7 +390,7 @@ class RockharborThemeBase {
 			}
 		}
 
-		return "\n$contents";
+		return "\n/*$filename*/\n$contents";
 	}
 
 /**
@@ -413,7 +433,7 @@ class RockharborThemeBase {
 		wp_register_script('fastclick', "$base/js/fastclick.js");
 		wp_register_script('touch', "$base/js/touch.js");
 		wp_register_script('calendar', "$base/js/fullcalendar.js");
-		wp_register_script('slick', "//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js");
+		wp_register_script('slick', "$base/js/slick.min.js");
 		wp_register_script('sidebarMenu', "$base/js/sidebar-menu.js");
 		wp_register_style('reset', "$base/css/reset.css");
 		wp_register_style('fonts', "$base/css/fonts.css");
@@ -424,7 +444,7 @@ class RockharborThemeBase {
 		wp_register_style('mobile', "$base/css/mobile.css");
 		wp_register_style('tablet', "$base/css/tablet.css");
 		wp_register_style('calendar', "$base/css/calendar.css");
-		wp_register_style('slick', "//cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css");
+		wp_register_style('slick', "$base/css/slick.css");
 		wp_register_style('sidebarStyles', "$base/css/sidebar-menu.css");
 		wp_register_style('comments', "$base/css/comments.css");
 		$base = $this->info('url');
@@ -444,6 +464,7 @@ class RockharborThemeBase {
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('slick');
+		wp_enqueue_script('sidebarMenu');
 		wp_enqueue_script('lightbox');
 		wp_enqueue_script('media');
 		wp_enqueue_script('mediaCheck');
@@ -451,7 +472,6 @@ class RockharborThemeBase {
 		wp_enqueue_script('fastclick');
 		wp_enqueue_script('touch');
 		wp_enqueue_script('calendar');
-		wp_enqueue_script('sidebarMenu');
 
 		// dequeue stuff we don't need
 		wp_dequeue_script('thickbox');
