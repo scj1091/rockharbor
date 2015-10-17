@@ -5868,6 +5868,9 @@ var scroll_timer = null;
 	});
 	
 	acf.add_filter('validation_complete', function( json, $form ){
+		if (!json.errors) {
+			return json;
+		}
 		
 		// show field error messages
 		$.each( json.errors, function( k, item ){
