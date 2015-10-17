@@ -58,6 +58,16 @@
                     </div>
                 </div>
             </li>
+            <li style="background-image: url('/wp-content/themes/charlotte/img/map-sm.jpg');">
+                <div class="campus-info">
+                    <div class="title">
+                        <a href="http://charlotte.rockharbor.org" class="campus-link">Charlotte, NC</a>
+                    </div>
+                    <div class="service-times">
+                        <?php echo do_shortcode('[service-times campus="19"]'); ?>
+                    </div>
+                </div>
+            </li>
         </ul>
         <a href="javascript:RH.hideSplash('www');" class="continue">
             OR CONTINUE TO <span>ROCK</span>HARBOR.ORG

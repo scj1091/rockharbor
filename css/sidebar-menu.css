@@ -6,7 +6,7 @@
     height: 100%;
     z-index: 999999;
     width: 312px;
-    overflow-x: none;
+    overflow-x: hidden;
     overflow-y: auto;
     background: #0D6078;
     color: #fff;
