@@ -189,6 +189,9 @@ class RockharborThemeBase {
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 		add_filter( 'excerpt_more', array($this, 'new_excerpt_more'), 999 );
+
+		//We've disabled XML-RPC, so don't link to it in the header
+		remove_action( 'wp_head', 'rsd_link' );
 	}
 
 /**
