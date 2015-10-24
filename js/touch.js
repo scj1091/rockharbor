@@ -98,7 +98,7 @@ RH.mobileExit = function() {
 		return;
 	}
 	RH.inMobile = false;
-	jQuery('#access').show();
+	//jQuery('#access').show();
 	jQuery('.global-navigation li.campuses').off('click');
 	jQuery('.global-navigation li.search').off('click');
 }
