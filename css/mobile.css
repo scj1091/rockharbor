@@ -242,4 +242,7 @@ time {
 	margin-bottom: 20px;
 }
 
+.stories-4 .story-box:nth-child(odd) {
+	clear: left;
+}
 }
