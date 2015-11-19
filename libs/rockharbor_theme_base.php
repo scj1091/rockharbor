@@ -189,6 +189,9 @@ class RockharborThemeBase {
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 		add_filter( 'excerpt_more', array($this, 'new_excerpt_more'), 999 );
+		add_action('wp_login', array($this, 'fail2ban'), 10, 1);
+		add_action('wp_login_failed', array($this, 'fail2ban'), 10, 1);
+		add_action('redirect_canonical', array($this, 'blockUserEnum'), 10, 0);
 
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
@@ -1258,5 +1261,54 @@ class RockharborThemeBase {
  */
 	public function _status($status = '404') {
 		return status_header((int)$status);
+	}
+
+/**
+ * Fail2ban logs authentication requests (success and failure) to syslog auth log
+ *
+ * @param string $username The username presented to the login form
+ * @return void
+ */
+
+	public function fail2ban($username) {
+		// open syslog connection to auth log
+		openlog('wordpress(' . $_SERVER['HTTP_HOST'] . ')', LOG_NDELAY | LOG_PID, LOG_AUTH);
+
+		$currentAction = current_filter();
+		if ($currentAction == 'wp_login') {
+			// login success
+			syslog(LOG_INFO, "Accepted password for $username from $_SERVER[REMOTE_ADDR]");
+		} else if ($currentAction == 'wp_login_failed') {
+			// login failure
+			syslog(LOG_NOTICE, "Authentication failure for $username from $_SERVER[REMOTE_ADDR]");
+		}
+
+		// close syslog connection
+		closelog();
+
+		return;
+	}
+
+/**
+ * Prevent malicious entities from enumerating usernames using author archive
+ * redirection request.
+ *
+ * @return void
+ * @see <a href="http://www.acunetix.com/blog/articles/wordpress-username-enumeration-using-http-fuzzer/">Vulnerability</a>
+ */
+
+	public function blockUserEnum() {
+		if (intval(@$_GET['author'])) {
+			// log attempt
+			openlog('wordpress(' . $_SERVER['HTTP_HOST'] . ')', LOG_NDELAY | LOG_PID, LOG_AUTH);
+			syslog(LOG_NOTICE, "Blocked user enumeration attempt from $_SERVER[REMOTE_ADDR]");
+			closelog();
+
+			// bail
+			ob_end_clean();
+			header('HTTP/1.1 403 Forbidden');
+			header('Content-Type: text/plain');
+			die('Forbidden');
+		}
 	}
 }
