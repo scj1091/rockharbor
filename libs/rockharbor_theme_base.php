@@ -893,8 +893,6 @@ class RockharborThemeBase {
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
 
-		include_once 'widgets' . DS . 'core_widget.php';
-		register_widget('CoreWidget');
 		include_once 'widgets' . DS . 'social_widget.php';
 		register_widget('SocialWidget');
 		include_once 'widgets' . DS . 'image_grid_widget.php';

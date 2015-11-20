@@ -66,7 +66,6 @@ class Admin {
 		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'post', 'normal');
 		add_meta_box('template-options', 'Template Options', array($this, 'templateOptionsMetaBox'), 'page', 'side');
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
-		add_meta_box('core', 'CORE', array($this, 'coreMetaBox'), 'page', 'side');
 
 		// add tags to 'page' post type
 		add_meta_box('tagsdiv-post_tag', __('Page Tags'), 'post_tags_meta_box', 'page', 'side');
@@ -397,16 +396,7 @@ class Admin {
 	}
 
 /**
- * Renders the meta box for core events on pages
- */
-	public function coreMetaBox() {
-		global $post;
-		$this->theme->set('data', $this->theme->metaToData($post->ID));
-		echo $this->theme->render('admin'.DS.'core_meta_box');
-	}
-
-/**
- * Renders the meta box for core events on pages
+ * Renders the meta box for media attributes on pages
  */
 	public function mediaMetaBox() {
 		global $post;
