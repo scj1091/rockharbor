@@ -1,0 +1,89 @@
+/* CCBPress */
+.rh-ccbpress-single-event {
+	max-width: 855px;
+	list-style: none;
+}
+
+.rh-ccbpress-single-event .rh-event-info-box {
+	border: 1px solid #383838;
+	border-radius: 5px 5px 0 0;
+	margin-bottom: 10px;
+}
+
+.rh-ccbpress-single-event-header {
+	margin-bottom: 1.5em;
+}
+
+#rh-ccbpress-clock {
+	width: 1.8em;
+	height: 1.8em;
+	background-image: url('images/icon-clock.svg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	margin: 0 1.0em 0 0.5em;
+	float: left;
+}
+
+.rh-ccbpress-event-recurrence-description {
+	font-family: 'montserrat', 'arial', 'sans-serif';
+	font-size: 1.6em;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.rh-ccbpress-event-organizer {
+	font-family: 'arial', 'sans-serif';
+	font-size: 1.4em;
+	margin-bottom: 15px;
+}
+
+.rh-ccbpress-rsvp {
+	font-size: 1.6em;
+	float: left;
+	margin-right: 10px;
+}
+
+.rh-ccbpress-share {
+	margin-bottom: 20px;
+}
+
+.rh-ccbpress-share h3 {
+	display: inline;
+}
+
+.rh-ccbpress-single-event a.share {
+	font-size: 2.4em;
+	margin: 0 5px;
+	color: #AFAFAF;
+	position: relative;
+	top: 5px;
+}
+
+.rh-ccbpress-single-event a.share:hover {
+	color: #888;
+}
+
+.rh-event-info-box-header {
+	font-family: Arial, sans-serif;
+	font-size: 1.6em;
+	font-weight: bolder;
+	background-color: #EEE;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 1px solid #383838;
+	padding: 5px;
+	padding-right: 0px;
+}
+
+div.rh-event-info-box-content > ul {
+	list-style: none;
+	font-size: 1.6em;
+}
+
+.rh-ccbpress-event-location-content {
+	height: 300px;
+}
+
+.rh-ccbpress-event-location-nomap {
+	padding: 5px;
+	font-size: 1.4em;
+}
