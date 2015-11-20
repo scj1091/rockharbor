@@ -883,16 +883,6 @@ class RockharborThemeBase {
 			'after_title' => '</h1></header><div class="widget-body">',
 		));
 
-		register_sidebar(array(
-			'name' => __('Front Page Widgets', 'rockharbor'),
-			'id' => 'sidebar-frontpage',
-			'description' => __('Widgets that appear on the homepage.', 'rockharbor'),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => "</div></aside>",
-			'before_title' => '<header><h1>',
-			'after_title' => '</h1></header><div class="widget-body">',
-		));
-
 		include_once 'widgets' . DS . 'social_widget.php';
 		register_widget('SocialWidget');
 		include_once 'widgets' . DS . 'image_grid_widget.php';
