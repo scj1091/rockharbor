@@ -42,9 +42,9 @@ wp_enqueue_style('individual-events');
 		 * Start the output buffer
 		 */
 		ob_start(); ?>
-		<div class="rh-ccbpress-event-registration-forms">
-			<div class="rh-ccbpress-event-registration-forms-header"><?php _e( 'Registration Form(s):', 'ccbpress' ); ?></div>
-			<div class="rh-ccbpress-event-registration-forms-content">
+		<div class="rh-ccbpress-event-registration-forms rh-event-info-box">
+			<div class="rh-ccbpress-event-registration-forms-header rh-event-info-box-header"><?php _e( 'Registration Form(s):', 'ccbpress' ); ?></div>
+			<div class="rh-ccbpress-event-registration-forms-content rh-event-info-box-content">
 				<ul>
 					<?php
 					/**
@@ -109,14 +109,14 @@ wp_enqueue_style('individual-events');
 					/**
 					 * Loop through each exception
 					 */
-					foreach ( $event->exceptions->exception as $exception_date ) : ?>
+					foreach ( $event->exceptions->exception->date as $exception_date ) : ?>
 						<?php
 						/**
 						 * Check if the exception is in the future
 						 */
-						if ( ccbpress_is_future_date( $exception_date->date ) ) :
-							$timestamp = strtotime($exception_date->date); ?>
-							<li><?php echo date('l F j, Y', $timestamp); ?></li>
+						if ( ccbpress_is_future_date( $exception_date ) ) :
+							$objDate = DateTime::createFromFormat('Y-m-d', $exception_date); ?>
+							<li><?php echo date('l F j, Y', $objDate.getTimestamp()); ?></li>
 							<?php
 							/**
 							 * Increase our future exception count by 1
@@ -146,25 +146,18 @@ wp_enqueue_style('individual-events');
 	 * Check if there are is a location for this event
 	 */
 	if ( $event->location->name ) :
-        $locationLine1 = str_replace(array("\r\n", "\r", "\n"), '<br/>', $event->location->line_1);
-        $locationLine2 = str_replace(array("\r\n", "\r", "\n"), '<br/>', $event->location->line_2);
-        if ($event->location->name != '') {
-            $locationName = str_replace(array("\r\n", "\r", "\n"), '<br/>', $event->location->name);
-            $addressString = '<div style=\"line-height: 1.35; overflow: hidden; white-space: nowrap\">' . $locationName . '</br>' . $locationLine1 .
-    			'<br/>' . $locationLine2 . '</div>';
-        } else {
-            $addressString = '<div style=\"line-height: 1.35; overflow: hidden; white-space: nowrap\">' . $locationLine1 . '<br/>' . $locationLine2 . '</div>';
-        }
-		$markerTitle = isset($locationName) ? $locationName : $locationLine1; ?>
+		$markerTitle = ($event->location->name != '') ? $event->location->name : trim($event->location->line_1);
+		$addressString = '<div style=\"line-height: 1.35; overflow: hidden; white-space: nowrap\">' . @$event->location->name . '</br>' . trim($event->location->line_1) .
+			'<br/>' . trim($event->location->line_2) . '</div>'; ?>
 		<div class="rh-ccbpress-event-location rh-event-info-box">
 			<div class="rh-ccbpress-event-location-header rh-event-info-box-header"><?php _e('Location:', 'ccbpress'); ?></div>
-			<div id="google-map" data-address="<?php echo $locationLine1 . '<br/>' . $locationLine2; ?>"></div>
+			<div id="google-map" data-address="<?php echo $event->location->line_1 . $event->location->line_2; ?>"></div>
 			<div class="rh-ccbpress-event-location-nomap"><?php echo ccbpress_map_label_from_event( $event->location ); ?></div>
 		</div>
 		<script type="text/javascript">
 		function initMap() {
 			var geocoder = new google.maps.Geocoder();
-			var address = jQuery('#google-map').data('address').replace("<br\/>", "\\n");
+			var address = jQuery('#google-map').data('address');
 			geocoder.geocode({'address': address}, function(results, status) {
 				if (status === google.maps.GeocoderStatus.OK) {
 					var mapDiv = jQuery('#google-map').width('100%').height('300px');
