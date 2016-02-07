@@ -281,7 +281,7 @@ class RockharborThemeBase {
  */
 	public function compressAssets() {
 		$cachePath = WP_CONTENT_DIR . DS . 'cache';
-		$cacheUrl = WP_CONTENT_URL . '/cache';
+		$cacheUrl = content_url() . '/cache';
 		if (!$this->options('compress_assets') || !is_writable($cachePath)) {
 			// if compression is disabled or we can't save the files bail
 			return;
@@ -1149,14 +1149,14 @@ class RockharborThemeBase {
 		}
 
 		$uploadpaths = wp_upload_dir();
-		$path = $subsitePath . str_replace($uploadpaths['baseurl'], '', $url);
+		$path = $subsitePath . str_replace(set_url_scheme($uploadpaths['baseurl']), '', $url);
 
 		$downloadDistribution = $this->options('s3_download', false, $blog_id);
 		$bucket = $this->options('s3_bucket', false, $blog_id);
 
-		$url = 'http://'.$bucket.'.s3.amazonaws.com/'.$path;
+		$url = set_url_scheme('http://'.$bucket.'.s3.amazonaws.com/'.$path);
 		if (!empty($downloadDistribution) && !is_admin()) {
-			$url = "http://$downloadDistribution/$path";
+			$url = set_url_scheme("http://$downloadDistribution/$path");
 		}
 
 		return $url;
