@@ -116,7 +116,7 @@ wp_enqueue_style('individual-events');
 						 */
 						if ( ccbpress_is_future_date( $exception_date ) ) :
 							$objDate = DateTime::createFromFormat('Y-m-d', $exception_date); ?>
-							<li><?php echo date('l F j, Y', $objDate.getTimestamp()); ?></li>
+							<li><?php echo date('l F j, Y', $objDate->getTimestamp()); ?></li>
 							<?php
 							/**
 							 * Increase our future exception count by 1
