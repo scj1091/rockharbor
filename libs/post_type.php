@@ -118,7 +118,8 @@ class PostType {
 				'parent_item_colon' => 'Parent'.$this->options['name'].':',
 				'all_items' => 'All '.$this->options['plural']
 			),
-			'map_meta_cap' => true
+			'map_meta_cap' => true,
+			'has_archive' => $this->options['archive']
 		));
 
 		// load css

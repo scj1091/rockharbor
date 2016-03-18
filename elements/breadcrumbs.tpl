@@ -31,9 +31,12 @@ if (is_archive()) {
 		$crumbs[] = 'Category: '.$term->name;;
 	} elseif (is_tag()) {
 		$crumbs[] = 'Tag: '.$term->name;
-	} else {
+	} elseif (is_tax()) {
 		// custom tax
 		$crumbs[] = ucfirst($term->taxonomy).': '.$term->name;
+	} else {
+		// post(type) archive
+		$crumbs[] = 'Post Type: '.ucfirst($term->name);
 	}
 }
 
