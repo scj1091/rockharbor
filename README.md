@@ -122,8 +122,17 @@ message from any campus.
 
 ## Specialness
 
+### Hackiness
 _YAWPH_ (yah-ff)
 Yet Another WordPress Hack - A hack to make WordPress work in the way you might
 imagine it to, or to work in a way common programming practices would dictate.
 While much of the site is made up of YAWPHs, I've only begun to document them
 as of this commit.
+
+### Bugginess
+There's an annoying bug in the Powerpress plugin, still present as of this writing
+in version 6.3.2. On line 504 in powerpress.php, the plugin fails to load settings
+for custom post type podcasts. This is a problem since Message is a custom post
+type with a podcast. I've rewritten it to fix the bug, but we're still waiting
+on upstream to merge it in. Read the README.txt in the powerpress directory for
+a summary of the fix and how to apply it to future updates.
