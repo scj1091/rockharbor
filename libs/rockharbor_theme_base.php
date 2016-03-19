@@ -184,6 +184,7 @@ class RockharborThemeBase {
 		add_filter('img_caption_shortcode', array($this, 'wrapAttachment'), 1, 3);
 
 		// other
+		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
@@ -606,6 +607,19 @@ class RockharborThemeBase {
  */
 	protected function _mail($to, $subject, $body, $headers) {
 		return mail($to, $subject, $body, $headers);
+	}
+
+/**
+ * Brings in all of the post types when showing an archive page
+ *
+ * @param WP_Query $query
+ * @return WP_Query
+ */
+	public function aggregateArchives($query) {
+		if (is_category() || is_tag()) {
+			$query->set('post_type', get_post_types());
+		}
+		return $query;
 	}
 
 /**
