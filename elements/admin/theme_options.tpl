@@ -314,22 +314,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 				</td>
 			</tr>
-			<tr>
-				<th>
-					<label for="calendar_archive_page_id" class="description">Calendar Archive Page</label>
-				</th>
-				<td>
-				<?php
-					wp_dropdown_pages(array(
-						'name' => $theme->Html->inputPrefix.'[calendar_archive_page_id]',
-						'show_option_none' => __('&mdash; Select &mdash;'),
-						'option_none_value' => '0',
-						'selected' => $theme->options('calendar_archive_page_id'),
-						'id' => 'calendar_archive_page_id'
-					));
-				?>
-				</td>
-			</tr>
 			<?php
 			foreach ($theme->features as $postType => $friendlyName):
 				if ($theme->supports($postType)):

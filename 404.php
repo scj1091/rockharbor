@@ -1,12 +1,10 @@
 <?php
 get_header();
 ?>
-		<header id="content-title">
-			<h1<?php echo wp_title(''); ?></h1>
-		</header>
 		<section id="content" role="main">
 
 			<article id="post-0" class="post no-results not-found">
+				<p>&nbsp;</p>
 				<header>
 					<h1><?php _e('Nothing Found', 'rockharbor'); ?></h1>
 				</header>

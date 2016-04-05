@@ -4,8 +4,7 @@ get_header();
 the_post();
 ?>
 		<header id="content-title">
-			<h1><?php echo wp_title(''); ?></h1>
-			<?php
+			<?php the_title('<h1>', '</h1>');
 			$theme->set('date', $post->post_date);
 			echo $theme->render('posted_date');
 			?>

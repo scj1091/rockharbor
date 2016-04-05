@@ -34,6 +34,9 @@ if (is_archive()) {
 	} elseif (is_tax()) {
 		// custom tax
 		$crumbs[] = ucfirst($term->taxonomy).': '.$term->name;
+	} elseif (is_date()) {
+		// datetime-based archive
+		$crumbs[] = get_the_archive_title();
 	} else {
 		// post(type) archive
 		$crumbs[] = 'Post Type: '.ucfirst($term->name);

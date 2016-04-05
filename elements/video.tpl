@@ -34,35 +34,35 @@ if (!isset($poster) || empty($poster)) {
 
 $id = uniqid();
 if ($vimeo == '1') : ?>
-    <div class="embedded-video vimeo" id="player-<?php echo $id;?>">    
-        <?php 
-            $vimeo_id = str_replace('http://vimeo.com/','',$src); 
+    <div class="embedded-video vimeo" id="player-<?php echo $id;?>">
+        <?php
+            $vimeo_id = str_replace('http://vimeo.com/','',$src);
             $embedurl = "http://player.vimeo.com/video/".$vimeo_id;
             $vimeo_ratio = 'normal';
             $vimeo_ratio = $vimeo_wide == '1' ? 'wide' : 'normal';
         ?>
         <iframe data-ratio="<?php echo $vimeo_ratio; ?>" class="vimeo-embed" src="<?php echo $embedurl; ?>" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-        
+
         <script type="text/javascript">
                 var vimeoRatio = jQuery('.vimeo-embed').attr('data-ratio');
                 if (vimeoRatio === 'wide'){
-                    var ratio = 1920/817;                    
+                    var ratio = 1920/817;
                 } else {
                     var ratio = 16/9;
                 }
                 var setVimeoHeight = function() {
                     var vimeo = jQuery('.vimeo-embed');
                     vimeo.width('100%');
-                    if (vimeoRatio === 'wide') { 
+                    if (vimeoRatio === 'wide') {
                         vimeo.height(Math.floor(vimeo.width() / ratio) + 2);
-                    } else { 
-                        vimeo.height(vimeo.width() / ratio); 
+                    } else {
+                        vimeo.height(vimeo.width() / ratio);
                     }
-                    
+
                 }
                 jQuery(window).on('resize', setVimeoHeight);
                 setVimeoHeight();
-                
+
         </script>
     </div>
 <?php else : ?>
@@ -72,7 +72,7 @@ if ($vimeo == '1') : ?>
     		<a href="<?php echo get_permalink(); ?>" target="_blank" class="referer-link" title="<?php echo get_permalink(); ?>">View <?php echo ucfirst($post->post_type); ?></a>
     	</div>
     	<?php endif; ?>
-    	<div class="share-video">
+    	<!--<div class="share-video">
     		<a href="javascript:;" class="embed-link">Share</a>
     	</div>
     	<div class="share-modal">
@@ -83,7 +83,7 @@ if ($vimeo == '1') : ?>
     		<input type="text" value="400" id="width-<?php echo $id;?>" size="10" />
     		<label for="height-<?php echo $id;?>">Height:</label>
     		<input type="text" value="225" id="height-<?php echo $id;?>" size="10" />
-    	</div>
+    	</div>-->
 
     	<video
     		id="embedded-player-<?php echo $id;?>"
@@ -111,7 +111,7 @@ if ($vimeo == '1') : ?>
     	></video>
     </div>
     <script type="text/javascript">
-    	jQuery('#player-<?php echo $id;?> .share-video a').click(function() {
+    	/*jQuery('#player-<?php echo $id;?> .share-video a').click(function() {
     		jQuery('#player-<?php echo $id;?> .share-modal').show();
     		var h = jQuery('#player-<?php echo $id;?> .share-modal').outerHeight();
     		var w = jQuery('#player-<?php echo $id;?> .share-modal').outerWidth();
@@ -150,7 +150,7 @@ if ($vimeo == '1') : ?>
     		embed = embed.replace(/width="([0-9]+)"/, 'width="'+w+'"');
     		embed = embed.replace(/height="([0-9]+)"/, 'height="'+h+'"');
     		jQuery('#code-<?php echo $id;?>').val(embed);
-    	});
+    	});*/
 		jQuery('video').on('play', function() {
 			ga('send', 'event', 'media', 'play', 'video', {
 					'page': '<?php echo get_permalink(); ?>'

@@ -123,6 +123,7 @@ $hasHeader =
 		<?php
 		if (!$theme->Shortcodes->hasShortcode('children-grid')) {
 			// touch-accessible submenu
+			// this is sidebar.php, not the widget areas
 			get_sidebar();
 		}
 		?>

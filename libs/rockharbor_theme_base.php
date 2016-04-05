@@ -172,7 +172,8 @@ class RockharborThemeBase {
 		add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
 
 		add_filter('the_content', array($this, 'filterContent'));
-		add_filter('wp_title', array($this, 'archiveTitle'));
+		add_theme_support('title-tag');
+		//add_filter('wp_title', array($this, 'archiveTitle'));
 		remove_action('wp_head', 'wp_generator');
 
 		// theme settings
@@ -192,6 +193,7 @@ class RockharborThemeBase {
 		add_action('wp_login', array($this, 'fail2ban'), 10, 1);
 		add_action('wp_login_failed', array($this, 'fail2ban'), 10, 1);
 		add_action('redirect_canonical', array($this, 'blockUserEnum'), 10, 0);
+		add_filter('get_the_archive_title', array($this, 'filterArchiveTitle'));
 
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
@@ -260,11 +262,33 @@ class RockharborThemeBase {
  * @param string $title
  * @return string
  */
-	public function archiveTitle($title = '') {
+	/*public function archiveTitle($title = '') {
 		global $wp_query;
 		if (is_tax()) {
 			$term = $wp_query->get_queried_object();
 			$title = $term->name;
+		}
+		return $title;
+	}*/
+
+/**
+ * Filter the page title (in body, not head) on Archive pages
+ *
+ * @param string $title
+ */
+	public function filterArchiveTitle($title = '') {
+		foreach (array(
+			'Archives: ',
+			'Month: ',
+			'Year: ',
+			'Day: '
+		) as $strip) {
+			if (strcmp(substr($title, 0, strlen($strip)), $strip) == 0) {
+				$title = substr($title, strlen($strip));
+				if (is_date()) {
+					$title = 'Date: ' . $title;
+				}
+			}
 		}
 		return $title;
 	}
@@ -375,7 +399,7 @@ class RockharborThemeBase {
 		} else {
 			$filename = ltrim($filename, '/');
 		}
-		$filename = ltrim($object->src, '/');
+		//$filename = ltrim($object->src, '/');
 
 		$contents =  file_get_contents($filename);
 
@@ -737,7 +761,7 @@ class RockharborThemeBase {
  * @param string $location Menu location
  * @return mixed The menu name, or `null` if it can't be found
  */
-	public function getMenuName($location = null) {
+	/*public function getMenuName($location = null) {
 		$locations = get_nav_menu_locations();
 		if (!isset($locations[$location])) {
 			return null;
@@ -747,7 +771,7 @@ class RockharborThemeBase {
 			return null;
 		}
 		return $menu->name;
-	}
+	}*/
 
 /**
  * Checks if this is a child theme

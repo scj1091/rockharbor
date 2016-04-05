@@ -2,7 +2,7 @@
 get_header();
 ?>
 		<header id="content-title">
-			<h1><?php echo wp_title(''); ?></h1>
+			<h1><?php printf(__('Search Results for: %s', 'rockharbor'), '<span>' . esc_html(get_search_query()) . '</span>'); ?></h1>
 		</header>
 		<section id="content" role="main" class="full">
 			<?php if (have_posts()):

@@ -16,22 +16,10 @@
 <meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="initial-scale=1.0,width=device-width" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<?php echo $theme->render('meta'); ?>
-<title><?php
-	$pageTitle = wp_title('|', false, 'right');
-
-	// Add the blog name.
-	$pageTitle .= get_bloginfo('name');
-
-	// Add the blog description for the home/front page.
-	$site_description = get_bloginfo('description', 'display');
-	if ($site_description && is_front_page()) {
-		$pageTitle .= " | $site_description";
-	}
-	echo $pageTitle;
-	?></title>
 <?php
+echo $theme->render('meta');
 // OpenGraph meta tags
+$pageTitle = wp_get_document_title();
 $pageUrl = get_permalink();
 $pageType = 'website';
 $pageImage = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );

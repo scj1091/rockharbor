@@ -4,7 +4,7 @@ get_header();
 the_post();
 ?>
 		<header id="content-title">
-			<h1><?php echo wp_title(''); ?></h1>
+			<?php the_title('<h1>', '</h1>'); ?>
 		</header>
 		<section id="content" role="main" class="full clearfix">
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

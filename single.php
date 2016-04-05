@@ -3,8 +3,7 @@ get_header();
 ?>
         <div class="wrapper">
 		<header id="content-title">
-			<h1><?php wp_title(false); ?></h1>
-			<?php
+			<?php the_title('<h1>', '</h1>');
 			$theme->set('pubdate', true);
 			$theme->set('date', $post->post_date);
 			echo $theme->render('posted_date');

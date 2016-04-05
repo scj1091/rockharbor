@@ -915,6 +915,10 @@ article {
 	border-bottom: 1px solid #e5e5e5;
 }
 
+article.not-found {
+	min-height: 300px;
+}
+
 #comments {
 	margin-top: 30px;
 }
@@ -1767,41 +1771,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .socials a:hover .icon {
 	color: #888888;
-}
-
-/*= CORE
------------------------------------------*/
-.core-events{
-	margin-bottom: 10px;
-}
-.core-events time {
-	width: 100%;
-	margin: 10px 0;
-	float: none;
-}
-
-.core-events time:first-of-type {
-	margin-top: 0;
-}
-
-.core-events a {
-	display: block;
-	width: 100%;
-	overflow: hidden;
-	margin-bottom: 5px;
-
-	font-size: 1.2em; /*= 13px */
-	line-height: 1.3em; /*= 14px */
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.core-events time span {
-	font-size: 1.4em;
-}
-
-.core-events time .day {
-	border: none;
 }
 
 /*= Share buttons

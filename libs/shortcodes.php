@@ -24,7 +24,7 @@ class Shortcodes {
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('audioplayer', array($this, 'audio'));
-		add_shortcode('calendar', array($this, 'calendar'));
+		//add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
 		add_shortcode('service-times', array($this, 'serviceTimes'));
@@ -195,21 +195,6 @@ class Shortcodes {
 		}
 		$this->theme->set(compact('id'));
 		return $this->theme->render('ebulletin_archive');
-	}
-
-/**
- * Renders the full calendar
- *
- * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string
- */
-	public function calendar($attr) {
-		$attrs = shortcode_atts(array(
-			'id' => $this->theme->options('core_calendar_id')
-		), $attr);
-		$id = $attrs['id'];
-		$this->theme->set(compact('id'));
-		return $this->theme->render('calendar');
 	}
 
 /**
