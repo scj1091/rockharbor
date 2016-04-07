@@ -24,7 +24,6 @@ class Shortcodes {
 		add_action('init', array($this, 'addEditorButtons'));
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('audioplayer', array($this, 'audio'));
-		//add_shortcode('calendar', array($this, 'calendar'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
 		add_shortcode('children-grid', array($this, 'childrenGrid'));
 		add_shortcode('service-times', array($this, 'serviceTimes'));

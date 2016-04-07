@@ -2,7 +2,7 @@
 $theme->Html->inputPrefix = 'usermeta';
 $theme->Html->data($data);
 ?>
-<h3>Permissions</h3>
+<h2>Permissions</h2>
 <table class="form-table">
 	<tbody>
 		<tr>

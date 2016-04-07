@@ -7,7 +7,7 @@ if (!isset($_REQUEST['settings-updated'])) {
 <div class="wrap">
 	<?php
 	screen_icon();
-	echo '<h2>Theme Options</h2>';
+	echo '<h1>Theme Options</h1>';
 	?>
 
 	<?php if ($_REQUEST['settings-updated'] !== false): ?>
@@ -22,7 +22,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 		?>
 		<table class="form-table">
 			<tr valign="top">
-				<td colspan="2"><h2>Campus Info</h2><p>Campus-specific settings.</p></td>
+				<th colspan="2"><h2>Campus Info</h2><p>Campus-specific settings.</p></th>
+				<td></td>
 			</tr>
 			<tr valign="top">
 				<?php
@@ -45,7 +46,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
       <tr valign="top">
-          <td colspan="2"><h2>Campus Address</h2></td>
+          <th colspan="2"><h2>Campus Address</h2></th>
+		  <td></td>
       </tr>
       <tr valign="top">
           <?php
@@ -112,7 +114,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 				</td>
 			</tr>
 			<tr valign="top">
-				<td colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></td>
+				<th colspan="2"><h2>Social Settings</h2><p>All things social related to <?php echo $theme->info('short_name'); ?>.</p></th>
+				<td></td>
 			</tr>
 			<tr valign="top">
 				<th>Twitter</th>
@@ -212,7 +215,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
-				<td colspan="2"><h2>Admin</h2><p>Don't touch this stuff unless you know what you're doing.</p></td>
+				<th colspan="2"><h2>Admin</h2><p>Don't touch this stuff unless you know what you're doing.</p></th>
+				<td></td>
 			</tr>
 			<tr valign="top">
 				<th>Compress JS and CSS?</th>
@@ -296,7 +300,8 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
-				<td colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></td>
+				<th colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></th>
+				<td></td>
 			</tr>
 			<tr>
 				<th>

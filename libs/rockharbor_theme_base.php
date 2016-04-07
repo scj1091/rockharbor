@@ -170,10 +170,10 @@ class RockharborThemeBase {
 	protected function addHooks() {
 		add_action('wp_enqueue_scripts', array($this, 'setupAssets'));
 		add_action('wp_enqueue_scripts', array($this, 'compressAssets'), 100);
+		add_action('wp_print_footer_scripts', array($this, 'cleanScripts'), 1);
 
 		add_filter('the_content', array($this, 'filterContent'));
 		add_theme_support('title-tag');
-		//add_filter('wp_title', array($this, 'archiveTitle'));
 		remove_action('wp_head', 'wp_generator');
 
 		// theme settings
@@ -197,6 +197,8 @@ class RockharborThemeBase {
 
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
+
+		//include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
 	}
 
 /**
@@ -255,21 +257,6 @@ class RockharborThemeBase {
 	public function new_excerpt_more( $more ) {
 		return '...<a class="moretag" href="'. get_permalink() . '">Continue Reading &rarr;</a>';
 	}
-
-/**
- * Filter title before outputting it
- *
- * @param string $title
- * @return string
- */
-	/*public function archiveTitle($title = '') {
-		global $wp_query;
-		if (is_tax()) {
-			$term = $wp_query->get_queried_object();
-			$title = $term->name;
-		}
-		return $title;
-	}*/
 
 /**
  * Filter the page title (in body, not head) on Archive pages
@@ -399,7 +386,6 @@ class RockharborThemeBase {
 		} else {
 			$filename = ltrim($filename, '/');
 		}
-		//$filename = ltrim($object->src, '/');
 
 		$contents =  file_get_contents($filename);
 
@@ -524,6 +510,35 @@ class RockharborThemeBase {
 		if ($this->isChildTheme()) {
 			wp_enqueue_style('child_base');
 		}
+	}
+
+/**
+ * Cleans any library script that was already included in our concatenated file.
+ * If jQuery or jQueryUI are initialized again, all jQuery plugins are forgotten
+ * and Bad Things (TM) happen.
+ *
+ * @param none
+ * @return void
+ */
+	public function cleanScripts() {
+		global $wp_scripts;
+		foreach ($wp_scripts->queue as $queue) {
+			// Ignore our concatenated scripts file
+			if ($queue != 'scripts') {
+				// Load dependency object
+				$wpDep = &$wp_scripts->registered[$queue];
+				// Remove any dependencies that are like jQuery
+				foreach ($wpDep->deps as $i => $dep) {
+					if (strpos($dep, 'jquery') !== FALSE) {
+						unset($wpDep->deps[$i]);
+					}
+				}
+				// Re-index deps array
+				$wpDep->deps = array_values($wpDep->deps);
+			}
+		}
+		//die(var_dump($wp_scripts));
+		return;
 	}
 
 /**
