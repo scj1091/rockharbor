@@ -198,7 +198,7 @@ class RockharborThemeBase {
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
 
-		//include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
+		include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
 	}
 
 /**
@@ -454,7 +454,7 @@ class RockharborThemeBase {
 		wp_register_script('fastclick', "$base/js/fastclick-1.0.6{$min}.js");
 		wp_register_script('touch', "$base/js/touch{$min}.js", array('jquery-core'));
 		wp_register_script('slick', "$base/js/slick-1.5.8{$min}.js", array('jquery-core'));
-		wp_register_script('sidr', "$base/js/sidr-1.2.1{$min}.js", array('jquery-core'));
+		wp_register_script('sidr', "$base/js/jquery.sidr-2.2.1{$min}.js", array('jquery-core'));
 
 		wp_register_style('reset', "$base/css/reset{$min}.css");
 		wp_register_style('fonts', "$base/css/fonts{$min}.css", array('reset'));
@@ -537,7 +537,6 @@ class RockharborThemeBase {
 				$wpDep->deps = array_values($wpDep->deps);
 			}
 		}
-		//die(var_dump($wp_scripts));
 		return;
 	}
 
