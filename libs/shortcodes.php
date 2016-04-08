@@ -25,7 +25,6 @@ class Shortcodes {
 		add_shortcode('videoplayer', array($this, 'video'));
 		add_shortcode('audioplayer', array($this, 'audio'));
 		add_shortcode('ebulletin-archive', array($this, 'ebulletinArchive'));
-		add_shortcode('children-grid', array($this, 'childrenGrid'));
 		add_shortcode('service-times', array($this, 'serviceTimes'));
 		add_shortcode('address', array($this, 'address'));
 		add_shortcode('quick-contact', array($this, 'quickContact'));
@@ -100,72 +99,6 @@ class Shortcodes {
 		), $attr);
 		$this->theme->set('times', $this->theme->options('service_time', false, $attrs['campus']));
 		return $this->theme->render('service_times');
-	}
-
-/**
- * Renders a grid layout of all children pages for the current page
- *
- * ### Attrs:
- * - int `columns` Number of items per row
- * - int `limit` Number of items to show per page
- *
- * @param array $attr Attributes sent by WordPress defined in the editor
- * @return string
- */
-	public function childrenGrid($attr) {
-		global $wp_query, $wp_rewrite, $post;
-
-		$attrs = shortcode_atts(array(
-			'columns' => 4,
-			'limit' => 16
-		), $attr);
-
-		$_old_query = $wp_query;
-
-		$page = (get_query_var('paged')) ? get_query_var('paged')-1 : 0;
-		$offset = $page*$attrs['limit'];
-		$query = array(
-			'post_parent' => $post->ID,
-			'post_type' => $post->post_type,
-			'posts_per_page' => $attrs['limit'],
-			'paged' => get_query_var('paged')
-		);
-		$wp_query = new WP_Query($query);
-		$wp_query->query($query);
-
-		// we have to gobble this up and return it so it doesn't just print everywhere
-		ob_start();
-		// loop within loop
-		$c = 0;
-		$colSize = floor(100/$attrs['columns']) - 1;
-		// wrap everything in a div
-		echo '<div class="clearfix grid-layout">';
-		// wrap the first row
-		echo '<div class="clearfix">';
-		while (have_posts()) {
-			if ($c % $attrs['columns'] == 0) {
-				echo '</div><div class="clearfix">';
-			}
-			$c++;
-			the_post();
-			$gridArticle = $this->theme->render('grid');
-			echo $this->theme->Html->tag('div', $gridArticle, array(
-				'style' => "float:left;width:$colSize%;margin-right: 1%;"
-			));
-		}
-		// close last row
-		echo '</div>';
-		$this->theme->set('wp_rewrite', $wp_rewrite);
-		$this->theme->set('wp_query', $wp_query);
-		echo $this->theme->render('pagination');
-		// close everything else
-		echo '</div>';
-		$return = ob_get_clean();
-
-		// back to the old query
-		$wp_query = $_old_query;
-
-		return $return;
 	}
 
 /**

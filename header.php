@@ -119,12 +119,6 @@ $hasHeader =
 		}
 		?>
 
-		<?php echo $theme->render('breadcrumbs'); ?>
-		<?php
-		if (!$theme->Shortcodes->hasShortcode('children-grid')) {
-			// touch-accessible submenu
-			// this is sidebar.php, not the widget areas
-			get_sidebar();
-		}
-		?>
+		<?php echo $theme->render('breadcrumbs');
+		get_sidebar(); ?>
 		<div id="main" class="clearfix">
