@@ -273,8 +273,13 @@ class Admin {
 		);
 		$s3filePath = $this->getS3Path($data['file']);
 
+		// Default img/audio/video cache time 30 days
+		$headers = array(
+			'Cache-Control' => 'max-age=2592000'
+		);
+
 		if (file_exists($data['file'])) {
-			if ($S3->putObject($file, $bucket, $s3filePath, $S3::ACL_PUBLIC_READ)) {
+			if ($S3->putObject($file, $bucket, $s3filePath, $S3::ACL_PUBLIC_READ, array(), $headers)) {
 				unlink($data['file']);
 			}
 		}
