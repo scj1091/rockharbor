@@ -297,7 +297,7 @@ class Admin {
 			);
 
 			if (file_exists($fullThumbPath)) {
-				if ($S3->putObject($file, $bucket, $s3ThumbPath, $S3::ACL_PUBLIC_READ)) {
+				if ($S3->putObject($file, $bucket, $s3ThumbPath, $S3::ACL_PUBLIC_READ, array(), $headers)) {
 					unlink($fullThumbPath);
 				}
 			}
