@@ -29,9 +29,10 @@ RH.swapSvg = function() {
 // initialized on every page
 jQuery(document).ready(function() {
 
-    jQuery('#simple-menu').sidr({
-        name: 'campus-menu'
-    });
+	jQuery('#simple-menu').sidr({
+		name: 'campus-menu',
+		displace: false
+	});
 
     jQuery('.frontpage-banner').slick({dots: true});
     jQuery('.global-maps').slick({dots: true});

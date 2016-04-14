@@ -7,7 +7,7 @@
     z-index: 999999;
     width: 312px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: #0D6078;
     color: #fff;
