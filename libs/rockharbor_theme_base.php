@@ -187,6 +187,7 @@ class RockharborThemeBase {
 		// other
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
+		add_filter('wp_calculate_image_srcset', array($this, 'responsiveS3Urls'));
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
 		add_filter( 'excerpt_length', array($this, 'custom_excerpt_length'), 999 );
 		add_filter( 'excerpt_more', array($this, 'new_excerpt_more'), 999 );
@@ -1198,6 +1199,35 @@ class RockharborThemeBase {
 		}
 
 		return $url;
+	}
+
+/**
+ * Replaces an array of image file paths with S3 URLs
+ *
+ * Since WP 4.4 introduced automatic srcset
+ *
+ * @param array $sources An array of file paths
+ */
+	public function responsiveS3Urls($sources) {
+		/**
+		 * Sources is an array of arrays of the form:
+		 * array(
+		 * 		[width] => array(
+		 * 			[url],
+		 * 			[descriptor],
+		 * 			[value]
+		 * 		)
+		 * )
+		 */
+		if (is_array($sources)) {
+			foreach ($sources as $width => $image) {
+				$sources[$width]['url'] = $this->s3Url($image['url']);
+			}
+		} else {
+			$sources = $this->s3Url($sources);
+		}
+
+		return $sources;
 	}
 
 /**
