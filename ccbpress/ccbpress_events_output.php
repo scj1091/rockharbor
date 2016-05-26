@@ -27,18 +27,18 @@ function rh_ccbpress_event_list_display( $events ) {
 	if ( $campus_id != 'ccbpress_all' ) {
 		$group_profiles = $ccbpress_ccb->group_profiles( array(
 			'campus_id'			=> $campus_id,
-			'modified_since'	=> (string)date( 'Y-m-d', strtotime('-6 months') )
+			'modified_since'	=> (string)date( 'Y-m-d', strtotime('-12 months') )
 		) );
 		$cw_group_profiles = $ccbpress_ccb->group_profiles(array(
 			'campus_id' => 1,
-			'modified_since' => (string) date('Y-m-d', strtotime('-6 months'))
+			'modified_since' => (string) date('Y-m-d', strtotime('-12 months'))
 		));
 	}
 
 	$campus_hide = get_option( 'ccbpress_event_calendar_campus_hide', '0' );
 
 	$ccbpress_campuses = ccbpress_get_campus_list( true );
-	$ccbpress_campuses = ( ! is_array( $ccbpress_campuses ) ) ? $ccbpress_campuses = array() : $ccbpress_campuses;
+	$ccbpress_campuses = ( ! is_array( $ccbpress_campuses ) ) ? array() : $ccbpress_campuses;
     $ccbpress_campuses = array( 'ccbpress_all' => __( 'All Campuses' ) ) + $ccbpress_campuses;
 
 	// Determine the current calendar year
