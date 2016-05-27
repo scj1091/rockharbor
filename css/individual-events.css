@@ -31,6 +31,10 @@
 	text-transform: uppercase;
 }
 
+.rh-ccbpress-event-image {
+	margin-bottom: 10px;
+}
+
 .rh-ccbpress-event-organizer {
 	font-family: 'arial', 'sans-serif';
 	font-size: 1.4em;

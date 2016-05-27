@@ -133,7 +133,53 @@ function rh_ccbpress_event_list_display( $events ) {
 
 	$last_day = 0;
 
+	$calendarEvents = array();
+
+	foreach ($events as $event) {
+		// check if the event falls in the current calendar view
+		// get unix epoch for first day in view
+		$calendarViewStart = mktime(null, null, null, $calendar_month, (1 - $startday), $calendar_year);
+		// get unix epoch for last day in view
+		$calendarViewEnd = mktime(null, null, null, $calendar_month, ($maxday + $startday), $calendar_year);
+		// get unix epoch for event date
+		$eventDate = strtotime($event->date);
+		if (($eventDate >= $calendarViewStart) && ($eventDate <= $calendarViewEnd)) {
+			$event_group_id = (string)$event->group_name['ccb_id'];
+			$event_campus_id = NULL;
+
+			if ( $campus_id == 'all' ) {
+				$campus_id = 'ccbpress_all';
+			}
+
+			if ( $campus_id != 'ccbpress_all' ) {
+				foreach( $group_profiles->response->groups->group as $group ) {
+					if ( $group['id'] == $event_group_id ) {
+						$event_campus_id = $group->campus['id'];
+						break;
+					}
+				}
+				if ($campus_id != 1) {
+					foreach ($cw_group_profiles->response->groups->group as $group) {
+						if ($group['id'] == $event_group_id) {
+							$event_campus_id = $group->campus['id'];
+							break;
+						}
+					}
+				}
+			}
+
+			if ( $campus_id == 'ccbpress_all' || $event_campus_id == 1 || $event_campus_id == $campus_id ) {
+				if (!array_key_exists(date('Y-m-d', $eventDate), $calendarEvents)) {
+					$calendarEvents[date('Y-m-d', $eventDate)] = array();
+				}
+				$calendarEvents[date('Y-m-d', $eventDate)][] = $event;
+			}
+		}
+	}
+
 	for ( $i = 0; $i < ( $maxday + $startday ); $i++ ) {
+		// Today's date
+		$todaysDate = date('Y-m-d', mktime(null, null, null, $calendar_month, ($i - $startday + 1), $calendar_year));
 
 		// First day of the week
 		if ( ( $last_day = $i % 7 ) == 0 ) {
@@ -153,7 +199,7 @@ function rh_ccbpress_event_list_display( $events ) {
 			$cell_class = '';
 
 			// Check if it's today
-			if ( date( 'Y-m-d', mktime( null, null, null, $calendar_month, ( $i - $startday + 1 ), $calendar_year ) ) == date( 'Y-m-d', current_time('timestamp', 0 ) ) ) {
+			if ( $todaysDate == date( 'Y-m-d', current_time('timestamp', 0 ) ) ) {
 
 				$cell_class .= 'ccbpress-event-calendar-today';
 
@@ -164,71 +210,37 @@ function rh_ccbpress_event_list_display( $events ) {
 			$events_per_day = 0;
 
 			// Loop through all of the events for this month
-			foreach ( $events as $event ) {
+			foreach ( array_key_exists($todaysDate, $calendarEvents) ? $calendarEvents[$todaysDate] : array() as $event ) {
+				$start_time = $event->start_time;
+				if ( $event->start_time == '00:00:00' && $event->end_time == '23:59:59' ) {
+					$start_time = 'All Day';
+				} else {
 
-				// Compare the dates to find any events for the current day
-				if ( date( 'Y-m-d', strtotime( $event->date ) ) == date( 'Y-m-d', mktime( null, null, null, $calendar_month, ( $i - $startday + 1 ), $calendar_year ) ) ) {
+					if ( (string)date( 'i', strtotime( $start_time ) ) == '00' ) {
 
-					$event_group_id = (string)$event->group_name['ccb_id'];
-					$event_campus_id = NULL;
+						$start_time =  (string)date( 'g', strtotime( $start_time ) ) . substr( (string)date( 'a', strtotime( $start_time ) ), 0, 1 );
 
-					if ( $campus_id == 'all' ) {
-						$campus_id = 'ccbpress_all';
-					}
+					} else {
 
-					if ( $campus_id != 'ccbpress_all' ) {
-						foreach( $group_profiles->response->groups->group as $group ) {
-							if ( $group['id'] == $event_group_id ) {
-								$event_campus_id = $group->campus['id'];
-								break;
-							}
-						}
-						if ($campus_id != 1) {
-							foreach ($cw_group_profiles->response->groups->group as $group) {
-								if ($group['id'] == $event_group_id) {
-									$event_campus_id = $group->campus['id'];
-									break;
-								}
-							}
-						}
-					}
-
-					if ( $campus_id == 'ccbpress_all' || $event_campus_id == 1 || $event_campus_id == $campus_id ) {
-
-						$start_time = $event->start_time;
-						if ( $event->start_time == '00:00:00' && $event->end_time == '23:59:59' ) {
-							$start_time = 'All Day';
-						} else {
-
-							if ( (string)date( 'i', strtotime( $start_time ) ) == '00' ) {
-
-								$start_time =  (string)date( 'g', strtotime( $start_time ) ) . substr( (string)date( 'a', strtotime( $start_time ) ), 0, 1 );
-
-							} else {
-
-								$start_time =  (string)date( 'g:i', strtotime( $start_time ) ) . substr( (string)date( 'a', strtotime( $start_time ) ), 0, 1 );
-
-							}
-
-						}
-
-						// Check if a single event page is specified in the options
-						if ( $is_single_event_page_set ) {
-
-							$today_html .= '<li><a href="' . ccbpress_get_event_url( $event->event_name['ccb_id'] ) . '" title="(' . ( $event->start_time ? $start_time : "" ) . ') ' .$event->event_name . '" class="' . ( $start_time == 'All Day' ? "ccbpress-event-calendar-all-day-event" : "" ) . '"><span class="ccbpress-event-time">' . ( $start_time == 'All Day' ? "" : $start_time ) . '</span>' . ( $start_time == 'All Day' ? "" : " " ) . $event->event_name . '</a></li>';
-
-						} else {
-
-							$today_html .= '<li><span title="(' . ( $event->start_time ? $start_time : "" ) . ') ' .$event->event_name . '" class="' . ( $start_time == 'All Day' ? "ccbpress-event-calendar-all-day-event" : "" ) . '"><span class="ccbpress-event-time">' . ( $start_time == 'All Day' ? "" : $start_time ) . '</span>' . ( $start_time == 'All Day' ? "" : " " ) . $event->event_name . '</span></li>';
-
-						}
-
-						$event_found = true;
-						$events_per_day++;
+						$start_time =  (string)date( 'g:i', strtotime( $start_time ) ) . substr( (string)date( 'a', strtotime( $start_time ) ), 0, 1 );
 
 					}
 
 				}
+
+				// Check if a single event page is specified in the options
+				if ( $is_single_event_page_set ) {
+
+					$today_html .= '<li><a href="' . ccbpress_get_event_url( $event->event_name['ccb_id'] ) . '" title="(' . ( $event->start_time ? $start_time : "" ) . ') ' .$event->event_name . '" class="' . ( $start_time == 'All Day' ? "ccbpress-event-calendar-all-day-event" : "" ) . '"><span class="ccbpress-event-time">' . ( $start_time == 'All Day' ? "" : $start_time ) . '</span>' . ( $start_time == 'All Day' ? "" : " " ) . $event->event_name . '</a></li>';
+
+				} else {
+
+					$today_html .= '<li><span title="(' . ( $event->start_time ? $start_time : "" ) . ') ' .$event->event_name . '" class="' . ( $start_time == 'All Day' ? "ccbpress-event-calendar-all-day-event" : "" ) . '"><span class="ccbpress-event-time">' . ( $start_time == 'All Day' ? "" : $start_time ) . '</span>' . ( $start_time == 'All Day' ? "" : " " ) . $event->event_name . '</span></li>';
+
+				}
+
+				$event_found = true;
+				$events_per_day++;
 
 			}
 
