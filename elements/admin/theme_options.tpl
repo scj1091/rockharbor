@@ -300,6 +300,16 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
+				<?php
+					echo $theme->Html->input('podcast_redirect', array(
+						'before' => '<th>',
+						'label' => 'Podcast redirect',
+						'between' => '</th><td>',
+						'after' => '<br /><small>Text (URL) to prepend to podcast download URL<br/>E.g. <strong>' . get_site_url() . '/</strong>&lt;path to redirect&gt;</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
 				<th colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></th>
 				<td></td>
 			</tr>

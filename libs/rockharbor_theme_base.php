@@ -195,11 +195,34 @@ class RockharborThemeBase {
 		add_action('wp_login_failed', array($this, 'fail2ban'), 10, 1);
 		add_action('redirect_canonical', array($this, 'blockUserEnum'), 10, 0);
 		add_filter('get_the_archive_title', array($this, 'filterArchiveTitle'));
+		add_filter('powerpress_redirect_url', array($this, 'podcastRedirect'));
 
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
 
 		include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
+	}
+
+/**
+ * Uses Theme Option "Podcast redirect" to rewrite enclosure URLs to go through a redirect script
+ * that acts as a proxy for Google Analytics. See rockharbor/podcast-redirect.php
+ * @param  string $originalUrl The original URL to the podcast enclosure (e.g. S3 URL)
+ * @return string              The rewritten URL. Defaults to original if no Theme Option set.
+ */
+	public function podcastRedirect($originalUrl) {
+		$redirectUrl = $this->options('podcast_redirect');
+		if (!is_null($redirectUrl) && $redirectUrl !== '') {
+			$encodedUrl = urlencode($originalUrl);
+			/**
+			 * We use HMAC to sign the redirect parameter, so that the redirect isn't open.
+			 * Otherwise, anyone could launder redirects through our script and steal our
+ 			 * site's reputation.
+			 */
+			$hmac = hash_hmac('sha256', $encodedUrl, "9b01b2733c2d4e7f8c0d8effa8da30bd");
+			return trailingslashit(get_site_url()) . ltrim($redirectUrl, '/') . $encodedUrl . '&amp;key=' . $hmac;
+		} else {
+			return $originalUrl;
+		}
 	}
 
 /**
