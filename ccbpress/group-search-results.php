@@ -56,6 +56,11 @@ and (max-device-width: 667px) {
 </style>
 <div class="ccbpress-group-search">
 	<?php
+	global $theme;
+	$override_groupfinder_email = $theme->options('override_groupfinder_email');
+	if (isset($override_groupfinder_email) && $override_groupfinder_email != '') {
+		$contactHtml = $override_groupfinder_email;
+	}
 	/**
 	 * Loop through each result
 	 */
@@ -74,7 +79,11 @@ and (max-device-width: 667px) {
 						&nbsp;<span class="ccbpress-group-spots-available">(<?php echo $spots_available; ?> spots available)</span>
 					<?php endif; ?>
 					<div class="ccbpress-group-search-meta ccbpress-group-leader">
+						<?php if (isset($contactHtml)): ?>
+						<span class="dashicons dashicons-admin-links"></span> <?php echo $contactHtml; ?>
+						<?php else: ?>
 						<span class="dashicons dashicons-email"></span> <a href="<?php echo ccbpress_get_easy_email_url( $item->owner_name['ccb_id'], $item->item_id, $item->owner_name ); ?>" target="_blank"<?php echo $ccbpress['lightbox_code']; ?>><?php echo $item->owner_name; ?></a>
+						<?php endif; ?>
 					</div>
 				</div>
 

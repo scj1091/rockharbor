@@ -23,12 +23,20 @@ $pageTitle = wp_get_document_title();
 $pageUrl = get_permalink();
 $pageType = 'website';
 $pageImage = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
+if (is_front_page()) {
+    $postExcerpt = "We are a church of communities following Jesus as we worship, pray, and love others in Orange County, Charlotte, and beyond. Come join us!";
+} else if (isset($post->post_excerpt) && $post->post_excerpt != '') {
+    $postExcerpt = $post->post_excerpt;
+} else {
+    $postExcerpt = wp_strip_all_tags($post->post_content, true);
+}
  ?>
 <!-- OpenGraph meta tags -->
 <meta property="og:title" content="<?php echo $pageTitle; ?>" />
 <meta property="og:type" content="<?php echo $pageType; ?>" />
 <meta property="og:url" content="<?php echo $pageUrl; ?>" />
 <meta property="og:image" content="<?php echo $pageImage; ?>" />
+<meta name="description" content="<?php echo substr($postExcerpt, 0, 155); ?>" />
 
 <link rel="icon" href="<?php echo $theme->Html->image('favicon.ico', array( 'parent' => true, 'url' => true )); ?>" type="image/x-icon" />
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $theme->info('url'); ?>/img/appicon-144.png" />

@@ -49,7 +49,6 @@ class Admin {
 		register_setting('rockharbor_network_options', 'rockharbor_network_options');
 
 		// default options
-		update_option('blogname', 'RH '.$this->theme->info('name'));
 		update_option('image_default_link_type', 'file');
 
 		// thumbnail sizes
