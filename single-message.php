@@ -41,13 +41,13 @@ the_post();
 							$downloader = $theme->info('base_url').'/download.php?';
 							if (!empty($meta['video_url']) && !$meta['vimeo_url']) {
 								echo $theme->Html->tag('a', '<span class="icon icon-download-video"></span>', array(
-									'href' => $downloader.'file='.urlencode($meta['video_url']).'&filename='.urlencode(get_the_title()),
+									'href' => $downloader.'file='.urlencode($meta['video_url']).'&filename='.urlencode(get_the_title().'.mp4'),
 									'title' => 'Download Video'
 								));
 							}
 							if (!empty($meta['audio_url'])) {
 								echo $theme->Html->tag('a', '<span class="icon icon-download-1"></span>', array(
-									'href' => $downloader.'file='.urlencode($meta['audio_url']).'&filename='.urlencode(get_the_title()),
+									'href' => $downloader.'file='.urlencode($meta['audio_url']).'&filename='.urlencode(get_the_title().'.mp3'),
 									'title' => 'Download Audio'
 								));
 							}
