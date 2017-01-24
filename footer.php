@@ -79,8 +79,8 @@ $themeInfo = $theme->info();
             <li class="<?php if ($themeInfo['slug'] === 'costamesa') echo 'active'; ?>"><a href="//costamesa.rockharbor.org">Costa Mesa</a></li>
             <li class="<?php if ($themeInfo['slug'] === 'fullerton') echo 'active'; ?>"><a href="//fullerton.rockharbor.org">Fullerton</a></li>
             <li class="<?php if ($themeInfo['slug'] === 'orange') echo 'active'; ?>"><a href="//orange.rockharbor.org">Orange</a></li>
-            <li class="<?php if ($themeInfo['slug'] === 'missionviejo') echo 'active'; ?>"><a href="//missionviejo.rockharbor.org">Mission Viejo</a></li>
-            <li class="<?php if ($themeInfo['slug'] === 'huntingtonbeach') echo 'active'; ?>"><a href="//huntingtonbeach.rockharbor.org">Huntington Beach</a></li>
+            <li class="<?php if ($themeInfo['slug'] === 'mission_viejo') echo 'active'; ?>"><a href="//missionviejo.rockharbor.org">Mission Viejo</a></li>
+            <li class="<?php if ($themeInfo['slug'] === 'huntington_beach') echo 'active'; ?>"><a href="//huntingtonbeach.rockharbor.org">Huntington Beach</a></li>
             <li class="<?php if ($themeInfo['slug'] === 'charlotte') echo 'active'; ?>"><a href="//charlotte.rockharbor.org">Charlotte, NC</a></li>
         </ul>
         <?php if( $theme->info('name') !== "" ) : ?>
