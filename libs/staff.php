@@ -84,12 +84,13 @@ class Staff extends PostType {
  */
 	public function detailsMetaBox() {
 		global $post;
-		$taxes = get_terms('department', array(
+		$departments = array();
+		$the_term_query = new WP_Term_Query(array(
+			'taxonomy' => 'department',
 			'hide_empty' => false
 		));
-		$departments = array();
-		foreach ($taxes as $tax) {
-			$departments[$tax->slug] = $tax->name;
+		foreach ($the_term_query->get_terms() as $term) {
+			$departments[$term->slug] = $term->name;
 		}
 		$data = $this->theme->metaToData($post->ID);
 		$selectedDepartment = wp_get_post_terms($post->ID, 'department');

@@ -98,7 +98,7 @@ class PostType {
 
 		register_post_type($this->name, array(
 			'label' => __($this->options['plural'], 'rockharbor'),
-			'singular_label' =>__($this->options['name'], 'rockharbor'),
+			//'singular_label' =>__($this->options['name'], 'rockharbor'),
 			'description' => __('Add '.$this->options['name'], 'rockharbor'),
 			'public' => true,
 			'hierarchical' => false,

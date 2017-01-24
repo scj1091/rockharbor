@@ -223,8 +223,12 @@ class Message extends PostType {
 			'hide_empty' => false
 		));
 		$series = array();
-		foreach ($taxes as $tax) {
-			$series[$tax->slug] = $tax->name;
+		$the_term_query = new WP_Term_Query(array(
+			'taxonomy' => 'series',
+			'hide_empty' => false
+		));
+		foreach ($the_term_query->get_terms() as $term) {
+			$series[$term->slug] = $term->name;
 		}
 		$this->theme->set('series', $series);
 		$data = $this->theme->metaToData($post->ID);

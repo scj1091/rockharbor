@@ -62,12 +62,14 @@ class Curriculum extends PostType {
 	public function shortcode($attrs = array()) {
 		global $wpdb, $item;
 
-		$taxes = get_terms('curriculum_category', array(
+		$the_term_query = new WP_Term_Query(array(
+			'taxonomy' => 'curriculum_category',
 			'hide_empty' => false
 		));
+		$terms = $the_term_query->get_terms();
 
 		ob_start();
-		foreach ($taxes as $item) {
+		foreach ($terms as $item) {
 			get_template_part('content', 'curriculum-category');
 		}
 		$output = ob_get_clean();
@@ -93,8 +95,12 @@ class Curriculum extends PostType {
 			'hide_empty' => false
 		));
 		$categories = array();
-		foreach ($taxes as $tax) {
-			$categories[$tax->slug] = $tax->name;
+		$the_term_query = new WP_Term_Query(array(
+			'taxonomy' => 'curriculum_category',
+			'hide_empty' => false
+		));
+		foreach ($the_term_query->get_terms() as $term) {
+			$categories[$term->slug] = $term->name;
 		}
 		$this->theme->set('categories', $categories);
 		$data = $this->theme->metaToData($post->ID);
