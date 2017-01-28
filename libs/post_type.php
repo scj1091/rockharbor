@@ -112,6 +112,8 @@ class PostType {
 				'edit_item' => 'Edit '.$this->options['name'],
 				'new_item' => 'New '.$this->options['name'],
 				'view_item' => 'View '.$this->options['name'],
+				'view_items' => 'View '.$this->options['plural'],
+				'attributes' => $this->options['name'].' Attributes',
 				'search_items' => 'Search '.$this->options['plural'],
 				'not_found' => 'No '.$this->options['plural'].' found.',
 				'not_found_in_trash' => 'No '.$this->options['plural'].' found in trash.',
