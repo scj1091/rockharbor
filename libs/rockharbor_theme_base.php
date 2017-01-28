@@ -1204,7 +1204,7 @@ class RockharborThemeBase {
 
 		$subsitePath = 'wp-content/uploads';
 		if ($blog_id > 1) {
-			$details = get_blog_details($blog_id);
+			$details = get_site($blog_id);
 			list($sub, $domain, $tld) = explode('.', $details->domain);
 			// the s3 plugin that is currently used stores files under the domain
 			$subsitePath = $sub.'/files';

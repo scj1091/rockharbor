@@ -44,9 +44,9 @@ global $theme, $more;
 			 * @see http://core.trac.wordpress.org/ticket/12040
 			 */
 			if (isset($post->blog_id) && $post->blog_id != $theme->info('id')):
-				$blogDetails = get_blog_details($post->blog_id);
+				$blogDetails = get_site($post->blog_id);
 			?>
-			<span class="tags">Posted from <a href="<?php echo $blogDetails->siteurl; ?>"><?php echo $blogDetails->blogname; ?></a>
+			<span class="tags">Posted from <a href="<?php echo $blogDetails->__get('siteurl'); ?>"><?php echo $blogDetails->__get('blogname'); ?></a>
 			<?php else: ?>
 			<span class="tags">Posted in <?php the_category(', ') . the_tags(' | ', ', '); ?>
 			<?php endif; ?>
