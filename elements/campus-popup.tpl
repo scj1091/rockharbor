@@ -38,16 +38,6 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url('/wp-content/themes/huntingtonbeach/img/map-sm.jpg');">
-                <div class="campus-info">
-                    <div class="title">
-                        <a href="http://huntingtonbeach.rockharbor.org" class="campus-link">Huntington Beach</a>
-                    </div>
-                    <div class="service-times">
-                        <?php echo do_shortcode('[service-times campus="7"]'); ?>
-                    </div>
-                </div>
-            </li>
             <li style="background-image: url('/wp-content/themes/orange/img/map-sm.jpg');">
                 <div class="campus-info">
                     <div class="title">
