@@ -200,7 +200,12 @@ class RockharborThemeBase {
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
 
+		// include modified RH events output file
+		// this is janky but unfortunately this file is not extendable like the templates
 		include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
+		// re-add the filter to display the event title as the page title
+		// this makes it show up in the breadcrumbs
+		add_filter( 'the_title', 'ccbpress_single_event_the_title', 10, 2 );
 	}
 
 /**

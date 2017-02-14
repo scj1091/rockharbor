@@ -20,8 +20,8 @@ function rh_ccbpress_event_list_display( $events ) {
 	global $ccbpress_ccb;
 
 	$campus_id = get_option( 'ccbpress_event_calendar_campus', 'ccbpress_all' );
-	if ( $override_campus_id = get_query_var( 'ccbpress_campus_id' ) ) {
-		$campus_id = $override_campus_id;
+	if ( isset( $_GET['ccbpress_campus_id'] ) ) {
+		$campus_id = $_GET['ccbpress_campus_id'];
 	}
 
 	if ( $campus_id != 'ccbpress_all' ) {
@@ -42,13 +42,15 @@ function rh_ccbpress_event_list_display( $events ) {
     $ccbpress_campuses = array( 'ccbpress_all' => __( 'All Campuses' ) ) + $ccbpress_campuses;
 
 	// Determine the current calendar year
-	if ( ! ( $calendar_year = get_query_var( 'ccbpress_event_year' ) ) ) {
-		$calendar_year = date( 'Y' );
+	$calendar_year = date( 'Y' );
+	if ( isset( $_GET['ccbpress_event_year'] ) ) {
+		$calendar_year = $_GET['ccbpress_event_year'];
 	}
 
 	// Determine the current calendar month
-	if ( ! ( $calendar_month = get_query_var( 'ccbpress_event_month' ) ) ) {
-		$calendar_month = date( 'n' );
+	$calendar_month = date( 'n' );
+	if ( isset( $_GET['ccbpress_event_month'] ) ) {
+		$calendar_month = $_GET['ccbpress_event_month'];
 	}
 
 	// Calculate the previous month and year
@@ -70,17 +72,17 @@ function rh_ccbpress_event_list_display( $events ) {
 	}
 
 	$permalink = get_permalink();
-	if ( get_query_var( 'ccbpress_event_year' ) ) {
+	if ( isset( $_GET['ccbpress_event_year'] ) ) {
 		$permalink = add_query_arg( 'ccbpress_event_year', $calendar_year, $permalink );
 	}
-	if ( get_query_var( 'ccbpress_event_month' ) ) {
+	if ( isset( $_GET['ccbpress_event_month']) ) {
 		$permalink = add_query_arg( 'ccbpress_event_month', $calendar_month, $permalink );
 	}
 
 	$ccbpress_next_permalink = ccbpress_get_events_url( $next_year, $next_month );
 	$ccbpress_prev_permalink = ccbpress_get_events_url( $prev_year, $prev_month );
 
-	if ( get_query_var( 'ccbpress_campus_id' ) ) {
+	if ( isset( $_GET['ccbpress_campus_id'] ) ) {
 		$ccbpress_next_permalink = add_query_arg( 'ccbpress_campus_id', $campus_id, $ccbpress_next_permalink );
 		$ccbpress_prev_permalink = add_query_arg( 'ccbpress_campus_id', $campus_id, $ccbpress_prev_permalink );
 	}
