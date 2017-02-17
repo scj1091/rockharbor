@@ -247,6 +247,7 @@ class RockharborThemeBase {
  * @return string
  */
 	public function filterContent($content = '') {
+		// Creates columns when the <!--column--> tag is found
 		$count = preg_match_all('/<!--column-->/', $content, $matches);
 
 		if ($count) {
@@ -265,6 +266,56 @@ class RockharborThemeBase {
 			// reassemble
 			$content = preg_replace('/<!--column-->/', '</div>'.$columnDiv, $content);
 			$content = $contentBefore.'<div class="columns clearfix">'.$columnDiv.$content.'</div></div>'.$contentAfter;
+		}
+
+		// Adds episode metadata to podcast summary (only for feed)
+		if ( is_feed() && ( get_post_type() == 'message' ) ) {
+			$postID = get_the_ID();
+			$termQuery = new WP_Term_Query();
+			$teachers = $termQuery->query(array(
+				'taxonomy' => 'teacher',
+				'object_ids' => $postID
+			));
+			$series = $termQuery->query(array(
+				'taxonomy' => 'series',
+				'object_ids' => $postID
+			));
+			$tags = $termQuery->query(array(
+				'taxonomy' => 'post_tag',
+				'object_ids' => $postID
+			));
+			$scripture = get_post_meta($postID, 'scripture');
+			$permalink = get_permalink($postID);
+
+			$lines = array();
+			if (count($teachers) > 0) {
+				$elements = array();
+				$value = "Teacher: ";
+				foreach ($teachers as $teacher) {
+					$elements[] = $teacher->name;
+				}
+				$value .= implode(', ', $elements);
+				$lines[] = $value;
+			}
+			if (count($series) > 0) {
+				$lines[] = "Series: " . $series[0]->name;
+			}
+			if (count($tags) > 0) {
+				$elements = array();
+				$value = "Tags: ";
+				foreach ($tags as $tag) {
+					$elements[] = $tag->name;
+				}
+				$value .= implode(', ', $elements);
+				$lines[] = $value;
+			}
+			if (count($scripture) > 0) {
+				$lines[] = 'Scripture: ' . $scripture[0];
+			}
+			$lines[] = 'View Post: ' . $permalink;
+			if (count($lines) > 0) {
+				$content .= " // " . implode(" | ", $lines);
+			}
 		}
 		return $content;
 	}
