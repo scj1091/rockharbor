@@ -205,7 +205,9 @@ class RockharborThemeBase {
 		include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
 		// re-add the filter to display the event title as the page title
 		// this makes it show up in the breadcrumbs
-		add_filter( 'the_title', 'ccbpress_single_event_the_title', 10, 2 );
+		if (function_exists('ccbpress_single_event_the_title')) {
+			add_filter( 'the_title', 'ccbpress_single_event_the_title', 10, 2 );
+		}
 	}
 
 /**
