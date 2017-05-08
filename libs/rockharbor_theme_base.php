@@ -319,6 +319,22 @@ class RockharborThemeBase {
 				$content .= " // " . implode(" | ", $lines);
 			}
 		}
+
+		// Add feature image and staff meta details to content body for app staff directory
+		if ( is_feed() && ( get_post_type() == 'staff' ) ) {
+			$meta = $this->metaToData( get_the_ID() );
+			$metaHtml = '';
+			foreach ( array( 'email' => 'Email', 'phone' => 'Phone', 'department' => 'Department', 'title' => 'Job Title', 'hometown' => 'Hometown', 'family' => 'Family' ) as $metaKey => $displayName) {
+				if ( !empty( $meta[$metaKey] ) ) {
+					$metaHtml .= "<strong>$displayName</strong>: $meta[$metaKey]<br />";
+				}
+			}
+			$imageUrl = get_the_post_thumbnail_url();
+			$imageHtml = empty( $imageUrl ) ? '' : "<a href=\"$imageUrl\"><img src=\"$imageUrl\" /></a><br /><br />";
+			$metaHtml = empty( $metaHtml ) ? '' : "<h2><strong>DETAILS</strong></h2>" . $metaHtml;
+			$content = $imageHtml . $metaHtml . $content;
+		}
+
 		return $content;
 	}
 
@@ -739,7 +755,22 @@ class RockharborThemeBase {
 		if (is_category() || is_tag()) {
 			$query->set('post_type', get_post_types());
 		}
+		if ( is_feed() && ( $query->query_vars['post_type'] == 'staff' ) ) {
+			// It's impossible to unset posts_per_page so we'll just pick a high number
+			// #YAWPH
+			$query->set('posts_per_rss', 500);
+			$query->set('posts_per_page', 500);
+		}
 		return $query;
+	}
+
+/**
+ * Overrides number of posts for staff feed
+ * @param  none
+ * @return int
+ */
+	public function staff_feed_posts() {
+		return -1;
 	}
 
 /**
