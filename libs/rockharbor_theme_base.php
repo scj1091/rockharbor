@@ -186,6 +186,7 @@ class RockharborThemeBase {
 
 		// other
 		add_filter('pre_get_posts', array($this, 'aggregateArchives'));
+		add_filter('pre_get_posts', array($this, 'staffFeedSort'));
 		add_filter('wp_get_attachment_url', array($this, 's3Url'));
 		add_filter('wp_calculate_image_srcset', array($this, 'responsiveS3Urls'));
 		add_action('get_header', array($this, 'sendHeaders'), 10, 1);
@@ -332,7 +333,7 @@ class RockharborThemeBase {
 			$imageUrl = get_the_post_thumbnail_url();
 			$imageHtml = empty( $imageUrl ) ? '' : "<a href=\"$imageUrl\"><img src=\"$imageUrl\" /></a><br /><br />";
 			$metaHtml = empty( $metaHtml ) ? '' : "<h2><strong>DETAILS</strong></h2>" . $metaHtml;
-			$content = $imageHtml . $metaHtml . $content;
+			$content = $metaHtml . $content . $imageHtml;
 		}
 
 		return $content;
@@ -765,12 +766,15 @@ class RockharborThemeBase {
 	}
 
 /**
- * Overrides number of posts for staff feed
- * @param  none
- * @return int
+ * Overrides sort order for staff feed (by name, first)
+ * @param  WP_Query
+ * @return WP_Query
  */
-	public function staff_feed_posts() {
-		return -1;
+	public function staffFeedSort( $query ) {
+		if ( is_feed() && ( get_query_var( 'post_type' ) == 'staff' ) ) {
+			$query->set( 'orderby', 'title' );
+			$query->set( 'order', 'ASC' );
+		}
 	}
 
 /**
