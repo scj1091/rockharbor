@@ -58,7 +58,7 @@ src="https://www.facebook.com/tr?id=151499425391027&ev=PageView&noscript=1"
 <link rel="apple-touch-icon-precomposed" href="<?php echo $theme->info('url'); ?>/img/appicon-114.png" />
 <!-- iOS & Android app install banners -->
 <meta name="apple-itunes-app" content="app-id=1230114218" />
-<link rel="manifest" href="/android_app_manifest.json" />
+<link rel="manifest" href="<?php echo $theme->info('url'); ?>/android_app_manifest.json" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <!--<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>-->
 <!--[if lt IE 9]>
