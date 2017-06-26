@@ -380,64 +380,8 @@ nav.submenu ul {
 
 /*= Home content
 -----------------------------------------*/
-.home #frontpage-sidebar {
-	float: none;
-	width: 100%;
-	margin-top: 10px;
-}
-
-.home #frontpage-sidebar:after {
-	clear: both;
-	content: ' ';
-	display: block;
-	visibility: hidden;
-	width: 0;
-	height: 0;
-
-	font-size: 0;
-	line-height: 0;
-}
-
-.home #frontpage-sidebar aside {
-	/*width: 49%;*/
-}
-
-.home #frontpage-sidebar aside:nth-child(odd) {
-	margin-right: 1%;
-}
-
-.home #frontpage-sidebar aside:nth-child(even) {
-	margin-left: 1%;
-}
-
-.home #frontpage-content {
-	float: none;
-	width: 100%;
-	margin: 0;
-	padding-bottom: 10px;
-}
-
-#frontpage-content header h1,
-#frontpage-sidebar header h1,
 #featured header h1 {
 	display: inline-block;
-}
-
-
-/*= CORE
------------------------------------------*/
-.core-events time {
-	clear: both;
-	float: left;
-	width: 30%;
-	padding-right: 2%;
-
-	text-align: right;
-}
-
-.core-events a {
-	float: right;
-	width: 68%;
 }
 
 }

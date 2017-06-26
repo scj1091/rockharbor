@@ -11,7 +11,6 @@ global $wp_rewrite, $wp_query, $more, $wpdb, $post;
 
 get_header();
 ?>
-    <?php if( $theme->info('name') === "" ) echo $theme->render('campus-popup'); ?>
         <section id="faq" role="complementary" class="clearfix">
             <?php echo $theme->render('home-faq'); ?>
         </section>

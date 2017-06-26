@@ -90,29 +90,6 @@ section header {
 
 .home #main { padding: 0 20px; }
 
-.home #frontpage-content {
-	float: none;
-	width: 100%;
-	margin: 0;
-}
-
-.home #frontpage-sidebar {
-	float: none;
-	width: 100%;
-}
-
-.home #frontpage-sidebar aside {
-	float: none;
-	width: 100%;
-	margin: 0;
-	margin-bottom: 10px;
-}
-
-.home #frontpage-sidebar aside:nth-child(even) {
-	margin: 0;
-	margin-bottom: 10px;
-}
-
 #featured {
 	margin-top: 0;
 }
@@ -126,7 +103,6 @@ section header {
 
 	text-align: left;
 }
-
 
 .home .home-title {
 	border-bottom: 2px solid #E6E6E6;
@@ -149,12 +125,9 @@ section header {
 	margin-bottom: 10px;
 }
 
-#frontpage-content header h1,
-#frontpage-sidebar header h1,
 #featured header h1 {
 	display: block;
 }
-
 
 #map .global-location {
 	padding: 50px 0;

@@ -529,14 +529,6 @@ th {
 	display: block;
 }
 
-.global-navigation .campus-list {
-	padding: 5px;
-
-	background: #f2f2f2;
-
-	box-shadow: 0px 2px 1px 0px #888888;
-}
-
 .global-navigation #searchform {
 	margin-left: 10px;
     float: left;
@@ -1118,70 +1110,6 @@ footer #mc-embedded-subscribe:hover {
 
 /*= Home content
 -----------------------------------------*/
-.home #frontpage-content {
-	float: left;
-	width: 60%;
-	margin-right: 2%;
-
-	background: #ffffff;
-
-	box-shadow: 0px 0px 3px 0px #888888;
-}
-
-.home #frontpage-sidebar {
-	/*float: right;*/
-	width: 100%;
-}
-
-.home #frontpage-sidebar .image-grid > div {
-    display: inline-block;
-    width: 24.25%;
-    margin-right: 1%;
-}
-.home #frontpage-sidebar .image-grid img {
-    width: 100%;
-}
-.home #frontpage-sidebar .image-grid > div:last-child {
-    margin-right: 0;
-}
-.home #frontpage-sidebar aside header h1 {
-	font-size: 2em;
-}
-.home #frontpage-sidebar .widget-body {
-    padding: 0;
-}
-.home #frontpage-sidebar .widget-body .image {
-    position: relative;
-    margin-top: 50px;
-}
-.home #frontpage-sidebar .widget-body h3 {
-    font-size: 1.3em;
-    max-width: 100%;
-    position: absolute;
-    top: -40px;
-}
-.home #frontpage-sidebar .core-events time {
-	clear: both;
-	float: left;
-	width: 38%;
-	padding-right: 2%;
-	margin-top: 0;
-
-	text-align: right;
-}
-
-.home #frontpage-sidebar .core-events a {
-	float: right;
-	width: 60%;
-}
-
-.home #frontpage-content article {
-	width: 96%;
-	margin: 2%;
-	padding: 0;
-	margin-top: 0;
-}
-
 .home #main {
 	background: transparent;
     padding: 0 30px;
@@ -1303,7 +1231,7 @@ footer #mc-embedded-subscribe:hover {
 }
 #map .one-third.last { border: none; }
 
-a.google-directions, .campus-list a.google-directions {
+a.google-directions {
 	display: block;
 	color: white;
 
@@ -1313,7 +1241,6 @@ a.google-directions, .campus-list a.google-directions {
 	text-transform: none;
 	padding: 0;
 }
-.campus-list a.google-directions { font-size: 1.3em !important; }
 
 #mission {
     /*text-align: center; //old mission statement was text
@@ -1777,58 +1704,6 @@ input[type="search"]::-webkit-search-cancel-button {
 -----------------------------------------*/
 .fb_iframe_widget {
 	vertical-align: top;
-}
-
-/*= Campus menu
------------------------------------------*/
-.campus-list a {
-	display: block;
-	padding: 6px;
-	margin: 0;
-
-	font-family: 'Montserrat', Arial, sans-serif;
-	text-decoration: none;
-	font-size: 2.4em !important; /*= 28px */
-	text-transform: uppercase;
-}
-
-.campus-list a:hover {
-	text-decoration: none !important;
-}
-
-.campus-list .costamesa {
-	background: #B5371A;
-
-	color: #F45125;
-}
-
-.campus-list .mission-viejo {
-	background: #5DDBCF;
-
-	color: #43A3A0;
-}
-
-.campus-list .fullerton {
-	background: #ADA19A;
-
-	color: #967666;
-}
-
-.campus-list .huntington-beach {
-	background: #F7D614;
-
-	color: #E58F05;
-}
-
-.campus-list .orange {
-	background: #FF900B;
-
-	color: #F46800;
-}
-
-.campus-list .global {
-	background: #1C9DC2;
-	color: #0D6078;
 }
 
 /*= Slider styling (slick)
