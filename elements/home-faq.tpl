@@ -1,10 +1,5 @@
 
 
-    <div class="home-title clearfix">
-      <div class="icon icon-faq"></div>
-      <h2 class="faq-title">Frequently Asked Questions</h2>
-    </div>
-
     <div class="faq-slides">
     <?php
         if ( have_rows( 'faq') ) :
