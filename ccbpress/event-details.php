@@ -2,27 +2,32 @@
 wp_dequeue_script('leaflet');
 wp_dequeue_style('leaflet');
 $min = WP_DEBUG ? '' : '.min';
-wp_register_style('individual-events', trailingslashit(get_template_directory_uri()) . "css/individual-events{$min}.css");
-wp_enqueue_style('individual-events');
+wp_register_style('event-details', trailingslashit(get_template_directory_uri()) . "css/event-details{$min}.css");
+wp_enqueue_style('event-details');
  ?>
-<div class="rh-ccbpress-single-event">
-	<div class="rh-ccbpress-single-event-header">
-		<div id="rh-ccbpress-clock"></div><div class="rh-ccbpress-event-recurrence-description clearfix"><?php echo ccbpress_event_recurrence_desc( $event ); ?></div>
+<div class="rh-ccbpress-event-details">
+	<div class="rh-ccbpress-event-details-header">
+		<div id="rh-ccbpress-clock"></div><div class="rh-ccbpress-event-recurrence-description clearfix"><?php echo $template->recurrence_desc( $event ) ; ?></div>
 	</div>
-    <?php if (get_option('ccbpress_individual_event_show_image', '1') && ccbpress_has_event_image($event)): ?>
+    <?php if (get_option('ccbpress_individual_event_show_image', '1') && $template->has_event_image( $event ) ): ?>
         <div class="rh-ccbpress-event-image"><img src="<?php echo $event->image; ?>" /></div>
-    <?php endif;?>
+    <?php endif; ?>
 	<div class="rh-ccbpress-event-description"><?php echo wpautop( $event->description, true ); ?></div>
+    <?php if ( $event->organizer != ''): ?>
     <div class="rh-ccbpress-event-organizer"><span>Event organizer: <?php echo $event->organizer; ?></span>&nbsp;
-        <a href="tel:+1<?php echo preg_replace("/[^0-9]/", "", $event->phone);?>"><?php echo $event->phone; ?></a></div>
-	<?php
+        <?php if ( $event->phone != '' ): ?>
+        <a href="tel:+1<?php echo preg_replace("/[^0-9]/", "", $event->phone);?>"><?php echo $event->phone; ?></a>
+        <?php endif; ?>
+    </div>
+    <?php
+    endif;
 	global $post;
 	$pageUrl = get_permalink($post->ID);
 	$eventID = get_query_var('ccbpress_event_id');
 	$pageUrl = rawurlencode($pageUrl . '?ccbpress_event_id=' . $eventID);
 	?>
 	<div class="rh-ccbpress-rsvp">
-		<a href="<?php echo 'https://rockharbor.ccbchurch.com/w_calendar.php#events/' . $event['id']; ?>" class="rh-button">RSVP</a>
+		<a href="<?php echo 'https://rockharbor.ccbchurch.com/w_calendar.php#events/' . $eventID; ?>" class="rh-button">RSVP</a>
 	</div>
 	<div class="rh-ccbpress-share">
 		<h3>SHARE</h3>&nbsp;<a class="share facebook" href="<?php echo "http://www.facebook.com/sharer.php?u=$pageUrl&t=$event->name"?>"><span class="icon icon-facebook"></span></a>
@@ -39,7 +44,7 @@ wp_enqueue_style('individual-events');
 	/**
 	 * Check if there are any registration forms attached to the event
 	 */
-	if ( $event->registration->forms->registration_form ) :  ?>
+	if ( $event->registration_forms ) :  ?>
 		<?php
 		/**
 		 * Start the output buffer
@@ -93,7 +98,7 @@ wp_enqueue_style('individual-events');
 	/**
 	 * Check if there are any exceptions for this event
 	 */
-	if ( $event->exceptions->exception ) : ?>
+	if ( $template->has_exceptions( $event ) ) : ?>
 		<?php
 		/**
 		 * Start the output buffer
@@ -112,13 +117,13 @@ wp_enqueue_style('individual-events');
 					/**
 					 * Loop through each exception
 					 */
-					foreach ( $event->exceptions->exception->date as $exception_date ) : ?>
+					foreach ( $event->exceptions->exception as $exception ) : ?>
 						<?php
 						/**
 						 * Check if the exception is in the future
 						 */
-						if ( ccbpress_is_future_date( $exception_date ) ) :
-							$objDate = DateTime::createFromFormat('Y-m-d', $exception_date); ?>
+						if ( $template->is_future_date( $exception ) ) :
+							$objDate = DateTime::createFromFormat('Y-m-d', $exception); ?>
 							<li><?php echo date('l F j, Y', $objDate->getTimestamp()); ?></li>
 							<?php
 							/**
@@ -148,17 +153,17 @@ wp_enqueue_style('individual-events');
 	/**
 	 * Check if there are is a location for this event
 	 */
-	if ( $event->location->name ) :
-        $cleanLocationName = str_replace(array("\r\n", "\r", "\n"), "<br/>", @$event->location->name);
-        $cleanAddress1 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location->line_1);
-        $cleanAddress2 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location->line_2);
+	if ( $event->location_name ) :
+        $cleanLocationName = str_replace(array("\r\n", "\r", "\n"), "<br/>", @$event->location_name);
+        $cleanAddress1 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location_line_1);
+        $cleanAddress2 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location_line_2);
 		$markerTitle = ($cleanLocationName != '') ? $cleanLocationName : trim($cleanAddress1);
 		$addressString = '<div style=\"line-height: 1.35; overflow: hidden; white-space: nowrap\">' . $cleanLocationName . '</br>' . trim($cleanAddress1) .
 			'<br/>' . trim($cleanAddress2) . '</div>'; ?>
 		<div class="rh-ccbpress-event-location rh-event-info-box">
 			<div class="rh-ccbpress-event-location-header rh-event-info-box-header"><?php _e('Location:', 'ccbpress'); ?></div>
-			<div id="google-map" data-address="<?php echo $event->location->line_1 . $event->location->line_2; ?>"></div>
-			<div class="rh-ccbpress-event-location-nomap"><?php echo ccbpress_map_label_from_event( $event->location ); ?></div>
+			<div id="google-map" data-address="<?php echo $event->location_line_1 . $event->location_line_2; ?>"></div>
+			<div class="rh-ccbpress-event-location-nomap"><?php echo $template->map_label( $event->location_name, $event->location_line_1, $event->location_line_2 ); ?></div>
 		</div>
 		<script type="text/javascript">
 		function initMap() {
@@ -187,6 +192,11 @@ wp_enqueue_style('individual-events');
 				}
 			});
 		}
+        // Fix titles without hacking plugin
+        jQuery(document).ready(function() {
+            var eventName = "<?php echo $event->name; ?>";
+            jQuery('.breadcrumbs').append('&nbsp;/&nbsp;<span class="crumb"><?php echo $event->name; ?></span>');
+        });
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3HEVaDRiRa_VcrpVYpfrwlYcz2MRccBc&signed_in=false&callback=initMap" async defer></script>
 	<?php endif; ?>

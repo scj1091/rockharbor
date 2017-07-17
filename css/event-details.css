@@ -1,16 +1,16 @@
 /* CCBPress */
-.rh-ccbpress-single-event {
+.rh-ccbpress-event-details {
 	max-width: 855px;
 	list-style: none;
 }
 
-.rh-ccbpress-single-event .rh-event-info-box {
+.rh-ccbpress-event-details .rh-event-info-box {
 	border: 1px solid #383838;
 	border-radius: 5px 5px 0 0;
 	margin-bottom: 10px;
 }
 
-.rh-ccbpress-single-event-header {
+.rh-ccbpress-event-details-header {
 	margin-bottom: 1.5em;
 }
 
@@ -55,7 +55,7 @@
 	display: inline;
 }
 
-.rh-ccbpress-single-event a.share {
+.rh-ccbpress-event-details a.share {
 	font-size: 2.4em;
 	margin: 0 5px;
 	color: #AFAFAF;
@@ -63,7 +63,7 @@
 	top: 5px;
 }
 
-.rh-ccbpress-single-event a.share:hover {
+.rh-ccbpress-event-details a.share:hover {
 	color: #888;
 }
 

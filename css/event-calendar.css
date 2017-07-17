@@ -1,0 +1,28 @@
+.ccbpress-event-calendar-header {
+	background-color: #efefef;
+}
+
+.ccbpress-event-calendar-footer, .ccbpress-event-calendar-footer a, .ccbpress-event-calendar-footer a:visited,
+.ccbpress-event-calendar-month, .ccbpress-event-calendar-days td ul li .ccbpress-event-calendar-all-day-event,
+.ccbpress-event-calendar-days td ul li a.ccbpress-event-calendar-all-day-event,
+.ccbpress-event-calendar-days td ul li a.ccbpress-event-calendar-all-day-event:visited,
+.ccbpress-event-calendar-mobile-events li a.ccbpress-event-calendar-all-day-event,
+.ccbpress-event-calendar-mobile-events li a.ccbpress-event-calendar-all-day-event:visited,
+.ccbpress-event-calendar-prev-month a, .ccbpress-event-calendar-prev-month a:visited, .ccbpress-event-calendar-next-month a,
+.ccbpress-event-calendar-next-month a:visited {
+	color: #383838 !important;
+}
+
+.ccbpress-event-calendar-date, .ccbpress-event-calendar-days td ul li a, .ccbpress-event-calendar-close a,
+.ccbpress-event-calendar-table .ccbpress-event-time, .ccbpress-event-calendar-mobile-events li a,
+.ccbpress-event-calendar-more-link a {
+	color: #383838 !important;
+}
+
+ul.chosen-results li {
+	font-size: 14px;
+}
+
+a.ccbpress-event-calendar-all-day-event {
+	border-bottom: 1px solid white !important;
+}

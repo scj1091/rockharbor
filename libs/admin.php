@@ -65,6 +65,7 @@ class Admin {
 		add_meta_box('media-options', 'Media', array($this, 'mediaMetaBox'), 'post', 'normal');
 		add_meta_box('template-options', 'Template Options', array($this, 'templateOptionsMetaBox'), 'page', 'side');
 		add_meta_box('cross-post', 'Cross-site Posting', array($this, 'crossPostMetaBox'), 'post', 'side');
+		add_meta_box('myrh-upcoming-events', 'MyRH Upcoming Events', array($this, 'myrhUpcomingEvents'), 'page', 'side');
 
 		// add tags to 'page' post type
 		add_meta_box('tagsdiv-post_tag', __('Page Tags'), 'post_tags_meta_box', 'page', 'side');
@@ -425,6 +426,15 @@ class Admin {
 		global $post;
 		$this->theme->set('data', $this->theme->metaToData($post->ID));
 		echo $this->theme->render('admin'.DS.'template_options_meta_box');
+	}
+
+/**
+ * Renders the MyRH upcoming events meta box
+ */
+	public function myrhUpcomingEvents() {
+		global $post;
+		$this->theme->set('data', $this->theme->metaToData($post->ID));
+		echo $this->theme->render('admin'.DS.'myrh_upcoming_events_meta_box');
 	}
 
 }

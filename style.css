@@ -1117,6 +1117,25 @@ footer #mc-embedded-subscribe:hover {
 	display: inline-block;
 }
 
+div.rh-upcoming-events {
+	float: right;
+	width: 27.5%;
+	margin-left: 2.5%;
+	min-height: 200px;
+}
+
+div.narrow-entry-content {
+	width: 70%;
+	float: left;
+}
+
+div.ccbpress_upcoming_events_graphical_date {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+
 /*= Home content
 -----------------------------------------*/
 .home #main {

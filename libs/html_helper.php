@@ -134,7 +134,8 @@ class HtmlHelper {
 			'after' => '',
 			'between' => '',
 			'div' => true,
-			'required' => false
+			'required' => false,
+			'attrs' => array()
 		);
 		$options = array_merge($_default, $options);
 		if ($options['type'] == 'checkbox' && $options['value'] === null) {
@@ -188,7 +189,7 @@ class HtmlHelper {
 		if (!empty($before)) {
 			$out .= $before;
 		}
-		if ($options['label'] !== false && (empty($options['options']) || $options['type'] == 'select')) {
+		if ($options['label'] !== false) {
 			$out .= $this->tag('label', $options['label'], array(
 				'for' => $options['id'],
 				'class' => 'description'
@@ -204,6 +205,9 @@ class HtmlHelper {
 		unset($options['type']);
 		$div = $options['div'];
 		unset($options['div']);
+		$attrs = $options['attrs'];
+		unset($options['attrs']);
+		$options = array_merge($attrs, $options);
 		switch ($type) {
 			case 'select':
 				$selected = isset($options['value']) ? $options['value'] : '';

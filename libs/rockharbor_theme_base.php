@@ -201,14 +201,7 @@ class RockharborThemeBase {
 		//We've disabled XML-RPC, so don't link to it in the header
 		remove_action( 'wp_head', 'rsd_link' );
 
-		// include modified RH events output file
-		// this is janky but unfortunately this file is not extendable like the templates
-		include(get_template_directory() . '/ccbpress/ccbpress_events_output.php');
-		// re-add the filter to display the event title as the page title
-		// this makes it show up in the breadcrumbs
-		if (function_exists('ccbpress_single_event_the_title')) {
-			add_filter( 'the_title', 'ccbpress_single_event_the_title', 10, 2 );
-		}
+		require_once( get_template_directory() . '/ccbpress/rh-ccbpress-event-calendar-output.php' );
 	}
 
 /**
@@ -568,6 +561,7 @@ class RockharborThemeBase {
 		wp_register_style('slick', "$base/css/slick-1.5.8{$min}.css", array('base'));
 		wp_register_style('sidebarStyles', "$base/css/sidebar-menu{$min}.css", array('base'));
 		wp_register_style('comments', "$base/css/comments{$min}.css", array('base'));
+		wp_register_style( 'event-calendar', "$base/css/event-calendar{$min}.css", array( 'base' ) );
 		$base = $this->info('url');
 		wp_register_style('child_base', "$base/style.css", array('base'));
 
@@ -582,6 +576,9 @@ class RockharborThemeBase {
 		wp_enqueue_style('mobile');
 		wp_enqueue_style('slick');
 		wp_enqueue_style('sidebarStyles');
+		if ( is_page ( get_option( 'ccbpress_event_calendar_page' ) ) ) {
+			wp_enqueue_style( 'event-calendar' );
+		}
 
 		wp_enqueue_script('jquery-core');
 		if (WP_DEBUG) {

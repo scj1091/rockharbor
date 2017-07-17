@@ -44,7 +44,7 @@ if (is_archive()) {
 }
 
 if (!is_archive()) {
-	$crumbs[] = get_the_title();
+	$crumbs[] = isset($ccbpress_individual_event_page_title) ? $ccbpress_individual_event_page_title : get_the_title();
 }
 
 foreach ($crumbs as $key => $crumb) {

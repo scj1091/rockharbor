@@ -68,106 +68,106 @@ jQuery(document).ready(function() {
 	jQuery("#ccbpress_childcare_available, #ccbpress_exclude_full").rhToggleButton();
 });
 </script>
-<form method="post" action="<?php echo $ccbpress['page_permalink']; ?>">
+<form method="post" action="<?php echo $data['page_permalink']; ?>">
 	<?php
 	/**
 	 * Check to see if the campus list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_campus_list( $ccbpress['campus_list_dropdown'] ) ) : ?>
+	if ( $template::show_campus( $data['campus_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['campus_list_dropdown']; ?>
+			<?php echo $data['campus_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the area list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_area_list( $ccbpress['area_list_dropdown'] ) ) : ?>
+	if ( $template::show_area( $data['area_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['area_list_dropdown']; ?>
+			<?php echo $data['area_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the meet day list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_meet_day_list( $ccbpress['meet_day_list_dropdown'] ) ) : ?>
+	if ( $template::show_meet_day( $data['meet_day_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['meet_day_list_dropdown']; ?>
+			<?php echo $data['meet_day_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the meet time list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_meet_time_list( $ccbpress['meet_time_list_dropdown'] ) ) : ?>
+	if ( $template::show_meet_time( $data['meet_time_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['meet_time_list_dropdown']; ?>
+			<?php echo $data['meet_time_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the department list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_department_list( $ccbpress['department_list_dropdown'] ) ) : ?>
+	if ( $template::show_department( $data['department_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['department_list_dropdown']; ?>
+			<?php echo $data['department_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the group type list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_group_type_list( $ccbpress['group_type_list_dropdown'] ) ) : ?>
+	if ( $template::show_group_type( $data['group_type_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['group_type_list_dropdown']; ?>
+			<?php echo $data['group_type_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the udf_grp_pulldown_1 list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_udf_grp_pulldown_1_list( $ccbpress['udf_grp_pulldown_1_list_dropdown'] ) ) : ?>
+	if ( $template::show_udf_grp_pulldown_1( $data['udf_grp_pulldown_1_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['udf_grp_pulldown_1_list_dropdown']; ?>
+			<?php echo $data['udf_grp_pulldown_1_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the udf_grp_pulldown_2 list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_udf_grp_pulldown_2_list( $ccbpress['udf_grp_pulldown_2_list_dropdown'] ) ) : ?>
+	if ( $template::show_udf_grp_pulldown_2( $data['udf_grp_pulldown_2_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['udf_grp_pulldown_2_list_dropdown']; ?>
+			<?php echo $data['udf_grp_pulldown_2_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the udf_grp_pulldown_3 list should be displayed.
 	 */
-	if ( ccbpress_group_search_show_udf_grp_pulldown_3_list( $ccbpress['udf_grp_pulldown_3_list_dropdown'] ) ) : ?>
+	if ( $template::show_udf_grp_pulldown_3( $data['udf_grp_pulldown_3_list_dropdown'] ) ) : ?>
 		<div class="ccbpress-group-search-filter">
-			<?php echo $ccbpress['udf_grp_pulldown_3_list_dropdown']; ?>
+			<?php echo $data['udf_grp_pulldown_3_list_dropdown']; ?>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the childcare checkbox should be displayed.
 	 */
-	if ( ccbpress_group_search_show_childcare() ) : ?>
+	if ( $template::show_childcare() ) : ?>
 		<div class="ccbpress-group-search-filter group-search-line-break group-search-checkbox">
 			<label><?php _e( 'Only Groups with Childcare', 'ccbpress' ); ?></label>
-			<input type="checkbox" id="ccbpress_childcare_available" name="childcare" value="1" <?php ccbpress_group_search_childcare_checked(); ?>/>
+			<input type="checkbox" id="ccbpress_childcare_available" name="childcare" value="1" <?php $template::childcare_checked(); ?>/>
 		</div>
 	<?php endif; ?>
 	<?php
 	/**
 	 * Check to see if the exclude full groups checkbox should be displayed.
 	 */
-	if ( ccbpress_group_search_show_exclude_full_groups() ) : ?>
+	if ( $template::show_exclude_full_groups() ) : ?>
 		<div class="ccbpress-group-search-filter group-search-checkbox">
 			<label><?php _e( 'Exclude Full Groups', 'ccbpress' ); ?></label>
-			<input type="checkbox" id="ccbpress_exclude_full" name="exclude_full" value="1" <?php ccbpress_group_search_exclude_full_checked(); ?>/>
+			<input type="checkbox" id="ccbpress_exclude_full" name="exclude_full" value="1" <?php $template::exclude_full_checked(); ?>/>
 		</div>
 	<?php endif; ?>
 	<div class="ccbpress-group-search-button">

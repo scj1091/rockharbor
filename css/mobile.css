@@ -63,6 +63,16 @@ section header {
 	display: block;
 }
 
+div.rh-upcoming-events {
+	margin: 0px;
+	width: 100%;
+	float: none;
+}
+
+div.narrow-entry-content {
+	float: none;
+}
+
 /*= Main navigation
 -----------------------------------------*/
 
