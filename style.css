@@ -1108,6 +1108,15 @@ footer #mc-embedded-subscribe:hover {
 	margin-top: 20px;
 }
 
+.app-store-badge {
+	padding: 0 25px;
+	margin-bottom: 10px;
+}
+
+.app-store-badge a {
+	display: inline-block;
+}
+
 /*= Home content
 -----------------------------------------*/
 .home #main {

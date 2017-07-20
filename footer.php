@@ -16,6 +16,21 @@ $themeInfo = $theme->info();
         <div class="desktop-hide tablet-hide mobile-newsletter clearfix">
             <?php echo $theme->render('newsletter'); ?>
         </div>
+        <div class="desktop-hide tablet-hide clearfix">
+            <div class="app-store-badge">
+                <a href="https://itunes.apple.com/us/app/rockharbor/id1230114218?mt=8">
+                    <?php echo $theme->Html->image( 'apple_app_store_badge.svg', array( 'alt' => 'Download the ROCKHARBOR App on the App Store for iPhone and iPad', 'class' => 'svg-logo', 'parent' => true ) ); ?>
+                </a>
+            </div>
+            <div class="app-store-badge">
+                <a href="https://play.google.com/store/apps/details?id=io.echurch.rockharborc&hl=en">
+                    <?php echo $theme->Html->image( 'google_play_web_badge.png', array( 'alt' => 'Get the ROCKHARBOR App on Google Play', 'parent' => true ) ); ?>
+                </a>
+            </div>
+        </div>
+        <div class="desktop-hide tablet-hide clearfix">
+            <!---->
+        </div>
         <div class="clearfix">
             <div class="one-fourth">
                 <h3>Office Location</h3>
@@ -65,6 +80,18 @@ $themeInfo = $theme->info();
             </div>
             <div class="one-half mobile-hide">
                 <?php echo $theme->render('newsletter'); ?>
+            </div>
+            <div class="one-fourth mobile-hide last">
+                <div class="app-store-badge">
+                    <a href="https://itunes.apple.com/us/app/rockharbor/id1230114218?mt=8">
+                        <?php echo $theme->Html->image( 'apple_app_store_badge.svg', array( 'alt' => 'Download the ROCKHARBOR App on the App Store for iPhone and iPad', 'class' => 'svg-logo', 'parent' => true ) ); ?>
+                    </a>
+                </div>
+                <div class="app-store-badge">
+                    <a href="https://play.google.com/store/apps/details?id=io.echurch.rockharborc&hl=en">
+                        <?php echo $theme->Html->image( 'google_play_web_badge.png', array( 'alt' => 'Get the ROCKHARBOR App on Google Play', 'parent' => true ) ); ?>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
