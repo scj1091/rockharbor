@@ -1,3 +1,7 @@
 th > p {
     font-weight: normal;
 }
+
+textarea {
+    resize: both;
+}

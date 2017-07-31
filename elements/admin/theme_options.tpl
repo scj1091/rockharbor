@@ -232,6 +232,17 @@ if (!isset($_REQUEST['settings-updated'])) {
 			</tr>
 			<tr valign="top">
 				<?php
+					echo $theme->Html->input('header_scripts', array(
+						'type' => 'textarea',
+						'before' => '<th>',
+						'label' => 'Header sripts',
+						'between' => '</th><td>',
+						'after' => '<br/><small>Google Analytics, Facebook Pixel, etc.</small></td>'
+					));
+				?>
+			</tr>
+			<tr valign="top">
+				<?php
 					echo $theme->Html->input('feedburner_main', array(
 						'before' => '<th>',
 						'label' => 'Main Feedburner Link ID',
@@ -285,16 +296,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 						'type' => 'password',
 						'before' => '<th>',
 						'label' => 'Amazon S3 Secret Access Key',
-						'between' => '</th><td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
-				<?php
-					echo $theme->Html->input('zopim_script', array(
-						'type' => 'textarea',
-						'before' => '<th>',
-						'label' => 'Zopim Chat initialization script',
 						'between' => '</th><td>'
 					));
 				?>
