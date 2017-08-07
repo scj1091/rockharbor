@@ -1,5 +1,4 @@
 <?php
-xdebug_break();
 $faqOut = '';
 $faqHeader = false;
 if ( have_rows( 'faq' ) ) :
