@@ -171,6 +171,6 @@ jQuery(document).ready(function() {
 		</div>
 	<?php endif; ?>
 	<div class="ccbpress-group-search-button">
-		<button type="submit" name="ccbpress_submit" title="Search"><?php _e( 'Search', 'ccbpress' ); ?></button>
+		<button type="submit" name="ccbpress_submit" title="Refresh"><?php _e( 'Refresh', 'ccbpress' ); ?></button>
 	</div>
 </form>
