@@ -132,7 +132,7 @@ jQuery(document).ready(function() {
 		exit: RH.mobileExit
 	});
 	mediaCheck({
-		media: '(max-width: 1025px)',
+		media: '(max-width: 1200px)',
 		entry: RH.tabletEnter,
 		exit: RH.tabletExit
 	});
