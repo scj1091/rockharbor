@@ -311,16 +311,6 @@ if (!isset($_REQUEST['settings-updated'])) {
 				?>
 			</tr>
 			<tr valign="top">
-				<?php
-					echo $theme->Html->input('override_groupfinder_email', array(
-						'before' => '<th>',
-						'label' => 'Override group finder email',
-						'between' => '</th><td>',
-						'after' => '<br /><small>Replace the email group leader link with another link (http, mailto, etc)</small></td>'
-					));
-				?>
-			</tr>
-			<tr valign="top">
 				<th colspan="2"><h2>Archive Pages</h2><p>Special archive pages, usually created by shortcodes.</p></th>
 				<td></td>
 			</tr>

@@ -98,11 +98,6 @@ and (max-device-width: 675px) {
 </style>
 <div class="ccbpress-group-search">
 	<?php
-	global $theme;
-	$override_groupfinder_email = $theme->options('override_groupfinder_email');
-	if (isset($override_groupfinder_email) && $override_groupfinder_email != '') {
-		$contactHtml = $override_groupfinder_email;
-	}
 	/**
 	 * Loop through each result
 	 */
@@ -113,19 +108,20 @@ and (max-device-width: 675px) {
 				<div class="ccbpress-group-search-result-details<?php if ( $template::has_group_image( $group_profile ) ) { echo " group-has-image"; } ?>">
 					<div class="ccbpress-group-name clearfix">
 						<div class="ccbpress-group-name-large">
-							<?php echo $item->name; ?>
+							<?php echo esc_html( $item->name ); ?>
 						</div>
 						<?php if ( TRUE === ( $spots_available = $template::is_full( $group_profile ) ) ) : ?>
-							&nbsp;<span class="ccbpress-group-full">(Full Group)</span>
+							&nbsp;<span class="ccbpress-group-full"><?php esc_html_e( '(Full Group)', 'ccbpress-groups' ); ?></span>
 						<?php elseif ( $spots_available != 'unlimited' ) : ?>
-							&nbsp;<span class="ccbpress-group-spots-available">(<?php _n( '%s spot available', '%s spots available', $spots_available, 'ccbpress-groups' ) ?></span>
+							&nbsp;<span class="ccbpress-group-spots-available"><?php _n( '%s spot available', '%s spots available', $spots_available, 'ccbpress-groups' ) ?></span>
 						<?php endif; ?>
 						<div class="ccbpress-group-search-meta ccbpress-group-leader">
-							<?php if (isset($contactHtml)): ?>
-							<span class="dashicons dashicons-admin-links"></span> <?php echo $contactHtml; ?>
-							<?php else: ?>
-							<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $template::get_mailto( $group_profile ) ); ?>" target="_blank"<?php echo $esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
-							<?php endif; ?>
+							<?php if ($mailto = $template::get_mailto($group_profile)): ?>
+							<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $mailto . '?subject=Join Life Group'); ?>" target="_blank"<?php echo esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
+							<?php else:
+							esc_html_e( 'Leader: ', 'ccbpress-groups');
+							echo esc_html( $item->owner_name );
+							endif; ?>
 						</div>
 					</div>
 

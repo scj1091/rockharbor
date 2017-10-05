@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
 	jQuery("#ccbpress_childcare_available, #ccbpress_exclude_full").rhToggleButton();
 });
 </script>
-<form method="post" action="<?php echo $data['page_permalink']; ?>">
+<form method="post" action="<?php echo esc_url( $data['page_permalink'] ); ?>">
 	<?php
 	/**
 	 * Check to see if the campus list should be displayed.
