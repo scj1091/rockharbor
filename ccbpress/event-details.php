@@ -9,11 +9,11 @@ wp_enqueue_style('event-details');
 	<div class="rh-ccbpress-event-details-header">
 		<div id="rh-ccbpress-clock"></div><div class="rh-ccbpress-event-recurrence-description clearfix"><?php echo $template->recurrence_desc( $event ) ; ?></div>
 	</div>
-    <?php if (get_option('ccbpress_individual_event_show_image', '1') && $template->has_event_image( $event ) ): ?>
+    <?php if ((get_option('ccbpress_individual_event_show_image', '1') == '1') && $template->has_event_image( $event ) ): ?>
         <div class="rh-ccbpress-event-image"><img src="<?php echo $event->image; ?>" /></div>
     <?php endif; ?>
 	<div class="rh-ccbpress-event-description"><?php echo wpautop( $event->description, true ); ?></div>
-    <?php if ( $event->organizer != ''): ?>
+    <?php if ( (get_option('ccbpress_individual_event_show_organizer') == '1') && $event->organizer != ''): ?>
     <div class="rh-ccbpress-event-organizer"><span>Event organizer: <?php echo $event->organizer; ?></span>&nbsp;
         <?php if ( $event->phone != '' ): ?>
         <a href="tel:+1<?php echo preg_replace("/[^0-9]/", "", $event->phone);?>"><?php echo $event->phone; ?></a>
@@ -63,13 +63,13 @@ wp_enqueue_style('event-details');
 					/**
 					 * Loop through each registration form
 					 */
-					foreach( $event->registration->forms->registration_form as $registration_form ) : ?>
+					foreach( $event->registration_forms as $registration_form ) : ?>
 						<?php
 						/**
 						 * Only show it if the form is still active
 						 */
-						if ( ccbpress_is_form_active( $registration_form ) ) : ?>
-							<li><a href="<?php echo $registration_form->url; ?>" class="<?php echo ccbpress_lightbox_class(); ?>"><?php echo $registration_form->name; ?></a></li>
+						if ( $template->is_form_active( $registration_form ) ) : ?>
+							<li><a href="<?php echo $registration_form->url; ?>" class="<?php echo $template->lightbox_class(); ?>"><?php echo $registration_form->name; ?></a></li>
 							<?php
 							/**
 							 * Increase our registration form count by 1
@@ -123,7 +123,7 @@ wp_enqueue_style('event-details');
 						 * Check if the exception is in the future
 						 */
 						if ( $template->is_future_date( $exception ) ) :
-							$objDate = DateTime::createFromFormat('Y-m-d', $exception); ?>
+							$objDate = DateTime::createFromFormat('Y-m-d', $exception->date); ?>
 							<li><?php echo date('l F j, Y', $objDate->getTimestamp()); ?></li>
 							<?php
 							/**
@@ -195,7 +195,7 @@ wp_enqueue_style('event-details');
         // Fix titles without hacking plugin
         jQuery(document).ready(function() {
             var eventName = "<?php echo $event->name; ?>";
-            jQuery('.breadcrumbs').append('&nbsp;/&nbsp;<span class="crumb"><?php echo $event->name; ?></span>');
+            jQuery('.breadcrumbs').append('&nbsp;/&nbsp;<span class="crumb"><?php echo str_replace("'", "\'", $event->name); ?></span>');
         });
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3HEVaDRiRa_VcrpVYpfrwlYcz2MRccBc&signed_in=false&callback=initMap" async defer></script>
