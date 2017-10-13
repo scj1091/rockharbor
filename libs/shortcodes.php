@@ -28,6 +28,7 @@ class Shortcodes {
 		add_shortcode('service-times', array($this, 'serviceTimes'));
 		add_shortcode('address', array($this, 'address'));
 		add_shortcode('quick-contact', array($this, 'quickContact'));
+		add_shortcode('rh-groupfinder', array($this, 'rhGroupfinder'));
 	}
 
 /**
@@ -208,5 +209,62 @@ class Shortcodes {
 		return $plugin_array;
 	}
 
+/**
+ * Displays the CCBPress groupfinder, but provides more options
+ *
+ * @param array $atts
+ * @return string
+ */
+	public function rhGroupfinder($atts) {
+		//wp_enqueue_style( 'ccbpress-group-search', CCBPRESS_GROUPS_PLUGIN_URL . 'assets/css/group-search.css', array( 'dashicons' ), '1.0.0' );
+		//wp_enqueue_script( 'ccbpress-group-search', CCBPRESS_GROUPS_PLUGIN_URL . 'assets/js/group-search.js', array( 'jquery' ), '1.0.0' );
+
+		// set default attributes
+		$atts = shortcode_atts( array(
+			'campus_id'			=> null,
+			'area_id'			=> null,
+			'meet_day_id'		=> null,
+			'meet_time_id'		=> null,
+			'department_id'		=> null,
+			'group_type_id'		=> null,
+			'udf_1_id'			=> null,
+			'udf_2_id'			=> null,
+			'udf_3_id'			=> null,
+			'childcare'			=> 0,
+			'exclude_full'		=> 0,
+			'hide_search_form'	=> 'false',
+			'auto_search'		=> 'false',
+			'override_dropdown' => null
+		), $atts );
+
+		// Allow $_POST values to overwrite shortcode atts and defaults
+		//$atts = shortcode_atts($atts, $_POST);
+
+		$shortcode = "[ccbpress_group_search";
+		$overrideDropdown = $atts['override_dropdown'];
+		unset($atts['override_dropdown']);
+		foreach ($atts as $key => $value) {
+			// All => null
+			if ($value == 'all') {
+				$value = null;
+			}
+			if (!is_null($value)) {
+				$shortcode .= " ".$key."=\"".$value."\"";
+			}
+		}
+		if (!is_null($overrideDropdown) && ($overrideDropdown != '')) {
+			$overrides = explode(';', $overrideDropdown); // separate the overrides
+			foreach ($overrides as $override) {
+				list($key, $value) = explode('|', $override);
+				add_filter('pre_option_'.$key, function() use ($value) {
+					return $value;
+				});
+			}
+		}
+
+		//return apply_filters( 'ccbpress_group_search_output', $atts );
+		$shortcode .= ']';
+		return do_shortcode($shortcode);
+	}
 
 }
