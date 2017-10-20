@@ -32,8 +32,7 @@
 	margin-top: 5px;
 	padding-left: 0;
 }
-.ccbpress-group-name span.dashicons-admin-links,
-.ccbpress-group-name span.dashicons-email {
+.ccbpress-group-name span.dashicons {
 	font-size: 1em;
 }
 .ccbpress-group-search-meta-container {
@@ -104,6 +103,7 @@ and (max-device-width: 675px) {
 	foreach ( $data['search_results']->response->items->item as $item ) : ?>
 		<?php $data['is_valid_args']['item'] = $item; ?>
 		<?php if ( $group_profile = $template::is_valid( $data['is_valid_args'] ) ) : ?>
+			<?php /*echo "<pre>".print_r($group_profile)."</pre>";*/ ?>
 			<div class="ccbpress-group-search-result clearfix">
 				<div class="ccbpress-group-search-result-details<?php if ( $template::has_group_image( $group_profile ) ) { echo " group-has-image"; } ?>">
 					<div class="ccbpress-group-name clearfix">
@@ -117,11 +117,18 @@ and (max-device-width: 675px) {
 						<?php endif; ?>
 						<div class="ccbpress-group-search-meta ccbpress-group-leader">
 							<?php if ($mailto = $template::get_mailto($group_profile)): ?>
-							<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $mailto . '?subject=Join Life Group'); ?>" target="_blank"<?php echo esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
+							<div>
+								<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $mailto . '?subject=Join Life Group'); ?>" target="_blank"<?php echo esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
+							</div>
 							<?php else:
 							esc_html_e( 'Leader: ', 'ccbpress-groups');
 							echo esc_html( $item->owner_name );
-							endif; ?>
+							endif;
+							if (!empty($leaderPhone = $group_profile->main_leader_phones->phone->__toString())): ?>
+							<div>
+								<span class="dashicons dashicons-phone" style="transform: rotate(90deg);"></span> <a href="tel:+1<?php echo $leaderPhone; ?>"><?php echo $leaderPhone; ?></a>
+							</div>
+							<?php endif; ?>
 						</div>
 					</div>
 
