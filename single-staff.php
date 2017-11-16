@@ -38,7 +38,7 @@ the_post();
 								'family' => 'Family'
 							);
 							if (!empty($meta['email']) && is_email($meta['email'])) { $meta['email'] = "<a href=\"mailto:${meta['email']}\">" . $meta['email'] . '</a>'; }
-							if (!empty($meta['phone'])) { $meta['phone'] = "<a href=\"tel:+1" . preg_replace("/[\(\)\-\s+]/", '', $meta['phone']) . '">' . $meta['phone'] . '</a>'; }
+							if (!empty($meta['phone'])) { $meta['phone'] = "<a href=\"tel:+1" . preg_replace("/[\(\)\-\s+]/", '', wp_strip_all_tags($meta['phone'])) . '">' . wp_strip_all_tags($meta['phone']) . '</a>'; }
 							foreach ($metaLabels as $metaName => $metaLabel) {
 								if (!empty($meta[$metaName])) {
 									echo $theme->Html->tag('dt', $metaLabel.':');

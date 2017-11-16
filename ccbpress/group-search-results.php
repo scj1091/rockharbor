@@ -117,7 +117,7 @@ and (max-device-width: 675px) {
 						<?php endif; ?>
 						<div class="ccbpress-group-search-meta ccbpress-group-leader">
 							<?php if ($mailto = $template::get_mailto($group_profile)): ?>
-							<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $mailto . '?subject=Join Life Group'); ?>" target="_blank"<?php echo esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
+							<span class="dashicons dashicons-email"></span> <a href="<?php echo esc_attr( $mailto . '?subject=Join Small Group'); ?>" target="_blank"<?php echo esc_html( $data['lightbox_code'] ); ?>><?php echo esc_html( $item->owner_name ); ?></a>
 							<?php else:
 							esc_html_e( 'Leader: ', 'ccbpress-groups');
 							echo esc_html( $item->owner_name );
