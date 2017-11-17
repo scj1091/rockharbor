@@ -1,5 +1,16 @@
 <div class="meta-section">
 <p>
+	<strong>Hide this post from the Message Archive</strong><br />
+	<?php
+	echo $theme->Html->input('hide_from_message_archive', array(
+		'type' => 'checkbox',
+		'label' => 'Hide post',
+		'div' => false,
+		'value' => 1
+	));
+	echo '<br />'; ?>
+</p>
+<p>
 	<strong>Video Message URL</strong><br />
 	<a id="media_meta_video" title="Video Message" class="mceButton mceButtonEnabled" href="javascript:;" role="button" tabindex="-1" style="text-decoration: none;">
 		<img alt="Video Message" src="<?php echo $theme->info('base_url'); ?>/js/mceplugins/video.png" class="mceIcon" />

@@ -155,6 +155,7 @@ class Message extends PostType {
 
 				WHERE `$wpdb->term_taxonomy`.`taxonomy` = 'series'
 				AND `$wpdb->posts`.`post_status` = 'publish'
+				AND NOT EXISTS (SELECT * FROM `$wpdb->postmeta` WHERE `$wpdb->postmeta`.`meta_key` = 'hide_from_message_archive' AND `$wpdb->postmeta`.`meta_value` = 1 AND `$wpdb->postmeta`.`post_ID` = `$wpdb->posts`.`ID`)
 
 				GROUP BY `$wpdb->terms`.`term_id`
 
@@ -171,6 +172,17 @@ class Message extends PostType {
 			$last = get_posts(array(
 				'series' => $seriesItem->slug,
 				'post_type' => $this->options['slug'],
+				'meta_query' => array(
+					'relation' => 'OR',
+					array(
+						'key' => 'hide_from_message_archive',
+						'compare' => 'NOT EXISTS'
+					),
+					array(
+						'key' => 'hide_from_message_archive',
+						'value' => 0
+					)
+				),
 				'orderby' => 'post_date',
 				'order' => 'DESC',
 				'numberposts' => 1
