@@ -545,7 +545,7 @@ class RockharborThemeBase {
 		));
 		wp_register_script('fastclick', "$base/js/fastclick-1.0.6{$min}.js");
 		wp_register_script('touch', "$base/js/touch{$min}.js", array('jquery-core'));
-		wp_register_script('slick', "$base/js/slick-1.5.8{$min}.js", array('jquery-core'));
+		wp_register_script('slick', "$base/js/slick-1.8.1{$min}.js", array('jquery-core'));
 		wp_register_script('sidr', "$base/js/jquery.sidr-2.2.1{$min}.js", array('jquery-core'));
 
 		wp_register_style('reset', "$base/css/reset{$min}.css");
@@ -558,7 +558,7 @@ class RockharborThemeBase {
 		wp_register_style('mobile', "$base/css/mobile{$min}.css", array('base'));
 		wp_register_style('tablet', "$base/css/tablet{$min}.css", array('base'));
 		wp_register_style('calendar', "$base/css/calendar{$min}.css", array('base'));
-		wp_register_style('slick', "$base/css/slick-1.5.8{$min}.css", array('base'));
+		wp_register_style('slick', "$base/css/slick-1.8.1{$min}.css", array('base'));
 		wp_register_style('sidebarStyles', "$base/css/sidebar-menu{$min}.css", array('base'));
 		wp_register_style('comments', "$base/css/comments{$min}.css", array('base'));
 		wp_register_style( 'event-calendar', "$base/css/event-calendar{$min}.css", array( 'base' ) );
