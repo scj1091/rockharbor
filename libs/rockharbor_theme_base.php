@@ -173,6 +173,7 @@ class RockharborThemeBase {
 		add_action('wp_print_footer_scripts', array($this, 'cleanScripts'), 1);
 
 		add_filter('the_content', array($this, 'filterContent'));
+		add_filter('the_title', array($this, 'filterTitle'), 10, 2);
 		add_theme_support('title-tag');
 		remove_action('wp_head', 'wp_generator');
 
@@ -233,6 +234,22 @@ class RockharborThemeBase {
 		$this->Html = new HtmlHelper($this);
 		$this->Shortcodes = new Shortcodes($this);
 		$this->Twitter = new Twitter($this);
+	}
+
+/**
+ * Filter the post title before outputting it
+ *
+ * This adds the date to the post title on the RSS feed
+ * @param string $title
+ * @param int $id
+ * @return string
+ */
+	public function filterTitle($title, $id) {
+		// If we're a feed and a message post type, append the date in (n/j/Y) format
+		if ( is_feed() && ( get_post_type() == 'message' ) ) {
+			$title .= get_the_date( " (n/j/Y)", $id );
+		}
+		return $title;
 	}
 
 
