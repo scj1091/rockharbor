@@ -1,7 +1,7 @@
 
 <?php
 $multi;
-$locations = array(9, 8, 6, 19);
+$locations = array(9, 6, 19);
 
 if( $theme->info('name') !== "" ) {
     $locations = array( $theme->info('id') );

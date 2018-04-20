@@ -104,7 +104,6 @@ $themeInfo = $theme->info();
         <h2>Select Campus</h2>
         <ul>
             <li class="<?php if ($themeInfo['slug'] === 'costamesa') echo 'active'; ?>"><a href="//costamesa.rockharbor.org">Costa Mesa</a></li>
-            <li class="<?php if ($themeInfo['slug'] === 'orange') echo 'active'; ?>"><a href="//orange.rockharbor.org">Orange</a></li>
             <li class="<?php if ($themeInfo['slug'] === 'mission_viejo') echo 'active'; ?>"><a href="//missionviejo.rockharbor.org">Mission Viejo</a></li>
             <li class="<?php if ($themeInfo['slug'] === 'charlotte') echo 'active'; ?>"><a href="//charlotte.rockharbor.org">Charlotte, NC</a></li>
         </ul>
