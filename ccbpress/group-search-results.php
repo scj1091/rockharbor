@@ -65,6 +65,7 @@ and (max-device-width: 1175px) {
 		display: inline-block;
 		float: left;
 		clear: left;
+		white-space: inherit;
 	}
 }
 @media only screen

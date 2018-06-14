@@ -36,7 +36,7 @@ function rh_event_calendar_output( $events, $args = array() ) {
 		$prev_year = $args['year'] - 1;
 	}
 
-	// Calculate the nex tmonth and year
+	// Calculate the next month and year
 	$next_month = $args['month'] + 1;
 	$next_year = $args['year'];
 
@@ -48,7 +48,7 @@ function rh_event_calendar_output( $events, $args = array() ) {
 	$permalink = get_permalink();
 
 	$ccbpress_next_permalink = CCBPress_Events_Calendar::get_event_calendar_url( $next_year, $next_month, $permalink );
-	$ccbpress_prev_permalink = CCBPress_Events_Calendar::get_event_calendar_url( $next_year, $next_month, $permalink );
+	$ccbpress_prev_permalink = CCBPress_Events_Calendar::get_event_calendar_url( $prev_year, $prev_month, $permalink );
 
 	if ( isset( $_GET['ccbpress_event_year'] ) ) {
 		$permalink = add_query_arg( 'ccbpress_event_year', $args['year'], $permalink );
@@ -218,7 +218,7 @@ function rh_event_calendar_output( $events, $args = array() ) {
 	$html .= '	<div class="ccbpress-event-calendar-footer">';
 
 	$ccbpress_show_support = '';
-	if ( get_option( 'ccbpress_event_calendar_support', '1' ) == '1' ) {
+	if ( '1' === $args['show_support'] ) {
 		$ccbpress_show_support = sprintf('%s <a href="https://ccbpress.com/">%s</a>', __('Powered by', 'ccbpress-events'), __('CCBPress', 'ccbpress-events') );
 	}
 

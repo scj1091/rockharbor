@@ -153,10 +153,17 @@ wp_enqueue_style('event-details');
 	/**
 	 * Check if there are is a location for this event
 	 */
-	if ( $event->location_name ) :
+	if ( $event->location_name != '' || $event->location_line_1 != '') :
         $cleanLocationName = str_replace(array("\r\n", "\r", "\n"), "<br/>", @$event->location_name);
         $cleanAddress1 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location_line_1);
         $cleanAddress2 = str_replace(array("\r\n", "\r", "\n"), "<br/>", $event->location_line_2);
+        // temporary fix for CCB event address number+street missing bug
+        // if name includes fischer make address 345 fischer; likewise for red hill
+        if (strpos($cleanLocationName, "345 Fischer")) {
+            $cleanAddress1 = $event->location_line_1 = "345 Fischer Ave.";
+        } else if (strpos($cleanLocationName, "3095 Red Hill")) {
+            $cleanAddress1 = $event->location_line_1 = "3095 Red Hill Ave.";
+        }
 		$markerTitle = ($cleanLocationName != '') ? $cleanLocationName : trim($cleanAddress1);
 		$addressString = '<div style=\"line-height: 1.35; overflow: hidden; white-space: nowrap\">' . $cleanLocationName . '</br>' . trim($cleanAddress1) .
 			'<br/>' . trim($cleanAddress2) . '</div>'; ?>
@@ -192,12 +199,16 @@ wp_enqueue_style('event-details');
 				}
 			});
 		}
-        // Fix titles without hacking plugin
-        jQuery(document).ready(function() {
-            var eventName = "<?php echo $event->name; ?>";
-            jQuery('.breadcrumbs').append('&nbsp;/&nbsp;<span class="crumb"><?php echo str_replace("'", "\'", $event->name); ?></span>');
-        });
 		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3HEVaDRiRa_VcrpVYpfrwlYcz2MRccBc&signed_in=false&callback=initMap" async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3HEVaDRiRa_VcrpVYpfrwlYcz2MRccBc&callback=initMap" async defer></script>
 	<?php endif; ?>
+
+    <script type="text/javascript">
+    // Fix titles without hacking plugin
+    jQuery(document).ready(function() {
+        var eventName = "<?php echo $event->name; ?>";
+        jQuery('.breadcrumbs').append('&nbsp;/&nbsp;<span class="crumb"><?php echo str_replace("'", "\'", $event->name); ?></span>');
+        jQuery('#content-title > h1').text(eventName);
+    });
+    </script>
 </div>
