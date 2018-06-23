@@ -1135,6 +1135,14 @@ div.ccbpress_upcoming_events_graphical_date {
 	border-right: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
+div.ccbpress-event-calendar {
+	font-size: 15px;
+}
+@media only screen and (max-width: 768px) {
+	div.ccbpress-event-calendar {
+		font-size: 20px;
+	}
+}
 
 /*= Home content
 -----------------------------------------*/
